@@ -1,0 +1,53 @@
+set appinfo ON
+set appinfo "SQL*Plus"
+set arraysize 15
+set autocommit OFF
+set autoprint OFF
+set autotrace OFF
+set blockterminator "."
+set cmdsep OFF
+set colsep " "
+set compatibility NATIVE
+set concat "."
+set copycommit 0
+set copytypecheck ON
+set define "&"
+set echo OFF
+set editfile "afiedt.buf"
+set embedded OFF
+set escape OFF
+set feedback 6
+set flagger OFF
+set flush ON
+set heading ON
+set headsep "|"
+set linesize 100
+set long 80
+set longchunksize 80
+set newpage 1
+set null ""
+set numformat ""
+set numwidth 9
+set pagesize 24
+set pause OFF
+set recsep WRAP
+set recsepchar " "
+set serveroutput OFF
+set shiftinout invisible
+set showmode OFF
+set sqlcase MIXED
+set sqlcontinue "> "
+set sqlnumber ON
+set sqlprefix "#"
+set sqlprompt "SQL> "
+set sqlterminator ";"
+set suffix "SQL"
+set tab ON
+set termout ON
+set time OFF
+set timing OFF
+set trimout ON
+set trimspool OFF
+set underline "-"
+set verify ON
+set wrap ON
