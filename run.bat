@@ -25,3 +25,5 @@ docker commit step2 oracle-12c:created
 
 :step3
 docker build -t oracle-12c step3
+:step4
+docker run --shm-size=4g -dP -p 1521:1521 --name orcl oracle-12c
