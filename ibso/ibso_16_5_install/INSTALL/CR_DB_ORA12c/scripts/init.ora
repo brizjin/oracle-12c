@@ -27,7 +27,7 @@ control_files=("/db1/oradata/work/control01.ctl", "/db1/oradata/work/control02.c
 # Miscellaneous
 ###########################################
 compatible=12.1.0.2.0
-diagnostic_dest=/u/app/oracle
+diagnostic_dest=$ORACLE_BASE
  
 ###########################################
 # Processes and Sessions
@@ -42,7 +42,7 @@ sga_target=1140m
 ###########################################
 # Security and Auditing
 ###########################################
-audit_file_dest="/u/app/oracle/admin/work/adump"
+audit_file_dest="$ORACLE_BASE/admin/work/adump"
 audit_trail=db
 remote_login_passwordfile=EXCLUSIVE
  

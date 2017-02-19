@@ -1,9 +1,9 @@
 SET VERIFY OFF
 connect "SYS"/"&&sysPassword" as SYSDBA
 set echo on
-spool /u/app/oracle/admin/work/scripts/CreateDB.log append
-startup nomount pfile="/u/app/oracle/admin/work/scripts/init.ora";
-CREATE DATABASE "work"
+spool $ORACLE_BASE/admin/work/scripts/CreateDB.log append
+startup nomount pfile="$ORACLE_BASE/admin/work/scripts/init.ora";
+CREATE DATABASE ORCL
 MAXINSTANCES 8
 MAXLOGHISTORY 1
 MAXLOGFILES 16
