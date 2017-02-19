@@ -1,6 +1,8 @@
 FROM oracle-12c:installed
 MAINTAINER ivan
 
+ADD /ibso_16_5_install/INSTALL/CR_DB_ORA12c/scripts/ /u/app/oracle/admin/work/scripts/
+RUN cd /tmp
 #RUN rm -rf /tmp/install
 
 #ENV ORACLE_SID ORCL

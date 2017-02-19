@@ -18,4 +18,5 @@ ECHO #step1 finished
 
 :step2
 ECHO step2_ibso started
-docker build -t oracle-12c:step2_ibso %WD%step2_ibso %IBSO_VERSION%
+docker build -t ibso:step2 -f %WD%ibso/step2/Dockerfile %WD%ibso
+docker run -it ibso:step2 bash
