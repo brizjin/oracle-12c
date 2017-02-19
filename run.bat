@@ -1,0 +1,1 @@
+docker build -t oracle-12c:step1 step1
