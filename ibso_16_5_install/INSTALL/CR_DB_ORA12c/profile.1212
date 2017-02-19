@@ -1,0 +1,28 @@
+ORACLE_BASE=/u/app/oracle
+ORACLE_HOME=/u/app/oracle/product/12.1.0/dbhome_1;	export ORACLE_HOME
+ORACLE_SID=work;		                       	export ORACLE_SID
+
+PATH=.:$ORACLE_HOME/bin:/bin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/bin/X11:/usr/X11R6/bin;
+export PATH
+ORACLE_PATH=.:$ORACLE_HOME/bin:$ORACLE_HOME/obackup/bin:/bin:/usr/bin;	
+export ORACLE_PATH
+
+NLS_LANG=AMERICAN_AMERICA.CL8ISO8859P5;			export NLS_LANG
+ORA_NLS33=$ORACLE_HOME/ocommon/nls/admin/data	
+export ORA_NLS33
+ORA_NLS10=$ORACLE_HOME/nls/data
+export ORA_NLS10
+
+LD_LIBRARY_PATH=$ORACLE_HOME/lib:$ORACLE_HOME/ctx/lib:/usr/lib:$ORACLE_HOME/lib32:$ORACLE_HOME/ctx/lib32
+export LD_LIBRARY_PATH
+
+TNS_ADMIN=$ORACLE_HOME/network/admin;			export TNS_ADMIN 
+
+ORACLE_TERM=ansi;					export ORACLE_TERM
+#TERM=ansi; 						export TERM
+stty erase "^H"
+EDITOR=vi;						export EDITOR
+TMPDIR=/tmp;						export TMPDIR
+PS1="`uname -n`.oracle>"; 				export PS1
+umask 22
+# DISPLAY=marti:0.0; 					export DISPLAY
