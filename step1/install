@@ -1,4 +1,7 @@
 #!/bin/bash
 
 date
+cd /tmp/install/database/rpm && rpm -iv cvuqdisk-1.0.9-1.rpm
+
+date
 su -s /bin/bash oracle -c "cd /tmp/install/database/ && ./runInstaller -ignoreSysPrereqs -ignorePrereq -silent -noconfig -responseFile /tmp/db_install.rsp"

@@ -5,3 +5,6 @@ step1/*.zip
 .idea/oracle-12c-docker.iml
 .idea/vcs.xml
 .idea/workspace.xml
+step0/database/*
+step0/*.zip
+.idea/codeStyleSettings.xml
