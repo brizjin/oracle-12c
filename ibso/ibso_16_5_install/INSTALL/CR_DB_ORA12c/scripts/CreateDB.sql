@@ -3,7 +3,7 @@ connect "SYS"/"&&sysPassword" as SYSDBA
 set echo on
 spool $ORACLE_BASE/admin/work/scripts/CreateDB.log append
 startup nomount pfile="$ORACLE_BASE/admin/work/scripts/init.ora";
-CREATE DATABASE ORCL
+CREATE DATABASE "work"
 MAXINSTANCES 8
 MAXLOGHISTORY 1
 MAXLOGFILES 16

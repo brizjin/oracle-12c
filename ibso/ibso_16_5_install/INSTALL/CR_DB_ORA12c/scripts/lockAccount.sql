@@ -1,7 +1,7 @@
 SET VERIFY OFF
 connect "SYS"/"&&sysPassword" as SYSDBA
 set echo on
-spool /u/app/oracle/admin/work/scripts/lockAccount.log append
+spool $ORACLE_BASE/admin/work/scripts/lockAccount.log append
 BEGIN 
  FOR item IN ( SELECT USERNAME FROM DBA_USERS WHERE ACCOUNT_STATUS IN ('OPEN', 'LOCKED', 'EXPIRED') AND USERNAME NOT IN ( 
 'SYS','SYSTEM') ) 

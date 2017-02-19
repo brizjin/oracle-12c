@@ -1,15 +1,20 @@
-FROM oracle-12c:installed
+FROM ibso:installed
 MAINTAINER ivan
 
 ADD /ibso_16_5_install/INSTALL/CR_DB_ORA12c/scripts/ $ORACLE_BASE/admin/work/scripts/
-RUN cd /tmp
+RUN chown -R oracle $ORACLE_BASE/admin/work
+RUN mkdir -p /db1/oradata/work
+RUN chown oracle /db1/oradata/work
+#RUN cd /tmp
 #RUN rm -rf /tmp/install
 
 #ENV ORACLE_SID ORCL
 ENV ORACLE_HOME $ORACLE_BASE/product/12.1.0/dbhome_1
 ENV PATH $ORACLE_HOME/bin:$PATH
+ENV ORACLE_SID work
 
-RUN su oracle
+WORKDIR $ORACLE_BASE/admin/work/scripts/
+#RUN su oracle
 #RUN runuser -l oracle -c 'bash $ORACLE_BASE/admin/work/scripts/work.sh'
 #
 #RUN $ORACLE_HOME/root.sh
