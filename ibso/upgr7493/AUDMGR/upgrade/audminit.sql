@@ -1,6 +1,6 @@
 spool audminit.log
 
-@@..\settings
+@@../settings
 
 Prompt Creating auditor manager schema...
 accept audit prompt 'Schema Name for AUDIT manager (&&AUDM_OWNER):' default &&AUDM_OWNER
@@ -8,8 +8,8 @@ ACCEPT dt PROMPT 'Default tablespace (&&AUDM_TDEF) :'  default &&AUDM_TDEF
 ACCEPT tt PROMPT 'Temporary tablespace (&&AUDM_TTMP) :' default &&AUDM_TTMP
 ACCEPT it PROMPT 'Tablespace for indexes(&&AUDM_TSPACEI) :' default &&AUDM_TSPACEI
 
-@@..\UTILS\chk_sets
-@@..\UTILS\chk_tsps '&&dt, &&tt, &&it'
+@@../UTILS/chk_sets
+@@../UTILS/chk_tsps '&&dt, &&tt, &&it'
 
 set echo on
 create user &&audit identified by &&audit;
@@ -70,6 +70,6 @@ rem index on sys.aud$ - Oracle8-9
 create index sys.i_aud_timestamp on sys.aud$(timestamp#)
   tablespace &&it storage (initial 128K next 128K maxextents unlimited pctincrease 0);
 alter  tablespace system coalesce;
-@@packages\verify
+@@packages/verify
 spool off
 exit

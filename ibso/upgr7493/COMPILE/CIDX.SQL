@@ -1,2 +1,2 @@
-@..\utils\sys_idx
+@../utils/sys_idx
 exit

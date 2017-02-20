@@ -3,9 +3,9 @@
 set verify off
 
 -- UPGRADE AUD
-@upgrade\upgrade
+@upgrade/upgrade
 -- Define settings
-@settings\settings
+@settings/settings
 -- UPGRADE IBSO Owner
 @up_owner
 

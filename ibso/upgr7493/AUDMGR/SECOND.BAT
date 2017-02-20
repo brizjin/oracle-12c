@@ -11,4 +11,4 @@ exit
 
 :OK
 @ECHO Creating auditor manager schema objects...
-sqlplus "%1 as sysdba" @upgrade\audm
+sqlplus "%1 as sysdba" @upgrade/audm

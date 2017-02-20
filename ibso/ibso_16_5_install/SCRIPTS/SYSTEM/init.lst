@@ -1,7 +1,4 @@
 SP2-0310: unable to open file "usr_sets.sql"
-Schema owner name (IBS) :
-Default tablespace (T_USR) :
-Temporary tablespace (TEMP) :
 DEFINE _DATE           = "20-FEB-17" (CHAR)
 DEFINE _CONNECT_IDENTIFIER = "work" (CHAR)
 DEFINE _USER           = "SYS" (CHAR)
@@ -18,7 +15,6 @@ DEFINE IBSO_OWNER      = "IBS" (CHAR)
 DEFINE U               = "IBS" (CHAR)
 DEFINE DT              = "T_USR" (CHAR)
 DEFINE TT              = "TEMP" (CHAR)
-Are Settings OK? [YES]: 
 
 PL/SQL procedure successfully completed.
 
@@ -31,8 +27,11 @@ PL/SQL procedure successfully completed.
 PL/SQL procedure successfully completed.
 
 SQL> create user &u identified by &u;
+create user IBS identified by IBS
+            *
+ERROR at line 1:
+ORA-01920: user name 'IBS' conflicts with another user or role name 
 
-User created.
 
 SQL> alter  user &u default tablespace &dt;
 

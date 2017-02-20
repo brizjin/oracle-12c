@@ -4,8 +4,8 @@ var constr varchar2(200)
 exec :constr:='&1'
 undef 1
 
-@@..\settings
-@@UTILS\patch_settings
+@@../settings
+@@UTILS/patch_settings
 
 SET TERMOUT OFF
 
@@ -41,24 +41,24 @@ spool &log_file_name
 prompt  
 prompt -------------------------------------------------------------------------------- 
 
-prompt Проверка возможности установки патча
+prompt пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 prompt 
 
 @@check_install_ibs
 print mess
-@@..\UTILS\exit_when ':can_run_patch = 0'
+@@../UTILS/exit_when ':can_run_patch = 0'
 
 prompt  
 prompt -------------------------------------------------------------------------------- 
 
-prompt Начало установки патча
+prompt пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 prompt 
 
 @@&&ask
 
 set timi on
 
-@@..\UTILS\alt_sys_enable_restricted_session
+@@../UTILS/alt_sys_enable_restricted_session
 
 prompt Stopping lock_info
 exec executor.lock_stop
@@ -74,7 +74,7 @@ spool &log_file_name append
 prompt  
 prompt --------------------------------------------------------------------------------
 
-prompt Определение объектов в состоянии INVALID
+prompt пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ INVALID
 prompt 
 
 var invalid_objects_before varchar2(4000);
@@ -103,10 +103,10 @@ spool &log_file_name append
 prompt  
 prompt --------------------------------------------------------------------------------
 
-prompt Загрузка словарей компилятора
+prompt пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 prompt 
 
-@@..\UTILS\alt_sys_disable_restricted_session
+@@../UTILS/alt_sys_disable_restricted_session
 
 spool off
 
@@ -115,9 +115,9 @@ host tblload_ibs.bat &&ConnStr
 
 
 spool &log_file_name append
-prompt Загрузка словарей компилятора завершена, log-файлы в папке SQLLDR
+prompt пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, log-пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ SQLLDR
 
-@@..\UTILS\alt_sys_enable_restricted_session
+@@../UTILS/alt_sys_enable_restricted_session
 
 spool off
 
@@ -126,11 +126,11 @@ spool &log_file_name append
 prompt
 prompt --------------------------------------------------------------------------------
 
-prompt Запуск BeforeInstall скриптов по таблице UPDATE_JOURNAL. Смотри LOG\ibs_before_install_pkg.log
+prompt пїЅпїЅпїЅпїЅпїЅпїЅ BeforeInstall пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ UPDATE_JOURNAL. пїЅпїЅпїЅпїЅпїЅпїЅ LOG\ibs_before_install_pkg.log
 prompt 
 spool off
 
-@@..\PACKAGES\opt\before_install_pkg
+@@../PACKAGES/opt/before_install_pkg
 
 
 
@@ -139,318 +139,318 @@ spool &log_file_name append
 prompt  
 prompt --------------------------------------------------------------------------------
 
-prompt Обновление пакетов 
+prompt пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ 
 prompt 
 
 prompt EDOC
-@..\Packages\opt\edoc1.SQL
+@../Packages/opt/edoc1.SQL
 prompt SC_MGR
-@..\Packages\opt\sc1.SQL
+@../Packages/opt/sc1.SQL
 prompt PLP2JAVA
-@..\Packages\opt\2jc1.SQL
+@../Packages/opt/2jc1.SQL
 
 set timing on
 
 prompt SC_MGR
-@..\Packages\opt\sc2.sql
+@../Packages/opt/sc2.sql
 
 prompt PLP2JAVA
-@..\Packages\opt\2jc2
+@../Packages/opt/2jc2
 
 prompt EDOC
-@..\Packages\opt\edoc2.sql
+@../Packages/opt/edoc2.sql
 
 
 prompt install ..\PACKAGES\INIT1.SQL
-@@..\PACKAGES\INIT1.SQL
+@@../PACKAGES/INIT1.SQL
 
 prompt install ..\PACKAGES\INIT2.SQL
-@@..\PACKAGES\INIT2.SQL
+@@../PACKAGES/INIT2.SQL
 
 prompt install ..\PACKAGES\2PLSQL1.SQL
-@@..\PACKAGES\2PLSQL1.SQL
+@@../PACKAGES/2PLSQL1.SQL
 
 prompt install ..\PACKAGES\ATR_MGR1.SQL
-@@..\PACKAGES\ATR_MGR1.SQL
+@@../PACKAGES/ATR_MGR1.SQL
 
 prompt install ..\PACKAGES\CACHE_MGR1.SQL
-@@..\PACKAGES\CACHE_MGR1.SQL
+@@../PACKAGES/CACHE_MGR1.SQL
 
 prompt install ..\PACKAGES\CONSTNT_EXT1.SQL
-@@..\PACKAGES\CONSTNT_EXT1.SQL
+@@../PACKAGES/CONSTNT_EXT1.SQL
 
 prompt install ..\PACKAGES\EXECUTOR\EXECUTR1.SQL
-@@..\PACKAGES\EXECUTOR\EXECUTR1.SQL
+@@../PACKAGES/EXECUTOR/EXECUTR1.SQL
 
 prompt install ..\PACKAGES\FRM_MGR1.SQL
-@@..\PACKAGES\FRM_MGR1.SQL
+@@../PACKAGES/FRM_MGR1.SQL
 
 prompt install ..\PACKAGES\IDX_MGR1.SQL
-@@..\PACKAGES\IDX_MGR1.SQL
+@@../PACKAGES/IDX_MGR1.SQL
 
 prompt install ..\PACKAGES\LIB1.SQL
-@@..\PACKAGES\LIB1.SQL
+@@../PACKAGES/LIB1.SQL
 
 prompt install ..\PACKAGES\METHOD1.SQL
-@@..\PACKAGES\METHOD1.SQL
+@@../PACKAGES/METHOD1.SQL
 
 prompt install ..\PACKAGES\NAV1.SQL
-@@..\PACKAGES\NAV1.SQL
+@@../PACKAGES/NAV1.SQL
 
 prompt install ..\PACKAGES\PLIB1.SQL
-@@..\PACKAGES\PLIB1.SQL
+@@../PACKAGES/PLIB1.SQL
 
 prompt install ..\PACKAGES\RUNPROC1.SQL
-@@..\PACKAGES\RUNPROC1.SQL
+@@../PACKAGES/RUNPROC1.SQL
 
 prompt install ..\PACKAGES\SVIEWS1.SQL
-@@..\PACKAGES\SVIEWS1.SQL
+@@../PACKAGES/SVIEWS1.SQL
 
 prompt install ..\PACKAGES\SYSINFO1.SQL
-@@..\PACKAGES\SYSINFO1.SQL
+@@../PACKAGES/SYSINFO1.SQL
 
 prompt install ..\PACKAGES\ADM_MGR1.SQL
-@@..\PACKAGES\ADM_MGR1.SQL
+@@../PACKAGES/ADM_MGR1.SQL
 
 prompt install ..\PACKAGES\AI1.SQL
-@@..\PACKAGES\AI1.SQL
+@@../PACKAGES/AI1.SQL
 
 prompt install ..\PACKAGES\CACHE_SERVICE1.SQL
-@@..\PACKAGES\CACHE_SERVICE1.SQL
+@@../PACKAGES/CACHE_SERVICE1.SQL
 
 prompt install ..\PACKAGES\CALEN_MGR1.SQL
-@@..\PACKAGES\CALEN_MGR1.SQL
+@@../PACKAGES/CALEN_MGR1.SQL
 
 prompt install ..\PACKAGES\CLASS1.SQL
-@@..\PACKAGES\CLASS1.SQL
+@@../PACKAGES/CLASS1.SQL
 
 prompt install ..\PACKAGES\CLS_UT1.SQL
-@@..\PACKAGES\CLS_UT1.SQL
+@@../PACKAGES/CLS_UT1.SQL
 
 prompt install ..\PACKAGES\CONTEXT_INFORMATION1.SQL
-@@..\PACKAGES\CONTEXT_INFORMATION1.SQL
+@@../PACKAGES/CONTEXT_INFORMATION1.SQL
 
 prompt install ..\PACKAGES\CRITICAL_LOCK_SERVICE1.SQL
-@@..\PACKAGES\CRITICAL_LOCK_SERVICE1.SQL
+@@../PACKAGES/CRITICAL_LOCK_SERVICE1.SQL
 
 prompt install ..\PACKAGES\DATA1.SQL
-@@..\PACKAGES\DATA1.SQL
+@@../PACKAGES/DATA1.SQL
 
 prompt install ..\PACKAGES\DELAYED_ACTION_MGR1.SQL
-@@..\PACKAGES\DELAYED_ACTION_MGR1.SQL
+@@../PACKAGES/DELAYED_ACTION_MGR1.SQL
 
 prompt install ..\PACKAGES\DICT_MG1.SQL
-@@..\PACKAGES\DICT_MG1.SQL
+@@../PACKAGES/DICT_MG1.SQL
 
 prompt install ..\PACKAGES\MET_MGR1.SQL
-@@..\PACKAGES\MET_MGR1.SQL
+@@../PACKAGES/MET_MGR1.SQL
 
 prompt install ..\PACKAGES\OPT_MGR1.SQL
-@@..\PACKAGES\OPT_MGR1.SQL
+@@../PACKAGES/OPT_MGR1.SQL
 
 prompt install ..\PACKAGES\PARSER1.SQL
-@@..\PACKAGES\PARSER1.SQL
+@@../PACKAGES/PARSER1.SQL
 
 prompt install ..\PACKAGES\PART1.SQL
-@@..\PACKAGES\PART1.SQL
+@@../PACKAGES/PART1.SQL
 
 prompt install ..\PACKAGES\PARTITIONING_MGR1.SQL
-@@..\PACKAGES\PARTITIONING_MGR1.SQL
+@@../PACKAGES/PARTITIONING_MGR1.SQL
 
 prompt install ..\PACKAGES\PARTITIONING_UTILS1.SQL
-@@..\PACKAGES\PARTITIONING_UTILS1.SQL
+@@../PACKAGES/PARTITIONING_UTILS1.SQL
 
 prompt install ..\PACKAGES\PARTITIONING_VIEW1.SQL
-@@..\PACKAGES\PARTITIONING_VIEW1.SQL
+@@../PACKAGES/PARTITIONING_VIEW1.SQL
 
 prompt install ..\PACKAGES\REPL_UT1.SQL
-@@..\PACKAGES\REPL_UT1.SQL
+@@../PACKAGES/REPL_UT1.SQL
 
 prompt install ..\PACKAGES\RTL_TYPES1.SQL
-@@..\PACKAGES\RTL_TYPES1.SQL
+@@../PACKAGES/RTL_TYPES1.SQL
 
 prompt install ..\PACKAGES\RTL_UTILS1.SQL
-@@..\PACKAGES\RTL_UTILS1.SQL
+@@../PACKAGES/RTL_UTILS1.SQL
 
 prompt install ..\PACKAGES\SA1.SQL
-@@..\PACKAGES\SA1.SQL
+@@../PACKAGES/SA1.SQL
 
 prompt install ..\PACKAGES\SEC1.SQL
-@@..\PACKAGES\SEC1.SQL
+@@../PACKAGES/SEC1.SQL
 
 prompt install ..\PACKAGES\SESSION_INITIALIZATION_SERVICE1.SQL
-@@..\PACKAGES\SESSION_INITIALIZATION_SERVICE1.SQL
+@@../PACKAGES/SESSION_INITIALIZATION_SERVICE1.SQL
 
 prompt install ..\PACKAGES\SESSION_SERVICE1.SQL
-@@..\PACKAGES\SESSION_SERVICE1.SQL
+@@../PACKAGES/SESSION_SERVICE1.SQL
 
 prompt install ..\PACKAGES\STOR_UT1.SQL
-@@..\PACKAGES\STOR_UT1.SQL
+@@../PACKAGES/STOR_UT1.SQL
 
 prompt install ..\PACKAGES\STORAGE1.SQL
-@@..\PACKAGES\STORAGE1.SQL
+@@../PACKAGES/STORAGE1.SQL
 
 prompt install ..\PACKAGES\UTILS1.SQL
-@@..\PACKAGES\UTILS1.SQL
+@@../PACKAGES/UTILS1.SQL
 
 prompt install ..\PACKAGES\VALMGR1.SQL
-@@..\PACKAGES\VALMGR1.SQL
+@@../PACKAGES/VALMGR1.SQL
 
 prompt install ..\PACKAGES\2PLSQL2.SQL
-@@..\PACKAGES\2PLSQL2.SQL
+@@../PACKAGES/2PLSQL2.SQL
 
 prompt install ..\PACKAGES\CACHE_MGR2.SQL
-@@..\PACKAGES\CACHE_MGR2.SQL
+@@../PACKAGES/CACHE_MGR2.SQL
 
 prompt install ..\PACKAGES\EXECUTOR\EXECUTR2.PLB
-@@..\PACKAGES\EXECUTOR\EXECUTR2.PLB
+@@../PACKAGES/EXECUTOR/EXECUTR2.PLB
 
 prompt install ..\PACKAGES\FRM_MGR2.PLB
-@@..\PACKAGES\FRM_MGR2.PLB
+@@../PACKAGES/FRM_MGR2.PLB
 
 prompt install ..\PACKAGES\METHOD2.PLB
-@@..\PACKAGES\METHOD2.PLB
+@@../PACKAGES/METHOD2.PLB
 
 prompt install ..\PACKAGES\NAV2.SQL
-@@..\PACKAGES\NAV2.SQL
+@@../PACKAGES/NAV2.SQL
 
 prompt install ..\PACKAGES\PLIB2.PLB
-@@..\PACKAGES\PLIB2.PLB
+@@../PACKAGES/PLIB2.PLB
 
 prompt install ..\PACKAGES\RUNPROC2.SQL
-@@..\PACKAGES\RUNPROC2.SQL
+@@../PACKAGES/RUNPROC2.SQL
 
 prompt install ..\PACKAGES\SVIEWS2.PLB
-@@..\PACKAGES\SVIEWS2.PLB
+@@../PACKAGES/SVIEWS2.PLB
 
 prompt install ..\PACKAGES\SYSINFO2.SQL
-@@..\PACKAGES\SYSINFO2.SQL
+@@../PACKAGES/SYSINFO2.SQL
 
 prompt install ..\PACKAGES\ADM_MGR2.PLB
-@@..\PACKAGES\ADM_MGR2.PLB
+@@../PACKAGES/ADM_MGR2.PLB
 
 prompt install ..\PACKAGES\AI2.PLB
-@@..\PACKAGES\AI2.PLB
+@@../PACKAGES/AI2.PLB
 
 prompt install ..\PACKAGES\ATR_MGR2.PLB
-@@..\PACKAGES\ATR_MGR2.PLB
+@@../PACKAGES/ATR_MGR2.PLB
 
 prompt install ..\PACKAGES\BINDING2.SQL
-@@..\PACKAGES\BINDING2.SQL
+@@../PACKAGES/BINDING2.SQL
 
 prompt install ..\PACKAGES\CACHE_SERVICE2.SQL
-@@..\PACKAGES\CACHE_SERVICE2.SQL
+@@../PACKAGES/CACHE_SERVICE2.SQL
 
 prompt install ..\PACKAGES\CALEN_MGR2.PLB
-@@..\PACKAGES\CALEN_MGR2.PLB
+@@../PACKAGES/CALEN_MGR2.PLB
 
 prompt install ..\PACKAGES\CLASS2.PLB
-@@..\PACKAGES\CLASS2.PLB
+@@../PACKAGES/CLASS2.PLB
 
 prompt install ..\PACKAGES\CLS_UT2.PLB
-@@..\PACKAGES\CLS_UT2.PLB
+@@../PACKAGES/CLS_UT2.PLB
 
 prompt install ..\PACKAGES\CONTEXT_INFORMATION2.PLB
-@@..\PACKAGES\CONTEXT_INFORMATION2.PLB
+@@../PACKAGES/CONTEXT_INFORMATION2.PLB
 
 prompt install ..\PACKAGES\CRITICAL_LOCK_SERVICE2.PLB
-@@..\PACKAGES\CRITICAL_LOCK_SERVICE2.PLB
+@@../PACKAGES/CRITICAL_LOCK_SERVICE2.PLB
 
 prompt install ..\PACKAGES\DATA2.PLB
-@@..\PACKAGES\DATA2.PLB
+@@../PACKAGES/DATA2.PLB
 
 prompt install ..\PACKAGES\DELAYED_ACTION_MGR2.SQL
-@@..\PACKAGES\DELAYED_ACTION_MGR2.SQL
+@@../PACKAGES/DELAYED_ACTION_MGR2.SQL
 
 prompt install ..\PACKAGES\DICT_MG2.PLB
-@@..\PACKAGES\DICT_MG2.PLB
+@@../PACKAGES/DICT_MG2.PLB
 
 prompt install ..\PACKAGES\IDX_MGR2.SQL
-@@..\PACKAGES\IDX_MGR2.SQL
+@@../PACKAGES/IDX_MGR2.SQL
 
 prompt install ..\PACKAGES\JOB_WRAPPER2.PLB
-@@..\PACKAGES\JOB_WRAPPER2.PLB
+@@../PACKAGES/JOB_WRAPPER2.PLB
 
 prompt install ..\PACKAGES\LCONV2.SQL
-@@..\PACKAGES\LCONV2.SQL
+@@../PACKAGES/LCONV2.SQL
 
 prompt install ..\PACKAGES\LIB2.SQL
-@@..\PACKAGES\LIB2.SQL
+@@../PACKAGES/LIB2.SQL
 
 prompt install ..\PACKAGES\MAP_MGR2.SQL
-@@..\PACKAGES\MAP_MGR2.SQL
+@@../PACKAGES/MAP_MGR2.SQL
 
 prompt install ..\PACKAGES\MET_MGR2.SQL
-@@..\PACKAGES\MET_MGR2.SQL
+@@../PACKAGES/MET_MGR2.SQL
 
 prompt install ..\PACKAGES\OPT_MGR2.PLB
-@@..\PACKAGES\OPT_MGR2.PLB
+@@../PACKAGES/OPT_MGR2.PLB
 
 prompt install ..\PACKAGES\PARSER2.SQL
-@@..\PACKAGES\PARSER2.SQL
+@@../PACKAGES/PARSER2.SQL
 
 prompt install ..\PACKAGES\PART2.PLB
-@@..\PACKAGES\PART2.PLB
+@@../PACKAGES/PART2.PLB
 
 prompt install ..\PACKAGES\PARTITIONING_MGR2.PLB
-@@..\PACKAGES\PARTITIONING_MGR2.PLB
+@@../PACKAGES/PARTITIONING_MGR2.PLB
 
 prompt install ..\PACKAGES\PARTITIONING_UTILS2.PLB
-@@..\PACKAGES\PARTITIONING_UTILS2.PLB
+@@../PACKAGES/PARTITIONING_UTILS2.PLB
 
 prompt install ..\PACKAGES\PARTITIONING_VIEW2.PLB
-@@..\PACKAGES\PARTITIONING_VIEW2.PLB
+@@../PACKAGES/PARTITIONING_VIEW2.PLB
 
 prompt install ..\PACKAGES\PATCH_TOOL2.PLB
-@@..\PACKAGES\PATCH_TOOL2.PLB
+@@../PACKAGES/PATCH_TOOL2.PLB
 
 prompt install ..\PACKAGES\REPL2.SQL
-@@..\PACKAGES\REPL2.SQL
+@@../PACKAGES/REPL2.SQL
 
 prompt install ..\PACKAGES\REPL_UT2.SQL
-@@..\PACKAGES\REPL_UT2.SQL
+@@../PACKAGES/REPL_UT2.SQL
 
 prompt install ..\PACKAGES\REPORT2.PLB
-@@..\PACKAGES\REPORT2.PLB
+@@../PACKAGES/REPORT2.PLB
 
 prompt install ..\PACKAGES\RTL1_2.PLB
-@@..\PACKAGES\RTL1_2.PLB
+@@../PACKAGES/RTL1_2.PLB
 
 prompt install ..\PACKAGES\RTL_TYPES2.SQL
-@@..\PACKAGES\RTL_TYPES2.SQL
+@@../PACKAGES/RTL_TYPES2.SQL
 
 prompt install ..\PACKAGES\RTL_UTILS2.PLB
-@@..\PACKAGES\RTL_UTILS2.PLB
+@@../PACKAGES/RTL_UTILS2.PLB
 
 prompt install ..\PACKAGES\RULE2.PLB
-@@..\PACKAGES\RULE2.PLB
+@@../PACKAGES/RULE2.PLB
 
 prompt install ..\PACKAGES\SA2.PLB
-@@..\PACKAGES\SA2.PLB
+@@../PACKAGES/SA2.PLB
 
 prompt install ..\PACKAGES\SEC2.PLB
-@@..\PACKAGES\SEC2.PLB
+@@../PACKAGES/SEC2.PLB
 
 prompt install ..\PACKAGES\SESSION_INITIALIZATION_SERVICE2.PLB
-@@..\PACKAGES\SESSION_INITIALIZATION_SERVICE2.PLB
+@@../PACKAGES/SESSION_INITIALIZATION_SERVICE2.PLB
 
 prompt install ..\PACKAGES\SESSION_SERVICE2.PLB
-@@..\PACKAGES\SESSION_SERVICE2.PLB
+@@../PACKAGES/SESSION_SERVICE2.PLB
 
 prompt install ..\PACKAGES\STOR_UT2.SQL
-@@..\PACKAGES\STOR_UT2.SQL
+@@../PACKAGES/STOR_UT2.SQL
 
 prompt install ..\PACKAGES\STORAGE2.PLB
-@@..\PACKAGES\STORAGE2.PLB
+@@../PACKAGES/STORAGE2.PLB
 
 prompt install ..\PACKAGES\UTILS2.SQL
-@@..\PACKAGES\UTILS2.SQL
+@@../PACKAGES/UTILS2.SQL
 
 prompt install ..\PACKAGES\VALMGR2.PLB
-@@..\PACKAGES\VALMGR2.PLB
+@@../PACKAGES/VALMGR2.PLB
 
 prompt install ..\PACKAGES\PROC.SQL
-@@..\PACKAGES\PROC.SQL
+@@../PACKAGES/PROC.SQL
 
 spool off
 
@@ -459,20 +459,20 @@ spool &log_file_name append
 prompt  
 prompt --------------------------------------------------------------------------------
 
-prompt Перекомпиляция инвалидных объектов системы. 
+prompt пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ. 
 prompt 
 
 spool off
 alter system flush shared_pool;
 
 set timi off
-@@..\COMPILE\c_pack
+@@../COMPILE/c_pack
 set timi on
 
-@@..\COMPILE\c_obj1
+@@../COMPILE/c_obj1
 
--- Парсинг пакетов
-@@..\COMPILE\parse_pack
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+@@../COMPILE/parse_pack
 
 alter system flush shared_pool;
 
@@ -482,11 +482,11 @@ spool &log_file_name append
 prompt  
 prompt --------------------------------------------------------------------------------
 
-prompt Запуск AfterInstall скриптов по таблице UPDATE_JOURNAL. Смотри LOG\ibs_after_install_log
+prompt пїЅпїЅпїЅпїЅпїЅпїЅ AfterInstall пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ UPDATE_JOURNAL. пїЅпїЅпїЅпїЅпїЅпїЅ LOG\ibs_after_install_log
 prompt 
 spool off
 
-@@..\PACKAGES\opt\after_install_pkg
+@@../PACKAGES/opt/after_install_pkg
 
 
 spool &log_file_name append
@@ -494,7 +494,7 @@ spool &log_file_name append
 prompt  
 prompt --------------------------------------------------------------------------------
 
-prompt Проверка установки патча
+prompt пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 prompt 
 
 var invalid_objects_after varchar2(4000);
@@ -522,10 +522,10 @@ end loop;
 
 if :invalid_objects_after is not null then
   :invalid_objects_after := chr(10)||chr(10)||'--------------------------------------------------------------------------------'
-		||chr(10)||'!!!WARNING!!!'||chr(10)||'После наката обновления следующие пакеты компилируются с ошибками:'
+		||chr(10)||'!!!WARNING!!!'||chr(10)||'пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ:'
 		||:invalid_objects_after;
 else
-  :invalid_objects_after := chr(10)||'Патч установлен успешно!';
+  :invalid_objects_after := chr(10)||'пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ!';
 end if;
 
 end;
@@ -543,14 +543,14 @@ spool &log_file_name append
 prompt  
 prompt --------------------------------------------------------------------------------
 
-prompt Обновление project
+prompt пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ project
 
-@@..\utils\proj
+@@../utils/proj
 
 prompt  
 prompt --------------------------------------------------------------------------------
 
-prompt Обновление журнала выполнения скриптов
+prompt пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
 begin
 execute immediate 'update update_journal set run_date= sysdate, version = inst_info.get_version where status = ''1'' and run_date is null';
@@ -559,7 +559,7 @@ exception when others then null;
 end;
 /
 
-@@..\UTILS\alt_sys_disable_restricted_session
+@@../UTILS/alt_sys_disable_restricted_session
 
 prompt Running lock_info
 exec stdio.put_line_buf(executor.lock_open)
@@ -568,13 +568,13 @@ exec lock_info.run
 
 set timi off
 
-prompt Информация о packages/indexes/constraints
-@@..\compile\revis
-@@..\compile\get_sys
+prompt пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ packages/indexes/constraints
+@@../compile/revis
+@@../compile/get_sys
 
 spool &log_file_name append
 prompt  
-prompt Установлена версия ТЯ
+prompt пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ
 select inst_info.get_version version from dual;
 
 spool off

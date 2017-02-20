@@ -1,7 +1,7 @@
 set serveroutput on size 1000000
 
-@@..\settings
-@@UTILS\patch_settings
+@@../settings
+@@UTILS/patch_settings
 
 def OWNER='&&IBSO_OWNER'
 def AUDIT='&&AUDM_OWNER'
@@ -25,12 +25,12 @@ spool &log_file_name
 prompt  
 prompt -------------------------------------------------------------------------------- 
 
-prompt Начало установки патча
+prompt пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 prompt 
 
 set timi on
 
-@@..\UTILS\alt_sys_enable_restricted_session
+@@../UTILS/alt_sys_enable_restricted_session
 
 prompt 
 
@@ -50,7 +50,7 @@ prompt -------------------------------------------------------------------------
 
 
 prompt install ..\SYS\SYSGRANT.SQL
-@@..\SYS\SYSGRANT.SQL
+@@../SYS/SYSGRANT.SQL
 
 spool off
 
@@ -59,7 +59,7 @@ spool &log_file_name append
 prompt  
 prompt --------------------------------------------------------------------------------
 
-@@..\UTILS\alt_sys_disable_restricted_session
+@@../UTILS/alt_sys_disable_restricted_session
 
 prompt 
 

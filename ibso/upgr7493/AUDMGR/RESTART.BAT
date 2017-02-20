@@ -11,4 +11,4 @@ exit
 
 :OK
 @ECHO Restarting auditor manager job...
-sqlplus "%1 as sysdba" @upgrade\audmst
+sqlplus "%1 as sysdba" @upgrade/audmst

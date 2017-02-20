@@ -28,7 +28,7 @@ exit
 :DBG
 
 title Starting monitor on pipes "DEBUG", "DEBUG0" ("DEBUG1", "DEBUG2", "DEBUG3")
-sqlplus "%2" @utils\exit
+sqlplus "%2" @utils/exit
 
 @ECHO Starting monitor on pipe "DEBUG"...
 start %1 %2 owner=%3 pipe=DEBUG

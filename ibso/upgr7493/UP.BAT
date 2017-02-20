@@ -25,7 +25,7 @@ set  SQL_PLUS=sqlplus
 :START
 cls
 title STEP 0. Clear old logs
-@ECHO STEP 0. Clear old logs. LOGs 'll be saved at LOG\
+@ECHO STEP 0. Clear old logs. LOGs 'll be saved at LOG/
 del /q LOG\*.*
 del SQLLDR\*.log
 del COMPILE\*.log

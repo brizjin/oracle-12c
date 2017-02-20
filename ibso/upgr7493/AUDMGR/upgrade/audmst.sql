@@ -2,7 +2,7 @@ SET SERVEROUTPUT ON
 
 spool audmst.log
 
-@..\settings
+@../settings
 
 Prompt Restarting auditor manager job...
 ACCEPT audit   PROMPT 'Enter AUDIT MANAGER schema name (&&AUDM_OWNER):' default &&AUDM_OWNER

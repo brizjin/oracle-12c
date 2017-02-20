@@ -1,56 +1,56 @@
 set feedback on
 set term on
 
--- Обновление словарей компилятора
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 spool LOG\updtbl.lst
 @@upd_tbl
 @@alt_sys_disable_restricted_session
 spool off
 
--- Загрузка словарей компилятора
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 column xxx new_value ConnStr noprint
 select :constr xxx from dual;
 host tblload.bat &&ConnStr
 undef ConnStr
 
--- Измeнения от версий 6.X
+-- пїЅпїЅпїЅeпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ 6.X
 spool log\v6X.log
 @@alt_sys_enable_restricted_session
-@v6X\c_all
+@v6X/c_all
 spool off
 
--- Измeнения от версии 7.0
+-- пїЅпїЅпїЅeпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ 7.0
 spool log\v70.log
-@v70\c_all
+@v70/c_all
 spool off
 
--- Измeнения от версии 7.1
+-- пїЅпїЅпїЅeпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ 7.1
 spool log\v71.log
-@v71\c_all
+@v71/c_all
 spool off
 
--- Измeнения от версии 7.2
+-- пїЅпїЅпїЅeпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ 7.2
 spool log\v72.log
-@v72\c_all
+@v72/c_all
 spool off
 
 define path=compile
-@tbl\c_prt
+@tbl/c_prt
 
 --
--- Выполнение скриптов до обновления пакетов
-@packages\opt\before_install_pkg
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+@packages/opt/before_install_pkg
 
 --
--- Обновление пакетов
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 spool LOG\kernpkg.lst
 @@syn
-@packages\kernpkg
+@packages/kernpkg
 spool off
 
 --
--- Выполнение скриптов после обновления пакетов
-@packages\opt\after_install_pkg
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+@packages/opt/after_install_pkg
 
 rem prompt optional pause
 rem pause

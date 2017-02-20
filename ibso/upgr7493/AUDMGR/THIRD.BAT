@@ -11,4 +11,4 @@ exit
 
 :OK
 @ECHO Creating LOGON DATABASE TRIGGER...
-sqlplus "%1 as sysdba" @packages\syslogon
+sqlplus "%1 as sysdba" @packages/syslogon

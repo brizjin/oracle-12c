@@ -12,7 +12,7 @@ accept INEXT   char format a30 prompt 'Next Extent for INDEXES [5M]: ' default 5
 accept FREELST char format a30 prompt 'Freelists Parameter [10]: ' default 10
 accept D_PARALLEL char format a30 prompt 'Force Degree of Parallelism [&&D_PARALLEL]: ' default &&D_PARALLEL
 
-@..\UTILS\chk_tsps '&&TUSER, &&TSPACEI'
+@../UTILS/chk_tsps '&&TUSER, &&TSPACEI'
 
 prompt
 prompt Now you should specify tablespace names for partitions.

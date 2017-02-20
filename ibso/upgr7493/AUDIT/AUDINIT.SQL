@@ -1,14 +1,14 @@
 spool audinit.log
 
-@..\settings
+@../settings
 
 DEFINE u=&&AUD_OWNER
 prompt Creating Auditor Schema - &&u
 ACCEPT dt PROMPT 'Default tablespace (&&AUD_TDEF) :' default &&AUD_TDEF
 ACCEPT tt PROMPT 'Temporary tablespace (&&AUD_TTMP):' default &&AUD_TTMP
 
-@..\UTILS\chk_sets
-@..\UTILS\chk_tsps '&&dt, &&tt'
+@../UTILS/chk_sets
+@../UTILS/chk_tsps '&&dt, &&tt'
 
 prompt
 prompt Stop all background processes and press ENTER to continue...

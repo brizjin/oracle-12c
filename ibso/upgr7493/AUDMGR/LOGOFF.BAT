@@ -11,4 +11,4 @@ exit
 
 :OK
 @ECHO Creating LOGOFF DATABASE TRIGGER...
-sqlplus "%1 as sysdba" @packages\syslogoff
+sqlplus "%1 as sysdba" @packages/syslogoff

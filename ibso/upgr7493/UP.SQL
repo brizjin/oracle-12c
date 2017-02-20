@@ -58,7 +58,7 @@ SET TERMOUT ON
 Prompt * Upgrading of IB System Object to Version 7.4 Release (owner - &&owner)
 Prompt * Log-files of Upgrade in catalogs: LOG, COMPILE, SQLLDR, U_SOURCE, AUDIT, AUDMGR
 
-@utils\&&ask
+@utils/&&ask
 
 
 SET TERMOUT OFF
@@ -105,8 +105,8 @@ select decode('&4','pause',nvl('&&Oramon','pause'),'&4') xxx from dual;
 column xxx new_value ask noprint
 select decode('&5','quiet','put_sets','chk_sets') xxx from dual;
 
-@UTILS\&&ask
-@UTILS\chk_tsps '&&ARGS'
+@UTILS/&&ask
+@UTILS/chk_tsps '&&ARGS'
 
 exec rtl.put_setting('RIGHTS_CONTEXT', '&&RIGHTS');
 
@@ -125,40 +125,40 @@ insert into project (name,type,owner)
   values ('SIMPLE','SETTINGS','&&simple');
 commit;
 
-@UTILS\alt_sys_enable_restricted_session
+@UTILS/alt_sys_enable_restricted_session
 alter session set sort_area_size=83886080;
 
 PROMPT Stopping background jobs...
 exec lock_info.stop;
 
-@compile\show_status
+@compile/show_status
 
-@UTILS\chk_trig
+@UTILS/chk_trig
 
 spool off
 
-@compile\c_delses
+@compile/c_delses
 
--- Изменения структуры ТЯ
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ
 column xxx new_value up noprint
 select decode('&&simple','1','dummy','2','up1_2','3','up1_3','up1_all') xxx from dual;
 
 exec dbms_session.reset_package
 
-@utils\&&up
+@utils/&&up
 
--- Cлужебные дополнительные действия (установка временной лицензии, снятие режима restricted session)
+-- CпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ restricted session)
 spool LOG\up_add.log
-@utils\temp_lic
-@UTILS\alt_sys_disable_restricted_session
+@utils/temp_lic
+@UTILS/alt_sys_disable_restricted_session
 exec dbms_session.free_unused_user_memory;
 alter system flush shared_pool;
 spool off
 
 -- Check kernel packages
-@utils\chk_pkg
+@utils/chk_pkg
 
--- Здесь нужно запускать мониторы коммуникационных каналов
+-- пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 column xxx new_value ConnStr noprint
 select :constr xxx from dual;
 host oramons.bat &&Oramon &&ConnStr &&owner &3
@@ -168,9 +168,9 @@ host title STEP 1.1. Change dictionary objects...
 exec dbms_session.reset_package
 
 -- Gather errors before compilation
-@compile\show_err
+@compile/show_err
 
--- Инициализация изменений ТЯ
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ
 column xxx new_value up noprint
 select decode('&&simple','1','dummy','2','up2_2','3','up2_3','up2_all') xxx from dual;
 
@@ -178,18 +178,18 @@ exec dbms_session.reset_package
 exec dbms_session.free_unused_user_memory;
 alter system flush shared_pool;
 
-@utils\&&up
+@utils/&&up
 
--- Перестроение ролей для зависимостей отчетов
-@utils\c_syn.sql
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+@utils/c_syn.sql
 
 -- Kernel classes/methods/synonyms
 spool log\krnlobj.log
 prompt methods with possibly incorrect use of %class
-@utils\meta_err.sql
+@utils/meta_err.sql
 prompt classes with too many fields/columns, that can cause errors in class interfaces
-@utils\chk_cols.sql
-@utils\proj.sql
+@utils/chk_cols.sql
+@utils/proj.sql
 exec stdio.put_line_buf(executor.lock_open)
 exec lock_info.run
 prompt disable trigger on classes
@@ -200,8 +200,8 @@ select inst_info.get_version from dual;
 spool off
 
 -- Information about packages/indexes/constraints
-@compile\revis
-@compile\get_sys
+@compile/revis
+@compile/get_sys
 
 exit
 

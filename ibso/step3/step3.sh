@@ -15,8 +15,15 @@
 cd /tmp/SCRIPTS/SYSTEM
 su -s /bin/bash oracle -c "sqlplus / as sysdba @/step3/step3.sql"
 su -s /bin/bash oracle -c "sqlplus / as sysdba @init1.sql"
+cd /upgr
+su -s /bin/bash oracle -c "sqlplus / as sysdba @/upgr/SYS/upgrade.sql"
+su -s /bin/bash oracle -c "sqlplus / as sysdba @/upgr/utils/c_sys.sql"
 
-cp /dmp/ibs_16_6.dmp /tmp/INSTALL/CR_DB_ORA12c/ibs_16_6.dmp
+
+cd audit
+su -s /bin/bash oracle -c "sqlplus / as sysdba @audinit.sql"
+
+#cp /dmp/ibs_16_6.dmp /tmp/INSTALL/CR_DB_ORA12c/ibs_16_6.dmp
 cd /tmp/INSTALL/CR_DB_ORA12c
-su -s /bin/bash oracle -c "bash imp.dp.sh work ibs_16_6.dmp   "
+#su -s /bin/bash oracle -c "bash imp.dp.sh work ibs_16_6.dmp   "
 #rm /tmp/INSTALL/CR_DB_ORA12c/ibs_16_6.dmp

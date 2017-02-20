@@ -27,7 +27,7 @@ END;
 /
 
 SPOOL OFF
-@utils\step1.sql
+@utils/step1.sql
 
 ACCEPT is_ora_changed PROMPT "Is Oracle version changed[Y/N]?" DEFAULT N
 PROMPT
@@ -49,7 +49,7 @@ BEGIN
    dbms_output.put_line('Exit');
  end if;
 
- -- если сменили имя владельца:
+ -- пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ:
  if upper('&&is_user_changed') = 'Y' then
   dbms_output.put_line('Prompt Changing IBSO Owner...');
   dbms_output.put_line('Prompt Old Owner = ' || upper('&&old_user'));
@@ -66,10 +66,10 @@ END;
 /
 
 SPOOL OFF
-@utils\step2.sql
+@utils/step2.sql
 
 SPOOL log.txt APPEND
 
 prompt Rebuiling roles and views...
-@utils\rebuild.sql
+@utils/rebuild.sql
 exit

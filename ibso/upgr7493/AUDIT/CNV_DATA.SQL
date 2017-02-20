@@ -19,7 +19,7 @@ set termout on
 
 spool cnv_&&OWNER._&&TIME..log
 
-@owner\cnv_data.sql
+@owner/cnv_data.sql
 
 spool off
 

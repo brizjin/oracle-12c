@@ -11,3 +11,5 @@ ibso/step0/linuxamd64_12102_database_1of2.zip
 ibso/step0/linuxamd64_12102_database_2of2.zip
 
 *dmp/*
+
+*.log

@@ -2,7 +2,7 @@ spool reverse_idx_osh_obj_id.log
 
 set serveroutput on size 100000
 
-@..\..\settings
+@../../settings
 
 prompt alter index 
 

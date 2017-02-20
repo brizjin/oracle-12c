@@ -2,7 +2,7 @@ spool segment_tables.log
 
 set serveroutput on size 100000
 
-@..\..\settings
+@../../settings
 
 def TUSERS='&&UP_TUSERS'
 def TSPACEI='&&UP_TSPACEI'

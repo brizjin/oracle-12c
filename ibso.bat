@@ -35,11 +35,12 @@ exit /b
 
 REM prepare dmp file
 :step3
-docker build -t ibso:step3 -f %WD%ibso/step3/Dockerfile %WD%ibso
+REM docker build -t ibso:step3 -f %WD%ibso/step3/Dockerfile %WD%ibso
 REM docker run -it --rm  -v %WD%ibso/ibso_16_5_install:/tmp -v %WD%dmp:/dmp ibso:step2 bash -c "cd /dmp && cat ibso_16_6_dmp.zip* > ibso.zip && unzip ibso.zip && gunzip ibs_16_6.dmp.gz"
 REM docker run -it --rm -v %WD%ibso/ibso_16_5_install:/tmp -v %WD%dmp:/dmp -v %WD%ibso/step3:/step3 ibso:step2 bash /step3/step3.sh
 docker rm ibsostep3
-docker run -it --name ibsostep3 -v %WD%ibso/ibso_16_5_install:/tmp -v %WD%dmp:/dmp -v %WD%ibso/step3:/step3 ibso:step3 bash -c "bash /step3/step3.sh"
+REM docker run -it --name ibsostep3 -v %WD%ibso/ibso_16_5_install:/tmp -v %WD%dmp:/dmp -v %WD%ibso/step3:/step3 -v %WD%ibso/upgr7493:/upgr ibso:step3 bash -c "bash /step3/step3.sh"
+docker run -it --name ibsostep3 -v %WD%ibso/ibso_16_5_install:/tmp -v %WD%dmp:/dmp -v %WD%ibso/step3:/step3 -v %WD%ibso/upgr7493:/upgr ibso:step3 bash
 
 exit /b
 

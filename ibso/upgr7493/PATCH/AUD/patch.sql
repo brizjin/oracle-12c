@@ -3,8 +3,8 @@ set serveroutput on size 1000000
 column xxx new_value ask noprint
 select decode('&&2','quiet','..\UTILS\dummy','AUD\ask_pars') xxx from dual;
 
-@@..\AUDIT\init dummy &&1
-@@UTILS\patch_settings
+@@../AUDIT/init dummy &&1
+@@UTILS/patch_settings
 
 SET TERMOUT OFF
 column yyy new_value log_file_name noprint
@@ -16,24 +16,24 @@ spool &log_file_name
 prompt  
 prompt -------------------------------------------------------------------------------- 
 
-prompt Проверка возможности установки патча
+prompt пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 prompt 
 
 @@check_install_aud
 print mess
-@@..\UTILS\exit_when ':can_run_patch = 0'
+@@../UTILS/exit_when ':can_run_patch = 0'
 
 prompt  
 prompt --------------------------------------------------------------------------------
 
-prompt Начало установки патча
+prompt пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 prompt 
 
 @@&&ask
 
 set timi on
 
-@@..\UTILS\alt_sys_enable_restricted_session
+@@../UTILS/alt_sys_enable_restricted_session
 
 spool off
 
@@ -43,7 +43,7 @@ spool &log_file_name append
 prompt  
 prompt --------------------------------------------------------------------------------
 
-prompt Определение объектов в состоянии INVALID
+prompt пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ INVALID
 prompt 
 
 var invalid_objects_before varchar2(4000);
@@ -71,10 +71,10 @@ spool &log_file_name append
 prompt  
 prompt --------------------------------------------------------------------------------
 
-prompt Загрузка словарей
+prompt пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 prompt 
 
-@@..\UTILS\alt_sys_disable_restricted_session
+@@../UTILS/alt_sys_disable_restricted_session
 
 spool off
 
@@ -86,9 +86,9 @@ host tblload_aud.bat &&ConnStr
 undef ConnStr
 
 spool &log_file_name append
-prompt Загрузка словарей завершена, log-файлы в папке SQLLDR
+prompt пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, log-пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ SQLLDR
 
-@@..\UTILS\alt_sys_enable_restricted_session
+@@../UTILS/alt_sys_enable_restricted_session
 
 spool off
 
@@ -97,27 +97,27 @@ spool &log_file_name append
 prompt  
 prompt --------------------------------------------------------------------------------
 
-prompt Обновление пакетов 
+prompt пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ 
 prompt 
 
 
 prompt install ..\AUDIT\PACKAGES\CLEAR1.SQL
-@@..\AUDIT\PACKAGES\CLEAR1.SQL
+@@../AUDIT/PACKAGES/CLEAR1.SQL
 
 prompt install ..\AUDIT\PACKAGES\UTIL1.SQL
-@@..\AUDIT\PACKAGES\UTIL1.SQL
+@@../AUDIT/PACKAGES/UTIL1.SQL
 
 prompt install ..\AUDIT\PACKAGES\CLEAR2.SQL
-@@..\AUDIT\PACKAGES\CLEAR2.SQL
+@@../AUDIT/PACKAGES/CLEAR2.SQL
 
 prompt install ..\AUDIT\PACKAGES\LIC2.PLB
-@@..\AUDIT\PACKAGES\LIC2.PLB
+@@../AUDIT/PACKAGES/LIC2.PLB
 
 prompt install ..\AUDIT\PACKAGES\MAIL2.SQL
-@@..\AUDIT\PACKAGES\MAIL2.SQL
+@@../AUDIT/PACKAGES/MAIL2.SQL
 
 prompt install ..\AUDIT\PACKAGES\UTIL2.SQL
-@@..\AUDIT\PACKAGES\UTIL2.SQL
+@@../AUDIT/PACKAGES/UTIL2.SQL
 
 spool off
 
@@ -126,7 +126,7 @@ spool &log_file_name append
 prompt  
 prompt --------------------------------------------------------------------------------
 
-prompt Проверка установки патча
+prompt пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 prompt 
 
 var invalid_objects_after varchar2(4000);
@@ -154,10 +154,10 @@ end loop;
 
 if :invalid_objects_after is not null then
   :invalid_objects_after := chr(10)||chr(10)||'--------------------------------------------------------------------------------'
-		||chr(10)||'!!!WARNING!!!'||chr(10)||'После наката обновления следующие пакеты компилируются с ошибками:'
+		||chr(10)||'!!!WARNING!!!'||chr(10)||'пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ:'
 		||:invalid_objects_after;
 else
-  :invalid_objects_after := chr(10)||'Патч установлен успешно!';
+  :invalid_objects_after := chr(10)||'пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ!';
 end if;
 
 end;
@@ -174,15 +174,15 @@ spool &log_file_name append
 prompt  
 prompt --------------------------------------------------------------------------------
 
-prompt Удалим роль AUDIT_ADMIN если она есть
-@@..\AUDIT\UPGRADE\drop_role_audit_admin.sql 1
+prompt пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ AUDIT_ADMIN пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
+@@../AUDIT/UPGRADE/drop_role_audit_admin.sql 1
 
-@@..\UTILS\alt_sys_disable_restricted_session
+@@../UTILS/alt_sys_disable_restricted_session
 
 set timi off
 
 prompt  
-prompt Установлена версия схемы ревизора
+prompt пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 select clear.full_version version from dual;
 
 spool off

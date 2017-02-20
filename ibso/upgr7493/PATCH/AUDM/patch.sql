@@ -4,8 +4,8 @@ var constr varchar2(200)
 exec :constr:='&1'
 undef 1
 
-@@..\settings
-@@UTILS\patch_settings
+@@../settings
+@@UTILS/patch_settings
 
 SET TERMOUT OFF
 
@@ -35,17 +35,17 @@ spool &log_file_name
 prompt  
 prompt -------------------------------------------------------------------------------- 
 
-prompt Проверка возможности установки патча
+prompt пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 prompt 
 
 @@check_install_audm
 print mess
-@@..\UTILS\exit_when ':can_run_patch = 0'
+@@../UTILS/exit_when ':can_run_patch = 0'
 
 prompt  
 prompt -------------------------------------------------------------------------------- 
 
-prompt Начало установки патча
+prompt пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 prompt 
 
 set timi on
@@ -60,7 +60,7 @@ spool &log_file_name append
 prompt  
 prompt --------------------------------------------------------------------------------
 
-prompt Определение объектов в состоянии INVALID
+prompt пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ INVALID
 prompt 
 
 var invalid_objects_before varchar2(4000);
@@ -88,18 +88,18 @@ spool &log_file_name append
 prompt  
 prompt --------------------------------------------------------------------------------
 
-prompt Обновление пакетов 
+prompt пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ 
 prompt 
 
 
 prompt install ..\AUDMGR\PACKAGES\AUD1.SQL
-@@..\AUDMGR\PACKAGES\AUD1.SQL
+@@../AUDMGR/PACKAGES/AUD1.SQL
 
 prompt install ..\AUDMGR\PACKAGES\AUD2.SQL
-@@..\AUDMGR\PACKAGES\AUD2.SQL
+@@../AUDMGR/PACKAGES/AUD2.SQL
 
 prompt install ..\AUDMGR\PACKAGES\ORA_USER_PASSWORD_SET.SQL
-@@..\AUDMGR\PACKAGES\ORA_USER_PASSWORD_SET.SQL
+@@../AUDMGR/PACKAGES/ORA_USER_PASSWORD_SET.SQL
 
 spool off
 
@@ -108,7 +108,7 @@ spool &log_file_name append
 prompt  
 prompt --------------------------------------------------------------------------------
 
-prompt Проверка установки патча
+prompt пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 prompt 
 
 var invalid_objects_after varchar2(4000);
@@ -136,10 +136,10 @@ end loop;
 
 if :invalid_objects_after is not null then
   :invalid_objects_after := chr(10)||chr(10)||'--------------------------------------------------------------------------------'
-		||chr(10)||'!!!WARNING!!!'||chr(10)||'После наката обновления следующие пакеты компилируются с ошибками:'
+		||chr(10)||'!!!WARNING!!!'||chr(10)||'пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ:'
 		||:invalid_objects_after;
 else
-  :invalid_objects_after := chr(10)||'Патч установлен успешно!';
+  :invalid_objects_after := chr(10)||'пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ!';
 end if;
 
 end;

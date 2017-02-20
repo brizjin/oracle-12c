@@ -21,11 +21,11 @@ title Change database objects...
 if "%2"=="/q" goto UP_Q1
 if "%2"=="/Q" goto UP_Q1
 
-sqlplus %1 @AUD\patch.sql %1 ask
+sqlplus %1 @AUD/patch.sql %1 ask
 goto END
 
 :UP_Q1
-sqlplus %1 @AUD\patch.sql %1 quiet
+sqlplus %1 @AUD/patch.sql %1 quiet
 
 :END
 

@@ -20,8 +20,8 @@ prompt
 accept TUSER   char format a30 prompt 'Tablespace for TABLES [&&AUD_SERVICE_TUSERS]: ' default &&AUD_SERVICE_TUSERS
 accept TSPACEI char format a30 prompt 'Tablespace for INDEXES [&&AUD_SERVICE_TSPACEI]: ' default &&AUD_SERVICE_TSPACEI
 
-@..\UTILS\chk_sets
-@..\UTILS\chk_tsps '&&TUSER, &&TSPACEI'
+@../UTILS/chk_sets
+@../UTILS/chk_tsps '&&TUSER, &&TSPACEI'
 
 prompt
 prompt Stop all background processes and press ENTER to continue...
@@ -35,7 +35,7 @@ set echo on
 @@aud_lic
 
 set echo off
-@settings\defaults
+@settings/defaults
 set echo on
 
 insert into diary_tables
@@ -85,24 +85,24 @@ insert into diary_indexes
 set echo off
 commit;
 
-@packages\util1
-@packages\clear1
-@packages\mail1
-@packages\conv1
-@packages\lic1
-@packages\iefile1
-@packages\iedb34_1
-@packages\iedb54_1
-@packages\iedb61_1
-@packages\util2
-@packages\clear2
-@packages\mail2
-@packages\conv2
-@packages\lic2.plb
-@packages\iefile2
-@packages\iedb34_2
-@packages\iedb54_2
-@packages\iedb61_2
+@packages/util1
+@packages/clear1
+@packages/mail1
+@packages/conv1
+@packages/lic1
+@packages/iefile1
+@packages/iedb34_1
+@packages/iedb54_1
+@packages/iedb61_1
+@packages/util2
+@packages/clear2
+@packages/mail2
+@packages/conv2
+@packages/lic2.plb
+@packages/iefile2
+@packages/iedb34_2
+@packages/iedb54_2
+@packages/iedb61_2
 
 exec dbms_session.reset_package
 
@@ -113,7 +113,7 @@ delete messages where topic not in ('SUBJ','BODY') or code like 'LOG%' or code l
 delete messages where topic not in ('SUBJ','BODY') or code like 'LOG%' or code like 'EDOC%';
 commit;
 
--- Загрузка словарей компилятора
+-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 set termout off
 column xxx new_value ConnStr noprint
 select :constr xxx from dual;
@@ -124,8 +124,8 @@ set termout on
 exec utils.set_value('&&AUDITOR','PARTITIONS','&&PARTITIONS','Partitioning Option')
 commit;
 
-prompt Удалим роль AUDIT_ADMIN если она есть
-@upgrade\drop_role_audit_admin 0
+prompt пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ AUDIT_ADMIN пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
+@upgrade/drop_role_audit_admin 0
 
 exec utils.roles
 

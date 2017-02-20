@@ -18,7 +18,7 @@ exec :msg := 'Current version of IB System Object is '||:lVersion;
 print msg
 prompt
 
-@@UTILS\exit_when ':can_run_patch = 0'
+@@UTILS/exit_when ':can_run_patch = 0'
 
 ACCEPT AUD_USER PROMPT 'Enter AUDIT schema name (&&AUD_OWNER): ' default &&AUD_OWNER
 
@@ -33,6 +33,6 @@ exec :msg := 'Current version of Auditor Schema is '||:lVersion;
 print msg
 prompt
 
-@@UTILS\exit_when ':can_run_patch = 0'
+@@UTILS/exit_when ':can_run_patch = 0'
 
 exit

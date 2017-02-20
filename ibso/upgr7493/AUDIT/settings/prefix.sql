@@ -20,118 +20,118 @@ define DIARY_STEP='M'
 define STEP_NUMBER='0'
 define DIARY_TBS='&&TUSER'
 define DIARY_IDX_TBS='&&TSPACEI'
-@settings\set_part
+@settings/set_part
 
 define DIARY_STEP='M'
 define STEP_NUMBER='1'
 define DIARY_TBS='&&M_TBS_PREFIX._01'
 define DIARY_IDX_TBS='&&M_IDX_TBS_PREFIX._01'
-@settings\set_part
+@settings/set_part
 
 define DIARY_STEP='M'
 define STEP_NUMBER='2'
 define DIARY_TBS='&&M_TBS_PREFIX._02'
 define DIARY_IDX_TBS='&&M_IDX_TBS_PREFIX._02'
-@settings\set_part
+@settings/set_part
 
 define DIARY_STEP='M'
 define STEP_NUMBER='3'
 define DIARY_TBS='&&M_TBS_PREFIX._03'
 define DIARY_IDX_TBS='&&M_IDX_TBS_PREFIX._03'
-@settings\set_part
+@settings/set_part
 
 define DIARY_STEP='M'
 define STEP_NUMBER='4'
 define DIARY_TBS='&&M_TBS_PREFIX._04'
 define DIARY_IDX_TBS='&&M_IDX_TBS_PREFIX._04'
-@settings\set_part
+@settings/set_part
 
 define DIARY_STEP='M'
 define STEP_NUMBER='5'
 define DIARY_TBS='&&M_TBS_PREFIX._05'
 define DIARY_IDX_TBS='&&M_IDX_TBS_PREFIX._05'
-@settings\set_part
+@settings/set_part
 
 define DIARY_STEP='M'
 define STEP_NUMBER='6'
 define DIARY_TBS='&&M_TBS_PREFIX._06'
 define DIARY_IDX_TBS='&&M_IDX_TBS_PREFIX._06'
-@settings\set_part
+@settings/set_part
 
 define DIARY_STEP='M'
 define STEP_NUMBER='7'
 define DIARY_TBS='&&M_TBS_PREFIX._07'
 define DIARY_IDX_TBS='&&M_IDX_TBS_PREFIX._07'
-@settings\set_part
+@settings/set_part
 
 define DIARY_STEP='M'
 define STEP_NUMBER='8'
 define DIARY_TBS='&&M_TBS_PREFIX._08'
 define DIARY_IDX_TBS='&&M_IDX_TBS_PREFIX._08'
-@settings\set_part
+@settings/set_part
 
 define DIARY_STEP='M'
 define STEP_NUMBER='9'
 define DIARY_TBS='&&M_TBS_PREFIX._09'
 define DIARY_IDX_TBS='&&M_IDX_TBS_PREFIX._09'
-@settings\set_part
+@settings/set_part
 
 define DIARY_STEP='M'
 define STEP_NUMBER='10'
 define DIARY_TBS='&&M_TBS_PREFIX._10'
 define DIARY_IDX_TBS='&&M_IDX_TBS_PREFIX._10'
-@settings\set_part
+@settings/set_part
 
 define DIARY_STEP='M'
 define STEP_NUMBER='11'
 define DIARY_TBS='&&M_TBS_PREFIX._11'
 define DIARY_IDX_TBS='&&M_IDX_TBS_PREFIX._11'
-@settings\set_part
+@settings/set_part
 
 define DIARY_STEP='M'
 define STEP_NUMBER='12'
 define DIARY_TBS='&&M_TBS_PREFIX._12'
 define DIARY_IDX_TBS='&&M_IDX_TBS_PREFIX._12'
-@settings\set_part
+@settings/set_part
 
 define DIARY_STEP='M'
 define STEP_NUMBER='13'
 define DIARY_TBS='&&TUSER'
 define DIARY_IDX_TBS='&&TSPACEI'
-@settings\set_part
+@settings/set_part
 
 define DIARY_STEP='Q'
 define STEP_NUMBER='0'
 define DIARY_TBS='&&TUSER'
 define DIARY_IDX_TBS='&&TSPACEI'
-@settings\set_part
+@settings/set_part
 
 define DIARY_STEP='Q'
 define STEP_NUMBER='1'
 define DIARY_TBS='&&Q_TBS_PREFIX._A'
 define DIARY_IDX_TBS='&&Q_IDX_TBS_PREFIX._A'
-@settings\set_part
+@settings/set_part
 
 define DIARY_STEP='Q'
 define STEP_NUMBER='2'
 define DIARY_TBS='&&Q_TBS_PREFIX._B'
 define DIARY_IDX_TBS='&&Q_IDX_TBS_PREFIX._B'
-@settings\set_part
+@settings/set_part
 
 define DIARY_STEP='Q'
 define STEP_NUMBER='3'
 define DIARY_TBS='&&Q_TBS_PREFIX._C'
 define DIARY_IDX_TBS='&&Q_IDX_TBS_PREFIX._C'
-@settings\set_part
+@settings/set_part
 
 define DIARY_STEP='Q'
 define STEP_NUMBER='4'
 define DIARY_TBS='&&Q_TBS_PREFIX._D'
 define DIARY_IDX_TBS='&&Q_IDX_TBS_PREFIX._D'
-@settings\set_part
+@settings/set_part
 
 define DIARY_STEP='Q'
 define STEP_NUMBER='5'
 define DIARY_TBS='&&TUSER'
 define DIARY_IDX_TBS='&&TSPACEI'
-@settings\set_part
+@settings/set_part

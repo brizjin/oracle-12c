@@ -1,6 +1,6 @@
 spool audm.log
 
-@@..\settings
+@@../settings
 
 Prompt Creating auditor manager schema objects...
 ACCEPT audit   PROMPT 'Schema Name for AUDIT manager (&&AUDM_OWNER):' default &&AUDM_OWNER
@@ -20,8 +20,8 @@ ACCEPT ibso    PROMPT 'Enter IBSO OWNER schema name (&&IBSO_OWNER): '  default &
 ACCEPT audpart PROMPT 'Monthly add diary partitions "YYYY-MM-DD HH24:MI:SS" (&&AUDPART): '  default '&&AUDPART'
 
 
-@@..\UTILS\chk_sets
-@@..\UTILS\chk_tsps '&&tusers, &&tspacei'
+@@../UTILS/chk_sets
+@@../UTILS/chk_tsps '&&tusers, &&tspacei'
 
 exec &&audmgr..aud_mgr.stop;
 prompt settings
@@ -40,10 +40,10 @@ end;
 audit session;
 insert into &&audmgr..settings(name,value) values ('AUDITOR','&&auditor');
 
-@@packages\audm_vw
+@@packages/audm_vw
 
-@@packages\aud1
-@@packages\aud2
+@@packages/aud1
+@@packages/aud2
 
 alter trigger &&audmgr..logon_trigger compile;
 alter trigger &&audmgr..logoff_trigger compile;
@@ -52,7 +52,7 @@ alter table &&ibso..users add
 exec &&audmgr..aud_mgr.get_settings(true);
 exec &&audmgr..aud_mgr.add_owner('&&ibso');
 
-@@packages\ora_user_password_set
+@@packages/ora_user_password_set
 
 declare
   d date;

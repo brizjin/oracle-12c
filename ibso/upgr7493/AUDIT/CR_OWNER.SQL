@@ -11,7 +11,7 @@ set termout on
 
 spool cr_&&OWNER._&&TIME..log
 
-@owner\cr_owner
+@owner/cr_owner
 
 spool off
 

@@ -13,4 +13,4 @@ exit
 @ECHO Deleting logs
 del *.log
 @ECHO Creating auditor manager schema...
-sqlplus "%1 as sysdba" @upgrade\audminit
+sqlplus "%1 as sysdba" @upgrade/audminit

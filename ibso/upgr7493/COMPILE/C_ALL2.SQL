@@ -3,6 +3,6 @@ define pipe_name = 'DEBUG'
 @@cmth 2
 @@csql 2 0
 @@c_obj
-@..\utils\sys_idx
+@../utils/sys_idx
 @@show_err
 exit

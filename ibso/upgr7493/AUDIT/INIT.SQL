@@ -25,7 +25,7 @@ end;
 set termout on
 set time on
 
-@..\settings
+@../settings
 
 define OWNER='&&IBSO_OWNER'
 define OWN_VER='7.4'

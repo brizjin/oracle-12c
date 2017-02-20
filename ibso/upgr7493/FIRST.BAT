@@ -23,7 +23,7 @@ if not exist PATCH\UTILS\check_install_patch.sql goto START
 title Checking version of IB System Object..
 @ECHO Checking version of IB System Object..
 
-sqlplus "%1 as sysdba" @PATCH\UTILS\check_install_patch
+sqlplus "%1 as sysdba" @PATCH/UTILS/check_install_patch
 IF ERRORLEVEL 1 goto PATCHNO
 
 @ECHO.
@@ -47,9 +47,9 @@ IF "%answer%" == "n" goto END
 title Adding system grants..
 @ECHO Adding system grants..
 del *.log
-sqlplus "%1 as sysdba" @SYS\upgrade
+sqlplus "%1 as sysdba" @SYS/upgrade
 @ECHO Creating FIO/HASH libraries
-sqlplus "%1 as sysdba" @utils\c_sys
+sqlplus "%1 as sysdba" @utils/c_sys
 
 title Creating auditor schema...
 @ECHO Creating auditor schema...

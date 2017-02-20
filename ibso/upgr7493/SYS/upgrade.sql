@@ -18,7 +18,7 @@ pause
 
 set timi on
 
-@@UTILS\alt_sys_enable_restricted_session
+@@UTILS/alt_sys_enable_restricted_session
 
 prompt 
 prompt * Try to stop jobs
@@ -33,7 +33,7 @@ prompt install SYS/SYSGRANT.SQL
 
 spool &log_file_name append
 
-@@UTILS\alt_sys_disable_restricted_session
+@@UTILS/alt_sys_disable_restricted_session
 
 prompt 
 prompt * Try to start jobs
