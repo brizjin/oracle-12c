@@ -1,0 +1,1 @@
+alter table users add description varchar2(2000);

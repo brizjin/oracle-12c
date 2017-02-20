@@ -1,0 +1,593 @@
+<HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<TITLE>IBSO TK</TITLE>
+<LINK TITLE="Style" HREF="stylesheet.css" TYPE="text/css" REL="stylesheet">
+</HEAD>
+<BODY BGCOLOR="white">
+<!--TABLE CELLSPACING="0" CELLPADDING="1" WIDTH="100%" BORDER="0">
+<TR>
+<TD CLASS="NavBarRow1" COLSPAN="2">
+<TABLE CELLSPACING="3" CELLPADDING="0" BORDER="0">
+<TR VALIGN="top" ALIGN="center">
+<TD CLASS="NavBarRow1"><A HREF="summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A> &nbsp;</TD><TD CLASS="NavBarRow1"><A HREF="deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A> &nbsp;</TD><TD CLASS="NavBarRow1"><A HREF="index-files/index-1.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A> &nbsp;</TD><TD CLASS="NavBarRow1"><A HREF="help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A> &nbsp;</TD>
+</TR>
+</TABLE>
+</TD><TD rowspan="3" VALIGN="top" ALIGN="right"><EM><b>IBSO TK</b></EM></TD>
+</TR>
+<TR>
+<TD CLASS="NavBarRow2">
+     &nbsp;&nbsp;
+    </TD><TD CLASS="NavBarRow2"><FONT SIZE="-2"><A TARGET="_top" HREF="index.html"><B>FRAMES</B></A> &nbsp;&nbsp;
+      <A TARGET="_top" HREF="index-noframes.html"><B>NO FRAMES</B></A></FONT></TD>
+</TR>
+<TR>
+<TD CLASS="NavBarRow3" VALIGN="top"><FONT SIZE="-2">
+      SUMMARY:  <A HREF="#field_summary">FIELD</A> | <A HREF="#type_summary">TYPE</A> | <A HREF="#method_summary">METHOD</A></FONT></TD><TD CLASS="NavBarRow3" VALIGN="top"><FONT SIZE="-2">
+    DETAIL:  <A HREF="#field_detail">FIELD</A> | <A HREF="#type_detail">TYPE</A> | <A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<HR-->
+<H2>
+<FONT SIZE="-1"></FONT>
+<BR>
+    Package  cache_mgr</H2>
+<P> <hr/>
+	$Logfile: /RTL/NUM/CACHE_MGR1.sql $<br/>
+	$Author: Alexey $<br/>
+	$Revision: 4 $<br/>
+	$Modtime: 26/10/04 17:31 $<br/>
+ <hr/><br/>
+ <h1>Пакет для организации кэширования экземпляров.</h1>
+ <h2>1 Функционал для оповещения чужих сессий об изменении кэшируемых экземпляров. (Служебный интерфейс)</h2>
+ Регистрация сообщений/изменений экземпляров:
+ <ul>
+   <li><a href="#reg_obj_change(varchar2,varchar2,boolean,pls_integer)">reg_obj_change</a>
+   <li><a href="#reg_obj_change(varchar2,number,boolean,pls_integer)">reg_obj_change</a>
+   <li><a href="#reg_change(varchar2,boolean,pls_integer)">reg_change</a>
+   <li><a href="#reg_event(pls_integer,varchar2,pls_integer)">reg_event</a>
+ </ul>
+ Управление транзакциями из АРМ Навигатор  и из сгенерированного из PL+ кода:
+ <ul>
+   <li><a href="#cache_commit">cache_commit</a>
+   <li><a href="#cache_set_savepoint(varchar2)">cache_set_savepoint</a>
+   <li><a href="#cache_rollback(varchar2)">cache_rollback</a>
+ </ul>
+ <h2>2 Утилиты (Можно использовать в прикладном коде)</h2>
+ <h3>2.1 Вычисление хэшей для хранения элементов в pl\sql таблице.<A NAME="hashes"></A></h3>
+ <i>Этот функционал нужен только в Oracle 8. В девятке есть возможность индексировать
+ pl\sql таблицу строковым типом. На Oracle 9 устанавливается версия cache_mgr,
+ которая использует эту возможность.</i><br><br>
+ Если есть необходимость сохранять в pl\sql таблице элементы со строковыми
+ или number ключами с возможностью быстрого поиска, можно воспользоваться
+ следующими функциями для вычисления индексов:
+ <ul>
+   <li><a href="#Hash_Id(number)">Hash_Id</a> для чисел (number),
+   <li><a href="#Hash_Str(varchar2)">Hash_Str</a> для строк.
+ </ul>
+ Нужно учитывать, что обе эти функции могут возвращать одинаковые значения
+ для разных входных данных. Поэтому нужно хранить в элементе его исходный
+ ключ, перед обращением к элементу сравнивать его ключ с ключом, по которому
+ вычислен хэш, и, как минимум, выдавать ошибку, если ключи разные.
+ Вместо ошибки можно придумать алгоритм перевычисления ключа. Например (простейший
+ вариант), можно к исходному хэш значению добавлять по 1 пока не найдем пустое место
+ для добавления. При поиске тоже добавляем по 1 пока не найдем
+ совпадающий ключ (элемент найден), либо не попадем на пустое место
+ (элемента нет в таблице). Если перед прибавлением 1 хэш имеет максимальное
+ значение, сбрасывает его в 0.
+ <h3>2.2 Вспомогательные функции для отслеживания элемента множества
+ с момента использования, которого прошло наибольшее время.</h3>
+ Исходная задача: нужно организовать кэширование N последних использовавшихся
+ экземпляров ТБП. Сами экземпляры храним в pl\sql таблице в виде записей.
+ Индексы экземпляров в pl\sql таблице вычисляются из id с использованием
+ <a href="#hashes">Hash_Id</a> или <a href="#hashes">Hash_Str</a>.
+ Как только кол-во экземпляров в таблице достигает N, перед добавлением
+ еще одного, нужно определить какой из N экземпляров использовался раньше всех
+ и удалить его, чтобы общее кол-во оставалось N. Реализуется это так:
+ <ul>
+   <li>Создается переменная типа <a href="#lru_list_t(pls_integer,pls_integer,pls_integer_table_t,pls_integer_table_t)">lru_list_t</a>
+   <li>При добавлении очередного экземпляра или обращении к ранее добавленному
+       вызывается <a href="#lru_touch(pls_integer,lru_list_t)">lru_touch</a> с индексом этого
+       экземпляра в pl\sql таблице.
+   <li>Перед добавлением очередного экземпляра проверяем их общее кол-во.
+       Если оно равно N, то вызываем <a href="#lru_remove(lru_list_t)">lru_remove(lru_list_t)</a>
+       и удаляем из таблицы экземпляр с возвращенным этой функцией индексом.
+   <li>Если нужно сбросить кэш или удалить определенный его экземпляр, то нужно позвать
+       <a href="#lru_clear(lru_list_t)">lru_clear</a> или
+       <a href="#lru_remove(pls_integer,lru_list_t)">lru_remove(pls_integer,lru_list_t)</a>
+       соответственно.
+ <ul>
+</P>
+<HR>
+<P></P>
+<A NAME="field_summary"></A><A NAME="type_summary"></A>
+<TABLE WIDTH="100%" CELLSPACING="0" CELLPADDING="3" BORDER="1">
+<TR CLASS="TableHeadingColor">
+<TD COLSPAN="2"><FONT SIZE="+2"><B>Type Summary</B></FONT></TD>
+</TR>
+<TR CLASS="TableRowColor">
+<TD WIDTH="1%" VALIGN="top" ALIGN="right"><FONT SIZE="-1"><CODE>&nbsp;RECORD</CODE></FONT></TD><TD><CODE><B><A HREF="#lru_list_t(pls_integer,pls_integer,pls_integer_table_t,pls_integer_table_t)">lru_list_t</A></B>(first pls_integer, last pls_integer, prev pls_integer_table_t, next pls_integer_table_t)</CODE>
+<BR>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       Структура данных для алгоритма отслеживания элемента
+ с момента использования, которого прошло наибольшее время.</TD>
+</TR>
+<TR CLASS="TableRowColor">
+<TD WIDTH="1%" VALIGN="top" ALIGN="right"><FONT SIZE="-1"><CODE>&nbsp;table OF pls_integer INDEX BY binary_integer</CODE></FONT></TD><TD><CODE><B><A HREF="#pls_integer_table_t">pls_integer_table_t</A></B>()</CODE>
+<BR>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       Таблица целых чисел.</TD>
+</TR>
+</TABLE>
+<P></P>
+<A NAME="method_summary"></A>
+<TABLE WIDTH="100%" CELLSPACING="0" CELLPADDING="3" BORDER="1">
+<TR CLASS="TableHeadingColor">
+<TD COLSPAN="2"><FONT SIZE="+2"><B>Method Summary</B></FONT></TD>
+</TR>
+<TR CLASS="TableRowColor">
+<TD WIDTH="1%" VALIGN="top" ALIGN="right"><FONT SIZE="-1"><CODE>&nbsp;</CODE></FONT></TD><TD><CODE><B><A HREF="#cache_commit">cache_commit</A></B>()</CODE>
+<BR>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       Фиксация транзакции.</TD>
+</TR>
+<TR CLASS="TableRowColor">
+<TD WIDTH="1%" VALIGN="top" ALIGN="right"><FONT SIZE="-1"><CODE>&nbsp;</CODE></FONT></TD><TD><CODE><B><A HREF="#cache_rollback(varchar2)">cache_rollback</A></B>(savepointname varchar2 DEFAULT null)</CODE>
+<BR>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       Откат транзакции (возможно до точки отката).</TD>
+</TR>
+<TR CLASS="TableRowColor">
+<TD WIDTH="1%" VALIGN="top" ALIGN="right"><FONT SIZE="-1"><CODE>&nbsp;</CODE></FONT></TD><TD><CODE><B><A HREF="#cache_set_savepoint(varchar2)">cache_set_savepoint</A></B>(savepointname varchar2)</CODE>
+<BR>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       Установка точки сохранения.</TD>
+</TR>
+<TR CLASS="TableRowColor">
+<TD WIDTH="1%" VALIGN="top" ALIGN="right"><FONT SIZE="-1"><CODE>&nbsp;pls_integer</CODE></FONT></TD><TD><CODE><B><A HREF="#hash_id(number)">Hash_Id</A></B>(p_num number)</CODE>
+<BR>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       Вычисление хэш для чисел (number).</TD>
+</TR>
+<TR CLASS="TableRowColor">
+<TD WIDTH="1%" VALIGN="top" ALIGN="right"><FONT SIZE="-1"><CODE>&nbsp;pls_integer</CODE></FONT></TD><TD><CODE><B><A HREF="#hash_str(varchar2)">Hash_Str</A></B>(p_str varchar2)</CODE>
+<BR>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       Вычисление хэш для строк.</TD>
+</TR>
+<TR CLASS="TableRowColor">
+<TD WIDTH="1%" VALIGN="top" ALIGN="right"><FONT SIZE="-1"><CODE>&nbsp;</CODE></FONT></TD><TD><CODE><B><A HREF="#lru_clear(lru_list_t)">lru_clear</A></B>(lru_list IN OUT lru_list_t)</CODE>
+<BR>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       Очистить список.</TD>
+</TR>
+<TR CLASS="TableRowColor">
+<TD WIDTH="1%" VALIGN="top" ALIGN="right"><FONT SIZE="-1"><CODE>&nbsp;pls_integer</CODE></FONT></TD><TD><CODE><B><A HREF="#lru_remove(lru_list_t)">lru_remove</A></B>(lru_list IN OUT lru_list_t)</CODE>
+<BR>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       Удалить из списка информацию об элементе с момента использования,
+ которого прошло наибольшее время, и вернуть его индекс.</TD>
+</TR>
+<TR CLASS="TableRowColor">
+<TD WIDTH="1%" VALIGN="top" ALIGN="right"><FONT SIZE="-1"><CODE>&nbsp;</CODE></FONT></TD><TD><CODE><B><A HREF="#lru_remove(pls_integer,lru_list_t)">lru_remove</A></B>(idx pls_integer, lru_list IN OUT lru_list_t)</CODE>
+<BR>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       Удалить из списка информацию об элементе с заданным индексом.</TD>
+</TR>
+<TR CLASS="TableRowColor">
+<TD WIDTH="1%" VALIGN="top" ALIGN="right"><FONT SIZE="-1"><CODE>&nbsp;</CODE></FONT></TD><TD><CODE><B><A HREF="#lru_touch(pls_integer,lru_list_t)">lru_touch</A></B>(idx pls_integer, lru_list IN OUT lru_list_t)</CODE>
+<BR>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       Отметить, что элемент с заданным индексом использовался последним.</TD>
+</TR>
+<TR CLASS="TableRowColor">
+<TD WIDTH="1%" VALIGN="top" ALIGN="right"><FONT SIZE="-1"><CODE>&nbsp;</CODE></FONT></TD><TD><CODE><B><A HREF="#reg_change(varchar2,boolean,pls_integer)">reg_change</A></B>(class_id varchar2, cascade boolean, p_idx pls_integer DEFAULT null)</CODE>
+<BR>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       Регистрация изменения экземпляров ТБП.</TD>
+</TR>
+<TR CLASS="TableRowColor">
+<TD WIDTH="1%" VALIGN="top" ALIGN="right"><FONT SIZE="-1"><CODE>&nbsp;</CODE></FONT></TD><TD><CODE><B><A HREF="#reg_event(pls_integer,varchar2,pls_integer)">reg_event</A></B>(p_code pls_integer, p_event varchar2, p_idx pls_integer DEFAULT null)</CODE>
+<BR>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       Планирование/отсылка сообщения.</TD>
+</TR>
+<TR CLASS="TableRowColor">
+<TD WIDTH="1%" VALIGN="top" ALIGN="right"><FONT SIZE="-1"><CODE>&nbsp;</CODE></FONT></TD><TD><CODE><B><A HREF="#reg_obj_change(varchar2,varchar2,boolean,pls_integer)">reg_obj_change</A></B>(class_id varchar2, obj_id varchar2, cascade boolean, p_idx pls_integer DEFAULT null)</CODE>
+<BR>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       Регистрация изменения экземпляра ТБП.</TD>
+</TR>
+<TR CLASS="TableRowColor">
+<TD WIDTH="1%" VALIGN="top" ALIGN="right"><FONT SIZE="-1"><CODE>&nbsp;</CODE></FONT></TD><TD><CODE><B><A HREF="#reg_obj_change(varchar2,number,boolean,pls_integer)">reg_obj_change</A></B>(class_id varchar2, obj_id number, cascade boolean, p_idx pls_integer DEFAULT null)</CODE>
+<BR>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       Регистрация изменения экземпляра ТБП.</TD>
+</TR>
+<TR CLASS="TableRowColor">
+<TD WIDTH="1%" VALIGN="top" ALIGN="right"><FONT SIZE="-1"><CODE>&nbsp;</CODE></FONT></TD><TD><CODE><B><A HREF="#write_cache">write_cache</A></B>()</CODE>
+<BR>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       Не используется.</TD>
+</TR>
+</TABLE>
+<P></P>
+<A NAME="field_detail"></A><A NAME="type_detail"></A>
+<TABLE WIDTH="100%" CELLSPACING="0" CELLPADDING="3" BORDER="1">
+<TR CLASS="TableHeadingColor">
+<TD COLSPAN="1"><FONT SIZE="+2"><B>Type Detail</B></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="pls_integer_table_t"></A>
+<H3>pls_integer_table_t</H3>
+<PRE>
+  public table OF pls_integer INDEX BY binary_integer <B>pls_integer_table_t</B>()</PRE>
+<DL>
+<DD> Таблица целых чисел. Используется в
+ <a href="#lru_list_t(pls_integer,pls_integer,pls_integer_table_t,pls_integer_table_t)">lru_list_t</a>.
+</DD>
+<DD>
+<DL></DL>
+</DD>
+</DL>
+<HR>
+<A NAME="lru_list_t(pls_integer,pls_integer,pls_integer_table_t,pls_integer_table_t)"></A>
+<H3>lru_list_t</H3>
+<PRE>
+  public RECORD <B>lru_list_t</B>(first pls_integer, <BR>                           last pls_integer, <BR>                           prev pls_integer_table_t, <BR>                           next pls_integer_table_t)</PRE>
+<DL>
+<DD> Структура данных для алгоритма отслеживания элемента
+ с момента использования, которого прошло наибольшее время.
+</DD>
+<DD>
+<DL></DL>
+</DD>
+</DL>
+<HR>
+<A NAME="method_detail"></A>
+<TABLE WIDTH="100%" CELLSPACING="0" CELLPADDING="3" BORDER="1">
+<TR CLASS="TableHeadingColor">
+<TD COLSPAN="1"><FONT SIZE="+2"><B>Method Detail</B></FONT></TD>
+</TR>
+</TABLE>
+<A NAME="hash_id(number)"></A>
+<H3>Hash_Id</H3>
+<PRE>
+  public pls_integer <B>Hash_Id</B>(p_num number)</PRE>
+<DL>
+<DD> Вычисление хэш для чисел (number).
+ Может возвращать одинаковые значения для разных чисел, более подробно см.
+ <A href="#hashes">Вычисление хэшей для хранения элементов в pl\sql таблице</A>.
+</DD>
+<DD>
+<DL>
+<DT>
+<B>Parameters:</B>
+<DD>
+<CODE>p_num</CODE> -
+              число.</DD>
+</DT>
+<DT>
+<B>Returns:</B>
+<DD>Хэш переданного числа.</DD>
+</DT>
+</DL>
+</DD>
+</DL>
+<HR>
+<A NAME="hash_str(varchar2)"></A>
+<H3>Hash_Str</H3>
+<PRE>
+  public pls_integer <B>Hash_Str</B>(p_str varchar2)</PRE>
+<DL>
+<DD> Вычисление хэш для строк.
+ Может возвращать одинаковые значения для разных строк, более подробно см.
+ <A href="#hashes">Вычисление хэшей для хранения элементов в pl\sql таблице</A>.
+</DD>
+<DD>
+<DL>
+<DT>
+<B>Parameters:</B>
+<DD>
+<CODE>p_str</CODE> -
+              строка.</DD>
+</DT>
+<DT>
+<B>Returns:</B>
+<DD>Хэш переданной строки.</DD>
+</DT>
+</DL>
+</DD>
+</DL>
+<HR>
+<A NAME="reg_obj_change(varchar2,varchar2,boolean,pls_integer)"></A>
+<H3>reg_obj_change</H3>
+<PRE>
+  public  <B>reg_obj_change</B>(class_id varchar2, <BR>                         obj_id varchar2, <BR>                         cascade boolean, <BR>                         p_idx pls_integer DEFAULT null)</PRE>
+<DL>
+<DD> Регистрация изменения экземпляра ТБП. Используется при точечных обновлениях.
+</DD>
+<DD>
+<DL>
+<DT>
+<B>Parameters:</B>
+<DD>
+<CODE>class_id</CODE> -
+              Идентификатор ТБП.</DD>
+<DD>
+<CODE>obj_id</CODE> -
+              Идентификатор экземпляра.</DD>
+<DD>
+<CODE>cascade</CODE> -
+              Затрагивает ли изменение поля родительских типов (Для каскадного сброса кэшей родителей).</DD>
+<DD>
+<CODE>p_idx</CODE> -
+              Индекс, в котором запомнить изменение. Используется для оптимизации вычисления индексов.
+       Если индекс уже вычислен и передан сюда, то повторного вычисления не происходит.</DD>
+</DT>
+</DL>
+</DD>
+</DL>
+<HR>
+<A NAME="reg_obj_change(varchar2,number,boolean,pls_integer)"></A>
+<H3>reg_obj_change</H3>
+<PRE>
+  public  <B>reg_obj_change</B>(class_id varchar2, <BR>                         obj_id number, <BR>                         cascade boolean, <BR>                         p_idx pls_integer DEFAULT null)</PRE>
+<DL>
+<DD> Регистрация изменения экземпляра ТБП. Используется при точечных обновлениях.
+ Отличается от <a href="#reg_obj_change(varchar2,varchar2,boolean,pls_integer)">reg_obj_change</a>
+ только типом параметра obj_id
+</DD>
+<DD>
+<DL>
+<DT>
+<B>Parameters:</B>
+<DD>
+<CODE>class_id</CODE> -
+              Идентификатор ТБП.</DD>
+<DD>
+<CODE>obj_id</CODE> -
+              Идентификатор экземпляра.</DD>
+<DD>
+<CODE>cascade</CODE> -
+              Затрагивает ли изменение поля родительских типов (Для каскадного сброса кэшей родителей).</DD>
+<DD>
+<CODE>p_idx</CODE> -
+              Индекс, в котором запомнить изменение. Используется для оптимизации вычисления индексов.
+       Если индекс уже вычислен и передан сюда, то повторного вычисления не происходит.</DD>
+</DT>
+</DL>
+</DD>
+</DL>
+<HR>
+<A NAME="reg_change(varchar2,boolean,pls_integer)"></A>
+<H3>reg_change</H3>
+<PRE>
+  public  <B>reg_change</B>(class_id varchar2, <BR>                     cascade boolean, <BR>                     p_idx pls_integer DEFAULT null)</PRE>
+<DL>
+<DD> Регистрация изменения экземпляров ТБП. Используется при batch обновлениях.
+</DD>
+<DD>
+<DL>
+<DT>
+<B>Parameters:</B>
+<DD>
+<CODE>class_id</CODE> -
+              Идентификатор ТБП.</DD>
+<DD>
+<CODE>cascade</CODE> -
+              Затрагивает ли изменение поля родительских типов (Для каскадного сброса кэшей родителей).</DD>
+<DD>
+<CODE>p_idx</CODE> -
+              Индекс, в котором запомнить изменение. Используется для оптимизации вычисления индексов.
+       Если индекс уже вычислен и передан сюда, то повторного вычисления не происходит.</DD>
+</DT>
+</DL>
+</DD>
+</DL>
+<HR>
+<A NAME="reg_event(pls_integer,varchar2,pls_integer)"></A>
+<H3>reg_event</H3>
+<PRE>
+  public  <B>reg_event</B>(p_code pls_integer, <BR>                    p_event varchar2, <BR>                    p_idx pls_integer DEFAULT null)</PRE>
+<DL>
+<DD> Планирование/отсылка сообщения.
+ Если настройка CLS_STATIC_EVENT in ('Y', '1'), то во время вызова рассылается сообщение p_event с кодом 0.
+ В противном случае, запоминаются код и событие, и отсылка происходит в <a href="#cache_commit">cache_commit</a>
+</DD>
+<DD>
+<DL>
+<DT>
+<B>Parameters:</B>
+<DD>
+<CODE>p_code</CODE> -
+              Код сообщения.</DD>
+<DD>
+<CODE>p_idx</CODE> -
+              Индекс, в котором запомнить сообщение. Используется для оптимизации вычисления индексов.
+       Если индекс уже вычислен и передан сюда, то повторного вычисления не происходит.</DD>
+</DT>
+</DL>
+</DD>
+</DL>
+<HR>
+<A NAME="cache_commit"></A>
+<H3>cache_commit</H3>
+<PRE>
+  public  <B>cache_commit</B>()</PRE>
+<DL>
+<DD> Фиксация транзакции. Рассылка остальным сессиям уведомлений об изменениях кэшируемых экземпляров.
+ Рассылка остальным сессиям запланированных событий.
+ Если для одного ТБП модифицировано меньше max_cnt экземпляров,
+ то для каждого экземпляров рассылается уведомление о том, что его нужно сбросить из кэша.
+ Если для одного ТБП модифицировано >= max_cnt экземпляров,
+ то рассылается уведомление о том, что нужно сбросить кэш этого ТБП полностью.
+</DD>
+<DD>
+<DL></DL>
+</DD>
+</DL>
+<HR>
+<A NAME="cache_set_savepoint(varchar2)"></A>
+<H3>cache_set_savepoint</H3>
+<PRE>
+  public  <B>cache_set_savepoint</B>(savepointname varchar2)</PRE>
+<DL>
+<DD> Установка точки сохранения.
+</DD>
+<DD>
+<DL>
+<DT>
+<B>Parameters:</B>
+<DD>
+<CODE>savepointname</CODE> -
+              Имя точки сохранения.</DD>
+</DT>
+</DL>
+</DD>
+</DL>
+<HR>
+<A NAME="cache_rollback(varchar2)"></A>
+<H3>cache_rollback</H3>
+<PRE>
+  public  <B>cache_rollback</B>(savepointname varchar2 DEFAULT null)</PRE>
+<DL>
+<DD> Откат транзакции (возможно до точки отката).
+ Сброс кэшей измененных типов. Если откатывается вся транзакция, то сброс информации об изменениях.
+</DD>
+<DD>
+<DL>
+<DT>
+<B>Parameters:</B>
+<DD>
+<CODE>savepointname</CODE> -
+              Имя точки сохранения. Если не задано, то откатывается вся транзакция.</DD>
+</DT>
+</DL>
+</DD>
+</DL>
+<HR>
+<A NAME="write_cache"></A>
+<H3>write_cache</H3>
+<PRE>
+  public  <B>write_cache</B>()</PRE>
+<DL>
+<DD> Не используется.
+</DD>
+<DD>
+<DL></DL>
+</DD>
+</DL>
+<HR>
+<A NAME="lru_touch(pls_integer,lru_list_t)"></A>
+<H3>lru_touch</H3>
+<PRE>
+  public  <B>lru_touch</B>(idx pls_integer, <BR>                    lru_list IN OUT lru_list_t)</PRE>
+<DL>
+<DD> Отметить, что элемент с заданным индексом использовался последним.
+</DD>
+<DD>
+<DL>
+<DT>
+<B>Parameters:</B>
+<DD>
+<CODE>idx</CODE> -
+              Индекс элемента.</DD>
+<DD>
+<CODE>lru_list</CODE> -
+              Список.</DD>
+</DT>
+</DL>
+</DD>
+</DL>
+<HR>
+<A NAME="lru_remove(lru_list_t)"></A>
+<H3>lru_remove</H3>
+<PRE>
+  public pls_integer <B>lru_remove</B>(lru_list IN OUT lru_list_t)</PRE>
+<DL>
+<DD> Удалить из списка информацию об элементе с момента использования,
+ которого прошло наибольшее время, и вернуть его индекс.
+</DD>
+<DD>
+<DL>
+<DT>
+<B>Parameters:</B>
+<DD>
+<CODE>lru_list</CODE> -
+              Список.</DD>
+</DT>
+<DT>
+<B>Returns:</B>
+<DD>Индекс удаленного элемента.</DD>
+</DT>
+</DL>
+</DD>
+</DL>
+<HR>
+<A NAME="lru_remove(pls_integer,lru_list_t)"></A>
+<H3>lru_remove</H3>
+<PRE>
+  public  <B>lru_remove</B>(idx pls_integer, <BR>                     lru_list IN OUT lru_list_t)</PRE>
+<DL>
+<DD> Удалить из списка информацию об элементе с заданным индексом.
+</DD>
+<DD>
+<DL>
+<DT>
+<B>Parameters:</B>
+<DD>
+<CODE>idx</CODE> -
+              Индекс элемента.</DD>
+<DD>
+<CODE>lru_list</CODE> -
+              Список.</DD>
+</DT>
+</DL>
+</DD>
+</DL>
+<HR>
+<A NAME="lru_clear(lru_list_t)"></A>
+<H3>lru_clear</H3>
+<PRE>
+  public  <B>lru_clear</B>(lru_list IN OUT lru_list_t)</PRE>
+<DL>
+<DD> Очистить список. Накопление информации начинается сначала.
+</DD>
+<DD>
+<DL>
+<DT>
+<B>Parameters:</B>
+<DD>
+<CODE>lru_list</CODE> -
+              Список.</DD>
+</DT>
+</DL>
+</DD>
+</DL>
+<HR>
+<!--TABLE CELLSPACING="0" CELLPADDING="1" WIDTH="100%" BORDER="0">
+<TR>
+<TD CLASS="NavBarRow1" COLSPAN="2">
+<TABLE CELLSPACING="3" CELLPADDING="0" BORDER="0">
+<TR VALIGN="top" ALIGN="center">
+<TD CLASS="NavBarRow1"><A HREF="summary.html"><FONT CLASS="NavBarFont1"><B>Overview</B></FONT></A> &nbsp;</TD><TD CLASS="NavBarRow1"><A HREF="deprecated-list.html"><FONT CLASS="NavBarFont1"><B>Deprecated</B></FONT></A> &nbsp;</TD><TD CLASS="NavBarRow1"><A HREF="index-files/index-1.html"><FONT CLASS="NavBarFont1"><B>Index</B></FONT></A> &nbsp;</TD><TD CLASS="NavBarRow1"><A HREF="help-doc.html"><FONT CLASS="NavBarFont1"><B>Help</B></FONT></A> &nbsp;</TD>
+</TR>
+</TABLE>
+</TD><TD rowspan="3" VALIGN="top" ALIGN="right"><EM><b>IBSO TK</b></EM></TD>
+</TR>
+<TR>
+<TD CLASS="NavBarRow2">
+     &nbsp;&nbsp;
+    </TD><TD CLASS="NavBarRow2"><FONT SIZE="-2"><A TARGET="_top" HREF="index.html"><B>FRAMES</B></A> &nbsp;&nbsp;
+      <A TARGET="_top" HREF="index-noframes.html"><B>NO FRAMES</B></A></FONT></TD>
+</TR>
+<TR>
+<TD CLASS="NavBarRow3" VALIGN="top"><FONT SIZE="-2">
+      SUMMARY:  <A HREF="#field_summary">FIELD</A> | <A HREF="#type_summary">TYPE</A> | <A HREF="#method_summary">METHOD</A></FONT></TD><TD CLASS="NavBarRow3" VALIGN="top"><FONT SIZE="-2">
+    DETAIL:  <A HREF="#field_detail">FIELD</A> | <A HREF="#type_detail">TYPE</A> | <A HREF="#method_detail">METHOD</A></FONT></TD>
+</TR>
+</TABLE>
+<HR-->
+</BODY>
+</HTML>

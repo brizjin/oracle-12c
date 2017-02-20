@@ -1,0 +1,2 @@
+#!/bin/sh
+ld -b -o librunproc64.sl lock.o runproc.o

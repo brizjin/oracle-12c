@@ -1,0 +1,4 @@
+#!/bin/sh
+all:
+	gcc -c -m64 -fPIC fio.c -I/include
+	ld -G -o libfio64.so fio.o

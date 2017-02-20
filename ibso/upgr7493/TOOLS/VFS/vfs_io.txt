@@ -1,0 +1,557 @@
+Описание пакета VFS_IO
+
+
+  Пакет содержит функции, эмулирующие работу с VFS как работу
+с файловой системой и интерфейсно совместим с STDIO в части,
+касающейся работы с файлами. Одновременно поддерживает функции
+работы с файловой системой сервера БД через библиотеку FIO.
+Для работы с VFS/FIO рекомендуется использовать пакет STDIO,
+а не непосредственно vfs_io.
+
+
+1.Константы символьных кодировок
+
+ DOSTEXT   - DOS
+ UNXTEXT   - UNIX
+ WINTEXT   - WIN
+ KOITEXT   - KOI
+
+2.Исключения
+
+ READ_ERROR         - ошибка чтения файла
+ WRITE_ERROR        - ошибка записи в файл
+ INVALID_PATH       - неверное имя файла
+ INVALID_MODE       - неверный режим открытия файла
+ INVALID_FILEHANDLE - неверный дескриптор файла
+ INVALID_OPERATION  - неверная файловая операция
+
+3.Функции
+
+ ----------------------------------------------------------
+ function transform(txt in varchar2, in_text in number, out_text in number) return varchar2;
+
+Перевод текста из одной кодировки в другую
+Входные параметры:
+ txt - текст
+ in_text - исходная кодировка
+ out_text - целевая кодировка
+Возвращаемые значения:
+ "трансформированный" текст
+
+ ----------------------------------------------------------
+ procedure set_def_text(p_txt in varchar2, p_slash in varchar2 default null, p_add_cr in varchar2 default null);
+
+Установка некоторых переменных (см.STDIO)
+
+ ----------------------------------------------------------
+ function open(location in varchar2, filename in varchar2, open_mode in varchar2 default 'r',
+  raising in boolean default false,
+  line_size in pls_integer default null) return pls_integer;
+
+Открыть файл
+Входные параметры:
+ location - каталог
+ filename - имя файла
+ open_mode - режим открытия
+ raising - тип ошибки (исключение (true) или сообщение(false))
+ line_size - игнорируется
+Возвращаемые значения:
+ дескриптор файла
+Исключения:
+ INVALID_PATH, INVALID_MODE, INVALID_OPERATION
+
+ ----------------------------------------------------------
+ procedure close(file in out nocopy pls_integer, raising in boolean default false);
+
+Закрыть файл
+Входные параметры:
+ file - дескриптор файла
+ raising - тип ошибки (исключение (true) или сообщение(false))
+Исключения:
+ INVALID_FILEHANDLE, WRITE_ERROR
+
+----------------------------------------------------------
+ function is_open(file in pls_integer ) return boolean;
+
+Проверка дескриптора на корректность
+Входные параметры:
+ file - дескриптор файла
+Возвращаемые значения:
+ true/false
+
+ ----------------------------------------------------------
+ procedure flush(file in pls_integer, raising in boolean default false);
+
+Сброс данных в файл из буфера (при буферизованном файловом вводе-выводе
+через FIO, для VFS ничего не делает).
+
+ ----------------------------------------------------------
+ procedure fput(file in pls_integer, buffer in varchar2, raising in boolean default false,
+  p_flush in boolean default false);
+
+Записать текст из буфера в файл.
+Входные параметры:
+ file - дескриптор файла
+ buffer - строка для записи
+ raising - тип ошибки (исключение (true) или сообщение(false))
+ p_flush - игнорируется
+Исключения:
+ INVALID_FILEHANDLE, WRITE_ERROR
+
+ ----------------------------------------------------------
+ procedure putf(file in pls_integer, format in varchar2, raising in boolean default false,
+  in_text in number default null, out_text in number default null,
+  p_text1 in varchar2 default null, p_text2 in varchar2 default null, p_text3 in varchar2 default null,
+  p_text4 in varchar2 default null, p_text5 in varchar2 default null);
+
+Записывает форматированный текст
+Входные параметры:
+ file - дескриптор файла
+ format - форматная строка
+ raising - тип ошибки (исключение (true) или сообщение(false))
+ in_text - кодировка исходного текста
+ out_text - кодировка для сохранения
+ p_text* - параметры подстановки в форматную строку
+Исключения:
+ INVALID_FILEHANDLE, WRITE_ERROR
+
+ ----------------------------------------------------------
+ procedure put_line(file in pls_integer, buffer in varchar2,
+  raising in boolean default false,
+  in_text in number default null, out_text in number default null);
+
+Записать строку в файл
+Входные параметры:
+ file - дескриптор файла
+ buffer - строка
+ raising - тип ошибки (исключение (true) или сообщение(false))
+ in_text - кодировка исходного текста
+ out_text - кодировка для сохранения
+Исключения:
+ INVALID_FILEHANDLE, WRITE_ERROR
+
+----------------------------------------------------------
+ function get_line(file in pls_integer, buffer out varchar2,
+  raising in boolean default false,
+  in_text in number default null, out_text in number default null,
+  l_size in pls_integer default null) return boolean;
+
+Получить строку из файла
+Входные параметры:
+ file - дескриптор файла
+ raising - тип ошибки (исключение (true) или сообщение(false))
+ in_text - кодировка исходного текста
+ out_text - кодировка для сохранения
+ l_size - игнорируется
+Выходные параметры:
+ buffer - строка, в которую происходит чтение
+Возвращаемые значения:
+ true/false
+Исключения:
+ INVALID_FILEHANDLE, READ_ERROR
+
+ ----------------------------------------------------------
+ function fopen(name_i in varchar2, flag_i in number, p_chk in boolean default true) return number;
+
+Открыть файл
+Входные параметры:
+ name_i - имя (путь) к файлу
+ flag_i - режим открытия
+ p_chk - игнорируется
+Возвращаемые значения:
+ > 0 - дескриптор файла;
+ ERR_INVALID_PARAMETER, ERR_INVALID_MODE, ERR_NOT_ENOUGH_PRIVILEGE, ERR_INVALID_NAME, ERR_NAME_EXISTS
+
+ ----------------------------------------------------------
+ function fcreate(name_i in varchar2, mode_i in number, p_chk in boolean default true) return number;
+
+Создать файл
+Входные параметры:
+ name_i - имя (путь) файла
+ mode_i - маска доступа "для всех"
+ p_chk - игнорируется
+Возвращаемые значения:
+ > 0 - дескриптор файла;
+ ERR_INVALID_PARAMETER, ERR_INVALID_MODE, ERR_NOT_ENOUGH_PRIVILEGE, ERR_INVALID_NAME, ERR_NAME_EXISTS
+
+ ----------------------------------------------------------
+ function fclose(fh_i in number) return number;
+
+Закрыть файл
+Входные параметры:
+ fh_i - дескриптор файла
+Возвращаемые значения:
+ ERR_SUCCESS, ERR_INVALID_HANDLE
+
+ ----------------------------------------------------------
+ function fseek(fh_i in number, pos in out nocopy varchar2, off_i in number, how_i in number) return number;
+
+Переместить текущий указатель в файле
+Входные параметры:
+ fh_i - дескриптор файла
+ pos  - новое (установленное) значение указателя позиции в файле
+ off_i - смещение
+ how_i - начальная позиция
+Возвращаемые значения:
+ = 0 - успешное выполнение, новое положение указателя записано в pos;
+ ERR_INVALID_HANDLE, ERR_INVALID_PARAMETER
+
+ ----------------------------------------------------------
+ function fread(fh_i in number, sz_i in number, bf_o in out nocopy raw) return number;
+
+Чтение данных из файла
+Входные параметры:
+ fh_i - дескриптор файла
+ sz_i - количество байт для считывания
+Выходные параметры:
+ bf_o - буфер
+Возвращаемые значения:
+ >0 - количество считанных байт
+ ERR_INVALID_HANDLE, ERR_EOF_REACHED
+
+ ----------------------------------------------------------
+ function fwrite(fh_i in number, bf_i in raw, sz_i in number default 0) return number;
+
+Записьданных в файл
+Входные параметры:
+ fh_i - дескриптор файла
+ bf_i - буфер
+ sz_i - размер буфера
+Возвращаемые значения:
+ ERR_SUCCESS, ERR_INVALID_HANDLE
+
+ ----------------------------------------------------------
+ function f_open(filename in varchar2, open_mode in varchar2 default 'r', p_chk in boolean default false) return pls_integer;
+
+Открыть файл
+Входные параметры:
+ filename - имя (путь) к файлу
+ open_mode - режим открытия
+ p_chk - игнорируется
+Возвращаемые значения:
+ > 0 - дескриптор файла;
+ ERR_INVALID_PARAMETER, ERR_INVALID_MODE, ERR_NOT_ENOUGH_PRIVILEGE, ERR_INVALID_NAME, ERR_NAME_EXISTS
+
+ ----------------------------------------------------------
+ function f_close(file in out nocopy pls_integer) return pls_integer;
+
+Закрыть файл
+Входные параметры:
+ file - дескриптор файла
+Возвращаемые значения:
+ ERR_SUCCESS, ERR_INVALID_HANDLE
+
+ ----------------------------------------------------------
+ procedure f_closeall(p_files in boolean default true);
+
+Закрыть все файлы
+Входные параметры:
+ p_files - игнорируется для VFS, для FIO - см. stdio.txt
+
+ ----------------------------------------------------------
+ function f_flush(file in pls_integer) return pls_integer;
+
+Сброс данных в файл из буфера (при буферизованном файловом вводе-выводе
+через FIO, для VFS ничего не делает).
+
+ ----------------------------------------------------------
+ function f_seek(file in pls_integer, pos in out nocopy varchar2, off_i in pls_integer, how_i in pls_integer default 0) return pls_integer;
+
+Переместить текущий указатель в файле
+Входные параметры:
+ file - дескриптор файла
+ pos  - новое (установленное) значение указателя позиции в файле
+ off_i - смещение
+ how_i - начальная позиция
+Возвращаемые значения:
+ = 0 - успешное выполнение, новое положение указателя записано в pos;
+ ERR_INVALID_HANDLE, ERR_INVALID_PARAMETER
+
+ ----------------------------------------------------------
+ function f_read(file in pls_integer, bf_o in out nocopy raw, sz_i in pls_integer) return pls_integer;
+
+Чтение данных из файла
+Входные параметры:
+ file - дескриптор файла
+ sz_i - количество байт для считывания
+Выходные параметры:
+ bf_o - буфер
+Возвращаемые значения:
+ >0 - количество считанных байт
+ ERR_INVALID_HANDLE, ERR_EOF_REACHED
+
+ ----------------------------------------------------------
+ function f_write(file in pls_integer, bf_i in raw, sz_i in pls_integer default 0) return pls_integer;
+
+Записьданных в файл
+Входные параметры:
+ file - дескриптор файла
+ bf_i - буфер
+ sz_i - размер буфера
+Возвращаемые значения:
+ ERR_SUCCESS, ERR_INVALID_HANDLE
+
+ ----------------------------------------------------------
+ function read_str(file in pls_integer, str in out nocopy varchar2,
+  in_text in number default null, out_text in number default null,
+  sz_i in pls_integer default 0) return pls_integer;
+
+Читает текст из файла
+Входные параметры:
+ file - дескриптор файла
+ in_text - кодировка исходного текста
+ out_text - кодировка для сохранения
+ sz_i - размер буфера
+Выходные параметры:
+ str - строка - прочитанный текст
+Возвращаемые значения:
+ >0 - количество считанных байт
+ ERR_INVALID_HANDLE, ERR_EOF_REACHED
+
+ ----------------------------------------------------------
+ function write_str(file in pls_integer, str in varchar2,
+  in_text in number default null, out_text in number default null,
+  p_nl in boolean default true) return pls_integer;
+
+Записывает текст
+Входные параметры:
+ file - дескриптор файла
+ str - строка
+ in_text - кодировка исходного текста
+ out_text - кодировка для сохранения
+ p_nl - признак добавления конца строки
+Возвращаемые значения:
+ ERR_SUCCESS, ERR_INVALID_HANDLE
+
+ ----------------------------------------------------------
+ function get_file_name(file in pls_integer, p_files in boolean default true) return varchar2;
+
+Возвращает полное имя открытого файла
+Входные параметры:
+ file - дескриптор файла
+ p_files - игнорируется
+Возвращаемые значения:
+ имя файла или NULL - неверный дескриптор
+
+ ----------------------------------------------------------
+ function error_message(error_number_i in number) return varchar2;
+
+Получить по коду сообщение об ошибке
+Входные параметры:
+ error_number - код ошибки
+Возвращаемые значения:
+ текст сообщения об ошибке
+
+ ----------------------------------------------------------
+ function f_copy(oldname in varchar2, newname in varchar2, fsize in out nocopy varchar2,
+  p_chk in boolean default false, p_write in boolean default true) return pls_integer;
+
+Копирование файла
+Входные параметры:
+ oldname - имя (путь) копируемого файла
+ newname - новое имя (путь) копируемого файла
+ pos   - размер скопированного файла (в случае успеха)
+ p_chk - игнорируется
+ p_write - игнорируется
+Возвращаемые значения:
+ = 0 - успешное выполнение, размер скопированного файла записан в fsize;
+ ERR_NOT_ENOUGH_PRIVILEGE, ERR_INVALID_PARAMETER, ERR_INVALID_NAME, ERR_NAME_EXISTS, ERR_LOCKED
+
+ ----------------------------------------------------------
+ function f_info(name in varchar2,
+  attrs in out nocopy varchar2, uowner in out nocopy varchar2, gowner in out nocopy varchar2,
+  mdate in out nocopy varchar2, fsize in out nocopy varchar2, p_chk in boolean default false) return pls_integer;
+
+Получить информацию о файле
+Входные параметры:
+ name - имя (путь) файла
+ p_chk - игнорируется
+Выходные параметры:
+ attrs - аттрибуты файла
+ uowner - владелец файла
+ gowner = uowner
+ mdate - дата создания
+ fsize - размер
+Возвращаемые значения:
+ ERR_SUCCESS, ERR_INVALID_PARAMETER
+
+ ----------------------------------------------------------
+ function fmove(oldname_i in varchar2, newname_i in varchar2, p_chk in boolean default true) return number;
+
+Переместить файл
+Входные параметры
+ oldname_i - старое имя (путь) файла
+ newname_i - новое имя (путь) файла
+ p_chk - игнорируется
+Возвращаемые значения:
+ ERR_SUCCESS, ERR_NOT_ENOUGH_PRIVILEGE, ERR_INVALID_PARAMETER, ERR_INVALID_NAME, ERR_NAME_EXISTS, ERR_LOCKED,
+ ERR_INVALID_PATH
+
+ ----------------------------------------------------------
+ function fdelete(filename_i in varchar2, p_chk in boolean default true) return number;
+
+Удалить файл
+Входные параметры:
+ filename_i - имя (путь) файла
+ p_chk - игнорируется
+Возвращаемые значения:
+ ERR_SUCCESS, ERR_NOT_ENOUGH_PRIVILEGE, ERR_LOCKED, ERR_NOT_EMPTY, ERR_INVALID_PARAMETER, ERR_INVALID_PATH
+
+ ----------------------------------------------------------
+ function mkdir(name_i in varchar2, mode_i in number default 0, p_chk in boolean default true) return number;
+
+Создать каталог
+Входные параметры:
+ name_i - имя (путь) каталога
+ mode_i - маска доступа "для всех"
+ p_chk - игнорируется
+Возвращаемые значения:
+ ERR_SUCCESS, ERR_NOT_ENOUGH_PRIVILEGE, ERR_INVALID_PARAMETER, ERR_INVALID_NAME, ERR_NAME_EXISTS,
+ ERR_NO_STATIC_FOLDER_IN_TEMP, ERR_INVALID_CHARSET, ERR_INVALID_PATH
+
+ ----------------------------------------------------------
+ procedure move_file(old_name in varchar2, new_name in varchar2, p_chk in boolean default false);
+
+Переместить файл
+Входные параметры
+ old_name - старое имя (путь) файла
+ new_name - новое имя (путь) файла
+ p_chk - игнорируется
+
+ ----------------------------------------------------------
+ procedure delete_file(file_name in varchar2, p_chk in boolean default false);
+
+Удалить файл
+Входные параметры:
+ file_name - имя (путь) файла
+ p_chk - игнорируется
+
+ ----------------------------------------------------------
+ function flist(dirname_i in varchar2 default null, dirflag_i in number default 0,
+  p_sort in boolean default null) return varchar2;
+
+Получить список элементов (в текстовый буфер, разделенных символом(ами) конца строки)
+Входные параметры:
+ dirname_i - имя (путь) к каталогу
+ dirflag_i - фильтр по типам элементов
+ p_sort - признак сортировки (NULL - нет, > 0 - по возрастанию, < 0 - по убыванию)
+Возвращаемые значения:
+ строка, сождержащая имена выбранных элементов
+Исключения:
+ E_NOT_ENOUGH_PRIVILEGE, E_LOCKED, E_INVALID_PARAMETER
+
+ ----------------------------------------------------------
+ function flist(dirname_i in varchar2 default null, dirflag_i in number default 0,
+  filelist_o in out nocopy varchar2,
+  p_sort in boolean default null, p_chk in boolean default true) return number;
+
+Получить список элементов (в текстовый буфер, разделенных символом(ами) конца строки)
+Входные параметры:
+ dirname_i - имя (путь) к каталогу
+ dirflag_i - фильтр по типам элементов
+ p_sort - признак сортировки (NULL - нет, > 0 - по возрастанию, < 0 - по убыванию)
+ p_chk - игнорируется
+Выходные параметры:
+ filelist_o - строка, сождержащая имена выбранных элементов
+Возвращаемые значения:
+ >= 0 - количество выбранных элементов;
+ ERR_NOT_ENOUGH_PRIVILEGE, ERR_LOCKED, ERR_INVALID_PARAMETER
+
+ ----------------------------------------------------------
+ function file_list(location in varchar2 default null, dir_flag in pls_integer default 0,
+  p_sort in boolean default null, p_chk in boolean default false) return varchar2;
+
+Получить список элементов (в текстовый буфер, разделенных символом(ами) конца строки)
+Входные параметры:
+ location - имя (путь) к каталогу
+ dir_flag - фильтр по типам элементов
+ p_sort - признак сортировки (NULL - нет, > 0 - по возрастанию, < 0 - по убыванию)
+ p_chk - игнорируется
+Возвращаемые значения:
+ строка, сождержащая имена выбранных элементов
+Исключения:
+ E_NOT_ENOUGH_PRIVILEGE, E_LOCKED, E_INVALID_PARAMETER
+
+ ----------------------------------------------------------
+ function opendir(dirname in varchar2 default null, mask in varchar2 default null,
+  dir_flag in pls_integer default 0, p_chk in boolean default false) return pls_integer;
+
+Открыть каталог
+Входные параметры:
+ dirname - имя (путь) каталога
+ mask - маска (фильтр по имени)
+ dir_flag - фильтр по типам элементов
+ p_chk - игнорируется
+Возвращаемые значения:
+ > 0 - дескриптор каталога
+ ERR_NOT_ENOUGH_PRIVILEGE, ERR_INVALID_PARAMETER, ERR_LOCKED
+
+ ----------------------------------------------------------
+ function closedir(dir in out nocopy pls_integer) return pls_integer;
+
+Закрыть каталог
+Входные данные:
+ dir - дескриптор каталога
+Возвращаемые значения:
+ ERR_SUCCESS, ERR_INVALID_HANDLE
+
+ ----------------------------------------------------------
+ function resetdir(dir in pls_integer) return pls_integer;
+
+Перечитать список элементов для открытого каталога
+Входные параметры:
+ dir - дескриптор каталога
+Возвращаемые значения:
+ ERR_SUCCESS, ERR_INVALID_HANDLE
+
+ ----------------------------------------------------------
+ function readdir(dir in pls_integer,
+  name in out nocopy varchar2, attrs in out nocopy varchar2, uowner in out nocopy varchar2,
+  gowner in out nocopy varchar2, mdate in out nocopy varchar2, fsize in out nocopy varchar2) return pls_integer;
+
+Получить данные для следующего элемента в открытом каталоге
+Входные параметры:
+ dir - дескриптор каталога
+Выходные параметры:
+ name - имя элемента
+ attrs - аттрибуты файла
+ uowner - владелец файла
+ gowner = uowner
+ mdate - дата создания
+ fsize - размер
+Возвращаемые значения:
+ > 0 - номер по-порядку элемента
+ ERR_NO_DATA
+
+ ----------------------------------------------------------
+ function get_env(aname in varchar2) return varchar2;
+
+Получить значение переменной окружения
+Входные параметры:
+ name - имя переменной окружения
+Выходные параметры:
+ значение переменной
+
+ ----------------------------------------------------------
+ procedure put_env(aname in varchar2, avalue in varchar2);
+
+Установить значение переменной окружения
+Входные параметры:
+ name - имя переменной
+ value - значение
+
+ ----------------------------------------------------------
+ procedure io_open;
+
+Инициализация vfs_io
+
+ ----------------------------------------------------------
+ procedure io_close;
+
+Деинициализация vfs_io
+
+ ----------------------------------------------------------
+ procedure check_open;
+
+Проверка инициализации vfs_io (если не инициализирована, инициализировать)
+

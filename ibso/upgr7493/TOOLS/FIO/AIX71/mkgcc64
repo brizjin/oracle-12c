@@ -1,0 +1,4 @@
+#!/bin/sh
+all:
+	gcc -c -fPIC -maix64 fio.c -I/include
+	gcc -shared -maix64 -o libfio64.so fio.o

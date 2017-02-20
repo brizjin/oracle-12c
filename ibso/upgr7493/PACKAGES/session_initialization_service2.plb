@@ -1,0 +1,45 @@
+prompt session_initialization_service body
+create or replace package body
+/*
+ *  $HeadURL: http://hades.ftc.ru:7382/svn/pltm2/CorePkg/tags/7.4.9.3/IBS/session_initialization_service2.sql $
+ *  $Author: kirgintsev $
+ *  $Revision: 106724 $
+ *  $Date:: 2016-05-24 12:47:44 #$
+ */
+session_initialization_service wrapped 
+a000000
+ab
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+b
+9be 3f9
+z6LVWrs5468gtrkOR7P68TIcfLwwgzsrLtATfC/NrZ0VeN8JRjOGYRT3dgTjDdRgYaF47VQF
+3zvI5cMnKwDD+Ib2Ti6lJX4NdmbgydQgiwAkhbjOqbZn/RzNsym4e5Qk0EVXb3KV69AGcusD
+cxJ75JJMz63KZheCYGMbXxa33T5wn50Yf40vR8lS/+bpV4S9Fu0dqM3tpo2ZQJ9URrpWSHn0
+shRG18i+/AcZ8KrBRIJwzJ2e90VVCsvYxPVv3uATe1iPqKK+po4FAWI1o2fsGj6iNtUEK6h/
+0xiSRpVxTnQECbpNQbSZHKhHefITihAiz5ZKfROQieLGbw5qCPZwez5eVJEYSrNagm7IgkTQ
+/MXrqJUJn+v0ytStXONDif9iZ7o+fk8PVUfWqItFFZe6h2QAH8nRz5iMaAxE3pgtO50WQhOx
+EdfN6VjyXUtLJDLg8NZSPXB/SwzkhCFc7/7V65kutu6cbokI144jRBMxLtdSZ8Vs+jxKt6IW
+1TIOyvstfMjAvVGQmuCmF/UBe0Pz9X4EoEMORx3YiVA+/2UV0wMKtPdQpM6XCHUoPTxgWEfR
+sCe0l8ibpWtx/DI89QNNUjxOxemPRhdCj5evlR4+1cdv7X9S36d+R/tXrqU37rICHMcQpC6w
+YKJBQ7yNgWKPVRn6e5wX2xMN47B1S68l2ykSLNEPLRxbs2KVKtLLUtcDanh7RKAEVjKFEMh5
+WUBE3AGPy93DNxHd3Ot8fdnd83CeWbRUcjsT6NmJQUYK02CpvxfhblMm2J0yS4eQQ6tCsRwG
+4Yi1J8FgdcODozRyJGUvlpaHeSAZFQOEIOHtOsB561U/q6ti51XQuznFXKJTmr1waBnNJAUS
+jDLaSlXpOSLRJSSqnLwo1CDxh40Rt5dgbLwIVtO78DbZu7Jija3n6tbjVKYElAnaVkFtL9gV
+sJqL8AD5ZKYK4dGIQfhwT7vy4VVdGYxyCFIDtaMefC62WfpJfp3wqyiyIuREj5S4iA==
+
+/
+show errors package body session_initialization_service

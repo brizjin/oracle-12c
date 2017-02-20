@@ -1,0 +1,4 @@
+#!/bin/sh
+cc -G -q32 -qmkshrobj -o libhash32.so hash.o alloc.o hcontrol.o ke_fdirc.o ke_ffind.o ke_fhead.o ke_fopen.o ke_ftabl.o ke_hcalc.o ke_hinit.o kg_gen.o
+
+

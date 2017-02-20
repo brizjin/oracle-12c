@@ -1,0 +1,4 @@
+#!/bin/sh
+all:
+	cc -c +DD64 +Z -z fio.c -I/include
+	ld -b -o libfio64.sl fio.o

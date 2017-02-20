@@ -1,0 +1,377 @@
+            Описание пакетов, используемых в PL/PLUS.
+
+        1. Пакет LIB.
+type ARCHIVE_REC_T is record (
+  id        string(128),
+  qual      string(700),
+  time      timestamp,
+  username  string(30),
+  base_id   string(16),
+  value     string(4000)
+); -- структура хранения записи истории "Архивных реквизитов"
+type ARCHIVE_REC_TBL_T is table of ARCHIVE_REC_T;
+-- массив истории "Архивных реквизитов"
+
+function C_EMPTY (p_collect_id IN collection,
+                  p_class in string default NULL) return boolean;
+    Является ли коллекция p_collect_id пустой,
+    p_class указывает тип экземпляров коллекции.
+function C_COUNT (p_collect_id IN collection,
+                  p_class in string default NULL) return integer;
+    Возвращает количество экземпляров в коллекции p_collect_id,
+    p_class указывает тип экземпляров коллекции.
+function OPERATING_DATE ( p_date IN date ) return date;
+	Возвращает дату операционного дня :
+    sysdate, если day(p_date) = day(sysdate)
+    day(sysdate) и время 00:00:00 , если day(p_date) < day(sysdate)
+    day(sysdate) и время 23:59:59 , если day(p_date) > day(sysdate)
+function CLASS_NAME (p_class_id IN string) return string;
+    Возвращает полное наименование типа по его короткому
+    имени p_class_id.
+function CLASS_BASE (p_class_id IN string) return string;
+    Возвращает базовый тип по его короткому имени p_class_id.
+function CLASS_TARGET (p_class_id IN string) return string;
+    Возвращает целевой (ссылаемый) тип по его короткому имени p_class_id.
+function CLASS_ENTITY (p_class_id IN string) return string;
+    Возвращает базовое понятие типа по его короткому имени p_class_id.
+function CLASS_TABLE (p_class_id IN string) return string;
+    Возвращает имя таблицы Oracle для заданного в p_class_id типа.
+function CLASS_PARENT (p_class_id IN string) return string;
+    Возвращает родительский тип по его короткому имени p_class_id.
+function TOP_PARENT (p_class IN string) return string;
+    Возвращает вершину иерархии родительских типов для типа,
+    заданного в p_class.
+function GET_PARENTS(p_class IN string) return string(2000);
+    Возвращает список родительских типов для p_class в формате
+    (список родительских типов от верхнеуровневого к нижнеуровневому
+    с разделителем - точкой):
+    <top parent>.<top-1 parent>. ... .<nearest parent>.
+function STATE_NAME(p_state_id IN string, p_class_id IN string)
+                    return string;
+    Возвращает полное наименование состояния по его
+    короткому имени p_state_id в типе p_class_id.
+function ATTR_NAME(p_attr_id IN string, p_class_id IN string)
+                    return string;
+    Возвращает полное наименование реквизита типа p_class_id по его
+    короткому имени p_attr_id.
+function CLASS_SIZE (p_class_id IN string) return integer;
+    Возвращает размер (в байтах) типа по его короткому
+    имени p_class_id. Если тип является структурой, то размер
+    рассчитывается по сумме размеров всех его реквизитов.
+function IS_COMPATIBLE ( p_parent_class IN string,
+                         p_child_class  IN string
+                       ) return boolean;
+    Проверка совместимости типов p_parent_class и p_child_class.
+function IS_PARENT ( p_parent_class IN string,
+                     p_child_class  IN string,
+                     p_start    IN boolean default FALSE
+                   ) return boolean;
+    Проверка принадлежности типа p_child_class иерархии типа
+    p_parent_class. Если p_start=TRUE, то проверка строгая - т.е.
+    сам тип не может быть родителем самому себе.
+function IS_REFERENCE ( p_referencing IN string,
+                        p_referenced  IN string
+                       ) return boolean;
+    Возвращает признак того, может ли тип p_referencing ссылаться
+    на тип p_referenced.
+function IS_KERNEL ( p_id IN string,
+                     p_class IN boolean default TRUE
+                   ) return boolean;
+    Возвращает признак того, является ли объект, заданный в p_id,
+    системным. Параметр p_class конкретизирует объект, задаваемый
+    в p_id: при значении true (по умолчанию) задается короткое имя
+    типа, при значении false задается id операции.
+function HAS_CHILDS ( p_class IN string ) return boolean;
+    Возвращает признак того, существуют ли у типа p_class дочерние типы.
+function HAS_STRINGKEY ( p_class IN string ) return boolean;
+    Возвращает признак того, строковый ли у типа p_class ключевой реквизит (ID).
+function HAS_PARTITIONS ( p_class IN string ) return string(1);
+    Возвращает признак того, имеются ли архивные разделы у типа p_class:
+    '0' - тип не секционирован,
+    '1' - тип архивирован по механизму PARTITION (Oracle partitions),
+    '2' - тип архивирован по механизму PARTVIEW  (partition views),
+	'3' - тип секционирован по профилю (Oracle partitions)
+function PLSQL_EXEC_NAME ( p_method_id IN string,
+                           p_validate  IN string default null ) return string;
+    Возвращает имя исполняемой процедуры операции с id, равным p_method_id.
+    При значении p_validate='1' возвращает имя процедуры
+      для валидатора операции (секции VALIDATE),
+    для других значений (в т.ч. и для умолчательного пустого) возвращает имя
+      для основной исполняемой процедуры (секции EXECUTE).
+function SOFT_REPLACE(str string,str1 string default null,
+       str2 string default null, symb string default null) return string;
+    Возвращает строку, полученную из str путем замены всех вхождений
+    подстроки str1 на str2 (поиск и замена case insensitive).
+    Причем ищутся такие вхождения подстроки str1, чтобы слева или справа
+    подстроки был символ-разделитель, не входящий в список символов,
+    заданный параметром symb (т.е. поиск идентификатора str1 со списком
+    допустимых символов для идентификатора, задаваемого в symb).
+    Если str2 пуста, то все вхождения str1 удаляются. Если str1 пуста,
+    то строка не модифицируется. Если список символов задан пустым,
+    то используется следующий умолчательный набор символов:
+    0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_#$"'
+
+ПРИМЕЧАНИЕ. Все указанные функции (кроме C_EMPTY, C_COUNT) можно
+    использовать в условиях выборки и поиска (FOR/LOCATE).
+
+
+        2. Пакет MESSAGE.
+
+Предопределенные номера исключений:
+    ERROR_NUMBER      constant integer := -20100;
+    SYS_ERROR_NUMBER  constant integer := -20200;
+    APP_ERROR_NUMBER  constant integer := -20300;
+    INFO_ERROR_NUMBER constant integer := -20400;
+    LOCK_ERROR_NUMBER constant integer := -20500;
+Исключения:
+exception EXEC_EXCEPTION - ошибка среды времени исполнения (-20100).
+exception SYS_EXCEPTION  - системная  ошибка (-20200).
+exception APP_EXCEPTION  - прикладная ошибка (-20300).
+procedure APP_ERROR ( p_error IN string, p_text  IN string );
+    Аварийное завершение выполнения операции. Пользователю будет
+    выдан код ошибки p_error и текст сообщения p_text. Генерирует
+    исключение ORACLE с указанным текстом (APP_EXCEPTION: -20300).
+procedure LOCK_ERROR ( p_error IN string, p_text  IN string );
+    Аварийное завершение выполнения метода. Пользователю будет
+    выдан код ошибки p_error и текст сообщения p_text. Генерирует
+    исключение rtl.CANNOT_LOCK. Используется при обработке исключения
+    rtl.CANNOT_LOCK .
+function  LAST_ERROR ( p_last_topic OUT string,
+                       p_last_code  OUT string,
+                       p_last_msg   OUT string,
+                       p_clear      IN  boolean default FALSE
+                     ) return number;
+    Возвращает номер последней прикладной ошибки (APP_EXCEPTION: -20300)
+    пакета MESSAGE и сопутствующую информацию.
+    При значении p_clear = TRUE дополнительно очищает информацию о последней
+    ошибке.
+function  LAST_MESSAGE return string;
+    Возвращает текст последней прикладной ошибки пакета MESSAGE.
+procedure CLEAR(p_reset boolean default false);
+    Сбрасывает информацию о последней прикладной ошибке (APP_EXCEPTION: -20300).
+    При значении p_reset = TRUE дополнительно сбрасывает внутренний кэш сообщений.
+function  GETTEXT ( p_topic string, p_code  string,
+                    p1      string default NULL,
+                    p2      string default NULL,
+                    p3      string default NULL,
+                    p4      string default NULL,
+                    p5      string default NULL,
+                    p6      string default NULL,
+                    p7      string default NULL,
+                    p8      string default NULL,
+                    p9      string default NULL) return string;
+    Возвращает текст из справочника сообщений (таблица messages)
+    c заданным топиком p_topic и кодом p_code, при этом строковые
+    вхождения вида %<N> заменяются на соответствующее значение
+    параметра p<N> (<N> в интервале от 1 до 9), строковые вхождения '%n'
+    заменяются переводом строки.
+function  GET_TEXT( p_topic string, p_code  string,
+                    p1      string default NULL,
+                    p2      string default NULL,
+                    p3      string default NULL,
+                    p4      string default NULL,
+                    p5      string default NULL,
+                    p6      string default NULL,
+                    p7      string default NULL,
+                    p8      string default NULL,
+                    p9      string default NULL) return string;
+    Возвращает текст из справочника сообщений (таблица messages)
+    c заданным топиком p_topic и кодом p_code, при этом строковые
+    вхождения вида %N заменяются на соответствующее значение
+    параметра p<N> (<N> в интервале от 1 до 9), строковые вхождения '%n'
+    заменяются переводом строки. К возвращаемой строке с начала
+    добавляются и исходные топик и код сообщения в виде:
+    <p_topic>-<p_code>: <message>.
+procedure ERR ( p_error integer, p_topic string, p_code  string,
+                p1      string default NULL,
+                p2      string default NULL,
+                p3      string default NULL,
+                p4      string default NULL,
+                p5      string default NULL,
+                p6      string default NULL,
+                p7      string default NULL,
+                p8      string default NULL,
+                p9      string default NULL);
+    Генерирует исключение с заданным номером p_error и текстом
+    сообщения из справочника сообщений (messages), создаваемому
+    по значениям параметров p_topic, p_code, p1...p<N> функцией
+    GET_TEXT.
+procedure SYS_ERROR ( p_topic string, p_code  string,
+                      p1      string default NULL,
+                      p2      string default NULL,
+                      p3      string default NULL,
+                      p4      string default NULL,
+                      p5      string default NULL,
+                      p6      string default NULL,
+                      p7      string default NULL,
+                      p8      string default NULL,
+                      p9      string default NULL);
+    Генерирует системную ошибку SYS_EXCEPTION (c номером SYS_ERROR_NUMBER)
+    и текстом сообщения из справочника сообщений (messages), создаваемому
+    по значениям параметров p_topic, p_code, p1...p<N> функцией
+    GET_TEXT.
+procedure ERROR ( p_topic string, p_code  string,
+                  p1      string default NULL,
+                  p2      string default NULL,
+                  p3      string default NULL,
+                  p4      string default NULL,
+                  p5      string default NULL,
+                  p6      string default NULL,
+                  p7      string default NULL,
+                  p8      string default NULL,
+                  p9      string default NULL);
+    Генерирует стандартную RUNTIME ошибку EXEC_EXCEPTION (c номером ERROR_NUMBER)
+    и текстом сообщения из справочника сообщений (messages), создаваемому
+    по значениям параметров p_topic, p_code, p1...p<N> функцией
+    GET_TEXT.
+procedure ERROR_REPEAT ( p_text string default NULL );
+    Распространяет (reraise) последнее исключение с новым текстом
+    (если p_text не пуст). Удобно использовать в обработчиках
+    исключений как аналог оператора RAISE.
+procedure RAISE_ ( p_error integer, p_text string,
+                   p_propagate boolean default false);
+    Генерирует исключение с номером p_error (можно задавать диапазон
+    значений от -20000 до -20999 включительно) и текстом p_text.
+    При значении p_propagate = true сохраняется также предыдущий
+    стек ошибки, если был таковой (при перехвате исключений в
+    обработчиках исключений).
+
+
+        3. Пакет CONSTANT.
+
+constant DATE_FORMAT string;
+    Формат преобразования стандартной даты (date) по умолчанию.
+constant TIMESTAMP_FORMAT string;
+    Формат преобразования расширенной даты (timestamp) по умолчанию.
+constant DATE_MAX date;
+    Максимально возможное значение для даты.
+constant NO string(1) := '0';
+    Строковое представление логического значения false.
+constant YES string(1) := '1';
+    Строковое представление логического значения true.
+
+
+        4. Пакет UTILS.
+
+exception NUMERIC_OVERFLOW - исключение ORACLE (-1426), переполнение числа,
+    возникающее при попытке занести в числовой тип значения, которое
+    превышает его физический размер (например, при попытке внести
+    в integer значенияЮ превышающего 2147483647).
+function GET_TIME return number;
+    Возвращает системное время в сотых долях секунды (1 единица
+    равна 0.01 секунды) - входная точка dbms_utility.get_time.
+ПРИМЕЧАНИЕ:  Функция dbms_utility.get_time заменена на
+    utils.get_time, поэтому из-под PL/PLUS следует пользоваться_
+    последней функцией.
+function ERROR_STACK return string;
+    Возвращает стек ошибок (более подробная информация, чем SQLERRM)
+    - вход dbms_utility.format_error_stack.
+function CALL_STACK return string;
+    Возвращает трассировку вложенных процедур и функций - вход
+    dbms_utility.format_call_stack.
+function SESSION_ID return string;
+    Возвращает уникальный идентификатор текущей сессии - вход
+    dbms_session.unique_session_id. Может использоваться в условиях
+    выборки.
+procedure FREE_MEMORY;
+    Освобождает неиспользуемую память сессии. Эту процедуру следует
+    вызывать при выходе из операций, активно использующих PL/SQL
+    таблицы - вход dbms_session.free_unused_user_memory.
+procedure RESET_PACKAGE;
+    Сбрасывает состояние пакетов в текущей сессии, переменные пакетов
+    инициализируются умолчательными значениями - вход
+    dbms_session.reset_package.
+procedure SET_SQL_TRACE(sql_trace boolean);
+    Устанавливает или сбрасывает флаг трассировки (sql_trace) в текущей сессии
+    - вход dbms_session.set_sql_trace.
+procedure SET_SQL_TRACE_IN_SESSION(sid number, serial number, sql_trace boolean);
+    Устанавливает или сбрасывает флаг трассировки (sql_trace) в заданной
+    (по sid и serial) сессии - вход dbms_system.set_sql_trace_in_session.
+procedure SLEEP(seconds in number);
+    Ожидание в течение seconds секунд (время ожидания можно указывать
+    с точностью до сотых долей секунды) - вход dbms_lock.sleep.
+procedure SET_ROLE(role_cmd string);
+    Выполняет команду SQL "SET ROLE <role_cmd>".
+function IS_ROLE_ENABLED(rolename string) return boolean;
+    Проверяет установлена ли роль rolename в текущей сессии.
+procedure SET_NLS(param string, value string) -
+    Выполняет команду SQL "ALTER SESSION SET <nls_parameter>=<value>"
+function HASH_VALUE( name string,
+                     base      integer default 0,
+                     hash_size integer default 1073741824
+                   ) return integer;
+    Вычисляет HASH-функцию для указанного имени name.
+    Удобно использовать для индексации PL/SQL таблиц.
+    Может использоваться в условиях поиска и выборки.
+function INT_HEX(p_idx integer) return string;
+    Преобразует целое число к 4-символьной строке.
+function HEX_INT(p_hex string) return integer;
+    Преобразует 4-символьную строку к целому числу.
+function CHAR_HEX(p_char string) return string;
+    Преобразует 1 символ (0..255) к 2-символьной строке в шестнадцатиричном
+    формате.
+function HEX_CHAR(p_hex string) return string;
+    Преобразует 2-символьную строку в шестнадцатиричном формате
+    к 1 символу (0..255).
+function STR_HEX(p_str string) return string;
+    Преобразует символьную строку к строке в шестнадцатиричном
+    формате вдвое большей длины.
+function HEX_STR(p_str string) return string;
+    Преобразует строку в шестнадцатиричном формате к символьной
+    строке вдвое меньшей длины.
+    Функции строковых преобразований могут использоваться в условиях
+    поиска и выборки.
+function STR_RAW(p_str string) return raw;
+    Преобразует строку p_str в бинарный массив (char to byte)
+function RAW_STR(p_raw raw) return string;
+    Преобразует бинарный массив p_raw в строку (byte to char)
+function HASH_ID( p_num  number) return integer;
+    Преобразует произвольное положительное целое число (p_num) в 4-байтовое
+    целое число integer (pls_integer) - полезно для приведения ID экземпляров
+    к целочисленным значениям, которые могут использоваться для индексирования
+    PL/SQL таблиц:
+     1) p_num in 0..2147483647 - возвращает p_num (0..2147483647)
+     2) p_num in 2147483648..4294967294  - возвращает 2147483647-p_num (-1..-2147483647)
+     3) p_num > 4294967294 - возвращает mod(p_num,4294967295) преобразованныcй через 1),2) (-2147483647..2147483647)
+function HASH_ID( p_str  string) return integer;
+     Преобразует строковое значение в целое число (перекрытая функция для строковых
+     идентификаторов экземпляров).
+     Возвращает значение хэш функции (hash_value) в максимально возможном
+     диапазоне 0..2147483647..
+procedure RANDOMIZE(p_seed number default null);
+    Инициализация генератора случайных чисел.
+    Может быть явно задана база p_seed для расчета набора случайных чисел.
+    Если база не задана, то она вычисляется из текущего времени,
+    если задана, то она нормализуется по значению 4294967296, т.е.
+    если abs(p_seed)>1, то база равна mod(trunc(abs(p_seed)),4294967296),
+    иначе база равна trunc(abs(p_seed)*4294967296).
+function  RANDOM ( p_base number default 1 ) return number;
+    Возвращает случайное число в интервале от 0 до p_base
+    (по умолчанию от 0 до 1).
+type REF_CURSOR is ref cursor;
+    Тип - нетипизованный ссылочный курсор.
+function  open_cursor( p_cursor in out nocopy ref_cursor,
+                 p_select varchar2,
+                 p_raise  boolean  default TRUE,
+                 p_vars   pls_integer default NULL,
+                 p_value1 varchar2 default NULL,
+                 p_value2 varchar2 default NULL,
+                 p_value3 varchar2 default NULL,
+                 p_value4 varchar2 default NULL,
+                 p_value5 varchar2 default NULL
+               ) return boolean;
+    Функция динамической инициализации нетипизованного ссылочного
+    курсора по заданному в параметре p_select текстовому запросу.
+    При значении параметра p_raise = true (по умолчанию)
+    генерируются исключения при возникновении ошибок открытия курсора
+    (т.е. при p_raise = true курсор будет либо открыт успешно, либо
+    возникнет исключение). Параметр p_vars задает количество
+    используемых в запросе bind переменных (от 0 до 5), параметры
+    p_value1 .. p_value5 задают значения bind переменных (до 5
+    значений).
+    Функция возвращает TRUE если курсор был открыт успешно и FALSE
+    в противном случае (последнее возможно только при подавлении
+    исключений параметром p_raise = false).
+
+
+

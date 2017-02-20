@@ -1,0 +1,29 @@
+set echo on
+
+alter table orsa_jobs add SERVER_EXECUTED VARCHAR2(32);
+
+drop index IDX_ORSA_JOBS_PRIORITY_SHEDULE;
+drop index IDX_ORSA_JOBS_SHED_RUN_PRIOR;
+
+create index IDX_ORSA_JOBS_SHED_PRIOR_RUN
+  on ORSA_JOBS(DATE_SCHEDULE,PRIORITY,DATE_RUN) tablespace &&TSPACEI;
+
+set echo off
+
+prompt TRIGGER orsa_jobs_before_ins_upd
+CREATE OR REPLACE TRIGGER orsa_jobs_before_ins_upd
+BEFORE INSERT OR UPDATE OF DATE_SCHEDULE,PRIORITY  ON orsa_jobs
+FOR EACH ROW
+BEGIN
+  IF :NEW.DATE_SCHEDULE IS NULL THEN
+    :NEW.DATE_SCHEDULE := SYSDATE;
+  END IF;
+  IF :NEW.PRIORITY IS NULL THEN
+    :NEW.PRIORITY := 1;
+  END IF;
+END;
+/
+
+
+
+

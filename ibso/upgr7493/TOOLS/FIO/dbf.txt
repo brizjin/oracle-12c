@@ -1,0 +1,526 @@
+DBF - чтение и запись DBF файлов.
+
+[ChangeLog]
+
+07/07/2009 Добавлена поддержка сохранения memo полей.
+           Длина memo-поля в структуре должна быть = 10.
+
+18/07/2006 Не происходит вызовов convert если кодировки базы и файла совпадают.
+           В dbcreate и dbopen добавлен параметр cnv_encs. Если передать false,
+           то перекодировка просходить не будет независимо от настроек set_def_text.
+
+21/02/2006 Снято ограничение на использование buffer_put/buffer_get (возникло из-за dBASE7).
+
+11/10/2005 Добавлена поддержка полей типа double формата dBASE7.
+           В связи с этим появились следующие ограничения (при работе с форматом dBASE7):
+           1) buffer_put/buffer_get возвращают неперекодированные строковые поля. Нужно
+              либо перекодировать их самостоятельно, либо пользоваться функциями доступа
+              к полям, которые производят перекодировку.
+           2) Из-за различий в точности представления числе в Oracle и в формате IEEE-754,
+              не читаются числа за пределами диапазона: 1E-130 .. 10E125, кроме того
+              при преобразовании из double в Oracle происходит округление до 15 значимых
+              десятичных цифр.
+
+10/10/2005 Добавлена возможность чтения/создания файлов в формате dBASE7.
+           Новые типы данных dBASE7 не поддерживаются, т.е. они
+           интерпретируются как строковые.
+
+[Описание]
+
+Если нужно получить данные из какой-либо записи в файле:
+1) Выполняете go, gonext либо skip, чтобы переместиться на нужную запись
+и поместить ее в буфер редактирования.
+2) с помощью fg, fgp, buffer_get, deleted читаете нужные данные.
+
+Если нужно изменить данные какой-либо записи в файле:
+1) Выполняете go, gonext либо skip, чтобы переместиться на нужную запись
+и поместить ее в буфер редактирования.
+2) с помощью fp, fpp, buffer_put, delete_record изменяете нужные данные.
+3) с помощью put_record с параметром n = null (по-умолчанию) записываете
+изменения в файл.
+
+Если нужно добавить данные в файл:
+Вариант 1 (основной):
+  1) с помощью fp, fpp, buffer_put формируете нужную запись.
+  2а) с помощью append_record добавляете сформированную запись в конец файла
+  2б) с помощью go, gonext либо skip перемещаетесь в нужную позицию,
+    и с помощью add_record вставляете новую запись в эту позицию.
+Вариант 2 (для совместимости):
+  1) Выполняете append, в результате получаете:
+    а) чистый буфер редактирования
+  б) recno выдает rec_count + 1
+  в) lastrec выдает rec_count + 1
+  2) с помощью fp, fpp, buffer_put формируете нужную запись.
+  3) после следующих append, go, next, skip, dbflush, dbclose
+    данные добавляются в конец файла.
+Примечания к варианту 2:
+1) Если шага 2 НЕ было, то шаг 3 файл НЕ меняет
+2) Если НЕСКОЛЬКО раз позвать append - все будет выглядеть как будто
+произошел только ОДИН вызов.
+3) Если вместо операций из 3 позвать put_record, add_record, или append_record
+файл изменяется в соответствии с назначением этих функций, несмотря на то,
+что перед этим был append
+
+
+При возникновении ошибки процедуры и функции генерируют исключения.
+NO_SUCH_FIELD - Обращение к несуществующему полю.
+BAD_FORMAT - Некорректный формат файла.
+INVALID_PATH - Файл не существует.
+INVALID_OPERATION - Используется в случаях, когда нет подходящего по смыслу исключения.
+TOO_MANY_FIELDS - В файле слишком много полей.
+IO_ERROR - Ошибка файловой операции.
+BAD_STRUCT - Некорректная структура файла передана в dbcreate.
+BAD_FIELD_VALUE- Данные некорректного формата переданы в fp или в fpp.
+INVALID_HANDLE - Дескриптор не существует
+
+procedure set_def_text(p_db_text   varchar2 default null,
+                       p_file_text varchar2 default null,
+                       p_slash     varchar2 default null);
+Выставляет кодировки и направление слэша.
+Параметры :
+      p_db_text - кодировка базы данных (в которую происходит перекодировка)
+      по-умолчанию из stdio, если там не задана, то stdio.UNXTEXT.
+      p_file_text - кодировка файла (из которой происходит перекодировка).
+      по-умолчанию stdio.DOSTEXT.
+      p_slash - слэш. по-умолчанию из stdio, если там не задан, то /.
+          
+
+function dbopen(location in varchar2,
+                filename in varchar2,
+                raising in boolean default true,
+                open_mode in varchar2 default 'r',
+                buffered_io in boolean default true,
+                cnv_encs in boolean default true) return dbf_file_info_t
+Открывает файл.
+Возвращает значение типа dbf_file_info_t - дескриптор открытого файла.
+Параметры :
+      location - каталог расположения файла.
+      filename - имя файла.
+      raising  - если установлен в true, то при ошибках открытия файла
+                 возникают исключения INVALID_PATH, INVALID_MODE,
+                 INVALID_OPERATION, иначе выдаются сообщения об
+                 ошибке.
+      open_mode - мода открытия файла ('r' - чтение, 'w' - запись,
+                 'a' - запись в конец файла, 'r+', 'rw', 'w+', 'wr' - чтение/запись
+                 'a+' - чтение/запись в конец файла).
+      buffered_io - Операции ввода/вывода отложенные.
+                    Если установлен в false, то ввод/вывод происходит построчно,
+                    в кэше лежит только одна строка.
+                    Если true - ввод/вывод блоками по 32767 байт. При этом, если
+                    размер файла <= 2M и файл открыт только для чтения, в буфер
+                    помещаются все прочитанные строки и повторного чтения не происходит.
+                    Если размер файла > 2M или файл открыт на запись/добавление в кэше лежат
+                    до 32768/длина строки строк, при вставке и добавлении в кэше может
+                    оказаться до 2 * 32768/длина строки строк.
+      cnv_encs - Преобразовывать текстовые поля из кодировки
+                 файла в кодировку базы и наоборот.
+
+function dbcreate(location in varchar2,
+                  filename in varchar2,
+                  struct in varchar2,
+                  raising in boolean default true,
+                  open_mode in varchar2 default 'a',
+                  buffered_io in boolean default true,
+                  version in pls_integer default dBASE5,
+                  cnv_encs in boolean := true, 
+                  memo_filename in varchar2:= null) return dbf_file_info_t;
+Создает файл.
+Возвращает значение типа dbf_file_info_t - дескриптор созданного файла.
+Параметры :
+      location - см. dbopen
+      filename - см. dbopen
+      struct - структура файла.
+               Пример задания структуры: 'FLD1 C30, FLD2 N10.2, FLD3 D8,FLD4 M10'
+               Имя поля, тип и размер должны быть заданы обязательно, точка и число десятичных
+               знаков - опциональны. Разделитель описания полей - ','(запятая), возможны пробелы
+               вокруг нее. Длина должна быть >= числу десятичных знаков, если оно задано. Длина
+               поля не может быть >255. Длина memo-поля должна быть = 10. Других проверок, 
+               в том числе корректности заданных типов и их размерностей не делается, 
+               все переносится в заоловок dbf файла "как есть".
+               Для получения структуры существующего файла можно использовать функцию dbstruct.
+      raising  - см. dbopen
+      open_mode - см. dbopen, задавать 'r'(чтение) можно, файл будет создан,
+                  но нельзя будет манипулировать строками.
+      buffered_io - см. dbopen.
+      version - формат создаваемого файла. Если передать что-нибудь кроме констант
+                    dbf.dBASE5 и dbf.dBASE7, будет сгенерировано исключение BAD_FORMAT.
+      cnv_encs - см. dbcreate.
+      memo_filename - имя файла типа memo. По умолчанию формируется как filename.DBT.
+
+procedure dbclose(dbh in dbf_file_info_t, raising in boolean default true);
+Закрывает файл.
+Параметры :
+      dbh - дескриптор файла, полученный от dbopen или dbcreate
+      raising  - см. dbopen
+
+function dbstruct(dbh in dbf_file_info_t, raising in boolean default true) return varchar2;
+Возвращает структуру файла в формате dbcreate.
+Параметры :
+      dbh - дескриптор файла, полученный от dbopen или dbcreate
+      raising  - см. dbopen
+
+procedure dbdump(dbh in dbf_file_info_t, afields in boolean default false, arecs in boolean default false);
+Выводит информацию о dbf файле через stdio.put_line_buf.
+Параметры :
+      dbh - дескриптор файла, полученный от dbopen или dbcreate
+      afields  - если true, плюс к основным данным, выводит данные о полях
+      arecs  - если true, плюс к основным данным, выводит строки их кэша.
+
+function field(dbh in dbf_file_info_t, i pls_integer, raising in boolean default true) return varchar2;
+Возвращает имя поля по номеру поля.
+Параметры :
+      dbh - дескриптор файла, полученный от dbopen или dbcreate
+      i - номер поля, начиная с 1
+      raising  - см. dbopen
+
+function fieldpos(dbh in dbf_file_info_t, s varchar2, raising in boolean default true) return pls_integer;
+Возвращает номер поля по имени.
+Параметры :
+      dbh - дескриптор файла, полученный от dbopen или dbcreate
+      s - имя поля
+      raising  - см. dbopen
+
+function fcount(dbh in dbf_file_info_t, raising in boolean default true) return pls_integer;
+Возвращает число полей в файле.
+Параметры :
+      dbh - дескриптор файла, полученный от dbopen или dbcreate
+      raising  - см. dbopen
+
+function recsize(dbh in dbf_file_info_t, raising in boolean default true) return pls_integer;
+Возвращает размер записи.
+Параметры :
+      dbh - дескриптор файла, полученный от dbopen или dbcreate
+      raising  - см. dbopen
+
+function header(dbh in dbf_file_info_t, raising in boolean default true) return pls_integer;
+Возвращает рамер заголовка файла.
+Параметры :
+      dbh - дескриптор файла, полученный от dbopen или dbcreate
+      raising  - см. dbopen
+
+function lastrec(dbh in dbf_file_info_t, raising in boolean default true) return pls_integer;
+Возвращает число записей в файле.
+Параметры :
+      dbh - дескриптор файла, полученный от dbopen или dbcreate
+      raising  - см. dbopen
+
+
+function recno(dbh in dbf_file_info_t, raising in boolean default true) return pls_integer;
+Возвращает номер текущей записи файла dbh.
+Параметры :
+      dbh - дескриптор файла, полученный от dbopen или dbcreate
+      raising  - см. dbopen
+
+procedure go(dbh in dbf_file_info_t, nn pls_integer, raising in boolean default true);
+Сдвигает указатель текущей записи на заданную запись. Во время первой последующей операции
+работы с буфером записи, текущая запись помещается в буфер записи.
+При попытке чтения за границами файла, устанавливается соответствующий
+признак (bof/eof) и содержимое буфера записи не не изменяется.
+Параметры :
+      dbh - дескриптор файла, полученный от dbopen или dbcreate
+      nn  - номер новой текущей записи, начиная с 1
+      raising  - см. dbopen
+
+procedure skip(dbh in dbf_file_info_t, n in pls_integer, raising in boolean default true);
+Сдвигает указатель текущей записи на заданное число записей. Во время первой последующей
+операции работы с буфером записи, текущая запись помещается в буфер записи. n может быть
+как положительным, так и отрицательным. При попытке чтения за границами файла,
+устанавливается соответствующий признак (bof/eof) и содержимое буфера записи не не изменяется.
+Аналог go(dbh, recno(dbh) + n)
+Параметры :
+      dbh - дескриптор файла, полученный от dbopen или dbcreate
+      n  - смещение новой текущей записи от текущей
+      raising  - см. dbopen
+
+procedure gonext(dbh in dbf_file_info_t, raising in boolean default true);
+Сдвигает указатель текущей записи на следующую запись. Во время первой последующей операции
+работы с буфером записи, текущая запись помещается в буфер записи. При попытке чтения после
+конца устанавливает признак eof и содержимое буфера записи не не изменяется.
+Аналог skip(dbh, 1) и go(dbh, recno(dbh) + 1).
+Параметры :
+      dbh - дескриптор файла, полученный от dbopen или dbcreate
+      raising  - см. dbopen
+
+function eof(dbh in dbf_file_info_t, raising in boolean default true) return boolean;
+Возвращает признак конца файла. Признак устанавливается при попытке обратится
+к записи с номером > lastrec, напрмер при последовательном чтении файла
+в цикле с помощью dbnext(dbh) или skip(dbh,1). Если файл содержит 0 записей,
+то признак устанавливается сразу после открытия файла.
+Параметры :
+      dbh - дескриптор файла, полученный от dbopen или dbcreate
+      raising  - см. dbopen
+
+function bof(dbh in dbf_file_info_t, raising in boolean default true) return boolean;
+Возвращает признак начала файла. Признак устанавливается при попытке
+обратится к записи с номером < 1, например при чтении файла в обратном порядке
+с помощью skip(dbh,-1). Если файл содержит 0 записей, то признак устанавливается
+сразу после открытия файла.
+Параметры :
+      dbh - дескриптор файла, полученный от dbopen или dbcreate
+      raising  - см. dbopen
+
+
+procedure append(dbh in dbf_file_info_t, raising in boolean default true);
+Очищает буфер записи. Если поле этого буфер изменяется (buffer_put, fp, fpp),
+то при следующем append, go, gonext либо skip он будет добавлен в конец файла.
+Параметры :
+      dbh - дескриптор файла, полученный от dbopen или dbcreate
+      raising  - см. dbopen
+
+procedure append_record(dbh in dbf_file_info_t, raising in boolean default true);
+Добавляет буфер записи в конец файла. Буфер записи не изменяется.
+Добавленная запись становится текущей.
+Параметры :
+      dbh - дескриптор файла, полученный от dbopen или dbcreate
+      raising  - см. dbopen
+
+procedure add_record(dbh in dbf_file_info_t, raising in boolean default true);
+Сдвигает записи с текущей и до конца файла на одну позицию. Вставляет буфер записи
+в текущую позицию файла. если вызвана в состоянии bof = true или eof = true - добавляет
+запись в начало или конец файла соответственно. Буфер записи не изменяется.
+Параметры :
+      dbh - дескриптор файла, полученный от dbopen или dbcreate
+      raising  - см. dbopen
+
+
+procedure put_record(dbh in dbf_file_info_t, n in pls_integer default null, raising in boolean default true);
+Записывает буфер записи в позицию файла n. Буфер записи не изменяется.
+Параметры :
+      dbh - дескриптор файла, полученный от dbopen или dbcreate
+      n - номер записи которую нужно переписать, начиная с 1. Если null то берется текущая позиция,
+          если не null, то текущей становится запись с номером n.
+          Если номер записи < 1, то происходит:
+            go(dbh, 1);
+            add_record(dbh);
+          Если номер записи > lastrec(dbh), то происходит:
+      append_record(dbh);
+      raising  - см. dbopen
+
+procedure delete_record(dbh in dbf_file_info_t, raising in boolean default true);
+Помечает буфер записи как удаленный.
+Параметры :
+      dbh - дескриптор файла, полученный от dbopen или dbcreate
+      raising  - см. dbopen
+
+function buffer_get(dbh in dbf_file_info_t, raising in boolean default true) return varchar2;
+Возвращает содержимое буфера записи. Пара функций buffer_get/buffer_set может
+использоваться для копирования файлов одинаковой структуры на уровне записей.
+Параметры :
+      dbh - дескриптор файла, полученный от dbopen или dbcreate
+      raising  - см. dbopen
+
+procedure buffer_put(dbh in dbf_file_info_t, s varchar2, raising in boolean default true);
+Устанавливает содержимое буфера записи.
+Структура данных:
++-+---------+---------+
+|S|Колонка 1|Колонка N|
++-+---------+---------+
+где S - ' ' 20h - запись существует.
+        '*' 2Ah - запись удалена.
+
+Параметры :
+      dbh - дескриптор файла, полученный от dbopen или dbcreate
+      s - содержимое буфера
+      raising  - см. dbopen
+
+procedure buffer_clear(dbh in dbf_file_info_t, raising in boolean default true);
+Очищает содержимое буфера записи.
+Параметры :
+      dbh - дескриптор файла, полученный от dbopen или dbcreate
+      raising  - см. dbopen
+
+procedure dbflush(dbh in dbf_file_info_t, raising in boolean default true);
+Сбрасывает содержимое кэша на диск. Буфер записи никуда не сохраняется.
+Параметры :
+      dbh - дескриптор файла, полученный от dbopen или dbcreate
+      raising  - см. dbopen
+
+
+function fgp(dbh in dbf_file_info_t, i pls_integer, raising in boolean default true) return varchar2;
+Возвращает значение поля номер i из буфера записи. Поля типа D возвращаются
+в формате DD/MM/YYYY, для полей типа С выполняется rtrim, для полей типа N
+выполняется trim, поля остальных типов возвращаются "как есть".
+Параметры :
+      dbh - дескриптор файла, полученный от dbopen или dbcreate
+      i - номер поля, начиная с 1
+      raising  - см. dbopen
+
+function fg(dbh in dbf_file_info_t, s varchar2, raising in boolean default true) return varchar2;
+Возвращает значение поля с именем s из буфера записи.
+Параметры :
+      dbh - дескриптор файла, полученный от dbopen или dbcreate
+      s - имя поля
+      raising  - см. dbopen
+
+procedure fpp(dbh in dbf_file_info_t, i pls_integer, v varchar2, raising in boolean default true,
+              conv_string in boolean default true);
+Устанавливает в буфере записи значение поля с номером i равным v.
+Параметры :
+      dbh - дескриптор файла, полученный от dbopen или dbcreate
+      i - номер поля, начиная с 1
+      v - новое значение поля, длина поля не может быть > 255
+      raising  - см. dbopen
+      conv_string - признак "Преобразовывать строку в соответствии с типом 
+                    поля" (по умолчанию). При conv_string=false строка v 
+                    помещается в буфер "как есть", без учета типа поля.
+
+procedure fp(dbh in dbf_file_info_t, s varchar2, v varchar2, raising in boolean default true,
+             conv_string in boolean default true);
+Устанавливает в буфере записи значение поля с именем s равным v.
+Параметры :
+      dbh - дескриптор файла, полученный от dbopen или dbcreate
+      s - имя поля
+      v - новое значение поля, длина поля не может быть > 255
+      raising  - см. dbopen
+      conv_string - см. fpp
+
+function deleted(dbh in dbf_file_info_t, raising in boolean default true) return boolean;
+Возвращает true, если буфер записи имеет признак "удалена".
+Параметры :
+      dbh - дескриптор файла, полученный от dbopen или dbcreate
+      raising  - см. dbopen
+
+
+Пример:
+set verify off
+
+def location='dbftst'
+def name='my.dbf'
+def field_name='NAMKOR'
+def field_no='14'
+
+prompt Test file
+ACCEPT location PROMPT 'Location (&location) : ' default &location
+ACCEPT name PROMPT 'Name (&name) : ' default &name
+ACCEPT field_name PROMPT 'Field Name (&field_name) : ' default &field_name
+ACCEPT field_no PROMPT 'Field No (&field_no) : ' default &field_no
+
+SET SERVEROUTPUT ON SIZE 100000
+spool dbftest-txt.log
+
+DECLARE
+  dbh DBF.DBF_FILE_INFO_T;
+  ndbh DBF.DBF_FILE_INFO_T;
+  i PLS_INTEGER;
+BEGIN
+  --открываем для чтения
+  dbh := dbf.dbopen('&location', '&name');
+
+  --информационные функции
+  dbms_output.put_line('header: '||dbf.header(dbh));
+  dbms_output.put_line('lastrec: '||dbf.lastrec(dbh));
+  dbms_output.put_line('fcount: '||dbf.fcount(dbh));
+  dbms_output.put_line('recsize: '||dbf.recsize(dbh));
+
+  --функции преобразования имя/номер
+  dbms_output.put_line('Имя поля N&field_no: '||dbf.field(dbh, &field_no));
+  dbms_output.put_line('Номер поля &field_name: '||TO_CHAR(dbf.fieldpos(dbh, '&field_name')));
+
+  --цикл по всем записям файла
+  WHILE not dbf.eof(dbh) LOOP
+    --печатаем запись
+    dbms_output.put_line(dbf.recno(dbh)||' '||dbf.fg(dbh,'&field_name')||' '||dbf.fgp(dbh,&field_no));
+    dbf.gonext(dbh);
+  END LOOP;
+
+  --создаем новый файл, копируя структуру
+  ndbh := dbf.dbcreate('&location','rev_&name',dbf.dbstruct(dbh));
+
+  --пишем в обратном порядке
+  dbf.go(dbh,dbf.lastrec(dbh));
+  WHILE not dbf.bof(dbh) LOOP
+    --копируем запись в новый файл
+    dbf.buffer_put(ndbh,dbf.buffer_get(dbh));
+    dbf.append_record(ndbh);
+    dbf.skip(dbh,-1);
+      END LOOP;
+  dbf.dbclose(ndbh);
+
+  --создаем новый файл, копируя структуру
+  ndbh := dbf.dbcreate('&location','rev_old_&name',dbf.dbstruct(dbh));
+
+  --пишем в обратном порядке используя старый append
+  dbf.go(dbh,dbf.lastrec(dbh));
+  WHILE not dbf.bof(dbh) LOOP
+    --копируем запись в новый файл
+    dbf.append(ndbh);
+    dbf.buffer_put(ndbh,dbf.buffer_get(dbh));
+    dbf.skip(dbh,-1);
+      END LOOP;
+  dbf.dbclose(ndbh);
+
+  --создаем новый файл, копируя структуру
+  ndbh := dbf.dbcreate('&location', '345_&name', dbf.dbstruct(dbh));
+
+  --вырезаем записи с номерами 3,4,5
+  FOR i IN 3..5 LOOP
+    dbf.go(dbh,i);
+    --копируем запись в новый файл
+    dbf.buffer_put(ndbh, dbf.buffer_get(dbh));
+    dbf.append_record(ndbh);
+  END LOOP;
+  dbf.dbclose(ndbh);
+
+  --создаем новый файл, копируя структуру
+  ndbh := dbf.dbcreate('&location', '34567_&name', dbf.dbstruct(dbh), false /*raising*/, 'w');
+
+  --вырезаем записи с номерами 3,5,6
+  dbf.go(dbh, 3);
+  dbf.buffer_put(ndbh,dbf.buffer_get(dbh));
+  dbf.append_record(ndbh);
+
+  dbf.skip(dbh, 2);
+  dbf.buffer_put(ndbh,dbf.buffer_get(dbh));
+  dbf.append_record(ndbh);
+
+  dbf.gonext(dbh);
+  dbf.buffer_put(ndbh,dbf.buffer_get(dbh));
+  dbf.append_record(ndbh);
+
+  --вставляем запись с номером 4
+  dbf.go(dbh, 4);
+  dbf.skip(ndbh, -1);
+  dbf.buffer_put(ndbh,dbf.buffer_get(dbh));
+  dbf.add_record(ndbh);
+
+  --добавляем копию записи 4 в конец
+  dbf.append_record(ndbh);
+
+  --изменяем последнюю запись чтобы она была копией 7
+  dbf.go(dbh, 7);
+  dbf.buffer_put(ndbh,dbf.buffer_get(dbh));
+  dbf.put_record(ndbh);
+
+  dbf.dbclose(ndbh);
+
+  --закрываем исходный файл
+  dbf.dbclose(dbh);
+
+  commit;
+EXCEPTION
+  WHEN DBF.BAD_STRUCT THEN
+    dbms_output.put_line('BAD_STRUCT');
+  WHEN DBF.IO_ERROR THEN
+    dbms_output.put_line('IO_ERROR');
+  WHEN DBF.NO_SUCH_FIELD THEN
+    dbms_output.put_line('NO_SUCH_FIELD');
+  WHEN DBF.BAD_FORMAT THEN
+    dbms_output.put_line('BAD_FORMAT');
+  WHEN DBF.INVALID_PATH THEN
+    dbms_output.put_line('INVALID_PATH');
+  WHEN DBF.INVALID_OPERATION THEN
+    dbms_output.put_line('INVALID_OPERATION');
+  WHEN DBF.TOO_MANY_FIELDS THEN
+    dbms_output.put_line('TOO_MANY_FIELDS');
+  WHEN DBF.BAD_FIELD_VALUE THEN
+    dbms_output.put_line('BAD_FIELD_VALUE');
+  WHEN DBF.INVALID_HANDLE THEN
+    dbms_output.put_line('INVALID_HANDLE');
+  WHEN OTHERS THEN
+    dbms_output.put_line('Error '||TO_CHAR(SQLCODE)||': '||SQLERRM);
+    raise;
+END;
+/
+
+spool off
+

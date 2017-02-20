@@ -1,0 +1,4 @@
+#!/bin/sh
+ld -o runproc32 /usr/ccs/lib/crt0.o main.o -L. -L$ORACLE_HOME/lib32 -lpthread -lclntsh -lrunproc32
+
+

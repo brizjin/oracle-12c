@@ -10,8 +10,8 @@ ACCEPT u PROMPT 'Schema owner name (&&IBSO_OWNER) :' default &&IBSO_OWNER
 ACCEPT dt PROMPT 'Default tablespace (&&INIT_TDEF) :'  default &&INIT_TDEF
 ACCEPT tt PROMPT 'Temporary tablespace (&&INIT_TTMP) :' default &&INIT_TTMP
 
-@@UTILS\chk_sets
-@@UTILS\chk_tsps '&&dt, &&tt'
+@@UTILS/chk_sets
+@@UTILS/chk_tsps '&&dt, &&tt'
 
 -- please uncomment if you want drop existed user
 -- prompt Dropping user &u ...

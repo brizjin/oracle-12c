@@ -1,0 +1,1676 @@
+<Document stan="v:sksb_1_6.2016-12-16 13-40-17.664"><dsig:Object Id="mainData" xmlns="" xmlns:dsig="http://www.w3.org/2000/01/xmldsig"><license id="1047019922" document_type="a" version="3">
+	<description>[1047019922] Описание приложения: "ЦФТ - Платформа Развития"</description>
+			<option crc-row="654931454" crc-tree="361171459" id="CORE" name="ЦФТ - Платформа Развития" crc-obj="4075536400" licensed="1" loc="0" base-id="0">
+				<sql><![CDATA[CORE]]></sql>
+				<version value="7.4.9">
+				<sql><![CDATA[begin
+  :res := inst_info.version ||'.'|| inst_info.build_no; 
+end;]]></sql>
+				</version>
+<pck><![CDATA[VER2
+REM Список дистрибутивных элементов для подсистемы [CORE] "ЦФТ - Платформа Развития"
+REM Автоматизированная Система Учета и Выдачи Лицензий
+
+TYPE CLASS_ATTRIBUTES CLASS_ATTRIBUTES
+ATTR CLASS_ATTRIBUTES ATTR_ID
+ATTR CLASS_ATTRIBUTES BASE_CLASS_ID
+ATTR CLASS_ATTRIBUTES CLASS_ID
+ATTR CLASS_ATTRIBUTES NAME
+ATTR CLASS_ATTRIBUTES SELF_CLASS_ID
+ATTR CLASS_ATTRIBUTES TARGET_CLASS_ID
+TYPE CLASS_ATTR_REF CLASS_ATTR_REF
+TYPE COLLECTION COLLECTION
+TYPE DATE_TIME DATE_TIME
+TYPE EVENTS EVENTS
+ATTR EVENTS AUTO
+ATTR EVENTS CODE
+ATTR EVENTS HANDLER
+ATTR EVENTS HANDLER_NAME
+ATTR EVENTS NAME
+ATTR EVENTS PRIORITY
+ATTR EVENTS SEQ
+ATTR EVENTS UNIQUE
+CRIT EVENTS VW_CRIT_EVENTS
+METH EVENTS DELETE#AUTO
+METH EVENTS EDIT#AUTO
+METH EVENTS NEW#AUTO
+METH EVENTS TEST
+TYPE EVENTS_REF EVENTS_REF
+TYPE FILE$LOAD FILE$LOAD
+ATTR FILE$LOAD DST_DELETE
+ATTR FILE$LOAD DST_MASK
+ATTR FILE$LOAD DST_NAME
+ATTR FILE$LOAD DST_PATH
+ATTR FILE$LOAD DST_TYPE
+ATTR FILE$LOAD SRC_DELETE
+ATTR FILE$LOAD SRC_MASK
+ATTR FILE$LOAD SRC_NAME
+ATTR FILE$LOAD SRC_PATH
+ATTR FILE$LOAD SRC_TYPE
+METH FILE$LOAD FILE_CHECK
+TYPE FILE$MASK FILE$MASK
+TYPE FILE$PATH FILE$PATH
+TYPE HELP_SYSTEM HELP_SYSTEM
+ATTR HELP_SYSTEM COMMENTS
+ATTR HELP_SYSTEM CONDITION
+ATTR HELP_SYSTEM FILENAME
+ATTR HELP_SYSTEM ID
+ATTR HELP_SYSTEM OBJECT_TYPE
+ATTR HELP_SYSTEM PRODUCT
+ATTR HELP_SYSTEM TOPICID
+ATTR HELP_SYSTEM USER
+ATTR HELP_SYSTEM VERSION
+CRIT HELP_SYSTEM VW_CRIT_COMMENTS
+CRIT HELP_SYSTEM VW_CRIT_COMMENTS_OTHER_ORG
+CRIT HELP_SYSTEM VW_CRIT_HELPSYSTEM
+CRIT HELP_SYSTEM VW_CRIT_HELPSYSTEM_EX
+CRIT HELP_SYSTEM VW_CRIT_HELPSYSTEM_USER
+METH HELP_SYSTEM COPY#AUTO
+METH HELP_SYSTEM COPY#AUTOX
+METH HELP_SYSTEM COPY#CHOICE
+METH HELP_SYSTEM DELETE#AUTO
+METH HELP_SYSTEM DELETE_COMMENT
+METH HELP_SYSTEM DOC#VIEW
+METH HELP_SYSTEM EDIT#AUTO
+METH HELP_SYSTEM EDIT#AUTOX
+METH HELP_SYSTEM EDIT#CHOICE
+METH HELP_SYSTEM EDIT_COMMENT
+METH HELP_SYSTEM FILE#EXPORT
+METH HELP_SYSTEM FILE#IMPORT
+METH HELP_SYSTEM HSCOMM_EXP
+METH HELP_SYSTEM HSCOMM_IMP
+METH HELP_SYSTEM LIB_IMP_EXP
+METH HELP_SYSTEM NEW#AUTO
+METH HELP_SYSTEM NEW#AUTOX
+METH HELP_SYSTEM PREIMPORT
+METH HELP_SYSTEM SET_NOT_SEND
+METH HELP_SYSTEM SET_PUBLIC
+METH HELP_SYSTEM VIEW_COMMENT
+TYPE HELP_SYSTEM_REF HELP_SYSTEM_REF
+TYPE HS_COMMENTS HS_COMMENTS
+ATTR HS_COMMENTS BODY_C
+ATTR HS_COMMENTS COMMENT_V
+ATTR HS_COMMENTS CORE_V
+ATTR HS_COMMENTS CREATED
+ATTR HS_COMMENTS DOC_V
+ATTR HS_COMMENTS EDITED
+ATTR HS_COMMENTS FIO
+ATTR HS_COMMENTS ID_C
+ATTR HS_COMMENTS IN_DOC
+ATTR HS_COMMENTS IS_EDITED
+ATTR HS_COMMENTS IS_PUBLIC
+ATTR HS_COMMENTS IS_SEND
+ATTR HS_COMMENTS ORG
+ATTR HS_COMMENTS SYSPROD_V
+ATTR HS_COMMENTS USERNAME
+CRIT HS_COMMENTS VW_CRIT_HS_COMMENTS
+METH HS_COMMENTS DELETE#AUTO
+METH HS_COMMENTS DELETE#AUTO_D
+METH HS_COMMENTS EDIT#AUTO
+METH HS_COMMENTS NEW#AUTO
+TYPE HS_COMMENTS_ARR HS_COMMENTS_ARR
+TYPE HS_COMMENTS_REF HS_COMMENTS_REF
+TYPE METACLASS METACLASS
+ATTR METACLASS BASE_CLASS
+ATTR METACLASS DATA_PRECISION
+ATTR METACLASS DATA_SIZE
+ATTR METACLASS ENTITY
+ATTR METACLASS HAS_INSTANCES
+ATTR METACLASS INTERFACE
+ATTR METACLASS KERNEL
+ATTR METACLASS NAME
+ATTR METACLASS PARENT
+ATTR METACLASS TARGET_CLASS
+CRIT METACLASS VW_CRIT_METACLASS_RS
+CRIT METACLASS VW_CRIT_METACLASS_UNL
+TYPE METACLASS_REF METACLASS_REF
+TYPE METHOD METHOD
+ATTR METHOD CLASS_ID
+ATTR METHOD FLAGS
+ATTR METHOD KERNEL
+ATTR METHOD NAME
+ATTR METHOD PACKAGE_NAME
+ATTR METHOD REPORT
+ATTR METHOD REPORT_TYPE
+ATTR METHOD RESULT_CLASS
+ATTR METHOD SHORT_NAME
+ATTR METHOD STATUS
+CRIT METHOD VW_CRIT_EVENT_HANDLERS
+CRIT METHOD VW_CRIT_METHS_CRITS
+CRIT METHOD VW_CRIT_METHS_CRITS_HELP
+TYPE METHOD_CONTROLS METHOD_CONTROLS
+ATTR METHOD_CONTROLS CAPTION
+ATTR METHOD_CONTROLS CLASS_ID
+ATTR METHOD_CONTROLS METH_ID
+ATTR METHOD_CONTROLS PARENT
+ATTR METHOD_CONTROLS QUALIFIER
+ATTR METHOD_CONTROLS VALIDATE_NAME
+TYPE METHOD_REF METHOD_REF
+TYPE METH_CONTROL_REF METH_CONTROL_REF
+TYPE OBJECT OBJECT
+ATTR OBJECT CLASS_ID
+ATTR OBJECT ID
+TYPE REFERENCE REFERENCE
+TYPE RUNS RUNS
+ATTR RUNS GROUP_ID
+ATTR RUNS IS_BAD
+ATTR RUNS ORA_USER
+ATTR RUNS OS_USER
+ATTR RUNS RUN_LENGTH
+ATTR RUNS RUN_START
+ATTR RUNS SES_ID
+ATTR RUNS STATS
+ATTR RUNS USER_NAME
+CRIT RUNS VW_CRIT_RUNS_FIXED
+TYPE RUNS_REF RUNS_REF
+METH RUNTIME CALENDAR
+METH RUNTIME ORSALIB
+METH RUNTIME RESOURCE_MGR
+METH RUNTIME CONSTANT
+METH RUNTIME DBF
+METH RUNTIME LIB
+METH RUNTIME LOCK_INFO
+METH RUNTIME MESSAGE
+METH RUNTIME PL_SQL
+METH RUNTIME RC$INTER
+METH RUNTIME RTL
+METH RUNTIME SECURITY
+METH RUNTIME STANDARD
+METH RUNTIME STDIO
+METH RUNTIME UTILS
+TYPE RUN_GROUPS RUN_GROUPS
+ATTR RUN_GROUPS DETAILS
+ATTR RUN_GROUPS NAME
+ATTR RUN_GROUPS OBJ_CLASS_ID
+ATTR RUN_GROUPS OBJ_ID
+ATTR RUN_GROUPS OBJ_TYPE
+ATTR RUN_GROUPS SHORT_NAME
+CRIT RUN_GROUPS VW_CRIT_RUN_GROUPS
+CRIT RUN_GROUPS VW_CRIT_RUN_STATS_AVG
+CRIT RUN_GROUPS VW_CRIT_RUN_STAT_PREC_AVG
+TYPE RUN_GROUPS_REF RUN_GROUPS_REF
+TYPE RUN_PREC RUN_PREC
+ATTR RUN_PREC ORA_USER
+ATTR RUN_PREC OS_USER
+ATTR RUN_PREC RUNS
+ATTR RUN_PREC RUNS_ID
+ATTR RUN_PREC SES_ID
+ATTR RUN_PREC USER_NAME
+TYPE RUN_SESSIONS RUN_SESSIONS
+ATTR RUN_SESSIONS ACTION
+ATTR RUN_SESSIONS ACTIVE_CHECK
+ATTR RUN_SESSIONS ACTIVE_TIME
+ATTR RUN_SESSIONS ASYNCHRONOUS
+ATTR RUN_SESSIONS FIRST_CHECK
+ATTR RUN_SESSIONS GROUP_ID
+ATTR RUN_SESSIONS ID2
+ATTR RUN_SESSIONS LAST_CHECK
+ATTR RUN_SESSIONS LOGON_TIME
+ATTR RUN_SESSIONS MACHINE
+ATTR RUN_SESSIONS NODE
+ATTR RUN_SESSIONS ORA_USER
+ATTR RUN_SESSIONS OS_USER
+ATTR RUN_SESSIONS PARENT_ACTION
+ATTR RUN_SESSIONS PARENT_ID
+ATTR RUN_SESSIONS PARENT_SERIAL#
+ATTR RUN_SESSIONS PARENT_SID
+ATTR RUN_SESSIONS PROCESS
+ATTR RUN_SESSIONS SERIAL#
+ATTR RUN_SESSIONS SID
+ATTR RUN_SESSIONS STATS
+ATTR RUN_SESSIONS USER_NAME
+ATTR RUN_SESSIONS WAITS
+CRIT RUN_SESSIONS VW_CRIT_RUN_PREC_FIXED
+CRIT RUN_SESSIONS VW_CRIT_RUN_SESSIONS
+CRIT RUN_SESSIONS VW_CRIT_RUN_SESSIONS_FIXED
+CRIT RUN_SESSIONS VW_CRIT_RUN_STATISTICS
+CRIT RUN_SESSIONS VW_CRIT_RUN_STATISTICS_ALL
+CRIT RUN_SESSIONS VW_CRIT_RUN_STATS_PREC
+METH RUN_SESSIONS CLEAR
+METH RUN_SESSIONS CLEAR_SES
+METH RUN_SESSIONS CONV
+METH RUN_SESSIONS DELETE_SPECIAL
+METH RUN_SESSIONS JOB
+METH RUN_SESSIONS RLIB
+METH RUN_SESSIONS SETUP
+METH RUN_SESSIONS SET_RUN
+METH RUN_SESSIONS START
+METH RUN_SESSIONS STATS_TUNING
+METH RUN_SESSIONS STOP
+METH RUN_SESSIONS SYNC
+TYPE RUN_STATISTICS RUN_STATISTICS
+ATTR RUN_STATISTICS FIRST_VALUE
+ATTR RUN_STATISTICS LAST_VALUE
+ATTR RUN_STATISTICS STAT_ID
+CRIT RUN_STATISTICS VW_CRIT_RUN_STATS_ALL
+TYPE RUN_STATS_ARR RUN_STATS_ARR
+TYPE RUN_STAT_ENABLED RUN_STAT_ENABLED
+ATTR RUN_STAT_ENABLED DEF_ENABLED
+ATTR RUN_STAT_ENABLED ENABLED
+ATTR RUN_STAT_ENABLED NAME
+ATTR RUN_STAT_ENABLED PENABLED
+ATTR RUN_STAT_ENABLED STATISTIC#
+ATTR RUN_STAT_ENABLED S_TYPE
+CRIT RUN_STAT_ENABLED VW_CRIT_RUN_STAT_ENABLED
+METH RUN_STAT_ENABLED EDIT#AUTO
+METH RUN_STAT_ENABLED FILL_STATS
+TYPE RUN_STAT_EN_REF RUN_STAT_EN_REF
+TYPE RUN_STAT_KIND RUN_STAT_KIND
+ATTR RUN_STAT_KIND ENABLED
+ATTR RUN_STAT_KIND FLAGS
+ATTR RUN_STAT_KIND NAME
+ATTR RUN_STAT_KIND OBJ_CLASS_ID
+ATTR RUN_STAT_KIND OBJ_ID
+ATTR RUN_STAT_KIND OBJ_TYPE
+ATTR RUN_STAT_KIND SHORT_NAME
+CRIT RUN_STAT_KIND VW_CRIT_RUN_STAT_KIND
+METH RUN_STAT_KIND ADD
+METH RUN_STAT_KIND DELETE
+METH RUN_STAT_KIND EDIT
+METH RUN_STAT_KIND NEW
+TYPE RUN_STAT_KIND2 RUN_STAT_KIND2
+ATTR RUN_STAT_KIND2 0
+ATTR RUN_STAT_KIND2 ALL#
+ATTR RUN_STAT_KIND2 CORRECT
+ATTR RUN_STAT_KIND2 CORRECT#
+TYPE RUN_STAT_PRC_ARR RUN_STAT_PRC_ARR
+TYPE RUN_STAT_PREC RUN_STAT_PREC
+ATTR RUN_STAT_PREC GROUP_ID
+ATTR RUN_STAT_PREC RUN_LENGTH
+ATTR RUN_STAT_PREC RUN_START
+ATTR RUN_STAT_PREC STATS
+CRIT RUN_STAT_PREC VW_CRIT_RUN_STAT_PREC_FIXED
+TYPE STATES STATES
+ATTR STATES CLASS_ID
+ATTR STATES ID
+ATTR STATES NAME
+TYPE STATE_REF STATE_REF
+TYPE STRING_100 STRING_100
+TYPE STRING_16 STRING_16
+TYPE STRING_256 STRING_256
+TYPE STRING_32 STRING_32
+TYPE STRING_64 STRING_64
+TYPE SYSTEM_JOBS SYSTEM_JOBS
+ATTR SYSTEM_JOBS ACTIVE_TIME
+ATTR SYSTEM_JOBS CODE
+ATTR SYSTEM_JOBS EXECUTE
+ATTR SYSTEM_JOBS FAILURES
+ATTR SYSTEM_JOBS FIRST_TIME
+ATTR SYSTEM_JOBS FLAGS
+ATTR SYSTEM_JOBS INFO
+ATTR SYSTEM_JOBS INTERVAL
+ATTR SYSTEM_JOBS JOB
+ATTR SYSTEM_JOBS METHOD_CLASS
+ATTR SYSTEM_JOBS NAME
+ATTR SYSTEM_JOBS NODE
+ATTR SYSTEM_JOBS SHORT_NAME
+ATTR SYSTEM_JOBS SRV
+ATTR SYSTEM_JOBS START_TIME
+ATTR SYSTEM_JOBS STOP_TIME
+ATTR SYSTEM_JOBS SUBMIT_TIME
+ATTR SYSTEM_JOBS SUBMIT_USER
+ATTR SYSTEM_JOBS SUCCESS
+ATTR SYSTEM_JOBS TOTAL
+CRIT SYSTEM_JOBS VW_CRIT_SYSTEM_JOBS_ALL
+CRIT SYSTEM_JOBS VW_CRIT_SYSTEM_JOBS_LIST
+CRIT SYSTEM_JOBS VW_CRIT_SYSTEM_JOBS_QUEUE
+CRIT SYSTEM_JOBS VW_CRIT_SYSTEM_JOBS_QUEUE_EXT
+METH SYSTEM_JOBS ADD_JOB
+METH SYSTEM_JOBS CHECK_LIC_VALUES
+METH SYSTEM_JOBS DELETE#AUTO
+METH SYSTEM_JOBS DELETE_JOB
+METH SYSTEM_JOBS EDIT#AUTO
+METH SYSTEM_JOBS GET_CONTEXT
+METH SYSTEM_JOBS GET_LIST
+METH SYSTEM_JOBS JOB_INFO
+METH SYSTEM_JOBS JOB_IN_QUEUE
+METH SYSTEM_JOBS JOB_LIB
+METH SYSTEM_JOBS JOB_SES
+METH SYSTEM_JOBS LOCK_INFO_RUN
+METH SYSTEM_JOBS LOCK_INFO_STOP
+METH SYSTEM_JOBS LOCK_REFRESH
+METH SYSTEM_JOBS LOCK_USERS
+METH SYSTEM_JOBS NEW#AUTO
+METH SYSTEM_JOBS PIPES_REFRESH
+METH SYSTEM_JOBS REMOVE_JOB
+METH SYSTEM_JOBS SECURITY_JOB
+METH SYSTEM_JOBS SET_INTERVAL
+METH SYSTEM_JOBS SET_RPT_RIGHTS
+METH SYSTEM_JOBS STOP_SYS_JOBS
+METH SYSTEM_JOBS SUBMIT_JOB
+METH SYSTEM_JOBS SUBMIT_SYS_JOBS
+METH SYSTEM_JOBS SYNCRONIZE_JOBS
+METH SYSTEM_JOBS TEST
+TYPE SYS_DIARYS SYS_DIARYS
+ATTR SYS_DIARYS DSTRING
+CRIT SYS_DIARYS VW_CRIT_COLLECTION_HISTORY
+CRIT SYS_DIARYS VW_CRIT_COLLECTION_HISTORY_1
+CRIT SYS_DIARYS VW_CRIT_DIARY
+CRIT SYS_DIARYS VW_CRIT_DIARY_1
+CRIT SYS_DIARYS VW_CRIT_DIARY_ACCESSIBLE
+CRIT SYS_DIARYS VW_CRIT_DIARY_ACCESSIBLE_1
+CRIT SYS_DIARYS VW_CRIT_DIARY_ATTRIBUTES
+CRIT SYS_DIARYS VW_CRIT_DIARY_ATTRIBUTES_1
+CRIT SYS_DIARYS VW_CRIT_DIARY_CRITERIA
+CRIT SYS_DIARYS VW_CRIT_DIARY_CRITERIA_1
+CRIT SYS_DIARYS VW_CRIT_DIARY_DEBUG
+CRIT SYS_DIARYS VW_CRIT_DIARY_DEBUG_1
+CRIT SYS_DIARYS VW_CRIT_DIARY_ERRORS
+CRIT SYS_DIARYS VW_CRIT_DIARY_ERRORS_1
+CRIT SYS_DIARYS VW_CRIT_DIARY_EVENTS
+CRIT SYS_DIARYS VW_CRIT_DIARY_EVENTS_1
+CRIT SYS_DIARYS VW_CRIT_DIARY_EXEC
+CRIT SYS_DIARYS VW_CRIT_DIARY_EXEC_1
+CRIT SYS_DIARYS VW_CRIT_DIARY_EXEC_PARAMS
+CRIT SYS_DIARYS VW_CRIT_DIARY_EXEC_PARAMS_1
+CRIT SYS_DIARYS VW_CRIT_DIARY_FORMS
+CRIT SYS_DIARYS VW_CRIT_DIARY_FORMS_1
+CRIT SYS_DIARYS VW_CRIT_DIARY_LOCK_INFO
+CRIT SYS_DIARYS VW_CRIT_DIARY_LOCK_INFO_1
+CRIT SYS_DIARYS VW_CRIT_DIARY_LOCK_INFO_2
+CRIT SYS_DIARYS VW_CRIT_DIARY_METHODS
+CRIT SYS_DIARYS VW_CRIT_DIARY_METHODS_1
+CRIT SYS_DIARYS VW_CRIT_DIARY_PARAM_VARS
+CRIT SYS_DIARYS VW_CRIT_DIARY_PARAM_VARS_1
+CRIT SYS_DIARYS VW_CRIT_DIARY_SESSIONS
+CRIT SYS_DIARYS VW_CRIT_DIARY_SESSIONS_1
+CRIT SYS_DIARYS VW_CRIT_DIARY_SETTINGS
+CRIT SYS_DIARYS VW_CRIT_DIARY_SETTINGS_1
+CRIT SYS_DIARYS VW_CRIT_DIARY_STORAGE
+CRIT SYS_DIARYS VW_CRIT_DIARY_STORAGE_1
+CRIT SYS_DIARYS VW_CRIT_DIARY_STORAGE_EXT
+CRIT SYS_DIARYS VW_CRIT_DIARY_STORAGE_EXT_1
+CRIT SYS_DIARYS VW_CRIT_DIARY_SYS
+CRIT SYS_DIARYS VW_CRIT_DIARY_SYS_1
+CRIT SYS_DIARYS VW_CRIT_DIARY_USERS_TIMES
+CRIT SYS_DIARYS VW_CRIT_DIARY_USER_ACCS
+CRIT SYS_DIARYS VW_CRIT_DIARY_VIEW
+CRIT SYS_DIARYS VW_CRIT_EDOC_ADMIN
+CRIT SYS_DIARYS VW_CRIT_EDOC_ADMIN_1
+CRIT SYS_DIARYS VW_CRIT_EDOC_HISTORY
+CRIT SYS_DIARYS VW_CRIT_EDOC_HISTORY_1
+CRIT SYS_DIARYS VW_CRIT_GLOBAL_CONTEXT
+CRIT SYS_DIARYS VW_CRIT_INACCESSIBLE_OBJS
+CRIT SYS_DIARYS VW_CRIT_RPT_QUEUE
+CRIT SYS_DIARYS VW_CRIT_RPT_QUEUE_1
+CRIT SYS_DIARYS VW_CRIT_SEQUENCED_ATTRS
+CRIT SYS_DIARYS VW_CRIT_SESSIONS_LOCKS
+CRIT SYS_DIARYS VW_CRIT_SESSIONS_STATS
+CRIT SYS_DIARYS VW_CRIT_SESSION_CONTEXT
+CRIT SYS_DIARYS VW_CRIT_STATES_HISTORY_OBJ
+CRIT SYS_DIARYS VW_CRIT_STATES_HISTORY_OBJ_1
+CRIT SYS_DIARYS VW_CRIT_STATE_HISTORY
+CRIT SYS_DIARYS VW_CRIT_STATE_HISTORY_1
+CRIT SYS_DIARYS VW_CRIT_UDIARY
+CRIT SYS_DIARYS VW_CRIT_UDIARY_1
+CRIT SYS_DIARYS VW_CRIT_UDIARY_LICENSE
+CRIT SYS_DIARYS VW_CRIT_USER_SESSIONS
+CRIT SYS_DIARYS VW_CRIT_USER_SESSIONS1
+CRIT SYS_DIARYS VW_CRIT_USER_SESSIONS_ENG
+CRIT SYS_DIARYS VW_CRIT_VALUES_HISTORY
+CRIT SYS_DIARYS VW_CRIT_VALUES_HISTORY_1
+METH SYS_DIARYS DELETE_SESSION
+METH SYS_DIARYS DLIB
+METH SYS_DIARYS GET_LOCKS_LIST
+METH SYS_DIARYS GET_LOCK_INFO
+METH SYS_DIARYS GET_SQL_TEXT
+METH SYS_DIARYS HLIB
+METH SYS_DIARYS OPEN_SESSION
+METH SYS_DIARYS RPT_CANCEL
+METH SYS_DIARYS RPT_RERUN
+METH SYS_DIARYS SEND_MESSAGE
+METH SYS_DIARYS SETUP_PIPES
+METH SYS_DIARYS SET_DEBUG
+METH SYS_DIARYS SET_SERVER
+METH SYS_DIARYS SET_SQL_TRACE
+METH SYS_DIARYS SET_TIME_ZONE
+METH SYS_DIARYS TRACE_UPLOAD
+TYPE SYS_EVENTS SYS_EVENTS
+ATTR SYS_EVENTS AUTO
+ATTR SYS_EVENTS CREATED
+ATTR SYS_EVENTS EVENT
+ATTR SYS_EVENTS FAILURES
+ATTR SYS_EVENTS INFO
+ATTR SYS_EVENTS NN
+ATTR SYS_EVENTS PRIORITY
+ATTR SYS_EVENTS PROCESSED
+ATTR SYS_EVENTS SEQ
+ATTR SYS_EVENTS STATUS
+CRIT SYS_EVENTS VW_CRIT_EVENTS_CREATED
+CRIT SYS_EVENTS VW_CRIT_EVENTS_PROCESSED
+CRIT SYS_EVENTS VW_CRIT_SYS_EVENTS
+METH SYS_EVENTS DELETE#AUTO
+METH SYS_EVENTS EDIT#AUTO
+METH SYS_EVENTS NEW_EVENT
+METH SYS_EVENTS PROCESS
+METH SYS_EVENTS PROCESS_AUTO
+METH SYS_EVENTS STOP_AUTO
+METH SYS_EVENTS STOP_PROCESSES
+METH SYS_EVENTS SUBMIT_PROCESSES
+METH SYS_EVENTS TEST_AUTO
+TYPE TEXT_JOBS TEXT_JOBS
+ATTR TEXT_JOBS ERR_PLPLUS
+ATTR TEXT_JOBS ERR_PLSQL
+ATTR TEXT_JOBS PLPLUS
+ATTR TEXT_JOBS PLSQL
+ATTR TEXT_JOBS STATUS
+METH TEXT_JOBS DELETE#AUTO
+METH TEXT_JOBS EDIT_AUTO
+METH TEXT_JOBS NEW#AUTO
+TYPE TIME_DATE TIME_DATE
+CRIT USER VW_CRIT_USER_GROUPS
+CRIT USER VW_CRIT_USER_USERS
+METH USER OP_UA_GROUP
+METH USER OP_UA_USER
+METH USER VALUES_HISTORY
+METH USER VALUES_HISTORY_1
+TYPE USERS USERS
+ATTR USERS NAME
+ATTR USERS PROPERTIES
+ATTR USERS TYPE
+ATTR USERS USERNAME
+TYPE USERS_ES USERS_ES
+CRIT USERS_ES VW_CRIT_EQUAL_SUBJ
+TYPE USERS_ES_REF USERS_ES_REF
+TYPE USERS_G USERS_G
+CRIT USERS_G VW_CRIT_GROUPS
+TYPE USERS_G_REF USERS_G_REF
+TYPE USERS_SE USERS_SE
+CRIT USERS_SE VW_CRIT_SUBJ_EQUAL
+TYPE USERS_SE_REF USERS_SE_REF
+TYPE USERS_U USERS_U
+CRIT USERS_U VW_CRIT_USERS
+TYPE USERS_U_REF USERS_U_REF
+CRIT HELP_SYSTEM VW_CRIT_NOHELPSYSTEM
+ATTR SYSTEM_JOBS QUEUE
+CRIT METACLASS VW_CRIT_METACLASS_ALL
+CRIT METHOD VW_CRIT_METHOD_REPORTS
+TYPE REPORTS_SETTINGS REPORTS_SETTINGS
+ATTR REPORTS_SETTINGS DB_ALIAS
+ATTR REPORTS_SETTINGS METACLASS_ID
+ATTR REPORTS_SETTINGS METHOD_SHORTNAME
+CRIT REPORTS_SETTINGS VW_CRIT_REPORTS_SETTINGS
+METH REPORTS_SETTINGS DELETE_AUTO
+METH REPORTS_SETTINGS EDIT_AUTO
+METH REPORTS_SETTINGS NEW_AUTO
+CRIT SYS_DIARYS VW_CRIT_DIARY_LOCK_INFO_3
+CRIT SYS_DIARYS VW_CRIT_SEQUENCED_ATTRS_1
+METH RUNTIME EDOC
+METH SYSTEM_JOBS ORSA_REFRESH
+METH SYSTEM_JOBS PREPARE_RES_SEQ
+TYPE CRITERIA CRITERIA
+ATTR CRITERIA CLASS_ID
+ATTR CRITERIA ID
+ATTR CRITERIA NAME
+ATTR CRITERIA SHORT_NAME
+CRIT CRITERIA VW_CRIT_CRITERIA_ALL
+TYPE CRITERIA_COLUMNS CRITERIA_COLUMNS
+ATTR CRITERIA_COLUMNS ALIAS
+ATTR CRITERIA_COLUMNS BASE_CLASS_ID
+ATTR CRITERIA_COLUMNS CRITERIA_ID
+ATTR CRITERIA_COLUMNS CRITERIA_SN
+ATTR CRITERIA_COLUMNS ID
+ATTR CRITERIA_COLUMNS NAME
+ATTR CRITERIA_COLUMNS POSITION
+ATTR CRITERIA_COLUMNS QUAL
+ATTR CRITERIA_COLUMNS REFERENCE_ID
+CRIT CRITERIA_COLUMNS VW_CRIT_CRITERIA_COLUMNS_ALL
+TYPE CRITERIA_COL_REF CRITERIA_COL_REF
+TYPE CRITERIA_REF CRITERIA_REF
+METH TEXT_JOBS TXT_JOB_IN_QUEUE
+ATTR SYSTEM_JOBS BLOCK_INSTANCE
+ATTR SYSTEM_JOBS HOST
+ATTR SYSTEM_JOBS JOB_ID
+ATTR SYSTEM_JOBS JOB_STATE
+ATTR SYSTEM_JOBS REPEAT_ERROR
+METH SYSTEM_JOBS SUBMIT_JOB_2MCA
+METH SYS_DIARYS SET_READ_ONLY_S
+ATTR TEXT_JOBS RAC
+METH SYSTEM_JOBS JOB_RAC
+TYPE RECALL_MTD_CFG RECALL_MTD_CFG
+ATTR RECALL_MTD_CFG METACLASS_ID
+ATTR RECALL_MTD_CFG METHOD_SHORTNAME
+ATTR RECALL_MTD_CFG MODE_PROG
+CRIT RECALL_MTD_CFG VW_CRIT_RECALL_MTD_CFG
+CRIT RECALL_MTD_CFG VW_CRIT_RECALL_MTD_CFG_PROG
+METH RECALL_MTD_CFG DELETE_AUTO
+METH RECALL_MTD_CFG EDIT_AUTO
+METH RECALL_MTD_CFG NEW_AUTO
+TYPE KPI KPI
+ATTR KPI DESCRIPTION
+ATTR KPI ENABLED
+ATTR KPI NAME
+ATTR KPI PLAN_TIME
+ATTR KPI SLA_OBJECT
+CRIT KPI VW_CRIT_KPI_VIEW
+METH KPI DELETE_AUTO
+METH KPI EDIT_AUTO
+METH KPI NEW_AUTO
+TYPE KPI_ACTION KPI_ACTION
+ATTR KPI_ACTION ACTION_OBJECT
+ATTR KPI_ACTION FINISH_TIME
+ATTR KPI_ACTION INFO
+ATTR KPI_ACTION MEASURE
+ATTR KPI_ACTION START_TIME
+ATTR KPI_ACTION USER_TIME
+CRIT KPI_ACTION VW_CRIT_SLA_ACTIONS
+TYPE KPI_MEASURE KPI_MEASURE
+ATTR KPI_MEASURE FINISH_TIME
+ATTR KPI_MEASURE HTTP_ID
+ATTR KPI_MEASURE KPI
+ATTR KPI_MEASURE RTL_ID
+ATTR KPI_MEASURE SERVICE_TIME
+ATTR KPI_MEASURE START_TIME
+ATTR KPI_MEASURE USER
+CRIT KPI_MEASURE VW_CRIT_SLA_MEASURE
+TYPE KPI_MEASURE_REF KPI_MEASURE_REF
+TYPE KPI_REF KPI_REF
+TYPE SLA_OBJECT SLA_OBJECT
+ATTR SLA_OBJECT NAME
+ATTR SLA_OBJECT OBJ_TYPE
+ATTR SLA_OBJECT PARENT_NAME
+TYPE SLA_SETTINGS SLA_SETTINGS
+ATTR SLA_SETTINGS DESCRIPTION
+ATTR SLA_SETTINGS PARAMETER
+ATTR SLA_SETTINGS VALUE
+CRIT SLA_SETTINGS VW_CRIT_SLA_SETTINGS
+METH SLA_SETTINGS DELETE_AUTO
+METH SLA_SETTINGS EDIT_AUTO
+METH SLA_SETTINGS NEW_AUTO
+CRIT METHOD VW_CRIT_ALL_METHODS
+METH RUNTIME HTTP_MGR
+TYPE JOB_MACHINE JOB_MACHINE
+ATTR JOB_MACHINE HOST
+ATTR JOB_MACHINE LAST_TIME
+ATTR JOB_MACHINE START_TIME
+CRIT JOB_MACHINE VW_CRIT_LIST_JOB_MACHINE
+METH JOB_MACHINE CHK_JOB_MACHINE
+METH JOB_MACHINE JOB_RT_MANAGER
+TYPE STRING_2000 STRING_2000
+ATTR SYSTEM_JOBS JOB_CLASS
+CRIT SYSTEM_JOBS VW_CRIT_SCHEDULER_JOB_CLASSES
+CRIT SYSTEM_JOBS VW_CRIT_SCHEDULER_RUN_DETAILS
+METH SYSTEM_JOBS ADD_JOB_CLASS
+METH SYSTEM_JOBS DEL_JOB_CLASS
+METH SYSTEM_JOBS DEL_JOB_CLASS_CH
+METH SYSTEM_JOBS EDIT_JOB_CLASS
+METH SYSTEM_JOBS EDIT_JOB_CLASS_C
+TYPE BOOLEAN BOOLEAN
+TYPE DATE DATE
+CRIT DATE VW_CRIT_DATE
+METH DATE DELETE#AUTO
+METH DATE EDIT#AUTO
+METH DATE NEW#AUTO
+TYPE MEMO MEMO
+TYPE NMEMO NMEMO
+TYPE NSTRING NSTRING
+TYPE NUMBER NUMBER
+TYPE STRING STRING
+TYPE MEMO_BIG MEMO_BIG
+ATTR TEXT_JOBS PLPLUS_BIG
+ATTR TEXT_JOBS PLSQL_BIG
+CRIT METACLASS VW_CRIT_METACLASS_UNL_HELP_SYS
+]]></pck>
+				<options>
+			<option crc-row="722339849" id="2MCA" name="Платформа 2MCA" licensed="1" loc="0">
+				<options>
+			<option crc-row="59278649" id="2MCA.APP" required="1" name="Сервера приложений" licensed="1" loc="0">
+</option>
+			<option crc-row="1146685877" id="2MCA.WEBPROXY" required="1" name="ЦФТ Веб-шлюз" licensed="1" loc="0">
+				<options>
+					<option crc-row="1487121002" id="2MCA.WEBPROXY.METHODS" name="Список обрабатываемых вызовов" type="STRING" check-type="EQ" ss="1" licensed="1" loc="0">
+				<sql><![CDATA[2MCA.WEBPROXY.METHODS]]></sql>
+				</option>
+				</options>
+</option>
+			<option crc-row="4111456733" id="2MCA_PROXY" required="1" name="Режим эмуляции Платформы 1" licensed="1" loc="0">
+</option>
+				</options>
+</option>
+			<option crc-row="3989273525" id="ADG" required="1" name="Поддержка Аctive Data Guard" licensed="1" loc="0">
+</option>
+			<option crc-row="1039769555" id="CORE.FS" name="Подсистема работы с формами" crc-obj="3588596215" licensed="1" loc="0">
+<pck><![CDATA[VER2
+REM Список дистрибутивных элементов для подсистемы [CORE.FS] "Подсистема работы с формами"
+REM Автоматизированная Система Учета и Выдачи Лицензий
+
+TYPE FS_CONTROLS FS_CONTROLS
+ATTR FS_CONTROLS PARAMS_ARR
+ATTR FS_CONTROLS PARENT_REF
+ATTR FS_CONTROLS POSITION
+ATTR FS_CONTROLS TYPE_REF
+CRIT FS_CONTROLS VW_CRIT_FS_CONTROLS
+CRIT FS_CONTROLS VW_CRIT_FS_CONTROLS_HIERARCHY
+CRIT FS_CONTROLS VW_CRIT_FS_CONTROLS_OWN_FORM
+TYPE FS_CONTROLS_ARR FS_CONTROLS_ARR
+TYPE FS_CONTROLS_REF FS_CONTROLS_REF
+TYPE FS_CTL_PARAMS FS_CTL_PARAMS
+ATTR FS_CTL_PARAMS SHORT_NAME
+ATTR FS_CTL_PARAMS VALUE
+CRIT FS_CTL_PARAMS VW_CRIT_FS_CTL_PARAMS
+TYPE FS_CTL_PARAMS_AR FS_CTL_PARAMS_AR
+TYPE FS_CTL_TYPES FS_CTL_TYPES
+ATTR FS_CTL_TYPES NAME
+ATTR FS_CTL_TYPES SHORT_NAME
+CRIT FS_CTL_TYPES VW_CRIT_FS_CTL_TYPES
+METH FS_CTL_TYPES NEW_AUTO
+TYPE FS_CTL_TYPES_REF FS_CTL_TYPES_REF
+TYPE FS_FORMS FS_FORMS
+ATTR FS_FORMS CLASS_ID
+ATTR FS_FORMS CONTROLS_ARR
+ATTR FS_FORMS FORMAT_VERSION
+ATTR FS_FORMS FORM_TYPE
+ATTR FS_FORMS MAINPANEL_PAR_AR
+ATTR FS_FORMS SHORT_NAME
+CRIT FS_FORMS VW_CRIT_FS_FORMS
+METH FS_FORMS DELETE_AUTO
+METH FS_FORMS EXPORT_FORM
+METH FS_FORMS EXPORT_FORM_MASS
+METH FS_FORMS EXPORT_FORM_SERV
+METH FS_FORMS IMPORT_FORM
+METH FS_FORMS IMPORT_FORM_MASS
+METH FS_FORMS IMPORT_FORM_SERV
+METH FS_FORMS LIB_EXPORT
+METH FS_FORMS LIB_IMPORT
+ATTR FS_FORMS FORM_BODY
+TYPE FS_STRING4000 FS_STRING4000
+]]></pck>
+				<options>
+			<option crc-row="3287990576" id="CORE.FS.IDE" name="Конструктор web-приложений" licensed="1" loc="0">
+</option>
+			<option crc-row="2677991798" id="CORE.FS.WEB" required="1" name="Проигрыватель форм в web" licensed="1" loc="0">
+				<sql><![CDATA[cnt integer := 0;
+	function extract_profile(p_props in varchar2) return varchar2 is
+		i pls_integer;
+		j pls_integer;
+	begin
+		i := instr(p_props, '|PROFILE ');
+		if i > 0 then
+			j := instr(p_props, '|', i + 1);
+			if j > 0 then
+				return nvl(upper(trim(substr(p_props, i+9, j-i-9))), 'DEFAULT');
+			end if;
+			return nvl(upper(trim(substr(p_props, i+9))), 'DEFAULT');
+		end if;
+		return 'DEFAULT';
+	end;
+
+	function get_profile_value(p_profile in varchar2, p_name in varchar2) return varchar2 is
+		s varchar2(2000);
+	begin
+		select po(po.[value]: po_val) in profiles%rowtype
+		where po.[profile] = p_profile and po.[resource_name] = p_name
+		into s;
+		return s;
+	exception when no_data_found then
+		if p_profile <> 'DEFAULT' then
+			return get_profile_value('DEFAULT', p_name);
+		else
+  			return null;
+		end if;
+	end;
+
+begin
+	for (select u(u.[properties]: props)
+			in users%rowtype
+			where u.[TYPE]='U'
+			and (u.[lock_status] is null or u.[lock_status] not in ('DELETED', 'LOCKED')))
+	loop
+		if (instr(u.props, '|SESSION') <> 0) and (get_profile_value(extract_profile(u.props), 'FS.START_FORM') is not null) then
+			cnt := cnt + 1;
+		end if;
+		exit when (cnt > 0);
+	end loop;
+	return to_char(cnt);
+end;]]></sql>
+				<options>
+					<option crc-row="3460638396" id="CORE.FS.WEB.USERS_COUNT" name="Количество пользователей, которым доступна работа с Проигрывателем форм в web" type="NUM" check-type="LS_EQ" ss="1" licensed="1" loc="0">
+				<sql><![CDATA[cnt integer := 0;
+	function extract_profile(p_props in varchar2) return varchar2 is
+		i pls_integer;
+		j pls_integer;
+	begin
+		i := instr(p_props, '|PROFILE ');
+		if i > 0 then
+			j := instr(p_props, '|', i + 1);
+			if j > 0 then
+				return nvl(upper(trim(substr(p_props, i+9, j-i-9))), 'DEFAULT');
+			end if;
+			return nvl(upper(trim(substr(p_props, i+9))), 'DEFAULT');
+		end if;
+		return 'DEFAULT';
+	end;
+
+	function get_profile_value(p_profile in varchar2, p_name in varchar2) return varchar2 is
+		s varchar2(2000);
+	begin
+		select po(po.[value]: po_val) in profiles%rowtype
+		where po.[profile] = p_profile and po.[resource_name] = p_name
+		into s;
+		return s;
+	exception when no_data_found then
+		if p_profile <> 'DEFAULT' then
+			return get_profile_value('DEFAULT', p_name);
+		else
+  			return null;
+		end if;
+	end;
+
+begin
+	for (select u(u.[properties]: props)
+			in users%rowtype
+			where u.[TYPE]='U'
+			and (u.[lock_status] is null or u.[lock_status] not in ('DELETED', 'LOCKED')))
+	loop
+		if (instr(u.props, '|SESSION') <> 0) and (get_profile_value(extract_profile(u.props), 'FS.START_FORM') is not null) then
+			cnt := cnt + 1;
+		end if;
+	end loop;
+	return cnt;
+end;]]></sql>
+				</option>
+				</options>
+</option>
+				</options>
+</option>
+			<option crc-row="1994545663" id="CORE.PLP" name="PL+" licensed="1" loc="0">
+				<options>
+			<option crc-row="427000172" id="CORE.PLP.EXT" name="Расширения операций" licensed="1" loc="0">
+				<options>
+					<option crc-row="997218483" id="CORE.PLP.EXT.V1" name="Базовая реализация" type="NUM" check-type="LS_EQ" ss="1" licensed="1" loc="0">
+				<sql><![CDATA[	z number;
+          begin
+		select x(count(x.id)) in methods%rowtype where x.src_id is not null
+		into z;
+         		return z;
+          end;]]></sql>
+				</option>
+					<option crc-row="4088095859" id="CORE.PLP.EXT.V2" name="Единый пакет базовой операции и расширения" type="NUM" check-type="GR_EQ" ss="1" licensed="1" loc="0">
+				<sql><![CDATA[z number;
+begin
+		select x(count(x.id)) in methods%rowtype where x.src_id is not null and nvl(method.extract_property(x.properties, 'STANDALONE_EXTENSION'), 'Y') not in ('1', 'Y')
+		into z;
+         		return z;          
+end;]]></sql>
+				</option>
+				</options>
+</option>
+				</options>
+</option>
+			<option crc-row="1582662121" id="CORE.UI" name="Интерфейс пользователя" licensed="1" loc="0">
+</option>
+			<option crc-row="2801485143" id="CORE_ADMIN" name="Система доступа" licensed="1" loc="0">
+				<sql><![CDATA[begin 
+    return '1';
+end;]]></sql>
+				<options>
+			<option crc-row="3437901350" id="AUD_COPY_IN_VW" required="1" name="Аудит копирования строк в представлениях в АРМ &quot;ЦФТ - Навигатор&quot;" licensed="1" loc="0">
+				<sql><![CDATA[cnt integer := 0;
+audViewCopyRowsValue varchar2 := null;
+	function extract_profile(p_props in varchar2) return varchar2 is
+		i pls_integer;
+		j pls_integer;
+	begin
+		i := instr(p_props, '|PROFILE ');
+		if i > 0 then
+			j := instr(p_props, '|', i + 1);
+			if j > 0 then
+				return nvl(upper(trim(substr(p_props, i+9, j-i-9))), 'DEFAULT');
+			end if;
+			return nvl(upper(trim(substr(p_props, i+9))), 'DEFAULT');
+		end if;
+		return 'DEFAULT';
+	end;
+
+	function get_profile_value(p_profile in varchar2, p_name in varchar2) return varchar2 is
+		s varchar2(2000);
+	begin
+		select po(po.[value]: po_val) in profiles%rowtype
+		where po.[profile] = p_profile and po.[resource_name] = p_name
+		into s;
+		return s;
+	exception when no_data_found then
+		if p_profile <> 'DEFAULT' then
+			return get_profile_value('DEFAULT', p_name);
+		else
+  			return null;
+		end if;
+	end;
+
+begin
+	for (select u(u.[properties]: props)
+			in users%rowtype
+			where u.[TYPE]='U'
+			and (u.[lock_status] is null or u.[lock_status] not in ('DELETED', 'LOCKED')))
+	loop
+		audViewCopyRowsValue := upper(get_profile_value(extract_profile(u.props), 'AUD.VIEW_COPY_ROWS'));
+		if (audViewCopyRowsValue is not null) and (audViewCopyRowsValue = 'YES') then
+			cnt := cnt + 1;
+		end if;
+		exit when (cnt > 0);
+	end loop;
+	return to_char(cnt);
+end;]]></sql>
+				<options>
+					<option crc-row="2931575534" id="AUD_COPY_IN_VW.USERS" name="Количество пользователей, которым доступно журналирование копирования строк представлений в АРМ &quot;ЦФТ-Навигатор&quot;" type="NUM" check-type="LS_EQ" ss="1" licensed="1" loc="0">
+				<sql><![CDATA[cnt integer := 0;
+audViewCopyRowsValue varchar2 := null;
+	function extract_profile(p_props in varchar2) return varchar2 is
+		i pls_integer;
+		j pls_integer;
+	begin
+		i := instr(p_props, '|PROFILE ');
+		if i > 0 then
+			j := instr(p_props, '|', i + 1);
+			if j > 0 then
+				return nvl(upper(trim(substr(p_props, i+9, j-i-9))), 'DEFAULT');
+			end if;
+			return nvl(upper(trim(substr(p_props, i+9))), 'DEFAULT');
+		end if;
+		return 'DEFAULT';
+	end;
+
+	function get_profile_value(p_profile in varchar2, p_name in varchar2) return varchar2 is
+		s varchar2(2000);
+	begin
+		select po(po.[value]: po_val) in profiles%rowtype
+		where po.[profile] = p_profile and po.[resource_name] = p_name
+		into s;
+		return s;
+	exception when no_data_found then
+		if p_profile <> 'DEFAULT' then
+			return get_profile_value('DEFAULT', p_name);
+		else
+  			return null;
+		end if;
+	end;
+
+begin
+	for (select u(u.[properties]: props)
+			in users%rowtype
+			where u.[TYPE]='U'
+			and (u.[lock_status] is null or u.[lock_status] not in ('DELETED', 'LOCKED')))
+	loop
+	    audViewCopyRowsValue := upper(get_profile_value(extract_profile(u.props), 'AUD.VIEW_COPY_ROWS'));
+		if (audViewCopyRowsValue is not null) and (audViewCopyRowsValue = 'YES') then
+			cnt := cnt + 1;
+		end if;
+	end loop;
+	return cnt;
+end;]]></sql>
+				</option>
+				</options>
+</option>
+			<option crc-row="1113174266" id="CORE.RT.RO_USR" name="Режим &quot;Только чтение&quot; для пользователя\сессии" licensed="1" loc="0">
+				<options>
+					<option crc-row="2978381790" id="CORE.RT.RO_USR.COUNT" name="Количество пользователей" type="NUM" check-type="LS_EQ" ss="1" licensed="1" loc="0">
+				<sql><![CDATA[cnt number;
+begin
+  select u(count(1)) in users%rowtype,( profiles%rowtype : p) 
+    where  upper(p.resource_name) = 'PLP_READ_ONLY_ON_START' 
+      and (substr(upper(nvl(p.value,'0')),1,1) in ('1','Y')) 
+      and instr(upper(u.properties)||'|',('|PROFILE '||upper(p.profile)||'|') ) > 0
+      and u.[LOCK_STATUS] not in ('DELETED') and u.[TYPE]='U'
+  into cnt;
+  return cnt; 
+end;]]></sql>
+				</option>
+				</options>
+</option>
+			<option crc-row="3725344576" id="CORE_ADMIN.PRINT" required="1" name="Администрирование прав печати представлений" licensed="1" loc="0">
+				<sql><![CDATA[users_count integer := 0;
+begin
+	for (select u(u.[username]:username) in users%rowtype
+			where u.[TYPE]='U'
+			and (u.[lock_status] is null or u.[lock_status] not in ('DELETED', 'LOCKED')) 
+			and (u.[properties] like '%|VIEWPRINTLOCK%') 
+			and exists (select cr(cr.obj_id) in CRITERIA_RIGHTS%rowtype, (SUBJ_EQUAL%rowtype:se)
+			where cr.SUBJ_ID = se.EQUAL_ID and se.SUBJ_ID = u.USERNAME and (nvl(cr.TO_PRINTER, '0') = '1' or nvl(cr.TO_FILE, '0') = '1'))) 
+		loop
+			users_count:=users_count+1;
+            exit when (users_count>0);
+		end loop;
+	return to_char(users_count);
+end;]]></sql>
+				<options>
+					<option crc-row="2098512765" id="CORE_ADMIN.PRINT.USERS" name="Количество пользователей, использующих дополнительную настройку прав печати представлений" type="NUM" check-type="LS_EQ" ss="1" licensed="1" loc="0">
+				<sql><![CDATA[users_count integer := 0;
+begin
+	for (select u(u.[username]:username) in users%rowtype
+			where u.[TYPE]='U'
+			and (u.[lock_status] is null or u.[lock_status] not in ('DELETED', 'LOCKED'))
+			and (u.[properties] like '%|VIEWPRINTLOCK%') 
+			and exists (
+			select cr(cr.obj_id)
+			in CRITERIA_RIGHTS%rowtype, (SUBJ_EQUAL%rowtype:se)
+			where cr.SUBJ_ID = se.EQUAL_ID and se.SUBJ_ID = u.USERNAME and (nvl(cr.TO_PRINTER, '0') = '1' or nvl(cr.TO_FILE, '0') = '1'))) 
+		loop
+			users_count:=users_count+1;
+		end loop;
+	return users_count;
+end;]]></sql>
+				</option>
+				</options>
+</option>
+			<option crc-row="4260881255" id="CORE_DOSTUP" name="Иерархическое администрирование прав доступа" licensed="1" loc="0">
+				<sql><![CDATA[cnt number;
+begin
+  select u(count(distinct nvl(sde.[DOMAIN_ID], '$$$ROOT$$$'))) in USERS%rowtype, (SEC_DOMAIN_ENTRIES%rowtype:sde) where u.[TYPE]='U'
+    and (u.[LOCK_STATUS] is null or u.[LOCK_STATUS] not in ('DELETED','LOCKED'))
+    and u.[USERNAME]=sde.[USER_ID](true) and (INSTR(u.[PROPERTIES],'|UADMIN') > 0 or INSTR(u.[PROPERTIES],'|UPICKER') > 0)
+  into cnt;
+  if cnt>1 then
+    cnt:= 1;
+  else
+    cnt:= 0;
+  end if;
+return cnt;
+end;]]></sql>
+</option>
+			<option crc-row="3561348497" id="NAV_FORBID_COPY_IN_VW" required="1" name="Контроль копирования строк в представлениях" licensed="1" loc="0">
+				<sql><![CDATA[cnt integer := 0;
+navForbidViewCopyRowsValue varchar2 := null;
+	function extract_profile(p_props in varchar2) return varchar2 is
+		i pls_integer;
+		j pls_integer;
+	begin
+		i := instr(p_props, '|PROFILE ');
+		if i > 0 then
+			j := instr(p_props, '|', i + 1);
+			if j > 0 then
+				return nvl(upper(trim(substr(p_props, i+9, j-i-9))), 'DEFAULT');
+			end if;
+			return nvl(upper(trim(substr(p_props, i+9))), 'DEFAULT');
+		end if;
+		return 'DEFAULT';
+	end;
+
+	function get_profile_value(p_profile in varchar2, p_name in varchar2) return varchar2 is
+		s varchar2(2000);
+	begin
+		select po(po.[value]: po_val) in profiles%rowtype
+		where po.[profile] = p_profile and po.[resource_name] = p_name
+		into s;
+		return s;
+	exception when no_data_found then
+		if p_profile <> 'DEFAULT' then
+			return get_profile_value('DEFAULT', p_name);
+		else
+  			return null;
+		end if;
+	end;
+
+begin
+	for (select u(u.[properties]: props)
+			in users%rowtype
+			where u.[TYPE]='U'
+			and (u.[lock_status] is null or u.[lock_status] not in ('DELETED', 'LOCKED')))
+	loop
+		navForbidViewCopyRowsValue := upper(get_profile_value(extract_profile(u.props), 'NOVO.FORBID_VIEW_COPY_ROWS'));
+		if (navForbidViewCopyRowsValue is not null) and ((navForbidViewCopyRowsValue = 'YES') or (navForbidViewCopyRowsValue = 'OBJECTS_ONLY')) then
+			cnt := cnt + 1;
+		end if;
+		exit when (cnt > 0);
+	end loop;
+	return to_char(cnt);
+end;]]></sql>
+				<options>
+					<option crc-row="3874602814" id="NAV_FORBID_COPY_IN_VW.USERS" name="Количество пользователей, у которых включен запрет копирования строк представлений в АРМ &quot;ЦФТ-Навигатор&quot;" type="NUM" check-type="LS_EQ" ss="1" licensed="1" loc="0">
+				<sql><![CDATA[cnt integer := 0;
+navForbidViewCopyRowsValue varchar2 := null;
+	function extract_profile(p_props in varchar2) return varchar2 is
+		i pls_integer;
+		j pls_integer;
+	begin
+		i := instr(p_props, '|PROFILE ');
+		if i > 0 then
+			j := instr(p_props, '|', i + 1);
+			if j > 0 then
+				return nvl(upper(trim(substr(p_props, i+9, j-i-9))), 'DEFAULT');
+			end if;
+			return nvl(upper(trim(substr(p_props, i+9))), 'DEFAULT');
+		end if;
+		return 'DEFAULT';
+	end;
+
+	function get_profile_value(p_profile in varchar2, p_name in varchar2) return varchar2 is
+		s varchar2(2000);
+	begin
+		select po(po.[value]: po_val) in profiles%rowtype
+		where po.[profile] = p_profile and po.[resource_name] = p_name
+		into s;
+		return s;
+	exception when no_data_found then
+		if p_profile <> 'DEFAULT' then
+			return get_profile_value('DEFAULT', p_name);
+		else
+  			return null;
+		end if;
+	end;
+
+begin
+	for (select u(u.[properties]: props)
+			in users%rowtype
+			where u.[TYPE]='U'
+			and (u.[lock_status] is null or u.[lock_status] not in ('DELETED', 'LOCKED')))
+	loop
+		navForbidViewCopyRowsValue := upper(get_profile_value(extract_profile(u.props), 'NOVO.FORBID_VIEW_COPY_ROWS'));
+		if (navForbidViewCopyRowsValue is not null) and ((navForbidViewCopyRowsValue = 'YES') or (navForbidViewCopyRowsValue = 'OBJECTS_ONLY')) then
+			cnt := cnt + 1;
+		end if;
+	end loop;
+	return cnt;
+end;]]></sql>
+				</option>
+				</options>
+</option>
+					<option crc-row="224397737" id="ADMIN_GRP_ENABLED" name="Наличие административной группы" type="STRING" check-type="EQ" ss="1" licensed="1" loc="0">
+				<sql><![CDATA[ADMIN_GRP_ENABLED]]></sql>
+				</option>
+					<option crc-row="1942758176" id="CNT_SYSUSER" name="Количество технологических пользователей" type="NUM" check-type="LS_EQ" ss="1" licensed="1" loc="0">
+				<sql><![CDATA[cnt number;
+begin
+  select u(count(1)) in USERS%rowtype where u.[TYPE]='U'
+    and (u.[LOCK_STATUS] is null or u.[LOCK_STATUS] not in ('DELETED','LOCKED'))
+    and not (instr(u.[PROPERTIES],'|2L_LOCK')>0 and instr(u.[PROPERTIES],'|SESSION')=0)
+    and instr(u.[PROPERTIES],'|LOCK')=0
+    and ((instr(u.[PROPERTIES], '|SYSUSER') > 0 and 
+          instr(u.[PROPERTIES], '|SYSUSER 2L') = 0 and
+          instr(u.[PROPERTIES], '|SYSUSER 3L') = 0
+         ) or
+        (instr(u.[PROPERTIES], '|SYSUSER 2L') > 0 and instr(u.[PROPERTIES], '|SESSION') = 0) or
+        (instr(u.[PROPERTIES], '|SYSUSER 3L') > 0 and instr(u.[PROPERTIES], '|2L_LOCK') > 0)             
+        )
+  into cnt;
+  return cnt; 
+end;]]></sql>
+				</option>
+					<option crc-row="444029883" id="MAX_ADMINS" name="Администратор банковской модели" type="NUM" check-type="LS_EQ" ss="1" licensed="1" loc="0">
+				<sql><![CDATA[cnt number;
+begin
+  select u(count(1)) in USERS%rowtype where u.[TYPE]='U'
+  and (u.[LOCK_STATUS] is null or u.[LOCK_STATUS] not in ('DELETED','LOCKED'))
+  and (instr(u.[PROPERTIES],'|ADMIN')>0 or instr(u.[PROPERTIES],'|PICKER')>0)
+  into cnt;
+  return cnt; 
+end;]]></sql>
+				</option>
+					<option crc-row="444577816" id="MAX_APP_SRV" name="Максимальное количество пользователей, имеющих право создавать/инициализировать сессии пользоватетей" type="NUM" check-type="EQ" ss="1" licensed="1" loc="0">
+				<sql><![CDATA[MAX_APP_SRV]]></sql>
+				</option>
+					<option crc-row="4130036326" id="MAX_SESSIONS" name="Максимальное количество одновременно зарегистрированных пользовательских сессий" type="NUM" check-type="EQ" ss="1" licensed="1" loc="0">
+				<sql><![CDATA[MAX_SESSIONS]]></sql>
+				</option>
+					<option crc-row="3072240133" id="MAX_UADMINS" name="Администратор доступа" type="NUM" check-type="LS_EQ" ss="1" licensed="1" loc="0">
+				<sql><![CDATA[cnt number;
+begin
+  select u(count(1)) in USERS%rowtype where u.[TYPE]='U'
+  and (u.[LOCK_STATUS] is null or u.[LOCK_STATUS] not in ('DELETED','LOCKED'))
+  and (instr(u.[PROPERTIES],'|UADMIN')>0 or instr(u.[PROPERTIES],'|UPICKER')>0)
+  into cnt;
+  return cnt; 
+end;]]></sql>
+				</option>
+					<option crc-row="3498982314" id="MAX_USERS" name="Пользователь* (общее число для всех модулей, кроме &quot;Банк-Клиент&quot; и/или &quot;Банк-Офис&quot;)" type="NUM" check-type="LS_EQ" ss="1" licensed="1" loc="0">
+				<sql><![CDATA[cnt number;
+begin
+  select u(count(1)) in USERS%rowtype where u.[TYPE]='U'
+    and (u.[LOCK_STATUS] is null or u.[LOCK_STATUS] not in ('DELETED','LOCKED'))
+    and (instr(u.[PROPERTIES],'|LOCK')=0 or instr(u.[PROPERTIES],'|REVISOR')>0)
+    and (instr(u.[PROPERTIES],'|SYSUSER')=0 or 
+         (instr(u.[PROPERTIES],'|SYSUSER 2L')>0 and instr(u.[PROPERTIES],'|SESSION')>0) or 
+         (instr(u.[PROPERTIES],'|SYSUSER 3L')>0 and instr(u.[PROPERTIES],'|2L_LOCK')=0)
+        )
+    and not (instr(u.[PROPERTIES],'|2L_LOCK')>0 and instr(u.[PROPERTIES],'|SESSION')=0)
+    and u.[USERNAME] not in (inst_info.gowner,inst_info.owner)
+    and (instr(u.[PROPERTIES],'|OPEN_SESSION') = 0 and instr(u.[PROPERTIES],'|INIT_SESSION') = 0
+        or 
+          (
+             (select mr(count(1)) in method_rights%rowtype where mr.subj_id=u.username and rownum=1)=1
+          or (select cr(count(1)) in class_rights%rowtype where cr.subj_id=u.username and rownum=1)=1
+          or (select cr(count(1)) in criteria_rights%rowtype where cr.subj_id=u.username and rownum=1)=1
+          or (select se(count(1)) in subj_equal%rowtype where se.subj_id=u.username and se.subj_id<>se.equal_id and rownum=1)=1
+          )
+        )
+  into cnt;
+  return cnt; 
+end;]]></sql>
+				</option>
+					<option crc-row="3968541749" id="UADMINS_PER_DOMAIN" name="Количество администраторов доступа в одном домене безопасности" type="NUM" check-type="EQ" ss="1" licensed="1" loc="0">
+				<sql><![CDATA[UADMINS_PER_DOMAIN]]></sql>
+				</option>
+					<option crc-row="3640322323" id="USERS_DELETED" name="Количество удаленных пользователей" type="NUM" check-type="LS_EQ" ss="1" licensed="1" loc="0">
+				<sql><![CDATA[cnt number;
+begin
+select u(count(1)) in USERS%rowtype where u.[TYPE]='U' and  u.[LOCK_STATUS] = ('DELETED')  into cnt;
+  return cnt;
+end;]]></sql>
+				</option>
+					<option crc-row="3901851939" id="USERS_LICENSED" name="Количество лицензируемых пользователей" type="NUM" check-type="LS_EQ" ss="1" licensed="1" loc="0">
+				<sql><![CDATA[USERS_LICENSED]]></sql>
+				</option>
+					<option crc-row="153556927" id="USERS_LOCKED" name="Количество заблокированных пользователей" type="NUM" check-type="LS_EQ" ss="1" licensed="1" loc="0">
+				<sql><![CDATA[cnt number;
+begin
+
+select s (count(1)) in (
+select u(u.[username]) in USERS%rowtype where u.[TYPE]='U' and u.[USERNAME] not in (inst_info.OWNER, inst_info.GOWNER) and nvl(u.[LOCK_STATUS], 'NULL') <>  ('DELETED')   -- Удаленные пользователи
+MINUS
+-- MAX_USERS
+  select u(u.[username]) in USERS%rowtype where u.[TYPE]='U'
+    and (u.[LOCK_STATUS] is null or u.[LOCK_STATUS] not in ('DELETED','LOCKED'))
+    and (instr(u.[PROPERTIES],'|LOCK')=0 or instr(u.[PROPERTIES],'|REVISOR')>0)
+    and (instr(u.[PROPERTIES],'|SYSUSER')=0 or
+         (instr(u.[PROPERTIES],'|SYSUSER 2L')>0 and instr(u.[PROPERTIES],'|SESSION')>0) or
+         (instr(u.[PROPERTIES],'|SYSUSER 3L')>0 and instr(u.[PROPERTIES],'|2L_LOCK')=0)
+        )
+    and not (instr(u.[PROPERTIES],'|2L_LOCK')>0 and instr(u.[PROPERTIES],'|SESSION')=0)
+    and u.[USERNAME] not in (inst_info.gowner,inst_info.owner)
+    and (instr(u.[PROPERTIES],'|OPEN_SESSION') = 0 and instr(u.[PROPERTIES],'|INIT_SESSION') = 0
+        or
+          (
+             (select mr(count(1)) in method_rights%rowtype where mr.subj_id=u.username and rownum=1)=1
+          or (select cr(count(1)) in class_rights%rowtype where cr.subj_id=u.username and rownum=1)=1
+          or (select cr(count(1)) in criteria_rights%rowtype where cr.subj_id=u.username and rownum=1)=1
+          or (select se(count(1)) in subj_equal%rowtype where se.subj_id=u.username and se.subj_id<>se.equal_id and rownum=1)=1
+          )
+        )
+MINUS
+  -- MAX_ADMINS
+  select u(u.username) in USERS%rowtype where u.[TYPE]='U'
+  and (u.[LOCK_STATUS] is null or u.[LOCK_STATUS] not in ('DELETED','LOCKED'))
+  and (instr(u.[PROPERTIES],'|ADMIN')>0 or instr(u.[PROPERTIES],'|PICKER')>0)
+MINUS
+  -- MAX_UADMINS
+  select u(u.username) in USERS%rowtype where u.[TYPE]='U'
+  and (u.[LOCK_STATUS] is null or u.[LOCK_STATUS] not in ('DELETED','LOCKED'))
+  and (instr(u.[PROPERTIES],'|UADMIN')>0 or instr(u.[PROPERTIES],'|UPICKER')>0)
+MINUS
+  -- CNT_SYSUSER
+  select u(u.username) in USERS%rowtype where u.[TYPE]='U'
+    and (u.[LOCK_STATUS] is null or u.[LOCK_STATUS] not in ('DELETED','LOCKED'))
+    and not (instr(u.[PROPERTIES],'|2L_LOCK')>0 and instr(u.[PROPERTIES],'|SESSION')=0)
+    and instr(u.[PROPERTIES],'|LOCK')=0
+    and ((instr(u.[PROPERTIES], '|SYSUSER') > 0 and
+          instr(u.[PROPERTIES], '|SYSUSER 2L') = 0 and
+          instr(u.[PROPERTIES], '|SYSUSER 3L') = 0
+         ) or
+        (instr(u.[PROPERTIES], '|SYSUSER 2L') > 0 and instr(u.[PROPERTIES], '|SESSION') = 0) or
+        (instr(u.[PROPERTIES], '|SYSUSER 3L') > 0 and instr(u.[PROPERTIES], '|2L_LOCK') > 0)
+        )
+   MINUS
+   -- USERS_PROXY
+     select u(u.username)  in USERS%rowtype where u.TYPE='U'
+    and (u.[LOCK_STATUS] is null or u.[LOCK_STATUS] not in ('DELETED'))
+    and (instr(u.[PROPERTIES],'|OPEN_SESSION') <> 0 or instr(u.[PROPERTIES],'|INIT_SESSION') <> 0) and u.[USERNAME] <> inst_info.OWNER) into cnt; return cnt;
+end;]]></sql>
+				</option>
+					<option crc-row="4077429282" id="USERS_PROXY" name="Количество служебных пользователей-посредников СП и СО" type="NUM" check-type="LS_EQ" ss="1" licensed="1" loc="0">
+				<sql><![CDATA[cnt number;
+begin
+select u(count(1))  in USERS%rowtype where u.TYPE='U'
+    and (u.[LOCK_STATUS] is null or u.[LOCK_STATUS] not in ('DELETED'))
+    and (instr(u.[PROPERTIES],'|OPEN_SESSION') <> 0 or instr(u.[PROPERTIES],'|INIT_SESSION') <> 0) and u.[USERNAME] not in (inst_info.OWNER, inst_info.GOWNER)
+    into cnt;
+return cnt;
+end;]]></sql>
+				</option>
+				</options>
+</option>
+			<option crc-row="2689993904" id="CORE_EDOC" name="Поддержка электронного документооборота" licensed="1" loc="0">
+				<sql><![CDATA[cnt integer:=0;
+begin 
+   if not edoc_mgr.get_version is null then
+     cnt:= 1;
+   end if;
+   return cnt;
+exception when others then return 0;
+end;]]></sql>
+</option>
+			<option crc-row="454451764" id="CORE_SPL" name="Сервер Приложений 3L для Платформы 1" licensed="1" loc="0">
+				<sql><![CDATA[cnt number;
+begin
+  select l(count(1)) in LICENSE_PARAMS%rowtype where l.[ID] in ('2MCA.APP', '2MCA_PROXY') and l.[USAGE] <> '0' and rownum = 1 into cnt;
+    if cnt = 0 then
+      select u(count(1)) in USERS%rowtype where u.[TYPE] = 'U'
+        and (u.[LOCK_STATUS] is null or u.[LOCK_STATUS] not in ('DELETED', 'LOCKED')) and instr(u.[PROPERTIES], '|SESSION') > 0 and not u.[OS_DOMAIN] is null and not u.[OS_USER] is null and rownum = 1
+      into cnt;
+    else 
+      cnt := 0;
+    end if;
+    return cnt;
+end;]]></sql>
+</option>
+			<option crc-row="950516545" id="CORE_SYSTEM" name="Системные опции" licensed="1" loc="0">
+				<sql><![CDATA[begin 
+    return '1';
+end;]]></sql>
+				<options>
+					<option crc-row="61628062" id="CONF_INFO" name="Информация о конфигурации системы" type="STRING" check-type="EQ" ss="1" licensed="1" loc="0">
+				<sql><![CDATA[s varchar2(2000);
+s1 varchar2(32000);
+s2 varchar2(32000);
+begin
+--# if inst_info.db_version>=10
+	select c('PLATFORM_ID='||c.platform_id||',PLATFORM_NAME='||c.PLATFORM_NAME||chr(10)) in V$DATABASE%rowtype into s;
+--# endif
+	dbms_utility.db_version(s1,s2);
+  	s:= s||'dbms_utility.port_string = '||dbms_utility.port_string||chr(10)||
+        'dbms_utility.db_version.version = '||s1||chr(10)||
+        'dbms_utility.db_version.compatibility = '||s2||chr(10);
+
+--# if inst_info.db_version>=10
+    for (select  c(c.stat_name||'='||c.value:s) in V$OSSTAT%rowtype
+		where c.stat_name in ('NUM_CPUS','NUM_CPU_CORES','NUM_CPU_SOCKETS')
+		order by c.stat_name)
+	loop
+		s:=s||c.s||',';
+	end loop;
+
+	if substr(s,-1)=',' then
+		s:= rtrim(s,',')||chr(10);
+	end if;
+
+	select c('SESSIONS_MAX='||nvl(c.SESSIONS_MAX,0)||chr(10)||'SESSIONS_WARNING='||nvl(c.SESSIONS_WARNING,0)||chr(10)||
+		'SESSIONS_CURRENT='||nvl(c.SESSIONS_CURRENT,0)||chr(10)||'SESSIONS_HIGHWATER='||nvl(c.SESSIONS_HIGHWATER,0)||chr(10)||
+		'USERS_MAX='||nvl(c.USERS_MAX,0)||chr(10)||'CPU_COUNT_CURRENT='||nvl(c.CPU_COUNT_CURRENT,0)||chr(10)||
+		'CPU_CORE_COUNT_CURRENT='||nvl(c.CPU_CORE_COUNT_CURRENT,0)||chr(10)||'CPU_SOCKET_COUNT_CURRENT='||nvl(c.CPU_SOCKET_COUNT_CURRENT,0)||chr(10)||
+		'CPU_COUNT_HIGHWATER='||nvl(c.CPU_COUNT_HIGHWATER,0)||chr(10)||'CPU_CORE_COUNT_HIGHWATER='||nvl(c.CPU_CORE_COUNT_HIGHWATER,0)||chr(10)||
+		'CPU_SOCKET_COUNT_HIGHWATER='||nvl(c.CPU_SOCKET_COUNT_HIGHWATER,0))
+	in V$LICENSE%rowtype
+	into s1;
+--# else
+	select c('SESSIONS_MAX='||nvl(c.SESSIONS_MAX,0)||chr(10)||'SESSIONS_WARNING='||nvl(c.SESSIONS_WARNING,0)||chr(10)||
+			 'SESSIONS_CURRENT='||nvl(c.SESSIONS_CURRENT,0)||chr(10)||'SESSIONS_HIGHWATER='||nvl(c.SESSIONS_HIGHWATER,0)||chr(10)||
+			 'USERS_MAX='||nvl(c.USERS_MAX,0)||chr(10))
+	in V$LICENSE%rowtype
+	into s1;
+--# endif
+	s:= s || s1;
+	return s;
+end;]]></sql>
+				</option>
+					<option crc-row="4049306028" id="LOCAL_MOD" name="Префиксы локальных объектов" type="STRING" check-type="" ss="1" licensed="1" loc="0">
+				</option>
+					<option crc-row="942155493" id="MACHINE_PER_USER_INFO" name="Информация о количестве пользователей работающих одновременно с разных компьютеров" type="STRING" check-type="" ss="1" licensed="1" loc="0">
+				</option>
+					<option crc-row="1946198350" id="MAX_DATE" name="Срок окончания действия лицензии" type="DATE" check-type="LS" ss="1" licensed="1" loc="0">
+				</option>
+					<option crc-row="360516548" id="PARTITIONING" name="Использование функционала разделения (партификации) данных" type="STRING" check-type="EQ" ss="1" licensed="1" loc="0">
+				<sql><![CDATA[PARTITIONING]]></sql>
+				</option>
+					<option crc-row="3981091318" id="SYSTEM_ID" name="Защита прикладного ядра" type="STRING" check-type="EQ" ss="1" licensed="1" loc="0">
+				<sql><![CDATA[SYSTEM_ID]]></sql>
+				</option>
+					<option crc-row="974143322" id="SYS_NAME" name="Наименование Клиента" type="STRING" check-type="EQ" ss="1" licensed="1" loc="0">
+				<sql><![CDATA[SYS_NAME]]></sql>
+				</option>
+				</options>
+</option>
+			<option crc-row="258781198" id="ISPDN" required="1" name="Администрирование персональных данных" licensed="1" loc="0">
+</option>
+			<option crc-row="2978832153" id="LOCAL_APP" name="Локальное приложение" licensed="1" loc="0">
+				<options>
+			<option crc-row="1773262757" id="LOCAL_APP.OBJ_ACCESS" required="1" name="Система доступа к объектам Приложений" licensed="1" loc="0">
+</option>
+					<option crc-row="2515500016" id="COMPONENT_LOADER" name="Компонента &quot;Загрузчик&quot;" type="NUM" check-type="LS_EQ" ss="1" licensed="1" loc="0">
+				<sql><![CDATA[n pls_integer;
+begin
+
+	select c(count(1)) in 
+	(
+		select  so(oo.obj_type, oo.class_id, oo.short_name)
+		in system_options%rowtype,  (objects_options%rowtype:oo)
+		where so.id=oo.option_id  and so.licensed='0'
+		and 
+		(
+			(oo.obj_type='CLASSES' and exists (select ct(1) in class_tables%rowtype where ct.class_id=oo.class_id)) 
+			or oo.obj_type in ('METHODS','CRITERIA')
+		)
+		and rownum=1	
+	)  
+	into n; 
+
+	if n=0 then
+	
+		select c(count(1)) in 
+		(
+			select c(c.id:id, 'CLASSES':obj_type, c.id:class_id, c.id:short_name) in classes%rowtype, (class_tables%rowtype:ct) where c.id=ct.class_id
+			union
+			select m(m.id:id, 'METHODS':obj_type, m.class_id:class_id, m.short_name:short_name) in methods%rowtype where m.flags not in ('Z', 'A')
+			union
+			select m(m.id:id, 'METHODS':obj_type, m.class_id:class_id, m.short_name:short_name) in methods%rowtype where m.flags='Z'
+				and not exists (select cr(1) in criteria%rowtype where cr.id = m.id)                         
+			union
+			select c(c.id:id, 'CRITERIA':obj_type, c.class_id:class_id, c.short_name:short_name) in criteria%rowtype
+		)
+		where not exists
+		(
+			select o(1) in objects_options%rowtype where o.obj_type = c.obj_type 
+			and o.class_id = c.class_id  and (o.short_name = c.short_name or c.short_name like replace(o.short_name,'_','\_') escape '\')
+		)
+		and rownum=1
+		into n; 
+
+	end if;
+	return n;
+end;]]></sql>
+				</option>
+					<option crc-row="1216377821" id="LICENSED_COUNT_ALL" name="Количество лицензируемых объектов" type="NUM" check-type="LS_EQ" ss="1" licensed="1" loc="0">
+				<sql><![CDATA[n pls_integer;
+begin
+	select c(count(1)) in 
+         (
+        	select distinct so(oo.obj_type, oo.class_id, oo.short_name)
+        	in system_options%rowtype,  (objects_options%rowtype:oo)
+        	where so.id=oo.option_id  and so.licensed='1'
+        	and 
+        	((
+        	 oo.obj_type='CLASSES' 
+        	 and exists (select ct(1) in class_tables%rowtype where ct.class_id=oo.class_id)
+         ) or oo.obj_type in ('METHODS','CRITERIA'))
+        	
+        )  
+  into n; 
+  return n;
+end;]]></sql>
+				</option>
+					<option crc-row="1350634344" id="LICENSED_COUNT_LIC" name="Количество лицензированных объектов" type="NUM" check-type="LS_EQ" ss="1" licensed="1" loc="0">
+				<sql><![CDATA[n pls_integer;
+begin
+	select c(count(1)) in 
+         (
+        	select distinct so(oo.obj_type, oo.class_id, oo.short_name)
+        	in system_options%rowtype,  (objects_options%rowtype:oo), (license_params%rowtype:lp)
+        	where so.id=oo.option_id and so.id=lp.id  and so.licensed='1'  and lp.usage in ('1','2')
+        	and 
+        	((
+        	 oo.obj_type='CLASSES' 
+        	 and exists (select ct(1) in class_tables%rowtype where ct.class_id=oo.class_id)
+         ) or oo.obj_type in ('METHODS','CRITERIA'))
+        	
+        )  
+  into n; 
+  return n;
+end;]]></sql>
+				</option>
+					<option crc-row="3261699984" id="LICENSED_COUNT_NOTLIC" name="Количество нелицензированных объектов" type="NUM" check-type="LS_EQ" ss="1" licensed="1" loc="0">
+				<sql><![CDATA[n pls_integer;
+begin
+	select c(count(1)) in
+		(
+			select so(oo.obj_type, oo.class_id, oo.short_name)
+			in system_options%rowtype,  (objects_options%rowtype:oo), (license_params%rowtype:lp)
+			where so.id=oo.option_id and so.id=lp.id (true) and so.licensed='1'
+			and
+			((
+			oo.obj_type='CLASSES'
+			and exists (select ct(1) in class_tables%rowtype where ct.class_id=oo.class_id))
+			or oo.obj_type in ('METHODS','CRITERIA'))        	
+			group by oo.obj_type, oo.class_id, oo.short_name
+			having max(nvl(lp.usage,0))=0
+        )
+  into n;
+  return n;
+end;]]></sql>
+				</option>
+					<option crc-row="3653251856" id="LOCAL_APP_COUNT_API" name="Количество Прикладных Объектов, входящих в Приложения, не приобретенные ЛИЦЕНЗИАТОМ у ЛИЦЕНЗИАРА, вызываемых из Локальных Объектов ЛИЦЕНЗИАТА" type="NUM" check-type="" ss="1" licensed="1" loc="0">
+				</option>
+					<option crc-row="1974991994" id="LOCAL_COUNT_NOTREG" name="Количество незарегистрированных локальных объектов" type="NUM" check-type="LS_EQ" ss="1" licensed="1" loc="0">
+				<sql><![CDATA[n pls_integer;
+begin
+	select c(count(1)) in 
+         (
+          select c(c.id:id, 'CLASSES':obj_type, c.id:class_id, c.id:short_name) in classes%rowtype, (class_tables%rowtype:ct) where c.id=ct.class_id
+          union
+          select m(m.id:id, 'METHODS':obj_type, m.class_id:class_id, m.short_name:short_name) in methods%rowtype where m.flags not in ('Z', 'A')
+          union
+          select m(m.id:id, 'METHODS':obj_type, m.class_id:class_id, m.short_name:short_name) in methods%rowtype where m.flags='Z'
+            and not exists (select cr(1) in criteria%rowtype where cr.id = m.id)                         
+          union
+          select c(c.id:id, 'CRITERIA':obj_type, c.class_id:class_id, c.short_name:short_name) in criteria%rowtype
+         )
+  where not exists (
+    select o(1) in objects_options%rowtype where o.obj_type = c.obj_type 
+    and o.class_id = c.class_id  and (o.short_name = c.short_name or c.short_name like replace(o.short_name,'_','\_') escape '\' ))  
+  into n; 
+  return n;
+end;]]></sql>
+				</option>
+					<option crc-row="2749127392" id="LOCAL_COUNT_REG" name="Количество зарегистрированных локальных объектов" type="NUM" check-type="LS_EQ" ss="1" licensed="1" loc="0">
+				<sql><![CDATA[n pls_integer;
+begin
+	select c(count(1)) in 
+         (
+        	select distinct so(oo.obj_type, oo.class_id, oo.short_name)
+        	in system_options%rowtype,  (objects_options%rowtype:oo), (license_params%rowtype:lp)
+        	where so.id=oo.option_id and so.id=lp.id  and so.loc ='1'
+        	and 
+        	((
+        	 oo.obj_type='CLASSES' 
+        	 and exists (select ct(1) in class_tables%rowtype where ct.class_id=oo.class_id)
+         ) or oo.obj_type in ('METHODS','CRITERIA'))
+        	
+        )  
+  into n; 
+  return n;
+end;]]></sql>
+				</option>
+				</options>
+</option>
+			<option crc-row="3585909813" id="NAV_SKIN_INTERFACE" required="1" name="Выбор стиля интерфейса в АРМ &quot;ЦФТ - Навигатор&quot;" licensed="1" loc="0">
+</option>
+			<option crc-row="3525344650" id="OOXML" name="Контроль использования OOXML" licensed="1" loc="0">
+				<options>
+					<option crc-row="2012202929" id="MAX_OOXML_USERS" name="Максимальное количество пользователей, имеющих право просмотра отчетов в формате OOXML" type="NUM" check-type="LS_EQ" ss="1" licensed="1" loc="0">
+				<sql><![CDATA[cnt integer := 0;
+	function extract_profile(p_props in varchar2) return varchar2 is
+		i pls_integer;
+		j pls_integer;
+	begin
+		i := instr(p_props, '|PROFILE ');
+		if i > 0 then
+			j := instr(p_props, '|', i + 1);
+			if j > 0 then
+				return nvl(upper(trim(substr(p_props, i+9, j-i-9))), 'DEFAULT');
+			end if;
+			return nvl(upper(trim(substr(p_props, i+9))), 'DEFAULT');
+		end if;
+		return 'DEFAULT';
+	end;
+
+	function get_profile_value(p_profile in varchar2, p_name in varchar2) return varchar2 is
+		s varchar2(2000);
+	begin
+		select po(po.[value]: po_val) in profiles%rowtype
+		where po.[profile] = p_profile and po.[resource_name] = p_name
+		into s;
+		return s;
+	exception when no_data_found then
+		if p_profile <> 'DEFAULT' then
+			return get_profile_value('DEFAULT', p_name);
+		else
+  			return null;
+		end if;
+	end;
+
+begin
+	for (select u(u.[properties]: props)
+			in users%rowtype
+			where u.[TYPE]='U'
+			and (u.[lock_status] is null or u.[lock_status] not in ('DELETED', 'LOCKED')))
+	loop
+		if nvl(get_profile_value(extract_profile(u.props), 'OOXML_USER'), 'NO') = 'YES' then
+			cnt := cnt + 1;
+		end if;
+	end loop;
+	return cnt;
+end;]]></sql>
+				</option>
+				</options>
+</option>
+			<option crc-row="904447714" id="ORM" name="ORM" licensed="1" loc="0">
+				<options>
+			<option crc-row="1408401463" id="ORM.ARC" name="Архив данных" licensed="1" loc="0">
+				<options>
+			<option crc-row="3747642627" id="ORM.ARC.BATCH" required="1" name="Пакетная обработка таблиц при архивации данных" crc-obj="496460137" licensed="1" loc="0">
+<pck><![CDATA[VER2
+REM Список дистрибутивных элементов для подсистемы [ORM.ARC.BATCH] "Пакетная обработка таблиц при архивации данных"
+REM Автоматизированная Система Учета и Выдачи Лицензий
+
+TYPE PART_CLASS PART_CLASS
+TYPE PART_CLASS_REF PART_CLASS_REF
+TYPE PART_LINK PART_LINK
+TYPE PART_LOG PART_LOG
+ATTR PART_CLASS CODE
+ATTR PART_CLASS COMPILE
+ATTR PART_CLASS GRP
+ATTR PART_CLASS IS_DEL
+ATTR PART_CLASS IS_PROCESS
+ATTR PART_CLASS LIB_DEF_PART
+ATTR PART_CLASS NEED_COMPILE
+ATTR PART_CLASS PRIORITY
+ATTR PART_CLASS WH4PROCESS
+ATTR PART_LINK A_TYPE
+ATTR PART_LINK CLS
+ATTR PART_LINK RELATED
+ATTR PART_LINK REL_ATTRS
+ATTR PART_LINK REL_CASE
+ATTR PART_LOG ARRIVAL
+ATTR PART_LOG CODE
+ATTR PART_LOG CREATION
+ATTR PART_LOG KEY_VALUE
+ATTR PART_LOG PART_CLASS
+ATTR PART_LOG PUT_CONDITIONS
+CRIT METACLASS VW_CRIT_T_CLASSES
+CRIT PART_CLASS VW_CRIT_PART_CLASS
+CRIT PART_LINK VW_CRIT_PART_LINK
+CRIT PART_LOG VW_CRIT_PART_LOG
+METH PART_CLASS DELETE_AUTO
+METH PART_CLASS EDIT_AUTO
+METH PART_CLASS HELM
+METH PART_CLASS KIT
+METH PART_CLASS NEW_AUTO
+METH PART_CLASS PART_OF_TABLE
+METH PART_CLASS SET_VALUES
+METH PART_LINK DELETE_AUTO
+METH PART_LINK EDIT_AUTO
+METH PART_LINK NEW_AUTO
+METH PART_LOG DELETE_AUTO
+METH PART_LOG EDIT_AUTO
+METH PART_LOG HELM
+METH PART_LOG NEW_AUTO
+TYPE GROUPS GROUPS
+ATTR GROUPS CODE
+ATTR GROUPS HIGH
+ATTR GROUPS NAME
+ATTR GROUPS NUM
+ATTR GROUPS SET_ID
+CRIT GROUPS VW_CRIT_T_GROUPS
+METH GROUPS DELETE_AUTO
+METH GROUPS EDIT_AUTO
+METH GROUPS HELM
+METH GROUPS NEW_AUTO
+METH GROUPS PUT_SET
+TYPE GROUPS_REF GROUPS_REF
+TYPE SETS SETS
+ATTR SETS CODE
+ATTR SETS EXPIR_DATE
+ATTR SETS NAME
+ATTR SETS NOTE
+ATTR SETS NUM
+ATTR SETS PREFIX
+ATTR SETS START_DATE
+CRIT SETS VW_CRIT_SETS
+METH SETS DELETE_AUTO
+METH SETS EDIT_AUTO
+METH SETS HELM
+METH SETS NEW_AUTO
+TYPE SETS_REF SETS_REF
+TYPE TRUNC_CLASS TRUNC_CLASS
+ATTR TRUNC_CLASS CODE
+ATTR TRUNC_CLASS GRP
+ATTR TRUNC_CLASS IS_ALL_DATA
+ATTR TRUNC_CLASS IS_PROCESS
+ATTR TRUNC_CLASS PRIORITY
+ATTR TRUNC_CLASS WH4PROCESS
+CRIT TRUNC_CLASS VW_CRIT_TRUNC_CLASS
+METH TRUNC_CLASS DELETE_AUTO
+METH TRUNC_CLASS EDIT_AUTO
+METH TRUNC_CLASS HELM
+METH TRUNC_CLASS KIT
+METH TRUNC_CLASS NEW_AUTO
+METH TRUNC_CLASS SET_VALUES
+METH TRUNC_CLASS TRUNC_TAB
+TYPE TRUNC_CLASS_REF TRUNC_CLASS_REF
+TYPE TRUNC_LINK TRUNC_LINK
+ATTR TRUNC_LINK A_TYPE
+ATTR TRUNC_LINK CLS
+ATTR TRUNC_LINK RELATED
+ATTR TRUNC_LINK REL_ATTRS
+ATTR TRUNC_LINK REL_CASE
+CRIT TRUNC_LINK VW_CRIT_TRUNC_LINK
+METH TRUNC_LINK DELETE_AUTO
+METH TRUNC_LINK EDIT_AUTO
+METH TRUNC_LINK NEW_AUTO
+]]></pck>
+</option>
+					<option crc-row="2891273764" id="ORM.ARC.PACK" name="Архивный пакет" type="NUM" check-type="" ss="1" licensed="1" loc="0">
+				</option>
+				</options>
+</option>
+			<option crc-row="1541945684" id="ORM.IDS" name="Идентификация данных" licensed="1" loc="0">
+				<options>
+			<option crc-row="1872883705" id="ORM.ROWID" name="По RowID" licensed="1" loc="0">
+</option>
+				</options>
+</option>
+			<option crc-row="1825892630" id="ORM.PARTS" name="Секционирование данных" licensed="1" loc="0">
+				<options>
+			<option crc-row="2133599297" id="ORM.PARTITIONING" required="1" name="Базовая реализация" licensed="1" loc="0">
+				<sql><![CDATA[cnt integer:=0;
+begin 
+   select u(1) in vw_partitioning_classes%rowtype where u.state <> 'ASSIGNED' and rownum = 1 into cnt;
+   return to_char(cnt);
+exception when others then return 0;
+end;]]></sql>
+</option>
+				</options>
+</option>
+			<option crc-row="1134263577" id="ORM.STORAGE_PARAMS" name="Управление параметрами хранения" licensed="1" loc="0">
+				<options>
+			<option crc-row="1899626205" id="ORM.STORAGE_PARAMS.V2" name="Учет параметров хранения при перестроении" licensed="1" loc="0">
+				<sql><![CDATA[cnt integer:=0;
+begin 
+   select x(1) in storage_parameters%rowtype 
+       where x.param_name='REBUILD.STORAGE_TEMPLATE' 
+       and x.param_value='TABLE' 
+       and rownum = 1 
+       into cnt;
+   return to_char(cnt);
+exception when others then return '0';
+end;]]></sql>
+</option>
+				</options>
+</option>
+			<option crc-row="835505385" id="ORM.TYPES" name="Базовые типы данных" licensed="1" loc="0">
+				<options>
+			<option crc-row="3139923396" id="ORM.UNICODE" required="1" name="NVarchar2" licensed="1" loc="0">
+</option>
+				</options>
+</option>
+				</options>
+</option>
+			<option crc-row="371374152" id="RAC" required="1" name="Поддержка Real Application Cluster" licensed="1" loc="0">
+</option>
+				<option crc-row="2967272361" id="INSTALLATION_ID" name="Идентификатор инсталляции" check-type="" type="STRING" ss="1" licensed="0" loc="0">
+				<sql><![CDATA[INSTALLATION_ID]]></sql>
+				</option>
+				<option crc-row="2249498320" id="REPORT" name="Ведение отчетов" check-type="" type="STRING" ss="1" licensed="0" loc="0">
+				<sql><![CDATA[REPORT]]></sql>
+				</option>
+				<option crc-row="746562371" id="CHECK_SUM" name="Контрольная сумма" check-type="EQ" type="STRING" ss="1" licensed="0" loc="0">
+				</option>
+				</options>
+</option>
+</license></dsig:Object><Manifest Id="metaData"><Reference URI="#mainData"><Transforms><Transform Algorithm="http://www.w3.org/TR/1999/WD-xml-c14n-19991115"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/01/xmldsig/md5"/><DigestValue>VGBR0davqPI1GxSe1+tF0w==</DigestValue></Reference></Manifest><Signature Id="Sig1" xmlns="http://www.w3.org/2000/01/xmldsig/"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/TR/1999/WD-xml-c14n-19991115"/><SignatureMethod Algorithm="http://www.w3.org/2000/01/xmldsig/rsa-sha1"/><Reference URI="#metaData"><Transforms><Transform Algorithm="http://www.w3.org/TR/1999/WD-xml-c14n-19991115"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/01/xmldsig/md5"/><DigestValue>wg+CectNCbcBCBqW/W2ZXg==</DigestValue></Reference><Reference URI="#Obj1"><Transforms><Transform Algorithm="http://www.w3.org/TR/1999/WD-xml-c14n-19991115"/></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/01/xmldsig/md5"/><DigestValue>+q3SVJ0o6yL2/IEzf++LTg==</DigestValue></Reference></SignedInfo><SignatureValue>l1926zKsdcwa4aQ2PYT6pATXwgdCAY8R3FcT0oHrv0REMA3nLZa9qan6eKEkPgD5mwY10uaTixCCry5XyxJ0vYEWXJ6CawsF/fCCXgP4OddnOBzTqZzAic3dL6doqZahEwLpJ4ix7Wa+g5Mb0nyqfh+vj7FMsfMHYIT2E8zpjbk=</SignatureValue><KeyInfo><X509Data><X509SubjectName>CN=core technologist, OU=reserved_OU_for_5_class, O=FTC, L=Novosibirsk, C=RU</X509SubjectName><X509Certificate>MIIDFzCCAoCgAwIBAgIDAbNZMA0GCSqGSIb3DQEBBQUAME4xCzAJBgNVBAYTAlJVMSkwJwYDVQQKEyBDZW50ZXIgb2YgRmluYW5jaWFsIFRlY2hub2xvZ2llczEUMBIGA1UEAxMLQ29tbW9uIDEgQ0EwHhcNMTUxMTE5MTEwNjM4WhcNMTkxMTE5MTEwNjM4WjCBhjELMAkGA1UEBhMCUlUxFDASBgNVBAcTC05vdm9zaWJpcnNrMQwwCgYDVQQKEwNGVEMxNzA1BgNVBAseLgByAGUAcwBlAHIAdgBlAGQAXwBPAFUAXwBmAG8AcgBfADUAXwBjAGwAYQBzAHMxGjAYBgNVBAMTEWNvcmUgdGVjaG5vbG9naXN0MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCzydf2swJyK9QxcTB1AW4u5PvZEd7H1C9zXjQ7FgmZ/sZ6pPSlc5A0vGfMbAhNNdcxZXJwKTFnjz2oPLvOLM4loq6vdfBjYL4HfjefAXxM7Nc3iiiQ5vxPLOW4nT8n7U+azyKsBxFd4KX/Euyv33AA0jDJuF7BX2L0kVdZ02HCuQIDAQABo4HJMIHGMAkGA1UdEwQCMAAwEQYJYIZIAYb4QgEBBAQDAgWgMAsGA1UdDwQEAwIF4DAZBglghkgBhvhCAQ0EDBYKRlRDOlNDPTEsMTAdBgNVHQ4EFgQUjSE0z5gdZPkZeg52LzaEfN9tDmIwXwYDVR0jBFgwVqFRpE8wTTELMAkGA1UEBhMCUlUxKTAnBgNVBAoTIENlbnRlciBvZiBGaW5hbmNpYWwgVGVjaG5vbG9naWVzMRMwEQYDVQQDEwpQcmltYXJ5IENBggEFMA0GCSqGSIb3DQEBBQUAA4GBAMCqF82hO7j+o2mEJSIxoGO0nrcsd5/pwQnnT0q9M0FAvhAuyZXC6YajX5RUfr7DhW6QUeDRrCbU0o0GhvNloWGtpsGN/Vg8ghHiTFJGd62LEL5+NV3OtVhm4dHkXdML+cqmOHI+LQ2bpTIrZ3emZ8vuF4CpTVOK6eVj8TapAJXL</X509Certificate></X509Data></KeyInfo><dsig:Object Id="Obj1" xmlns="" xmlns:dsig="http://www.w3.org/2000/01/xmldsig"><SignatureProperties><SignatureProperty><date>2016-12-16</date><time>06:40:17.686</time><ranumber>iDzNc6JFNuDIoQ==</ranumber><version>1,6,132,1</version></SignatureProperty></SignatureProperties></dsig:Object></Signature></Document> 

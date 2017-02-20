@@ -1,0 +1,460 @@
+            Краткое описание процедур пакета RTL.
+
+                1. Исключения.
+NO_DATA_FOUND - переопределенное исключение ORACLE (NO_DATA_FOUND),
+    генерируемое на отсутствие данных в операторах FOR/LOCATE/SELECT.
+TOO_MANY_ROWS - переопределенное исключение ORACLE (TOO_MANY_ROWS),
+    генерируемое в LOCATE EXACT/SELECT INTO, если оператор поиска вернул
+    более одной записи.
+CANNOT_LOCK - исключение пакета RTL (-20500),
+    генерируемое при неудачной попытке блокировки экземпляра (например, в
+    FOR/LOCATE/SELECT LOCK NOWAIT).
+RESOURCE_BUSY - исключение ORACLE (-54),
+    генерируемое по ошибке блокировки записей в неждущем режиме
+    (select ... for update nowait).
+RESOURCE_WAIT - исключение ORACLE (-30006),
+    генерируемое по ошибке блокировки записей по истечении заданного времени ожидания
+    (select ... for update wait <timeout>).
+RESOURCE_LOCK - исключение ORACLE (-60),
+    генерируемое по ошибке блокировки записей по истечении заданного времени ожидания
+    (select ... for update wait <timeout>)) при наличии перекрестных блокировок (DEADLOCKs).
+CHECK_OBJECT - исключение пакета RTL (-20400),
+    генерируемое на этапе выполнения операции (по кнопке "OK"
+    в "Навигаторе"), когда экземпляр был изменен другим пользователем
+    во время заполнения формы операции (точнее, с момента последнего
+    вызова валидатора операции).
+INVALID_PACKAGE_STATE - исключение ORACLE (-6508),
+    генерируемое на изменение состояния пакетов PL/SQL.
+    Это исключение нужно выдавать на клиента, чтобы произошла
+    автоматическая перекомпиляция этих пакетов. Следует использовать
+    перед обработчиком исключений OTHERS, когда в текущем блоке
+    используются вызовы операций или обращения к реквизитам (т.е.
+    когда используются обращения к другим пакетам).
+RESET_PACKAGE_STATE - исключение ORACLE (-4061),
+    генерируемое при сбросе состояния пакетов, которое сопровождает
+    INVALID_PACKAGE_STATE при выходе на клиента или из динамических
+    запросов.
+CLASS_PROCESSING - исключение интерфейсных пакетов типов (-20999),
+    возникающее при некорректных действиях с экземплярами типов.
+NUMERIC_OVERFLOW - исключение ORACLE (-1426), переполнение числа,
+    возникающее при попытке занести в числовой тип значения, которое
+    превышает его физический размер (например, при попытке внести
+    в integer значения, превышающего 2147483647).
+DML_ERRORS - исключение ORACLE (-24381), возникающее в операторах
+    update/insert/delete с использованием внутренних (forall) циклов
+    при возникновении ошибок на отдельных итерациях внутреннего цикла.
+SNAPSHOT_TOO_OLD - исключение ORACLE (-1555), возникающее при попытке
+    чтения в открытом курсоре данных, которые были изменены другими,
+    в случае недостаточного места в rollback сегменте для создания
+    копии (снимка) старых данных.
+OFFLINE_PARTITION - исключение ORACLE (-376), возникающее при попытке
+    обращения к данным архивных секций, находящимся в отключенном
+    табличном пространстве.
+
+                2. Константы.
+DEBUG2BUF       - вывод отладочной информации в буфер сессии.
+DEBUG2PIPE      - вывод отладочной информации в PIPE-канал.
+DEBUG2LOG       - вывод отладочной информации в LOG-таблицу DIARY.
+DEBUG2NULL      - нет вывода отладочной информации.
+DEBUG2FILE      - вывод отладочной информации в отладочный файл.
+DEBUGBUFFERSIZE - размер буфера сессии (SERVEROUTPUT) по умолчанию (100K).
+DEBUGPIPESIZE   - размер PIPE по умолчанию (32К).
+STRING_EXPR     - строковое выражение.
+NUMBER_EXPR     - числовое выражение.
+DATE_EXPR       - выражение типа ДАТА.
+BOOLEAN_EXPR    - логическое выражение.
+LF$  - символ перевода строки (chr(10)).
+CR$  - символ перевода каретки(chr(13)).
+TB$  - символ табуляции (chr(9)).
+NL$  - новая строка (chr(13)||chr(10)).
+    Все константы типа string(1), кроме размеров, чей тип - integer.
+
+                3. Процедуры для отладки.
+type DEBUG_REC is record (
+    debug_dir       string(1),  -- умолчательный канал вывода информации
+    debug_pipe_name string(30), -- имя отладочной пайпы
+    debug_file_name string(500),-- имя отладочного файла
+    debug_level     integer,    -- текущий уровень отладки
+    debug_buf_size  integer,    -- размер буфера сессии для отладчика
+    debug_pipe_size integer,    -- размер отладочной пайпы
+    debug_file_handle integer   -- дескриптор отладочного файла (пусто - файл не открыт,
+                                -- >0 файл открыт,<=0-ошибка ввода-вывода)
+); -- структура хранения настроек отладчика
+procedure SET_DEBUG(dlevel integer default 0,
+                    ddir string default DEBUG2BUF,
+                    buf_size integer default NULL) -
+    устанавливает текущий уровень отладки, канал вывода и размер
+    буфера сессии для вывода отладочной информации, где
+    debug_level - текущий уровень отладки (по умолчанию 0),
+    debug_dir - канал вывода (по умолчанию DEBUG2BUF - буфер сессии),
+    buf_size  - размер буфера сессии (по умолчанию NULL), если
+                задан, то происходит инициализация буфера сессии
+                (исходный размер устанавливается DEBUGBUFFERSIZE).
+procedure SET_DEBUG_PIPE(pipe_name string,
+                         pipe_size integer default NULL) -
+    устанавливает имя PIPE (pipe_name) и ее размер (pipe_size)
+    для вывода отладочной информации (pipe_size - умолчательный
+    параметр, если задан то размер устанавливается заданному значению,
+    исходный размер устанавливается DEBUGPIPESIZE).
+procedure SET_DEBUG_FILE(file_name string default NULL,
+                         file_open boolean default FALSE) -
+    устанавливает имя (file_name) отладочного файла и признак его
+    открытия (file_open). Если отладочный файл до этого был открыт,
+    то процедура его закроет. Если имя файла не задано или задано
+    пустым, то оно не изменяется, если имя задано значением 'DEFAULT',
+    тогда будет сформировано автоматическое имя отладочного файла.
+    Отладочные файлы по умолчанию записываются в корневой каталог
+    профиля пользователя. Если в признаке file_open указано значение
+    true, тогда отладочный файл будет открыт в момент вызова процедуры,
+    иначе - в момент первой записи отладочной информации в файл.
+procedure SET_DEBUG_ALL(p_info debug_rec) -
+    устанавливает все настройки отладчика из заданной информации в
+    структуре p_info. Последовательно устанавливает настройки через
+    SET_DEBUG, SET_DEBUG_PIPE, SET_DEBUG_FILE, передавая соответствующие
+    значения полей структуры (для параметра file_open вызова SET_DEBUG_FILE
+    используется признак проверки на пусто поля debug_file_handle:
+    file_open => p_info.debug_file_handle is not null).
+procedure GET_DEBUG_INFO(debug_level out integer, buf_size out integer,
+                         pipe_name out string, pipe_size out integer) -
+    получает текущие установки отладчика (уровень отладки, размер
+    буфера сессии, имя отладочной PIPE и ее размер).
+procedure GET_DEBUG_FILE(file_name out string,
+                         file_handle out integer) -
+    получает текущие установки файловой отладки: имя отладочного файла
+    (file_name) и значение дескриптора файла (file_handle). Значение file_handle>0
+    означает дескриптор открытого файла, file_handle<0 - код ошибки последней
+    файловой операции, file_handle=0 - ошибка инициализации файловой
+    подсистемы (код ошибки в значении stdio.get_fio_pid), пустое значение -
+    отладочный файл еще не был открыт.
+procedure GET_DEBUG_ALL(p_info in out debug_rec) -
+    получает все текущие установки отладчика в полях структуры p_info.
+procedure DEBUG(msg string, dlevel integer default 1,
+                p_put_time boolean default FALSE,
+                p_dir string default NULL) -
+    выводит сообщение msg с уровнем dlevel (по умолчанию 1).
+    Информация выводится, если dlevel <= текущего уровня отладки,
+    заданного в set_debug. Если параметр p_put_time (по умолчанию
+    FALSE) установлен в TRUE, то к сообщению добавляется время
+    записи сообщения, а также имя PL/SQL пакета и номер строки вызова
+    процедуры. Параметр p_dir (по умолчанию NULL, т.е. вывод
+    в умолчательный канал, задаваемый процедурой SET_DEBUG,
+    которая, в свою очередь, по умолчанию устанавливает вывод в
+    буфер сессии) указывает канал вывода информации.
+procedure DEBUG_PIPE(msg string, dlevel integer default 1,
+                     p_put_time boolean default FALSE) -
+    выводит сообщение в отладочный PIPE-канал. Параметры как в DEBUG.
+procedure DEBUG_LOG(msg string, dlevel integer default 1,
+                    p_put_time boolean default FALSE) -
+    выводит сообщение в LOG-таблицу DIARY. Параметры как в DEBUG.
+procedure DEBUG_BUF(msg string, dlevel integer default 1,
+                    p_put_time boolean default FALSE) -
+    выводит сообщение в буфер сессии. Параметры как в DEBUG.
+procedure DEBUG_FILE(msg string, dlevel integer default 1,
+                     p_put_time boolean default FALSE) -
+    выводит сообщение в отладочный файл на сервере. Параметры как в DEBUG.
+function GET_DEBUG_TEXT (ddir string default DEBUG2BUF) return string -
+    возвращает текст отладочной информации из указанного канала
+    ddir (если ddir опущен, то извлекается текст из буфера сессии).
+    Если в буфере содержится большой объем информации (>32k), тогда
+    эту функцию следует вызывать последовательно до тех пор, пока
+    она не вернет NULL (за один вызов функция возвращает строку
+    размером до 32k).
+
+                4. Универсальные функции.
+function SAFE_REPLACE(str string,str1 string default null,
+        str2 string default null)return string -
+    возвращает строку, полученную из str путем замены всех вхождений
+    подстроки str1 на str2 (причем поиск и замена case insensitive).
+    Если str2 пуста, то все вхождения str1 удаляются. Если str1 пуста,
+    то строка не модифицируется.
+procedure RANDOMIZE - Инициализация генератора случайных чисел.
+function  RANDOM ( p_base number default 1 ) return number -
+    возвращает случайное число в интервале от 0 до p_base
+    (по умолчанию от 0 до 1).
+function CHAR_BOOL ( p_ok    string) return boolean -
+    возвращает пустое значение, если p_ok пусто,
+    возвращает значение false если p_ok='0', иначе возвращает true.
+function BOOL_CHAR ( ok boolean,
+                     p_true  string default '1',
+                     p_false string default '0',
+                     p_null  string default NULL ) return string -
+    возвращает строку p_true если ok=true, строку p_false если
+    ok=false, строку p_null если ok is null.
+function BOOL_NUM  ( ok boolean,
+                     p_true  number default 1,
+                     p_false number default 0,
+                     p_null  number default NULL ) return number -
+    возвращает число p_true если ok=true, число p_false если
+    ok=false, число p_null если ok is null.
+function  GETDATE return date -
+    возвращает текущее значение даты и времени (аналог SYSDATE)
+function  USER return string -
+    возвращает имя субъекта системы доступа IBSO для текущей сессии
+    (в трехуровневой архитектуре может не совпадать с именем
+    пользователя Oracle, под которым создана сессия).
+ПРИМЕЧАНИЕ: Функции, приведенные выше, обладают прагмой WNDS
+    (их можно использовать в условиях выборки).
+
+                5. Процедуры для работы с экземплярами БД.
+function GET_CLASS( p_object_id in out string,
+               p_class string default NULL,
+               p_info  string default NULL ) return string -
+    функция разбора обобщенной ссылки p_object_id. Если параметр
+    p_info не пустой, тогда если указан расширенный формат ссылки
+    (в виде CLASS_ID:OBJECT_ID), то функция возвращает разобранный
+    тип CLASS_ID и модифицированное значение ссылки в p_object_id,
+    если формат ссылки не расширенный, то возвращается значение
+    параметра p_class, причем если он задан пустым, тогда возвращается
+    тип экземпляра поиском по вьюхе OBJECTS. Если параметр p_info
+    задан пустым, то дополнительно определяется действительный
+    тип экземпляра через вызов интерфейсного пакета типа, получившегося
+    на первом шаге (когда p_info не пуст).
+function OBJECT_CLASS(p_object_id IN reference,
+               p_class IN string default null) return string -
+    возвращает короткое имя (CLASS_ID) типа, которому принадлежит
+    экземпляр p_object_id.
+function OBJECT_STATE(p_object_id IN reference,
+               p_class IN string default null) return string -
+    возвращает идентификатор текущего состояния (STATE_ID)
+    экземпляра p_object_id.
+function OBJECT_COLLECTION(p_object_id IN reference,
+               p_class IN string default null) return collection -
+    возвращает идентификатор коллекции (COLLECTION_ID), которой
+    принадлежит экземпляр p_object_id.
+function OBJECT_CLASS_ENTITY(p_object_id IN reference,
+               p_class IN string default null) return string -
+    возвращает короткое имя базового понятия (ENTITY_ID), которому
+    принадлежит тип экземпляра p_object_id.
+function OBJECT_CLASS_PARENT(p_object_id IN reference,
+               p_class IN string default null) return string -
+    возвращает короткое имя родительского типа (PARENT_ID) по
+    отношению к типу экземпляра p_object_id.
+function CLASS_ENTITY(p_class_id IN string) return string -
+    возвращает короткое имя базового понятия (ENTITY_ID), которому
+    принадлежит тип p_class_id.
+function CLASS_PARENT(p_class_id IN string) return string -
+    возвращает короткое имя родительского типа (PARENT_ID) по
+    отношению к типу p_class_id.
+function OBJECT_PARENT(p_object_id IN reference
+               p_class IN string default null) return reference -
+    возвращает ccылку на экземпляр, коллекции которого принадлежит
+    экземпляр p_object_id.
+function OBJECT_PARENT_CLASS(p_object_id IN reference,
+               p_class IN string default null) return string -
+    возвращает короткое имя (CLASS_ID) типа экземпляра, коллекции
+    которого принадлежит экземпляр p_object_id.
+function COLLECTION_PARENT(p_collect collection,
+                           p_class   string default NULL ) return reference -
+    возвращает ccылку на экземпляр, которому принадлежит
+    коллекция p_collect.
+function COLLECTION_CLASS(p_collect collection,
+                          p_class   string default NULL ) return string -
+    возвращает короткое имя (CLASS_ID) типа экземпляра, которому
+    принадлежит коллекция p_collect.
+function GET_PARENT ( p_collect collection,
+                      p_class   string default NULL ) return OBJECT -
+    возвращает родительский экземпляр, которому принадлежит коллекция p_collect
+    (т.е. получает ссылку на родительский экземпляр в поле ID и тип
+    родительского экземпляра в поле CLASS_ID).
+ПРИМЕЧАНИЕ: Функции CLASS_PARENT, CLASS_ENTITY, COLLECTION_PARENT,
+    COLLECTION_CLASS можно использовать в условиях выборки и поиска
+    (FOR/LOCATE).
+procedure SN2ID(p_class_id    IN  string,
+                p_object_id   IN  reference,
+                p_method_name IN  string,
+                p_method_id   OUT string)
+    возвращает в p_method_id идентификатор (ID) операции по заданным
+    короткому имени в p_method_name, ссылке на экземпляр в p_object_id,
+    короткому имени типа в p_class_id. Если ссылка на экземпляр не
+    задана (т.е. пустая), то операция ищется только по заданным
+    p_class_id и p_method_name, если ссылка задана, то поиск операции
+    осуществляется в типе, которому принадлежит экземпляр (для упрощения
+    определения типа экземпляра служит p_class_id, который может быть
+    родительским по отношению к собственно типу экземпляра).
+procedure CHANGE_STATE ( p_Object_ID   IN  reference,
+                         p_New_State   IN  string default NULL,
+                         p_Method_Name IN  string default NULL,
+                         p_Class_ID    IN  string default NULL,
+                         p_Async       IN  boolean default False ) -
+    переводит экземпляр p_Object_ID в новое состояние p_New_State при
+    помощи операции с коротким именем p_Method_Name в типе
+    p_Class_ID. При выполнении процедуры выполняется ряд динамических
+    запросов, так что эта процедура может быть не очень быстрой.
+    Параметр p_Async при установленном значении true дополнительно
+    предписывает процедуре искать только доступные переходы тому
+    пользователю, который вызывает эту процедуру.
+function CHANGE_STATE_ERROR_IDX return integer -
+    Возвращает текущий уровень стека вызовов переходов.
+procedure CHANGE_STATE_ERROR(p_change IN boolean default FALSE,
+                             p_stack_idx integer default NULL) -
+    устанавливает значение флага смены состояния экземпляра.
+    Предписывает процедуре CHANGE_STATE переводить (p_change=TRUE)
+    или не переводить(p_change=FALSE - по умолчанию) экземпляр в новое
+    состояние при успешном (без исключений) завершении операции перехода.
+    Процедура имеет смысл только в операциях переходов экземпляров из одного
+    состояния в другое. Параметр p_stack_idx указывает для какого уровня
+    вызова вложенных переходов действует флаг p_change (если параметр
+    не указан, то используется текущий уровень). Уровень вызова перехода
+    можно получить функцией CHANGE_STATE_ERROR_IDX.
+procedure SET_OBJECT_COLLECTION ( p_object_id IN reference,
+                                  p_collect   IN collection,
+                                  p_class IN string default null) -
+    устанавливает принадлежность экземпляра p_object_id коллекции
+    p_collect. При установке COLLECTION_ID может выполняться_
+    динамический запрос, поэтому лучше пользоваться изменением
+    COLLECTION_ID через реквизиты типов.
+procedure LOCK_OBJECT(p_object_id IN reference,
+                      p_info  IN string default NULL,
+                      p_class IN string default NULL) -
+    блокировка экземпляра p_object_id (select for update nowait),
+    при неудачной блокировке поднимает исключение CANNOT_LOCK.
+    P_info - умолчательный параметр, строка информации.
+procedure LOCK_OBJECT_WAIT(p_object_id IN reference,
+                           p_info  IN string default NULL,
+                           p_class IN string default NULL) -
+    блокировка экземпляра p_object_id (select for update),
+    p_info - умолчательный параметр, строка информации.
+procedure CHECK_CHILD(p_class_id in string, p_parent in string) -
+    проверяет принадлежность типа p_class_id иерархии типа
+    p_parent. Если p_class_id не является производным от p_parent,
+    то поднимается исключение (message.EXEC_EXCEPTION c номером
+    -20100).
+function GET_OBJECT(p_object_id in reference,
+                    p_info      in string  default NULL,
+                    p_lock      in boolean default FALSE,
+                    p_class     in string  default NULL
+                   ) return OBJECT;
+    возвращает структуру OBJECT по ссылке p_object_id.
+    Если параметр p_lock установлен в TRUE, то одновременно
+    экземпляр блокируется и заносится информация о блокировке p_info.
+ПРИМЕЧАНИЕ: В процедурах и функциях работы с экземплярами (с параметром p_object_id)
+    или коллекциями (с параметром p_collect) дополнительный умолчательный параметр
+    p_class задает тип экземпляра или коллекции, - если он не задан, то этот тип
+    определяется внутри самих функций и процедур, причем делается это через очень
+    тяжелые обобщенные представления OBJECTS (для ссылок) или COL2OBJ (для коллекций).
+
+
+                6. Динамические запросы.
+function  SYSTEM( p_qualifier string ) return string -
+    возвращает строковое значение системного реквизита с
+    квалификатором p_qualifier. В случае ошибки возвращает NULL.
+function  EXECUTE_SQL(block    string
+                      p_var1   string default NULL,
+                      p_value1 string default NULL,
+                      p_var2   string default NULL,
+                      p_value2 string default NULL,
+                      p_var3   string default NULL,
+                      p_value3 string default NULL,
+                      p_var4   string default NULL,
+                      p_value4 string default NULL,
+                      p_var5   string default NULL,
+                      p_value5 string default NULL
+                     ) return number -
+    выполняет SQL запрос в block, возвращает 0 при успешном
+    выполнении, иначе 1. Можно также задать до 5 bind-переменных
+    с именами p_var1, p_var2, p_var3, p_var4, p_var5 и значениями
+    p_value1, p_value2, p_value3, p_value4, p_value5, соответственно.
+    Если не заданы дополнительные параметры, начиная с p_var2/p_value2,
+    то запрос block выполняется в режиме execute immediate,
+    иначе через dbms_sql.
+function  NEXT_VALUE ( p_seq_name  string ) return number -
+    возвращает следующий порядковый номер из последовательности
+    с именем p_seq_name (основная последовательность системы,
+    генерирующая id экземпляров, операций, коллекций - 'SEQ_ID',
+    причем для этой последовательности выполняется непосредственный
+    select seq_id.nextval, а не динамический запрос).
+    В качестве p_seq_name может быть передано непосредственно
+    выражение для вычисления атрибутов последовательности CURRVAL/NEXTVAL
+    (т.е. выражения вида '<Sequence>.CURRVAL','<Sequence>.NEXTVAL' для
+    получения текущего и следующего порядковых номеров последовательности
+    <Sequence>, соответственно).
+function  CALCULATE( p_expression IN string,
+                     p_type       IN string default STRING_EXPR,
+                     p_transform  IN boolean  default FALSE
+                   ) return string -
+    вычисляет выражение, содержащееся в p_expression, типа
+    p_type (по умолчанию STRING_EXPR - строковое выражение) и,
+    если установлен флаг p_transform в true, преобразует результат
+    в строковое представление (если p_type<>STRING_EXPR).
+    Возвращает получившийся результат, если удалось разрешить
+    выражение, иначе само выражение p_expression.
+function  CONSTRUCTOR(p_class_id in string,
+                      p_parent   in string default null,
+                      p_collect  in collection default null
+                     ) return reference -
+    создает новый экземпляр типа p_class_id (если задан p_parent -
+    родительский тип, то производится проверка иерархической
+    связи p_class_id <-> p_parent). Возвращает ссылку на вновь
+    созданный экземпляр. Если задана коллекция p_collect, то экземпляр
+    создается в указанной коллекции.
+procedure DESTRUCTOR (p_obj_id   in reference,
+                      p_parent   in string default null,
+                      p_class    in string default null) -
+    удаляет экземпляр p_obj_id (c опциональной проверкой принадлежности
+    типа экземпляра иерархии типа p_parent). Если тип экземпляра
+    p_class не задан, то он определяется самой процедурой.
+function  GET_VALUE (obj_id_ in reference,
+                     qual_   in string,
+                     class_  in string  default null,
+                     target_ in boolean default false ) return string -
+    возвращает строковое значение реквизита qual_ экземпляра obj_id_
+    (class_ задает тип экзепляра, если задано пустое значение, то
+    тип определяется в самой функции через OBJECTS). Реквизит не может
+    быть составным (структурой). Если задано значение true параметра
+    target_, то в случае реквизита коллекции или ссылки возвращается
+    также ID целевого типа, отделенное от значения этой коллекции или
+    ссылки разделителем - точкой.
+procedure SET_VALUE(obj_id_ in reference,
+                    qual_   in string,
+                    value_  in string,
+                    class_  in string default null) -
+    устанавливает значение value_ для реквизита qual_ экземпляра obj_id_.
+function  LOCATE_OBJECT( p_class_id string,
+                         p_qual1    string,
+                         p_value1   string,
+                         p_qual2    string  default NULL,
+                         p_value2   string  default NULL,
+                         p_qual3    string  default NULL,
+                         p_value3   string  default NULL,
+                         p_exact    boolean default TRUE
+                       ) return reference -
+    поиск экземпляра в типе p_class_id со значением p_value1 для_
+    реквизита p_qual1, значением p_value2 для реквизита p_qual2
+    (если заданы), значением p_value3 для реквизита p_qual3 (если
+    заданы). Возвращает ссылку на найденный экземпляр в случае успешного
+    поиска, иначе возвращает NULL или исключения NO_DATA_FOUND,
+    TOO_MANY_ROWS. Если задано значение true (по умолчанию)
+    параметра p_exact, то осуществляется точный поиск, т.е.
+    в случае отсутствия экземпляра будет выдано исключение
+    NO_DATA_FOUND, в случае найденных нескольких экземпляров
+    будет выдано исключение TOO_MANY_ROWS.
+function  EXEC_SQL_OUT(block    string
+                       p_var    string,
+                       p_value  in out string,
+                       p_var1   string default NULL,
+                       p_value1 string default NULL,
+                       p_var2   string default NULL,
+                       p_value2 string default NULL,
+                       p_var3   string default NULL,
+                       p_value3 string default NULL,
+                       p_var4   string default NULL,
+                       p_value4 string default NULL
+                      ) return number -
+    выполняет SQL запрос в block, возвращает 0 при успешном
+    выполнении, иначе 1. При этом если задана bind-переменная
+    с именем p_var и входным значением p_value, то этой переменной
+    может быть присвоено значение в выполняемом запросе, которое
+    возвращается в p_value при успешном выполнении функции. Если
+    переменная p_var не задана, то после успешного выполнения
+    функции в p_value возвращается значение sql%rowcount выполненного
+    запроса. Можно также задать до 4 bind-переменных с именами
+    p_var1, p_var2, p_var3, p_var4 и значениями p_value1, p_value2,
+    p_value3, p_value4, соответственно. Если не заданы дополнительные
+    параметры, начиная с p_var1/p_value1, то запрос block выполняется
+    в режиме execute immediate, иначе через dbms_sql.
+ПРИМЕЧАНИЕ: Все вышеперечисленные процедуры и функции выполняют
+    динамические запросы (кроме NEXT_VALUE для 'SEQ_ID'), поэтому
+    они могут быть не очень быстрыми (медленнее, чем использование
+    реквизитов напрямую), однако они удобны тем, что могут работать
+    параметрически, когда запрос, который следует выполнить, заранее
+    неизвестен.

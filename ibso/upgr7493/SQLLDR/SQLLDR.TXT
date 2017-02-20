@@ -1,0 +1,37 @@
+
+SQL*Loader: Release 7.3.2.2.0 - Production on Mon Oct 27 17:16:43 1997
+
+Copyright (c) Oracle Corporation 1979, 1994.  All rights reserved.
+
+
+Usage: SQLLOAD keyword=value [,keyword=value,...]
+
+Valid Keywords:
+
+    userid -- ORACLE username/password           
+   control -- Control file name                  
+       log -- Log file name                      
+       bad -- Bad file name                      
+      data -- Data file name                     
+   discard -- Discard file name                  
+discardmax -- Number of discards to allow          (Default all)
+      skip -- Number of logical records to skip    (Default 0)
+      load -- Number of logical records to load    (Default all)
+    errors -- Number of errors to allow            (Default 50)
+      rows -- Number of rows in conventional path bind array or between direct path data saves
+               (Default: Conventional path 64, Direct path all)
+  bindsize -- Size of conventional path bind array in bytes  (Default 65024)
+    silent -- Suppress messages during run (header,feedback,errors,discards)
+    direct -- use direct path                      (Default FALSE)
+   parfile -- parameter file: name of file that contains parameter specifications
+  parallel -- do parallel load                     (Default FALSE)
+      file -- File to allocate extents from      
+
+PLEASE NOTE: Command-line parameters may be specified either by
+position or by keywords.  An example of the former case is 'sqlload
+scott/tiger foo'; an example of the latter is 'sqlload control=foo
+userid=scott/tiger'.  One may specify parameters by position before
+but not after parameters specified by keywords.  For example,
+'sqlload scott/tiger control=foo logfile=log' is allowed, but
+'sqlload scott/tiger control=foo log' is not, even though the
+position of the parameter 'log' is correct.

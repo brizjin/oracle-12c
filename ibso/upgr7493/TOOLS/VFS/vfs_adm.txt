@@ -1,0 +1,131 @@
+Описание пакета vfs_admin
+
+Пакет содержит функции администрирования доступа к элементам VFS.
+
+
+1.Константы доступа (ACCESS_***)
+
+ ACCESS_PARENT    - доступ определяется по катологу
+ ACCESS_NONE      - нет доступа
+ ACCESS_READ      - доступ на чтение
+ ACCESS_WRITE     - доступ на запись
+ ACCESS_EXCLUSIVE - эксклюзивный доступ
+ ACCESS_R         = ACCESS_READ
+ ACCESS_W         = ACCESS_WRITE
+ ACCESS_X         = ACCESS_EXCLUSIVE
+ ACCESS_RW        = ACCESS_READ + ACCESS_WRITE
+ ACCESS_RX        = ACCESS_READ + ACCESS_EXCLUSIVE
+ ACCESS_WX        = ACCESS_WRITE + ACCESS_EXCLUSIVE
+ ACCESS_RWX       = ACCESS_READ + ACCESS_WRITE + ACCESS_EXCLUSIVE
+ ACCESS_FULL      = ACCESS_RWX
+
+
+2.Возвращаемые значения - константы ERR_*** - описаны в пакете vfs_mgr
+
+
+3.Права на работу с хранилищами (сохдание, удаление итд)
+
+ ----------------------------------------------------------
+ function get_storage_access(asubject_id in varchar2 default rtl.usr) return pls_integer;
+
+Возвращает уровень доступа для субъекта
+Входные параметры:
+ subject_id - id субъекта
+Возвращаемые значения
+ ACCESS_*** (ACCESS_NONE или ACCESS_FULL)
+
+ ----------------------------------------------------------
+ function check_storage_access(asubject_id in varchar2 default rtl.usr) return pls_integer;
+
+Проверяет наличие прав доступа субъекта
+Входные параметры:
+ subject_id - id субъекта
+Возвращаемые значения: 
+ ERR_SUCCESS, ERR_NOT_ENOUGHT_PRIVILEGE
+
+ ----------------------------------------------------------
+ function set_storage_access(asubject_id in varchar2, aaccess_mask in pls_integer default ACCESS_FULL) return pls_integer;
+
+Установка прав доступа на операции с хранилищами
+Входные параметры:
+ subject_id - id субъекта
+ access_mask - уровень доступа (ACCESS_*** - значения, отличные от ACCESS_NONE интерпретируются как ACCESS_FULL)
+Возвращаемые значения:
+ ERR_SUCCESS, ERR_NOT_ENOUGH_PRIVILEGE
+
+
+4.Права на "файлы" и "каталоги" (далее "элемент")
+
+ ----------------------------------------------------------
+ function get_subject_access(aid in integer, asubject_id in varchar2 default rtl.usr) return pls_integer;
+
+Возвращает уровень доступа субъекта на элемент.
+Входные параметры:
+ id - id элемента
+ subject_id - id субъекта
+Возвращаемые значения:
+ ACCESS_*** - уровень доступа (ACCESS_NONE..ACCESS_FULL)
+ ERR_INVALID_PARAMETER
+
+ ----------------------------------------------------------
+ function check_access(aid in integer, aaccess_request in pls_integer, asubject_id in varchar2 default rtl.usr) return pls_integer;
+
+Выполняет проверку наличия у субъекта требуемых прав на элемент
+Входные параметры:
+ id - id элемента
+ access_request - требуемый уровень доступа (ACCESS_***)
+ subject_id - id субъекта
+Возвращаемые значения:
+ ERR_SUCCESS, ERR_NOT_ENOUGH_PRIVILEGE
+
+ ----------------------------------------------------------
+ function is_accessible(aid in integer, asubject_id in varchar2 default rtl.usr) return boolean;
+
+Проверяет наличие любых прав на элемент (отображать - не отображать)
+Входные параметры:
+ id - id элемента
+ subject_id - id субъекта
+Возвращаемые значения:
+ true/false
+
+ ----------------------------------------------------------
+ function set_others_access(aid in integer, aaccess_mask in pls_integer default ACCESS_PARENT) return pls_integer;
+
+Устанавливает уровень доступа "для всех"
+Входные параметры:
+ id - id элемента
+ access_mask - маска доступа (ACCESS_***)
+Возвращаемые значения:
+ ERR_SUCCESS, ERR_INVALID_PARAMETER, ERR_NOT_ENOUGH_PRIVILEGE
+
+ ----------------------------------------------------------
+ function set_subject_access(aid in integer, asubject_id in varchar2, 
+  aaccess_mask in pls_integer default ACCESS_PARENT, ainclude_subfolders in integer default 0) return pls_integer;
+
+Устанавливает персональный уровень доступа для субъекта
+Входные значения:
+ id - id элемента
+ subject_id - id субъекта
+ access_mask - маска доступа (ACCESS_***)
+ include_subfolders - включая подкаталоги
+Возвращаемые значения:
+ ERR_SUCCESS, ERR_INVALID_PARAMETER, ERR_NOT_ENOUGH_PRIVILEGE
+
+ ----------------------------------------------------------
+ function set_owner(aid in integer, anew_owner_id in varchar2) return pls_integer;
+
+Устанавливает владельца элемента
+Входные значения:
+ id - id элемента
+ new_owner_id - id нового владельца
+Возвращаемые значения:
+ ERR_SUCCESS, ERR_INVALID_PARAMETER, ERR_NOT_ENOUGH_PRIVILEGE
+
+ ----------------------------------------------------------
+ function can_make_dir(asubject_id in varchar2 default rtl.usr) return boolean;
+
+Проверяет наличие прав на изменение структуры каталогов (параметр профиля FIO_MAKE_DIR должен быть равен YES)
+Входные параметры:
+ subject_id - id субъекта
+Возвращаемые значения:
+ true/false

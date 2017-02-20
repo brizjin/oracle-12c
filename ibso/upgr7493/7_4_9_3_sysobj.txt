@@ -1,0 +1,644 @@
+ACCESS_GROUPS                  PK_ACCESS_GROUPS                         ENABLED  PRIMARY
+ACCESS_GROUPS                  PK_ACCESS_GROUPS                         VALID    INDEX
+ADDRESS_RIGHTS                 FK_ADDRESS_USERNAME                      ENABLED  FOREIGN CASCADE
+ADDRESS_RIGHTS                 PK_ADDRESS_USERNAME_ADDRESS              ENABLED  PRIMARY
+ADDRESS_RIGHTS                 PK_ADDRESS_USERNAME_ADDRESS              VALID    INDEX
+API_LIST                       FK_API_LIST_REPORT                       ENABLED  FOREIGN CASCADE
+API_LIST                       IDX_API_LIST_ID                          VALID    INDEX
+API_LIST                       PK_API_LIST                              ENABLED  PRIMARY
+API_LIST                       PK_API_LIST                              VALID    INDEX
+API_LIST                       SYS$CONS<API_LIST>                       ENABLED  CHECK
+API_OPTIONS                    FK_API_OPTIONS_API                       ENABLED  FOREIGN CASCADE
+API_OPTIONS                    PK_API_OPTIONS                           ENABLED  PRIMARY
+API_OPTIONS                    PK_API_OPTIONS                           VALID    INDEX
+API_OPTIONS                    SYS$CONS<API_OPTIONS>                    ENABLED  CHECK
+API_REPORTS                    IDX_DT_API_REPORTS                       VALID    INDEX
+API_REPORTS                    PK_API_REPORTS                           ENABLED  PRIMARY
+API_REPORTS                    PK_API_REPORTS                           VALID    INDEX
+API_REPORTS                    SYS$CONS<API_REPORTS>                    ENABLED  CHECK
+API_USAGE                      FK_API_USAGE_API                         ENABLED  FOREIGN CASCADE
+API_USAGE                      FK_API_USAGE_REP                         ENABLED  FOREIGN
+API_USAGE                      IDX_API_USAGE                            VALID    INDEX
+API_USAGE                      PK_API_USAGE                             ENABLED  PRIMARY
+API_USAGE                      PK_API_USAGE                             VALID    INDEX
+API_USAGE                      SYS$CONS<API_USAGE>                      ENABLED  CHECK
+BELONG_GROUPS                  BELONG_GROUPS_INS                        ENABLED  AFTER INSERT
+BELONG_GROUPS                  NN_BELONG_GROUPS_TYPE                    ENABLED  CHECK
+BELONG_GROUPS                  PK_BELONG_GROUPS_ID                      ENABLED  PRIMARY
+BELONG_GROUPS                  PK_BELONG_GROUPS_ID                      VALID    INDEX
+BELONG_GROUPS_EQUAL            FK_BELONG_GROUPS_BELONG_ID               ENABLED  FOREIGN CASCADE
+BELONG_GROUPS_EQUAL            FK_BELONG_GROUPS_EQUAL_ID                ENABLED  FOREIGN CASCADE
+BELONG_GROUPS_EQUAL            IDX_BELONG_GRP_EQ_EQUAL_ID               VALID    INDEX
+BELONG_GROUPS_EQUAL            PK_BELONG_GROUPS_EQUAL                   ENABLED  PRIMARY
+BELONG_GROUPS_EQUAL            PK_BELONG_GROUPS_EQUAL                   VALID    INDEX
+CALENDARS                      CALENDARS_CHANGES                        ENABLED  AFTER INSERT OR UPDATE OR DELETE
+CALENDARS                      CALENDAR_CHANGES                         ENABLED  BEFORE INSERT OR UPDATE OR DELETE
+CALENDARS                      NN_CALENDARS_ID                          ENABLED  CHECK
+CALENDARS                      NN_CALENDARS_STATUS                      ENABLED  CHECK
+CALENDARS                      PK_CALENDARS_NAME                        ENABLED  PRIMARY
+CALENDARS                      PK_CALENDARS_NAME                        VALID    INDEX
+CALENDARS                      UNQ_CALENDARS_ID                         ENABLED  UNIQUE
+CALENDARS                      UNQ_CALENDARS_ID                         VALID    INDEX
+CALENDAR_VALUE                 CALENDAR_VALUES_CHANGES                  ENABLED  AFTER INSERT OR DELETE
+CALENDAR_VALUE                 CHK_CALENDAR_VALUE_TYPE                  ENABLED  CHECK
+CALENDAR_VALUE                 FK_CALENDAR_VALUE_NAME                   ENABLED  FOREIGN CASCADE
+CALENDAR_VALUE                 IDX_CALENDAR_VALUE_ALL                   VALID    INDEX
+CHECK_METHOD_RIGHTS            FK_CMR_CHECK_METHOD_ID                   ENABLED  FOREIGN CASCADE
+CHECK_METHOD_RIGHTS            FK_CMR_METHOD_ID                         ENABLED  FOREIGN CASCADE
+CHECK_METHOD_RIGHTS            FK_CMR_SUBJ_ID                           ENABLED  FOREIGN CASCADE
+CHECK_METHOD_RIGHTS            IDX_CMR_CHECK_METHOD_ID                  VALID    INDEX
+CHECK_METHOD_RIGHTS            IDX_CMR_METHOD_ID                        VALID    INDEX
+CHECK_METHOD_RIGHTS            NN_CMR_POSITION                          ENABLED  CHECK
+CHECK_METHOD_RIGHTS            PK_CHECK_METHOD_RIGHTS                   ENABLED  PRIMARY
+CHECK_METHOD_RIGHTS            PK_CHECK_METHOD_RIGHTS                   VALID    INDEX
+CLASSES                        CHK_CLASSES_BASE_CLASS_ID                ENABLED  CHECK
+CLASSES                        CLASSES_AFTER_INS_TAB                    ENABLED  AFTER INSERT
+CLASSES                        CLASSES_AFTER_INS_UPD                    ENABLED  AFTER INSERT OR UPDATE
+CLASSES                        CLASSES_BEFORE_INS_UPD                   ENABLED  BEFORE INSERT OR UPDATE
+CLASSES                        CLASSES_BEFORE_INS_UPD_NVAR2             ENABLED  BEFORE INSERT OR UPDATE
+CLASSES                        CLASSES_CHANGES                          ENABLED  AFTER INSERT OR UPDATE OR DELETE
+CLASSES                        FK_CLASSES_CRITERIA_ID                   ENABLED  FOREIGN
+CLASSES                        FK_CLASSES_ENTITY_ID                     ENABLED  FOREIGN
+CLASSES                        FK_CLASSES_INIT_METHOD_ID                ENABLED  FOREIGN
+CLASSES                        FK_CLASSES_INIT_STATE_ID                 ENABLED  FOREIGN
+CLASSES                        FK_CLASSES_PARENT_ID                     ENABLED  FOREIGN
+CLASSES                        FK_CLASSES_PROFILE_ID                    ENABLED  FOREIGN SET NULL
+CLASSES                        FK_CLASSES_REF_PART_CLASS_ID             ENABLED  FOREIGN
+CLASSES                        FK_CLASSES_TARGET_CLASS_ID               ENABLED  FOREIGN
+CLASSES                        FK_CLASSES_TRIGGER_ID                    ENABLED  FOREIGN
+CLASSES                        IDX_CLASSES_CRITERIA_ID                  VALID    INDEX
+CLASSES                        IDX_CLASSES_ENTITY_ID                    VALID    INDEX
+CLASSES                        IDX_CLASSES_INIT_METHOD_ID               VALID    INDEX
+CLASSES                        IDX_CLASSES_PARAM_GROUP_EID              VALID    INDEX
+CLASSES                        IDX_CLASSES_PARENT_ID                    VALID    INDEX
+CLASSES                        IDX_CLASSES_TARGET                       VALID    INDEX
+CLASSES                        IDX_CLASSES_TRIGGER_ID                   VALID    INDEX
+CLASSES                        NN_CLASSES_BASE_CLASS_ID                 ENABLED  CHECK
+CLASSES                        NN_CLASSES_KERNEL                        ENABLED  CHECK
+CLASSES                        PK_CLASSES_ID                            ENABLED  PRIMARY
+CLASSES                        PK_CLASSES_ID                            VALID    INDEX
+CLASS_ATTRIBUTES               CLASS_ATTRS_AFTER_INS_UPD                ENABLED  AFTER INSERT OR UPDATE
+CLASS_ATTRIBUTES               CLASS_ATTRS_CHANGES                      ENABLED  AFTER INSERT OR UPDATE OR DELETE
+CLASS_ATTRIBUTES               FK_CLASS_ATTRIBUTES_PART_ID              ENABLED  FOREIGN
+CLASS_ATTRIBUTES               FK_CLS_ATTRS_CLASS_ID                    ENABLED  FOREIGN
+CLASS_ATTRIBUTES               FK_CLS_ATTR_SELF_CLASSS_ID               ENABLED  FOREIGN
+CLASS_ATTRIBUTES               IDX_CLASS_ATTRIBUTES_ATTR_ID             VALID    INDEX
+CLASS_ATTRIBUTES               IDX_CLASS_ATTRIBUTES_SELF                VALID    INDEX
+CLASS_ATTRIBUTES               NN_CLS_ATTRS_NAME                        ENABLED  CHECK
+CLASS_ATTRIBUTES               NN_CLS_ATTRS_SLF_CLS_ID                  ENABLED  CHECK
+CLASS_ATTRIBUTES               PK_CLASS_ATTRIBUTE_CLASS_ID              ENABLED  PRIMARY
+CLASS_ATTRIBUTES               PK_CLASS_ATTRIBUTE_CLASS_ID              VALID    INDEX
+CLASS_INDEXES                  FK_CLASS_INDEXES_CLASS_ID                ENABLED  FOREIGN CASCADE
+CLASS_INDEXES                  IDX_CLASS_INDEXES_CLASS_ID               VALID    INDEX
+CLASS_INDEXES                  NN_CLASS_INDEXES_CLASS_ID                ENABLED  CHECK
+CLASS_INDEXES                  NN_CLASS_INDEXES_UNIQUENESS              ENABLED  CHECK
+CLASS_INDEXES                  PK_CLASS_INDEXES_NAME                    ENABLED  PRIMARY
+CLASS_INDEXES                  PK_CLASS_INDEXES_NAME                    VALID    INDEX
+CLASS_IND_COLUMNS              FK_CLASS_IND_COLUMNS_INAME               ENABLED  FOREIGN CASCADE
+CLASS_IND_COLUMNS              NN_CLASS_IND_COLUMNS_QUAL                ENABLED  CHECK
+CLASS_IND_COLUMNS              PK_CLASS_IND_COLS_NAM_POS                ENABLED  PRIMARY
+CLASS_IND_COLUMNS              PK_CLASS_IND_COLS_NAM_POS                VALID    INDEX
+CLASS_PARTITIONS               FK_CLASS_PARTITIONS_CLASS_ID             ENABLED  FOREIGN
+CLASS_PARTITIONS               NN_CLASS_PARTITIONS_CLASS_ID             ENABLED  CHECK
+CLASS_PARTITIONS               UNQ_CLASS_PARTITIONS_CLASS_POS           ENABLED  UNIQUE
+CLASS_PARTITIONS               UNQ_CLASS_PARTITIONS_CLASS_POS           VALID    INDEX
+CLASS_PARTITIONS               UNQ_CLASS_PARTITIONS_MIRROR              ENABLED  UNIQUE
+CLASS_PARTITIONS               UNQ_CLASS_PARTITIONS_MIRROR              VALID    INDEX
+CLASS_PARTS                    FK_CLS_PARTS_CLASS_ID                    ENABLED  FOREIGN CASCADE
+CLASS_PARTS                    PK_CLASS_PARTS_ID                        ENABLED  PRIMARY
+CLASS_PARTS                    PK_CLASS_PARTS_ID                        VALID    INDEX
+CLASS_PARTS                    SYS$CONS<CLASS_PARTS>                    ENABLED  CHECK
+CLASS_PART_COLUMNS             PK_CLASS_PART_COLUMNS                    ENABLED  PRIMARY
+CLASS_PART_COLUMNS             PK_CLASS_PART_COLUMNS                    VALID    INDEX
+CLASS_REC_FIELDS               FK_CLS_REC_FIELDS_CLASS_ID               ENABLED  FOREIGN CASCADE
+CLASS_REC_FIELDS               IDX_CLS_REC_FLDS_TARGET                  VALID    INDEX
+CLASS_REC_FIELDS               PK_CLS_REC_FLDS_CLS_ID_QUAL              ENABLED  PRIMARY
+CLASS_REC_FIELDS               PK_CLS_REC_FLDS_CLS_ID_QUAL              VALID    INDEX
+CLASS_RELATIONS                FK_CLS_REL_CHILD_ID                      ENABLED  FOREIGN
+CLASS_RELATIONS                FK_CLS_REL_PARENT_ID                     ENABLED  FOREIGN
+CLASS_RELATIONS                NN_CLS_REL_DISTANCE                      ENABLED  CHECK
+CLASS_RELATIONS                PK_CLS_REL_CHILD_PARENT                  ENABLED  PRIMARY
+CLASS_RELATIONS                PK_CLS_REL_CHILD_PARENT                  VALID    INDEX
+CLASS_RELATIONS                UNQ_CLS_REL_CHLD_DIST                    ENABLED  UNIQUE
+CLASS_RELATIONS                UNQ_CLS_REL_CHLD_DIST                    VALID    INDEX
+CLASS_RELATIONS                UNQ_CLS_REL_PRNT_DIST_CHILD              ENABLED  UNIQUE
+CLASS_RELATIONS                UNQ_CLS_REL_PRNT_DIST_CHILD              VALID    INDEX
+CLASS_RIGHTS                   FK_CLASS_RIGHTS_SUBJ_ID                  ENABLED  FOREIGN CASCADE
+CLASS_RIGHTS                   FK_CR_OBJ_ID                             ENABLED  FOREIGN CASCADE
+CLASS_RIGHTS                   IDX_CLASSES_RIGHTS_SUBJ_ID               VALID    INDEX
+CLASS_RIGHTS                   PK_CR_OBJ_ID_SUBJ_ID                     ENABLED  PRIMARY
+CLASS_RIGHTS                   PK_CR_OBJ_ID_SUBJ_ID                     VALID    INDEX
+CLASS_RULES                    FK_CR_CLASS_ID                           ENABLED  FOREIGN CASCADE
+CLASS_RULES                    FK_CR_SUBJ_ID                            ENABLED  FOREIGN CASCADE
+CLASS_RULES                    IDX_CLASS_RULES_SUBJ_ID                  VALID    INDEX
+CLASS_RULES                    PK_CR_CLASS_ID_SUBJ_ID                   ENABLED  PRIMARY
+CLASS_RULES                    PK_CR_CLASS_ID_SUBJ_ID                   VALID    INDEX
+CLASS_TABLES                   CLASS_TABLES_CHANGES                     ENABLED  AFTER INSERT OR UPDATE OR DELETE
+CLASS_TABLES                   FK_CLASS_TABLES_CLASS_ID                 ENABLED  FOREIGN
+CLASS_TABLES                   FK_CLASS_TABLES_PROFILE_ID               ENABLED  FOREIGN SET NULL
+CLASS_TABLES                   NN_CLASS_TABLES_CACHED                   ENABLED  CHECK
+CLASS_TABLES                   NN_CLASS_TABLES_TABLE_NAME               ENABLED  CHECK
+CLASS_TABLES                   PK_CLASS_TABLES_CLASS_ID                 ENABLED  PRIMARY
+CLASS_TABLES                   PK_CLASS_TABLES_CLASS_ID                 VALID    INDEX
+CLASS_TABLES                   UNQ_CLASS_TABLES_CLASS_KEY               VALID    INDEX
+CLASS_TABLES                   UNQ_CLASS_TABLES_TABLE_NAME              VALID    INDEX
+CLASS_TAB_COLUMNS              CHK_CLS_TAB_COLUMNS_DELETED              ENABLED  CHECK
+CLASS_TAB_COLUMNS              CHK_CLS_TAB_COLUMNS_INDEXED              ENABLED  CHECK
+CLASS_TAB_COLUMNS              CLASS_TAB_COLS_BEFORE_UPD                ENABLED  BEFORE INSERT OR UPDATE
+CLASS_TAB_COLUMNS              CLASS_TAB_COLS_CHANGES                   ENABLED  AFTER INSERT OR UPDATE OR DELETE
+CLASS_TAB_COLUMNS              FK_CLS_TAB_COLUMNS_CLASS_ID              ENABLED  FOREIGN
+CLASS_TAB_COLUMNS              IDX_CLS_TAB_COLS_MAPPED                  VALID    INDEX
+CLASS_TAB_COLUMNS              IDX_CLS_TAB_COLS_TARGET                  VALID    INDEX
+CLASS_TAB_COLUMNS              NN_CLS_TAB_COLUMNS_COL_NAME              ENABLED  CHECK
+CLASS_TAB_COLUMNS              NN_CLS_TAB_COLUMNS_DELETED               ENABLED  CHECK
+CLASS_TAB_COLUMNS              NN_CLS_TAB_COLUMNS_EDITABLE              ENABLED  CHECK
+CLASS_TAB_COLUMNS              NN_CLS_TAB_COLUMNS_INDEXED               ENABLED  CHECK
+CLASS_TAB_COLUMNS              NN_CLS_TAB_COLUMNS_LOGGING               ENABLED  CHECK
+CLASS_TAB_COLUMNS              NN_CLS_TAB_COLUMNS_NULLABLE              ENABLED  CHECK
+CLASS_TAB_COLUMNS              NN_CLS_TAB_COLUMNS_STATIC                ENABLED  CHECK
+CLASS_TAB_COLUMNS              NN_CLS_TAB_COLUMNS_TABLE_NAME            ENABLED  CHECK
+CLASS_TAB_COLUMNS              PK_CLS_TAB_COLS_CLS_ID_QUAL              ENABLED  PRIMARY
+CLASS_TAB_COLUMNS              PK_CLS_TAB_COLS_CLS_ID_QUAL              VALID    INDEX
+CONTROLS                       CONTROLS_CHANGES                         ENABLED  AFTER INSERT OR UPDATE OR DELETE
+CONTROLS                       CTL2CLASS                                ENABLED  FOREIGN
+CONTROLS                       CTL2CTL_DEPEND                           ENABLED  FOREIGN
+CONTROLS                       CTL2CTL_PARENT                           ENABLED  FOREIGN
+CONTROLS                       CTL2METH                                 ENABLED  FOREIGN
+CONTROLS                       FK_CONTROLS_CRIT_CLASS_ID                ENABLED  FOREIGN SET NULL
+CONTROLS                       FK_CONTROLS_CRIT_ID                      ENABLED  FOREIGN SET NULL
+CONTROLS                       IDX_CONTROLS_CRIT_ID                     VALID    INDEX
+CONTROLS                       IDX_CONTROLS_DEPEND                      VALID    INDEX
+CONTROLS                       IDX_CONTROLS_PARENT                      VALID    INDEX
+CONTROLS                       NN_CONTROLS_METH_ID                      ENABLED  CHECK
+CONTROLS                       NN_CONTROLS_POSITION                     ENABLED  CHECK
+CONTROLS                       PK_CONTROLS_ID                           ENABLED  PRIMARY
+CONTROLS                       PK_CONTROLS_ID                           VALID    INDEX
+CONTROLS                       UNQ_CONTROLS_METH_ID_POSITION            ENABLED  UNIQUE
+CONTROLS                       UNQ_CONTROLS_METH_ID_POSITION            VALID    INDEX
+CRITERIA                       CRITERIA_AFTER_INS_UPD                   ENABLED  AFTER INSERT OR UPDATE
+CRITERIA                       CRITERIA_BEFORE_INS_UPD                  ENABLED  BEFORE INSERT OR UPDATE
+CRITERIA                       CRITERIA_CHANGES                         ENABLED  AFTER INSERT OR UPDATE OR DELETE
+CRITERIA                       CRITERIA_CHECK_PROPS                     ENABLED  AFTER INSERT OR UPDATE
+CRITERIA                       FK_CRITERIA_CLASS_ID                     ENABLED  FOREIGN
+CRITERIA                       FK_CRITERIA_EXT_ID                       ENABLED  FOREIGN
+CRITERIA                       FK_CRITERIA_SRC_ID                       ENABLED  FOREIGN
+CRITERIA                       IDX_CRITERIA_CLASS_ID_FLAGS              VALID    INDEX
+CRITERIA                       PK_CRITERIA_ID                           ENABLED  PRIMARY
+CRITERIA                       PK_CRITERIA_ID                           VALID    INDEX
+CRITERIA                       UNQ_CRITERIA_EXT_ID                      VALID    INDEX
+CRITERIA                       UNQ_CRITERIA_SRC_ID                      VALID    INDEX
+CRITERIA                       UQ_CRITERIA_SHORT_NAME                   ENABLED  UNIQUE
+CRITERIA                       UQ_CRITERIA_SHORT_NAME                   VALID    INDEX
+CRITERIA_COLUMNS               CRITERIA_COLUMNS_CHANGES                 ENABLED  AFTER INSERT OR UPDATE OR DELETE
+CRITERIA_COLUMNS               FK_CRIT_COLUMNS_CRITERIA_ID              ENABLED  FOREIGN CASCADE
+CRITERIA_COLUMNS               FK_CRIT_COLUMNS_R_CLASS_ID               ENABLED  FOREIGN SET NULL
+CRITERIA_COLUMNS               FK_CRIT_COLUMNS_R_CRIT_ID                ENABLED  FOREIGN
+CRITERIA_COLUMNS               FK_CRIT_COLUMNS_T_C_ID                   ENABLED  FOREIGN CASCADE
+CRITERIA_COLUMNS               IDX_CRIT_COLUMNS_R_CRIT_ID               VALID    INDEX
+CRITERIA_COLUMNS               NN_CRIT_COLUMNS_CRITERIA_ID              ENABLED  CHECK
+CRITERIA_COLUMNS               NN_CRIT_COLUMNS_D_S                      ENABLED  CHECK
+CRITERIA_COLUMNS               NN_CRIT_COLUMNS_NAME                     ENABLED  CHECK
+CRITERIA_COLUMNS               NN_CRIT_COLUMNS_WIDTH                    ENABLED  CHECK
+CRITERIA_COLUMNS               UNQ_CRIT_COLUMNS_CRIT_ID_ALIAS           VALID    INDEX
+CRITERIA_COMPLEX               FK_CRIT_COMPLEX_CRITERIA_ID              ENABLED  FOREIGN CASCADE
+CRITERIA_COMPLEX               FK_CRIT_COMPLEX_JOIN_ID                  ENABLED  FOREIGN
+CRITERIA_COMPLEX               IDX_CRIT_COMPLEX_CRITERIA_ID             VALID    INDEX
+CRITERIA_COMPLEX               IDX_CRIT_COMPLEX_JOIN_ID                 VALID    INDEX
+CRITERIA_COMPLEX               NN_CRIT_COMPLEX_CRITERIA_ID              ENABLED  CHECK
+CRITERIA_COMPLEX               NN_CRIT_COMPLEX_JOIN                     ENABLED  CHECK
+CRITERIA_COMPLEX               NN_CRIT_COMPLEX_JOIN_ID                  ENABLED  CHECK
+CRITERIA_COMPLEX               NN_CRIT_COMPLEX_POSITION                 ENABLED  CHECK
+CRITERIA_COMPLEX_COLUMNS       FK_CRIT_CC_CRITERIA_ID                   ENABLED  FOREIGN CASCADE
+CRITERIA_COMPLEX_COLUMNS       IDX_CRIT_CC_CRITERIA_ID                  VALID    INDEX
+CRITERIA_COMPLEX_COLUMNS       NN_CRIT_CC_CRITERIA_ID                   ENABLED  CHECK
+CRITERIA_COMPLEX_COLUMNS       NN_CRIT_CC_JOIN_POS                      ENABLED  CHECK
+CRITERIA_COMPLEX_COLUMNS       NN_CRIT_CC_POSITION                      ENABLED  CHECK
+CRITERIA_METHODS               CRITERIA_METHODS_CHANGES                 ENABLED  AFTER INSERT OR DELETE
+CRITERIA_METHODS               FK_CRITERIA_METHODS_CRIT_ID              ENABLED  FOREIGN CASCADE
+CRITERIA_METHODS               FK_CRITERIA_METHODS_METHOD_ID            ENABLED  FOREIGN CASCADE
+CRITERIA_METHODS               IDX_CRITERIA_METHODS_CRIT_ID             VALID    INDEX
+CRITERIA_METHODS               IDX_CRITERIA_METHODS_METHOD_ID           VALID    INDEX
+CRITERIA_METHODS               NN_CRITERIA_METHODS_CRIT_ID              ENABLED  CHECK
+CRITERIA_METHODS               NN_CRITERIA_METHODS_METHOD_ID            ENABLED  CHECK
+CRITERIA_PRINTS                CRITERIA_PRINTS_AFTER_INS_UPD            ENABLED  AFTER INSERT OR UPDATE
+CRITERIA_PRINTS                CRITERIA_PRINTS_BEFORE                   ENABLED  BEFORE INSERT OR UPDATE OR DELETE
+CRITERIA_PRINTS                CRITERIA_PRINTS_CHANGES                  ENABLED  AFTER INSERT OR UPDATE OR DELETE
+CRITERIA_PRINTS                FK_CRITERIA_PRINTS_CRITERIA_ID           ENABLED  FOREIGN CASCADE
+CRITERIA_PRINTS                PK_CR_PRINTS_CR_ID_NAME                  ENABLED  PRIMARY
+CRITERIA_PRINTS                PK_CR_PRINTS_CR_ID_NAME                  VALID    INDEX
+CRITERIA_PRINT_COLUMNS         FK_CR_PR_COLS_CR_ID_NAME                 ENABLED  FOREIGN CASCADE
+CRITERIA_PRINT_COLUMNS         IDX_CR_PR_COLS_CR_ID_NAME                VALID    INDEX
+CRITERIA_RIGHTS                FK_CRITERIA_RIGHTS_CLASS_ID              ENABLED  FOREIGN CASCADE
+CRITERIA_RIGHTS                FK_CRITERIA_RIGHTS_OBJ_ID                ENABLED  FOREIGN CASCADE
+CRITERIA_RIGHTS                FK_CRITERIA_RIGHTS_SUBJ_ID               ENABLED  FOREIGN CASCADE
+CRITERIA_RIGHTS                IDX_CRITERIA_RIGHTS_CLASS_ID             VALID    INDEX
+CRITERIA_RIGHTS                IDX_CRITERIA_RIGHTS_SUBJ_ID              VALID    INDEX
+CRITERIA_RIGHTS                IDX_CRIT_RIGHTS_OBJ_SUBJ_CLASS           VALID    INDEX
+CRITERIA_TRIES                 FK_CRIT_TRIES_CRITERIA_ID                ENABLED  FOREIGN CASCADE
+CRITERIA_TRIES                 IDX_CRIT_TRIES_CRITERIA_ID               VALID    INDEX
+CRITERIA_TRIES                 NN_CRIT_TRIES_CRITERIA_ID                ENABLED  CHECK
+CRITERIA_TRIES                 NN_CRIT_TRIES_KEY                        ENABLED  CHECK
+CURSORS                        FK_CURSORS_METHOD_ID                     ENABLED  FOREIGN CASCADE
+CURSORS                        PK_CURSORS                               ENABLED  PRIMARY
+CURSORS                        PK_CURSORS                               VALID    INDEX
+DELAYED_ACTIONS                CHK_DELAYED_ACTIONS_GROUP                ENABLED  CHECK
+DELAYED_ACTIONS                CHK_DELAYED_ACTIONS_SUCCESS              ENABLED  CHECK
+DELAYED_ACTIONS                CHK_DELAYED_ACTIONS_TYPE                 ENABLED  CHECK
+DELAYED_ACTIONS                FK_DELAYED_ACTIONS_CLASS_ID              ENABLED  FOREIGN CASCADE
+DELAYED_ACTIONS                IDX_DELAYED_ACTION_SUCCESS               VALID    INDEX
+DELAYED_ACTIONS                PK_DELAYED_ACTIONS                       ENABLED  UNIQUE
+DELAYED_ACTIONS                PK_DELAYED_ACTIONS                       VALID    INDEX
+DELAYED_ACTIONS                SYS$CONS<DELAYED_ACTIONS>                ENABLED  CHECK
+DEPENDENCIES                   IDX_DEPENDENCIES_REFCED                  VALID    INDEX
+DEPENDENCIES                   IDX_DEPENDENCIES_REFCING                 VALID    INDEX
+DEPENDENCIES                   NN_DEPENDENCIES_REFERENCED_ID            ENABLED  CHECK
+DEPENDENCIES                   NN_DEPENDENCIES_REFERENCING_ID           ENABLED  CHECK
+DICT_CHANGES                   IDX_DICT_CHANGES_MDATE                   VALID    INDEX
+DICT_CHANGES                   NN_DICT_CHANGES_MDATE                    ENABLED  CHECK
+DICT_CHANGES                   PK_DICT_CHANGES                          ENABLED  PRIMARY
+DICT_CHANGES                   PK_DICT_CHANGES                          VALID    INDEX
+ENTITIES                       NN_ENTITIES_NAME                         ENABLED  CHECK
+ENTITIES                       NN_ENTITIES_POSITION                     ENABLED  CHECK
+ENTITIES                       PK_ENTITIES_ID                           ENABLED  PRIMARY
+ENTITIES                       PK_ENTITIES_ID                           VALID    INDEX
+ERRORS                         IDX_ERRORS_METHOD_ID                     VALID    INDEX
+ERRORS                         NN_ERRORS_LINE                           ENABLED  CHECK
+ERRORS                         NN_ERRORS_METHOD_ID                      ENABLED  CHECK
+ERRORS                         NN_ERRORS_TEXT                           ENABLED  CHECK
+FAVORITES                      FK_FAVORITES_CLASS_ID                    ENABLED  FOREIGN CASCADE
+FAVORITES                      FK_FAVORITES_CRITERION_ID                ENABLED  FOREIGN CASCADE
+FAVORITES                      FK_FAVORITES_METHOD_ID                   ENABLED  FOREIGN CASCADE
+FAVORITES                      FK_FAVORITES_PARENT_ID                   ENABLED  FOREIGN CASCADE
+FAVORITES                      FK_FAVORITES_USERNAME                    ENABLED  FOREIGN CASCADE
+FAVORITES                      IDX_FAVORITES_CLASS_ID                   VALID    INDEX
+FAVORITES                      IDX_FAVORITES_CRITERION_ID               VALID    INDEX
+FAVORITES                      IDX_FAVORITES_METHOD_ID                  VALID    INDEX
+FAVORITES                      IDX_FAVORITES_PARENT_ID                  VALID    INDEX
+FAVORITES                      IDX_FAVORITES_USERNAME                   VALID    INDEX
+FAVORITES                      NN_FAVORITES_NAME                        ENABLED  CHECK
+FAVORITES                      NN_FAVORITES_USERNAME                    ENABLED  CHECK
+FAVORITES                      PK_FAVORITES_ID                          ENABLED  PRIMARY
+FAVORITES                      PK_FAVORITES_ID                          VALID    INDEX
+FRM_LOCKS                      IDX_FRM_LOCKS_USER_ID                    VALID    INDEX
+FRM_LOCKS                      PK_FRM_LOCKS_OBJ_ID                      ENABLED  PRIMARY
+FRM_LOCKS                      PK_FRM_LOCKS_OBJ_ID                      VALID    INDEX
+FVR_FILTERS                    FK_FVR_FILTERS_FVR_ID                    ENABLED  FOREIGN CASCADE
+FVR_FILTERS                    FVR_FILTERS_FVR_ID                       VALID    INDEX
+FVR_FILTERS                    NN_FVR_FILTERS_IND                       ENABLED  CHECK
+GUIDE_GROUPS                   GUIDE_GROUPS_CHANGES                     ENABLED  AFTER INSERT OR UPDATE OR DELETE
+GUIDE_GROUPS                   NN_GUIDE_GROUPS_DESC                     ENABLED  CHECK
+GUIDE_GROUPS                   PK_GUIDE_GROUPS_ID                       ENABLED  PRIMARY
+GUIDE_GROUPS                   PK_GUIDE_GROUPS_ID                       VALID    INDEX
+HOST2PLP                       FK_HOST2PLP_METHOD_ID                    ENABLED  FOREIGN CASCADE
+HOST2PLP                       IDX_HOST2PLP_METHOD_ID                   VALID    INDEX
+HOST2PLP                       NN_HOST2PLP_METHOD_ID                    ENABLED  CHECK
+HOST_SOURCES                   IDX_HOST_SOURCES_ID                      VALID    INDEX
+HOST_SOURCES                   SYS$IDX<HOST_SOURCES>                    VALID    INDEX
+LCONV                          SYS$IDX<LCONV>                           VALID    INDEX
+LCONV                          UNQ_LCONV_R                              VALID    INDEX
+LICENSE_DATA                   LICENSE_DATA_BEFORE_UPD_DEL              ENABLED  BEFORE UPDATE OR DELETE
+LICENSE_DATA                   LICENSE_DATA_CHANGES                     ENABLED  AFTER INSERT OR UPDATE OR DELETE
+LICENSE_DATA                   PK_LICENSE_DATA                          ENABLED  PRIMARY
+LICENSE_DATA                   PK_LICENSE_DATA                          VALID    INDEX
+LICENSE_DATA                   SYS$IDX<LICENSE_DATA>                    VALID    INDEX
+LONG_DATA                      IDX_LONG_DATA_CLASS_ID                   VALID    INDEX
+LONG_DATA                      IDX_LONG_DATA_OBJECT_ID                  VALID    INDEX
+LONG_DATA                      LONG_DATA_BEFORE                         ENABLED  BEFORE INSERT OR UPDATE OR DELETE
+LONG_DATA                      NN_LONG_DATA_CLASS_ID                    ENABLED  CHECK
+LONG_DATA                      NN_LONG_DATA_OBJECT_ID                   ENABLED  CHECK
+LONG_DATA                      PK_LONG_DATA_ID                          ENABLED  PRIMARY
+LONG_DATA                      PK_LONG_DATA_ID                          VALID    INDEX
+LONG_DATA                      SYS$IDX<LONG_DATA>                       VALID    INDEX
+LRAW                           LRAW_CHANGES                             ENABLED  AFTER INSERT OR UPDATE OR DELETE
+LRAW                           PK_LRAW_ID                               ENABLED  PRIMARY
+LRAW                           PK_LRAW_ID                               VALID    INDEX
+LRAW                           SYS$IDX<LRAW>                            VALID    INDEX
+MACRO_VALUES                   FK_MACRO_VALUES_DRIVER_ID                ENABLED  FOREIGN CASCADE
+MACRO_VALUES                   FK_MACRO_VALUES_MACRO_ID                 ENABLED  FOREIGN CASCADE
+MACRO_VALUES                   IDX_MACRO_VALUES_MACRO_ID                VALID    INDEX
+MACRO_VALUES                   PK_MACRO_VALUES                          ENABLED  PRIMARY
+MACRO_VALUES                   PK_MACRO_VALUES                          VALID    INDEX
+MESSAGES                       INS_UPD_MESSAGES_BEFORE                  ENABLED  BEFORE INSERT OR UPDATE
+MESSAGES                       PK_MESSAGES_TOPIC_CODE                   ENABLED  PRIMARY
+MESSAGES                       PK_MESSAGES_TOPIC_CODE                   VALID    INDEX
+METHODS                        FK_METHODS_CLASS_ID                      ENABLED  FOREIGN
+METHODS                        FK_METHODS_EXT_ID                        ENABLED  FOREIGN
+METHODS                        FK_METHODS_FORM_ID                       ENABLED  FOREIGN
+METHODS                        FK_METHODS_RESULT_CLASS_ID               ENABLED  FOREIGN
+METHODS                        FK_METHODS_SRC_ID                        ENABLED  FOREIGN
+METHODS                        IDX_METHODS_CLASS_ID_FLAGS               VALID    INDEX
+METHODS                        IDX_METHODS_FORM_ID                      VALID    INDEX
+METHODS                        IDX_METHOD_ID_ACSB_USDRV                 VALID    INDEX
+METHODS                        METHODS_AFTER_INS_UPD                    ENABLED  AFTER INSERT OR UPDATE
+METHODS                        METHODS_BEFORE_INS_UPD                   ENABLED  BEFORE INSERT OR UPDATE
+METHODS                        METHODS_CHANGES                          ENABLED  AFTER INSERT OR UPDATE OR DELETE
+METHODS                        NN_METHODS_CLASS_ID                      ENABLED  CHECK
+METHODS                        NN_METHODS_KERNEL                        ENABLED  CHECK
+METHODS                        NN_METHODS_NAME                          ENABLED  CHECK
+METHODS                        NN_METHODS_SHORT_NAME                    ENABLED  CHECK
+METHODS                        NN_METHODS_USER_DRIVEN                   ENABLED  CHECK
+METHODS                        PK_METHODS_ID                            ENABLED  PRIMARY
+METHODS                        PK_METHODS_ID                            VALID    INDEX
+METHODS                        UNQ_METHODS_CLASS_SHORT_NAME             ENABLED  UNIQUE
+METHODS                        UNQ_METHODS_CLASS_SHORT_NAME             VALID    INDEX
+METHODS                        UNQ_METHODS_EXT_ID                       VALID    INDEX
+METHODS                        UNQ_METHODS_PACKAGE_NAME                 ENABLED  UNIQUE
+METHODS                        UNQ_METHODS_PACKAGE_NAME                 VALID    INDEX
+METHODS                        UNQ_METHODS_SRC_ID                       VALID    INDEX
+METHOD_GROUPS                  FK_METHOD_GROUPS_CLASS_ID                ENABLED  FOREIGN CASCADE
+METHOD_GROUPS                  FK_METHOD_GROUPS_PARENT_ID               ENABLED  FOREIGN CASCADE
+METHOD_GROUPS                  FK_METH_GROUPS_USERNAME                  ENABLED  FOREIGN CASCADE
+METHOD_GROUPS                  IDX_METHOD_GROUPS_CLASS_ID               VALID    INDEX
+METHOD_GROUPS                  IDX_METHOD_GROUPS_PARENT_ID              VALID    INDEX
+METHOD_GROUPS                  IDX_METHOD_GROUPS_USERNAME               VALID    INDEX
+METHOD_GROUPS                  NN_METHOD_GROUPS_NAME                    ENABLED  CHECK
+METHOD_GROUPS                  PK_METHOD_GROUPS_ID                      ENABLED  PRIMARY
+METHOD_GROUPS                  PK_METHOD_GROUPS_ID                      VALID    INDEX
+METHOD_GROUP_MEMBERS           FK_METH_GRP_MEMB_GROUP_ID                ENABLED  FOREIGN CASCADE
+METHOD_GROUP_MEMBERS           FK_METH_GRP_MEMB_METHOD_ID               ENABLED  FOREIGN CASCADE
+METHOD_GROUP_MEMBERS           IDX_METH_GRP_MEMBERS_GROUP_ID            VALID    INDEX
+METHOD_GROUP_MEMBERS           IDX_METH_GRP_MEMBERS_METHOD_ID           VALID    INDEX
+METHOD_GROUP_MEMBERS           NN_METH_GRP_MEMB_GROUP_ID                ENABLED  CHECK
+METHOD_GROUP_MEMBERS           NN_METH_GRP_MEMB_METHOD_ID               ENABLED  CHECK
+METHOD_PARAMETERS              CHK_MP_DIRECTION                         ENABLED  CHECK
+METHOD_PARAMETERS              CHK_MP_FLAG                              ENABLED  CHECK
+METHOD_PARAMETERS              FK_METHOD_PARAMETERS_CRIT_ID             ENABLED  FOREIGN SET NULL
+METHOD_PARAMETERS              FK_METHOD_PARAMS_CRIT_CLASS_ID           ENABLED  FOREIGN SET NULL
+METHOD_PARAMETERS              FK_MP_CLASS_ID                           ENABLED  FOREIGN
+METHOD_PARAMETERS              FK_MP_METHOD_ID                          ENABLED  FOREIGN
+METHOD_PARAMETERS              IDX_METHOD_PARAMS_CLASS_ID               VALID    INDEX
+METHOD_PARAMETERS              IDX_METHOD_PARAMS_CRIT_ID                VALID    INDEX
+METHOD_PARAMETERS              METHOD_PARAMS_BEFORE_INS_UPD             ENABLED  BEFORE INSERT OR UPDATE
+METHOD_PARAMETERS              METHOD_PARAMS_CHANGES                    ENABLED  AFTER INSERT OR UPDATE OR DELETE
+METHOD_PARAMETERS              NN_MP_CLASS_ID                           ENABLED  CHECK
+METHOD_PARAMETERS              NN_MP_NAME                               ENABLED  CHECK
+METHOD_PARAMETERS              NN_MP_SHORT_NAME                         ENABLED  CHECK
+METHOD_PARAMETERS              PK_MP_METH_ID_POS                        ENABLED  PRIMARY
+METHOD_PARAMETERS              PK_MP_METH_ID_POS                        VALID    INDEX
+METHOD_PARAMETERS              UNQ_MP_METHOD_ID_SHORT_NAME              ENABLED  UNIQUE
+METHOD_PARAMETERS              UNQ_MP_METHOD_ID_SHORT_NAME              VALID    INDEX
+METHOD_RIGHTS                  FK_METHOD_RIGHTS_SUBJ_ID                 ENABLED  FOREIGN CASCADE
+METHOD_RIGHTS                  FK_MR_CLASS_ID                           ENABLED  FOREIGN CASCADE
+METHOD_RIGHTS                  FK_MR_OBJ_ID                             ENABLED  FOREIGN CASCADE
+METHOD_RIGHTS                  IDX_METHOD_RIGHTS_CLASS_ID               VALID    INDEX
+METHOD_RIGHTS                  IDX_METHOD_RIGHTS_SUBJ_ID                VALID    INDEX
+METHOD_RIGHTS                  PK_MR_OBJ_ID_SUBJ_ID_CLASS_ID            ENABLED  PRIMARY
+METHOD_RIGHTS                  PK_MR_OBJ_ID_SUBJ_ID_CLASS_ID            VALID    INDEX
+METHOD_VARIABLES               CHK_METH_VAR_FLAG                        ENABLED  CHECK
+METHOD_VARIABLES               FK_METHOD_VARIABLES_CRIT_ID              ENABLED  FOREIGN SET NULL
+METHOD_VARIABLES               FK_METHOD_VARS_CRIT_CLASS_ID             ENABLED  FOREIGN SET NULL
+METHOD_VARIABLES               FK_METH_VAR_CLASS_ID                     ENABLED  FOREIGN
+METHOD_VARIABLES               FK_METH_VAR_METHOD_ID                    ENABLED  FOREIGN
+METHOD_VARIABLES               IDX_METHOD_VARS_CLASS_ID                 VALID    INDEX
+METHOD_VARIABLES               IDX_METHOD_VARS_CRIT_ID                  VALID    INDEX
+METHOD_VARIABLES               METHOD_VARS_BEFORE_INS_UPD               ENABLED  BEFORE INSERT OR UPDATE
+METHOD_VARIABLES               METHOD_VARS_CHANGES                      ENABLED  AFTER INSERT OR UPDATE OR DELETE
+METHOD_VARIABLES               NN_METH_VAR_CLASS_ID                     ENABLED  CHECK
+METHOD_VARIABLES               NN_METH_VAR_NAME                         ENABLED  CHECK
+METHOD_VARIABLES               NN_METH_VAR_SHORT_NAME                   ENABLED  CHECK
+METHOD_VARIABLES               PK_METH_VAR_METH_ID_POS                  ENABLED  PRIMARY
+METHOD_VARIABLES               PK_METH_VAR_METH_ID_POS                  VALID    INDEX
+METHOD_VARIABLES               UNQ_METH_VAR_METHOD_ID_SN                ENABLED  UNIQUE
+METHOD_VARIABLES               UNQ_METH_VAR_METHOD_ID_SN                VALID    INDEX
+NUMERATORS                     CHK_NUMERATORS_SYSTEM                    ENABLED  CHECK
+NUMERATORS                     IDX_NUMERATORS_SYS                       VALID    INDEX
+NUMERATORS                     NN_NUMERATORS_CODE                       ENABLED  CHECK
+NUMERATORS                     NN_NUMERATORS_NAME                       ENABLED  CHECK
+NUMERATORS                     PK_NUMERATORS                            ENABLED  PRIMARY
+NUMERATORS                     PK_NUMERATORS                            VALID    INDEX
+NUMERATORS                     UNQ_NUMERATORS_CODE                      VALID    INDEX
+NUM_ATTRIBUTES                 CHK_NUM_ATTRIBUTES_STATUS                ENABLED  CHECK
+NUM_ATTRIBUTES                 FK_NUM_ATTRIBUTES                        ENABLED  FOREIGN
+NUM_ATTRIBUTES                 IDX_NUM_ATTRIBUTES_NUM_ID                VALID    INDEX
+NUM_ATTRIBUTES                 PK_NUM_ATTRIBUTES                        ENABLED  PRIMARY
+NUM_ATTRIBUTES                 PK_NUM_ATTRIBUTES                        VALID    INDEX
+OBJECTS_OPTIONS                FK_OBJECTS_OPTIONS_OPTION                ENABLED  FOREIGN CASCADE
+OBJECTS_OPTIONS                IDX_OBJECTS_OPTIONS_OPTION               VALID    INDEX
+OBJECTS_OPTIONS                OBJECTS_OPTIONS_CHANGES                  ENABLED  AFTER INSERT OR UPDATE OR DELETE
+OBJECTS_OPTIONS                PK_OBJECTS_OPTIONS                       ENABLED  PRIMARY
+OBJECTS_OPTIONS                PK_OBJECTS_OPTIONS                       VALID    INDEX
+OBJECT_RIGHTS                  IDX_OBJECT_RIGHTS_CLASS_ID               VALID    INDEX
+OBJECT_RIGHTS                  IDX_OBJECT_RIGHTS_SUBJ_ID                VALID    INDEX
+OBJECT_RIGHTS                  PK_OBJECT_RIGHTS_OID_SID_                ENABLED  PRIMARY
+OBJECT_RIGHTS                  PK_OBJECT_RIGHTS_OID_SID_                VALID    INDEX
+OBJECT_RIGHTS_EX               IDX_OBJECT_RIGHTS_EX_CLASS_ID            VALID    INDEX
+OBJECT_RIGHTS_EX               IDX_OBJECT_RIGHTS_EX_RCLASS_ID           VALID    INDEX
+OBJECT_RIGHTS_EX               IDX_OBJECT_RIGHTS_EX_SUBJ_ID             VALID    INDEX
+OBJECT_RIGHTS_EX               PK_OBJECT_RIGHTS_EX                      ENABLED  PRIMARY
+OBJECT_RIGHTS_EX               PK_OBJECT_RIGHTS_EX                      VALID    INDEX
+OBJECT_RIGHTS_LIST             IDX_OBJ_RIGHT_LST_CLASS_ID               VALID    INDEX
+OBJECT_RIGHTS_LIST             IDX_OBJ_RIGHT_LST_OBJ_ID                 VALID    INDEX
+OBJECT_RIGHTS_LIST             NN_OBJECT_RIGHTS_LIST_CLASS_ID           ENABLED  CHECK
+OBJECT_RIGHTS_LIST             PK_OBJ_RIGHT_LST                         ENABLED  PRIMARY
+OBJECT_RIGHTS_LIST             PK_OBJ_RIGHT_LST                         VALID    INDEX
+OBJECT_RULES                   FK_OBJECT_RULES_CLASS_ID                 ENABLED  FOREIGN CASCADE
+OBJECT_RULES                   FK_OBJECT_RULES_SUBJ_ID                  ENABLED  FOREIGN CASCADE
+OBJECT_RULES                   IDX_OBJECT_RULES_CID_SID                 VALID    INDEX
+OBJECT_RULES                   IDX_OBJECT_RULES_SUBJ_ID                 VALID    INDEX
+OBJECT_RULES                   NN_OBJECT_RULES_ATTR_ID                  ENABLED  CHECK
+OBJECT_RULES                   NN_OBJECT_RULES_CLASS_ID                 ENABLED  CHECK
+OBJECT_RULES                   NN_OBJECT_RULES_SUBJ_ID                  ENABLED  CHECK
+OBJ_STATIC                     FK_OBJ_STATIC_CLASS_ID                   ENABLED  FOREIGN
+OBJ_STATIC                     PK_OBJ_STATIC                            ENABLED  PRIMARY
+OBJ_STATIC                     PK_OBJ_STATIC                            VALID    INDEX
+ORSA_JOBS                      CHK_ORSA_JOBS_NOT_NULL                   ENABLED  CHECK
+ORSA_JOBS                      IDX_ORSA_JOBS_CLASS_ID                   VALID    INDEX
+ORSA_JOBS                      IDX_ORSA_JOBS_METHOD_ID                  VALID    INDEX
+ORSA_JOBS                      IDX_ORSA_JOBS_SHED_PRIOR_RUN             VALID    INDEX
+ORSA_JOBS                      IDX_ORSA_JOBS_USERNAME                   VALID    INDEX
+ORSA_JOBS                      ORSA_JOBS_BEFORE_INS_UPD                 ENABLED  BEFORE INSERT OR UPDATE
+ORSA_JOBS                      PK_ORSA_JOBS_JOB_POS                     ENABLED  PRIMARY
+ORSA_JOBS                      PK_ORSA_JOBS_JOB_POS                     VALID    INDEX
+ORSA_JOBS_OUT                  FK_ORSA_JOBS_OUT_JOB_POS                 ENABLED  FOREIGN CASCADE
+ORSA_JOBS_OUT                  IDX_ORSA_JOBS_OUT_JOB_POS_TYPE           VALID    INDEX
+ORSA_JOBS_OUT                  SYS$IDX<ORSA_JOBS_OUT>                   VALID    INDEX
+ORSA_JOBS_PAR                  FK_ORSA_JOBS_PAR_JOB_POS                 ENABLED  FOREIGN CASCADE
+ORSA_JOBS_PAR                  PK_ORSA_JOBS_PAR_JOB_POS_PIECE           ENABLED  PRIMARY
+ORSA_JOBS_PAR                  PK_ORSA_JOBS_PAR_JOB_POS_PIECE           VALID    INDEX
+ORSA_PAR_LOB                   FK_ORSA_PAR_LOB                          ENABLED  FOREIGN CASCADE
+ORSA_PAR_LOB                   PK_ORSA_PAR_LOB                          ENABLED  PRIMARY
+ORSA_PAR_LOB                   PK_ORSA_PAR_LOB                          VALID    INDEX
+ORSA_PAR_LOB                   SYS$IDX<ORSA_PAR_LOB>                    VALID    INDEX
+PARTITIONING_CONDITIONS        FK_PART_CONDITIONS_PROFILE_ID            ENABLED  FOREIGN CASCADE
+PARTITIONING_CONDITIONS        IDX_PARTITIONING_CONDITIONS_ID           VALID    INDEX
+PARTITIONING_CONDITIONS        SYS$CONS<PARTITIONING_CONDITIONS>        ENABLED  CHECK
+PARTITIONING_CONDITIONS        UNQ_PART_COND_PROF_ID_COND_VAL           ENABLED  UNIQUE
+PARTITIONING_CONDITIONS        UNQ_PART_COND_PROF_ID_COND_VAL           VALID    INDEX
+PARTITIONING_PROFILES          CHK_PARTITIONING_PROFILES_TYPE           ENABLED  CHECK
+PARTITIONING_PROFILES          CHK_PART_PROFILES_DEFAULT_PART           ENABLED  CHECK
+PARTITIONING_PROFILES          CHK_PART_PROFILES_INTERVALUNIT           ENABLED  CHECK
+PARTITIONING_PROFILES          CHK_PART_PROFILES_INT_UNIT               ENABLED  CHECK
+PARTITIONING_PROFILES          CHK_PART_PROFILES_INT_VALUE              ENABLED  CHECK
+PARTITIONING_PROFILES          CHK_PART_PROFILES_RATIO                  ENABLED  CHECK
+PARTITIONING_PROFILES          CHK_PART_PROFILES_ROW_MOVEMENT           ENABLED  CHECK
+PARTITIONING_PROFILES          CHK_PART_PROFILES_SUBPROF_ID             ENABLED  CHECK
+PARTITIONING_PROFILES          FK_PARTITIONING_CLASSES_ID               ENABLED  FOREIGN
+PARTITIONING_PROFILES          FK_PART_PROFILES_SUBPROFILE_ID           ENABLED  FOREIGN
+PARTITIONING_PROFILES          PK_PARTITIONING_PROFILES_ID              ENABLED  PRIMARY
+PARTITIONING_PROFILES          PK_PARTITIONING_PROFILES_ID              VALID    INDEX
+PARTITIONING_PROFILES          SYS$CONS<PARTITIONING_PROFILES>          ENABLED  CHECK
+PART_SUBPROFS                  CHK_PART_SUBPROFILES_TYPE                ENABLED  CHECK
+PART_SUBPROFS                  FK_PART_SUBPROFILES_CLASSES_ID           ENABLED  FOREIGN
+PART_SUBPROFS                  PK_PART_SUBPROFILES_ID                   ENABLED  PRIMARY
+PART_SUBPROFS                  PK_PART_SUBPROFILES_ID                   VALID    INDEX
+PART_SUBPROFS                  SYS$CONS<PART_SUBPROFS>                  ENABLED  CHECK
+PART_SUBPROF_CONDS             FK_PART_SUBPROF_CONDS                    ENABLED  FOREIGN CASCADE
+PART_SUBPROF_CONDS             SYS$CONS<PART_SUBPROF_CONDS>             ENABLED  CHECK
+PART_SUBPROF_CONDS             UNQ_PART_SUBPROF_CONDS                   ENABLED  UNIQUE
+PART_SUBPROF_CONDS             UNQ_PART_SUBPROF_CONDS                   VALID    INDEX
+PRINTER_MACROS                 PK_PRINTER_MACROS                        ENABLED  PRIMARY
+PRINTER_MACROS                 PK_PRINTER_MACROS                        VALID    INDEX
+PRINTER_MACROS                 UNQ_PRINTER_MACROS_NAME                  VALID    INDEX
+PRINTER_TYPES                  CHK_PRINTER_TYPES_PROXY                  ENABLED  CHECK
+PRINTER_TYPES                  PK_PRINTER_TYPES                         ENABLED  PRIMARY
+PRINTER_TYPES                  PK_PRINTER_TYPES                         VALID    INDEX
+PRINTER_TYPES                  UNQ_PRINTER_TYPES_NAME                   VALID    INDEX
+PROCEDURES                     NN_PROCEDURES_ID                         ENABLED  CHECK
+PROCEDURES                     PK_PROCEDURES                            ENABLED  PRIMARY
+PROCEDURES                     PK_PROCEDURES                            VALID    INDEX
+PROCEDURES                     PROCEDURES_AFTER_INS_UPD                 ENABLED  AFTER INSERT OR UPDATE
+PROCEDURES                     PROCEDURES_CHANGES                       ENABLED  AFTER INSERT OR UPDATE OR DELETE
+PROCEDURE_RIGHTS               FK_PROC_RGHT_OBJ_ID                      ENABLED  FOREIGN CASCADE
+PROCEDURE_RIGHTS               FK_PROC_RGHT_SUBJ_ID                     ENABLED  FOREIGN CASCADE
+PROCEDURE_RIGHTS               IDX_PROCEDURE_RIGHTS_OBJ_SUBJ            VALID    INDEX
+PROCEDURE_RIGHTS               IDX_PROCEDURE_RIGHTS_SUBJ_ID             VALID    INDEX
+PROFILES                       PK_PROFILES                              ENABLED  PRIMARY
+PROFILES                       PK_PROFILES                              VALID    INDEX
+PROFILES                       PROFILES_BEFORE_INS_UPD                  ENABLED  BEFORE INSERT OR UPDATE
+PROFILES                       PROFILES_CHANGES                         ENABLED  AFTER INSERT OR UPDATE OR DELETE
+PROJECT                        INS_PROJ_BEFORE                          ENABLED  BEFORE INSERT
+PROJECT                        PK_PROJECT_NAME_TYPE                     ENABLED  PRIMARY
+PROJECT                        PK_PROJECT_NAME_TYPE                     VALID    INDEX
+QUERIES                        PK_QUERIES_ID_TYPE                       ENABLED  PRIMARY
+QUERIES                        PK_QUERIES_ID_TYPE                       VALID    INDEX
+REPORT_FORMULA                 FK_REPORT_FORMULA_METHOD_ID              ENABLED  FOREIGN
+REPORT_FORMULA                 IDX_REPORT_FORMULA_METHOD_ID             VALID    INDEX
+REPORT_OBJECTS                 FK_REPORT_OBJECTS_METHOD_ID              ENABLED  FOREIGN CASCADE
+REPORT_OBJECTS                 IDX_RPT_OBJ_NAME_TYPE                    VALID    INDEX
+REPORT_OBJECTS                 PK_RPT_OBJ_METH_NAME_TYPE                ENABLED  PRIMARY
+REPORT_OBJECTS                 PK_RPT_OBJ_METH_NAME_TYPE                VALID    INDEX
+REPORT_PARAM_RELATIONS         FK_RPT_PARAM_REL_METHOD_ID               ENABLED  FOREIGN CASCADE
+REPORT_PARAM_RELATIONS         IDX_RPT_PARAM_REL_METHOD_ID              VALID    INDEX
+REPORT_PARAM_RELATIONS         NN_REPORT_METHOD_ID                      ENABLED  CHECK
+REPORT_ROLES                   FK_REPORT_ROLES_SUBJ_ID                  ENABLED  FOREIGN CASCADE
+REPORT_ROLES                   IDX_REPORT_ROLES_ROLE_NAME               VALID    INDEX
+REPORT_ROLES                   IDX_REPORT_ROLES_SUBJ_ID                 VALID    INDEX
+REPORT_ROLES                   PK_REPORT_ROLES                          ENABLED  PRIMARY
+REPORT_ROLES                   PK_REPORT_ROLES                          VALID    INDEX
+REPORT_VIEWS                   PK_REPORT_VIEWS_NAME                     ENABLED  PRIMARY
+REPORT_VIEWS                   PK_REPORT_VIEWS_NAME                     VALID    INDEX
+REPORT_VIEWS                   REPORT_VIEWS_CHANGES                     ENABLED  AFTER INSERT OR UPDATE OR DELETE
+RTL_ENTRIES                    IDX_RTL_ENTRIES_METHOD_ID_NAME           VALID    INDEX
+RTL_ENTRIES                    NN_RTL_ENTRIES_METHOD_ID                 ENABLED  CHECK
+RTL_ENTRIES                    NN_RTL_ENTRIES_NAME                      ENABLED  CHECK
+RTL_ENTRIES                    PK_RTL_ENTRIES_ID                        ENABLED  PRIMARY
+RTL_ENTRIES                    PK_RTL_ENTRIES_ID                        VALID    INDEX
+RTL_EVENTS                     IDX_RTL_EVENTS_INSTANCE_TIME             VALID    INDEX
+RTL_EVENTS                     IDX_RTL_EVENTS_USER_ID                   VALID    INDEX
+RTL_LOCKS                      IDX_RTL_LOCKS_USER_ID                    VALID    INDEX
+RTL_LOCKS                      PK_RTL_LOCKS_ID                          ENABLED  PRIMARY
+RTL_LOCKS                      PK_RTL_LOCKS_ID                          VALID    INDEX
+RTL_PARAMETERS                 PK_RTL_PARAMS_RTL_ID_POS                 ENABLED  PRIMARY
+RTL_PARAMETERS                 PK_RTL_PARAMS_RTL_ID_POS                 VALID    INDEX
+RTL_USERS                      PK_RTL_USERS_ID                          ENABLED  PRIMARY
+RTL_USERS                      PK_RTL_USERS_ID                          VALID    INDEX
+RTL_USERS_PROPS                IDX_RTL_USERS_PROPS_ID                   VALID    INDEX
+SECURITY_DOMAINS               FK_SECURITY_DOMAINS_PAR_ID               ENABLED  FOREIGN CASCADE
+SECURITY_DOMAINS               FK_SECURITY_DOMAINS_RES_GRP              ENABLED  FOREIGN
+SECURITY_DOMAINS               FK_SECURITY_DOMAINS_REV_GRP              ENABLED  FOREIGN
+SECURITY_DOMAINS               IDX_SECURITY_DOMAINS_PAR_ID              VALID    INDEX
+SECURITY_DOMAINS               IDX_SECURITY_DOMAINS_RES_GRP             VALID    INDEX
+SECURITY_DOMAINS               IDX_SECURITY_DOMAINS_REV_GRP             VALID    INDEX
+SECURITY_DOMAINS               PK_SECURITY_DOMAINS                      ENABLED  PRIMARY
+SECURITY_DOMAINS               PK_SECURITY_DOMAINS                      VALID    INDEX
+SECURITY_DOMAINS               UNQ_SECURITY_DOMAINS_APP_ID              ENABLED  UNIQUE
+SECURITY_DOMAINS               UNQ_SECURITY_DOMAINS_APP_ID              VALID    INDEX
+SECURITY_JOBS                  IDX_SECURITY_JOBS                        VALID    INDEX
+SECURITY_JOBS                  PK_SECURITY_JOBS                         ENABLED  PRIMARY
+SECURITY_JOBS                  PK_SECURITY_JOBS                         VALID    INDEX
+SEC_DOMAIN_ENTRIES             FK_SEC_DOMAIN_ENTRIES_DOM_ID             ENABLED  FOREIGN CASCADE
+SEC_DOMAIN_ENTRIES             FK_SEC_DOMAIN_ENTRIES_USR_ID             ENABLED  FOREIGN CASCADE
+SEC_DOMAIN_ENTRIES             IDX_SDE_DOMAIN_USER                      VALID    INDEX
+SEC_DOMAIN_ENTRIES             PK_SEC_DOMAIN_ENTRIES                    ENABLED  PRIMARY
+SEC_DOMAIN_ENTRIES             PK_SEC_DOMAIN_ENTRIES                    VALID    INDEX
+SEC_DOMAIN_EQUALS              FK_SEC_DOMAIN_EQUALS_CHLD_ID             ENABLED  FOREIGN CASCADE
+SEC_DOMAIN_EQUALS              FK_SEC_DOMAIN_EQUALS_PAR_ID              ENABLED  FOREIGN CASCADE
+SEC_DOMAIN_EQUALS              IDX_SDE_CHILD_PARENT                     VALID    INDEX
+SEC_DOMAIN_EQUALS              PK_SEC_DOMAIN_EQUALS                     ENABLED  PRIMARY
+SEC_DOMAIN_EQUALS              PK_SEC_DOMAIN_EQUALS                     VALID    INDEX
+SEQUENCES                      CHK_SEQUENCES_STATUS                     ENABLED  CHECK
+SEQUENCES                      FK_SEQUENCES                             ENABLED  FOREIGN
+SEQUENCES                      NN_SEQUENCES_STATUS                      ENABLED  CHECK
+SEQUENCES                      PK_SEQUENCES                             ENABLED  PRIMARY
+SEQUENCES                      PK_SEQUENCES                             VALID    INDEX
+SEQUENCES                      UNQ_SEQUENCES_STATUS                     VALID    INDEX
+SETTINGS                       PK_SETTINGS_NAME                         ENABLED  PRIMARY
+SETTINGS                       PK_SETTINGS_NAME                         VALID    INDEX
+SETTINGS                       SETTINGS_BEFORE_INS_UPD                  ENABLED  BEFORE INSERT OR UPDATE
+SETTINGS                       SETTINGS_CHANGES                         ENABLED  AFTER INSERT OR UPDATE OR DELETE
+SOURCES                        IDX_SOURCES_NAME                         VALID    INDEX
+SOURCES                        NN_SOURCES_LINE                          ENABLED  CHECK
+SOURCES                        NN_SOURCES_NAME                          ENABLED  CHECK
+STATES                         FK_STATES_CLASS_ID                       ENABLED  FOREIGN
+STATES                         NN_STATES_NAME                           ENABLED  CHECK
+STATES                         PK_STATES_CLASS_ID_ID                    ENABLED  PRIMARY
+STATES                         PK_STATES_CLASS_ID_ID                    VALID    INDEX
+STATES                         STATES_AFTER_INS_UPD                     ENABLED  AFTER INSERT OR UPDATE
+STATES                         STATES_CHANGES                           ENABLED  AFTER INSERT OR UPDATE OR DELETE
+STORAGE_PARAMETERS             PK_STORAGE_PARAM_GROUP_NAME              ENABLED  PRIMARY
+STORAGE_PARAMETERS             PK_STORAGE_PARAM_GROUP_NAME              VALID    INDEX
+SUBJ_EQUAL                     FK_SUBJ_EQUAL_EQUAL_ID                   ENABLED  FOREIGN CASCADE
+SUBJ_EQUAL                     FK_SUBJ_EQUAL_SUBJ_ID                    ENABLED  FOREIGN CASCADE
+SUBJ_EQUAL                     IDX_SE_EQUAL_SUBJ                        VALID    INDEX
+SUBJ_EQUAL                     NN_SUBJ_EQUAL_OWNER_ID                   ENABLED  CHECK
+SUBJ_EQUAL                     PK_SUBJ_EQUAL                            ENABLED  PRIMARY
+SUBJ_EQUAL                     PK_SUBJ_EQUAL                            VALID    INDEX
+SYSINFO_VARIABLES              PK_SYSINFO_VAR_GROUPS_CODE               ENABLED  PRIMARY
+SYSINFO_VARIABLES              PK_SYSINFO_VAR_GROUPS_CODE               VALID    INDEX
+SYSINFO_VARIABLES              SYS$CONS<SYSINFO_VARIABLES>              ENABLED  CHECK
+SYSTEM_OPTIONS                 FK_SYSTEM_OPTIONS_PAR_ID                 ENABLED  FOREIGN
+SYSTEM_OPTIONS                 PK_SYSTEM_OPTIONS                        ENABLED  PRIMARY
+SYSTEM_OPTIONS                 PK_SYSTEM_OPTIONS                        VALID    INDEX
+SYSTEM_OPTIONS                 SYSTEM_OPTIONS_CHANGES                   ENABLED  AFTER INSERT OR UPDATE OR DELETE
+TOPICS                         IDX_TOPICS_TOPIC_ID                      VALID    INDEX
+TOPICS                         PK_TOPICS_CLASS_OWNER_TOPIC              ENABLED  PRIMARY
+TOPICS                         PK_TOPICS_CLASS_OWNER_TOPIC              VALID    INDEX
+TOPICS                         TOPICS_CHANGES                           ENABLED  AFTER INSERT OR UPDATE OR DELETE
+TRANSITIONS                    FK_TRANS_CLASS_FIN_STATE_ID              ENABLED  FOREIGN
+TRANSITIONS                    FK_TRANS_CLASS_INI_STATE_ID              ENABLED  FOREIGN
+TRANSITIONS                    IDX_TRANS_CLASS_STATE_POS                VALID    INDEX
+TRANSITIONS                    NN_TRANS_FIN_ST_ID                       ENABLED  CHECK
+TRANSITIONS                    NN_TRANS_INI_ST_ID                       ENABLED  CHECK
+TRANSITIONS                    NN_TRANS_POSITION                        ENABLED  CHECK
+TRANSITIONS                    NN_TRANS_USER_DRIVEN                     ENABLED  CHECK
+TRANSITIONS                    PK_TRANSITIONS_ID                        ENABLED  PRIMARY
+TRANSITIONS                    PK_TRANSITIONS_ID                        VALID    INDEX
+TRANSITIONS                    TRANSITIONS_AFTER_INS_UPD                ENABLED  AFTER INSERT OR UPDATE
+TRANSITIONS                    TRANSITIONS_BEFORE_INS                   ENABLED  BEFORE INSERT OR UPDATE
+TRANSITIONS                    TRANSITIONS_CHANGES                      ENABLED  AFTER INSERT OR UPDATE OR DELETE
+TRANSITIONS                    UNQ_TRANSITIONS_CLSID_SNAME              ENABLED  UNIQUE
+TRANSITIONS                    UNQ_TRANSITIONS_CLSID_SNAME              VALID    INDEX
+TRANSITION_METHODS             FK_TRN_METHS_CLASS_ID                    ENABLED  FOREIGN CASCADE
+TRANSITION_METHODS             FK_TRN_METHS_EXT_ID                      ENABLED  FOREIGN SET NULL
+TRANSITION_METHODS             FK_TRN_METHS_METHOD_ID                   ENABLED  FOREIGN CASCADE
+TRANSITION_METHODS             IDX_TRN_METHS_EXT_ID                     VALID    INDEX
+TRANSITION_METHODS             IDX_TRN_METHS_METHOD_ID                  VALID    INDEX
+TRANSITION_METHODS             PK_TRN_METHS_CLASS_SNAME                 ENABLED  PRIMARY
+TRANSITION_METHODS             PK_TRN_METHS_CLASS_SNAME                 VALID    INDEX
+TRANSITION_RIGHTS              FK_TRANSITION_RIGHTS_SUBJ_ID             ENABLED  FOREIGN CASCADE
+TRANSITION_RIGHTS              FK_TR_CLASS_ID                           ENABLED  FOREIGN CASCADE
+TRANSITION_RIGHTS              FK_TR_OBJ_ID                             ENABLED  FOREIGN CASCADE
+TRANSITION_RIGHTS              IDX_TRANSITION_RIGHTS_CLASS_ID           VALID    INDEX
+TRANSITION_RIGHTS              IDX_TRANSITION_RIGHTS_SUBJ_ID            VALID    INDEX
+TRANSITION_RIGHTS              PK_TR_OBJ_ID_SUBJ_ID_CLASS_ID            ENABLED  PRIMARY
+TRANSITION_RIGHTS              PK_TR_OBJ_ID_SUBJ_ID_CLASS_ID            VALID    INDEX
+USERS                          NN_USERS_NAME                            ENABLED  CHECK
+USERS                          PK_USERS_USERNAME                        ENABLED  PRIMARY
+USERS                          PK_USERS_USERNAME                        VALID    INDEX
+USERS                          UNQ_USERS_OS_DOMAIN_USER                 VALID    INDEX
+USERS                          USERS_BEFORE_INS_UPD                     ENABLED  BEFORE INSERT OR UPDATE
+XDIAG                          IDX_XDIAG_TYPE_ID                        VALID    INDEX
+XDIAG                          NN_XDIAG_DIAG_ID                         ENABLED  CHECK
+XDIAG                          NN_XDIAG_DIAG_TYPE                       ENABLED  CHECK
+XDIAG                          NN_XDIAG_ELEM_ID                         ENABLED  CHECK
+XDIAG                          NN_XDIAG_ELEM_TYPE                       ENABLED  CHECK

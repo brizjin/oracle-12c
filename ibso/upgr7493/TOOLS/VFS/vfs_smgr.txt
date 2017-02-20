@@ -1,0 +1,141 @@
+Описание пакета vfs_storage_mgr
+
+Пакет содержит функции для работы с хранилищами
+
+
+1.Константы для параметров хранения
+
+ MAXEXTENTS_UNLIMITED 
+
+ LOGGING_LOGGING      
+ LOGGING_NOLOGGING    
+
+ BUFFER_POOL_KEEP     
+ BOFFER_POOL_RECYCLE  
+ BUFFER_POOL_DEFAULT  
+
+
+2.Возвращаемые значения - константы ERR_*** - описаны в пакете vfs_mgr
+
+
+3.Функции
+
+ ----------------------------------------------------------
+ function create_storage(apartition_name in out varchar2, adescription in varchar2 default null,
+  atablespace_name in varchar2 default null,
+  --lob parameters
+  achunk in integer default null, apctversion in integer default null, alogging in varchar2 default null,
+  --storage parameters
+  ainitial in integer default null, anext in integer default null, apctincrease in integer default null,
+  aminextents in integer default null, amaxextents in integer default null,
+  afreelist_groups in integer default null, afreelists in integer default null,
+  abuffer_pool in varchar2 default null
+  ) return integer;
+
+Создает хранилище
+Входные параметры:
+ description - описание хранилища
+ tablespace_name - имя табличного пространства ORACLE, в котором будет расположено хранилище
+ chunk, pctversion, logging - параметры хранения BLOB данных
+ initial,next,pcticrease,minextents,maxextents,freelist_groups,freelists,buffer_pool - 
+  параметры хранения для раздела таблицы
+Входные/выходные параметры:
+ partition_name - имя создаваемого раздела таблицы, если NULL - устанавливается ORACLE'ом
+Возвращаемые значения:
+ id хранилища, NOT_ENOUGH_PRIVILEGE
+
+ ----------------------------------------------------------
+ function get_storage_partition_name(aid in integer) return varchar2;
+
+Возвращает имя раздела хранилища
+Входные параметры:
+ id - id хранилища
+Возвращаемые значения:
+ имя раздела хранилища
+
+ ----------------------------------------------------------
+ function drop_storage(aid in integer) return pls_integer;
+ function drop_storage(apartition_name in varchar2) return pls_integer;
+
+Удаление хранилища
+Входные параметры:
+ id - id хранилища
+ partition_name - имя раздела хранилища
+Возвращаемые значения:
+ ERR_SUCCESS, ERR_INVALID_PARAMETER, ERR_NOT_ENOUGH_PRIVILEGE, ERR_FROP_DEFAULT_STORAGE
+
+ ----------------------------------------------------------
+ function modify_storage(aid in integer,
+  apctversion in integer default null, alogging in varchar2 default null,
+  anext in integer default null, apctincrease in integer default null,
+  amaxextents in integer default null,
+  afreelists in integer default null,
+  abuffer_pool in varchar2 default null) return pls_integer;
+ function modify_storage(apartition_name in varchar2,
+  apctversion in integer default null, alogging in varchar2 default null,
+  anext in integer default null, apctincrease in integer default null,
+  amaxextents in integer default null,
+  afreelists in integer default null,
+  abuffer_pool in varchar2 default null) return pls_integer;
+
+Изменение параметров хранения хранилища
+Входные параметры:
+ id - id хранилища
+ partition_name - имя раздела хранилища
+ pctversion,logging - параметры хранения BLOB данных
+ next,pctincrease,maxextents,freelists,buffer_pool - параметры хранения раздела для раздела таблица
+Возвращаемые значения:
+ ERR_SUCCESS, ERR_INVALID_PARAMETER, ERR_NOT_ENOUGH_PRIVILEGE
+
+ ----------------------------------------------------------
+ function move_storage(aid in integer,
+  atablespace_name in varchar2 default null,
+  achunk in integer default null, apctversion in integer default null, alogging in varchar2 default null,
+  ainitial in integer default null, anext in integer default null, apctincrease in integer default null,
+  aminextents in integer default null, amaxextents in integer default null,
+  afreelist_groups in integer default null, afreelists in integer default null,
+  abuffer_pool in varchar2 default null) return pls_integer;
+ function move_storage(apartition_name in varchar2,
+  atablespace_name in varchar2 default null,
+  achunk in integer default null, apctversion in integer default null, alogging in varchar2 default null,
+  ainitial in integer default null, anext in integer default null, apctincrease in integer default null,
+  aminextents in integer default null, amaxextents in integer default null,
+  afreelist_groups in integer default null, afreelists in integer default null,
+  abuffer_pool in varchar2 default null) return pls_integer;
+
+Перемещение хранилища в другое табличное пространство
+Входные параметры:
+ id - id хранилища
+ partition_name - имя раздела хранилища
+ tablespace_name - имя табличного пространства ORACLE
+ chunk,pctversion,logging - параметры хранения BLOB данных
+ initial,next,pctincrease,minextents,maxextents,freelist_groups,freelists,buffer_pool - 
+  параметры хранения для раздела таблицы
+Возвращаемые значения:
+ ERR_SUCCESS, ERR_INVALID_PARAMETER, ERR_NOT_ENOUGH_PRIVILEGE
+
+ ----------------------------------------------------------
+ function set_storage_description(aid in integer, adescription in varchar2) return pls_integer;
+
+Изменить описание хранилища
+Входные параметры:
+ id - id хранилища
+ description - текст описания
+Возвращаемые значения:
+ ERR_SUCCESS, ERR_INVALID_PARAMETER, ERR_NOT_ENOUGH_PRIVILEGE
+
+ ----------------------------------------------------------
+ function set_default(aid in integer) return pls_integer;
+
+Установка хранилища, используемого по умолчанию
+Входные параметры:
+ id - id хранилища
+Возвращаемые значения:
+ ERR_SUCCESS, ERR_INVALID_PARAMETER, ERR_NOT_ENOUGH_PRIVILEGE
+ 
+ ----------------------------------------------------------
+ function get_default return integer;
+
+Возвращает id хранилища, используемого по умолчанию
+Возвращаемые значения:
+ id хранилища

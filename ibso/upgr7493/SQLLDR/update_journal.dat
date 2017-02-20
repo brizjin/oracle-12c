@@ -1,0 +1,2052 @@
+1,1,1,,
+create table host_errors,
+%%execute immediate 
+'create table host_errors(
+method_id varchar2(30),
+line number,
+pos number,	
+len number,	
+text varchar2(4000)
+) tablespace &&tusers';
+%%
+
+2,1,10,,
+create index idx_host_errors_id,
+%%execute immediate 'create index idx_host_errors_id on host_errors(method_id) tablespace &&tspacei';
+%%
+
+3,1,1,,
+create table host_errors_hist,
+%%execute immediate 
+'create table host_errors_hist(
+compile_date date,
+text clob
+) tablespace &&tusers';
+%%
+
+4,1,10,,
+%%alter table host_sources%%,
+%%execute immediate 
+'alter table host_sources add(status varchar2(10) default ''UPDATED'',
+package timestamp(6), 
+modified timestamp(6) default sysdate)';
+%%
+
+
+6,0,1,,
+Почистим глобальный контекст прав доступа %_RIGHTS перед тем как он будет переключен в локальный.,
+%%execute immediate 'create or replace context '||Inst_Info.OWNER||'_RIGHTS using security accessed globally';
+  security.clear_rights_context('<ALL>');
+  after_install.create_contexts;
+%%
+
+8,1,11,,
+Права на выборку из таблицы HOST_SOURCES для роли OWNER_ADMIN,
+%%execute immediate 'grant select on ' || Inst_Info.OWNER || '.HOST_SOURCES to ' || Inst_Info.OWNER || '_ADMIN';
+%%
+
+9,0,12,,
+Создание view для списка колонок критериев для DVS,
+%%execute immediate 'begin ' || Inst_Info.OWNER || '.SVIEWS.Create_Vw_Columns; end;';
+%%
+
+10,0,13,,
+Переделан механизм генерации ключа для поля USERID при помощи сиквенса,
+%%DECLARE
+n NUMBER;
+sq NUMBER;
+BEGIN
+SELECT Max(userid) INTO n FROM users;
+SELECT seq_id.nextval INTO sq FROM dual;
+LOOP
+IF n is null or sq > n THEN exit; END IF;
+SELECT seq_id.nextval INTO sq FROM dual;
+END LOOP;
+END;
+DELETE FROM users WHERE username = '_NEXT_USER';
+%%
+
+11,0,1,,
+Поддержан 6й параметр в regexp_substr,
+%%begin 
+update rtl_entries set params = 6 where id = 592;
+insert into rtl_parameters values (592, 6, 'SUBEXPR', 'D', 'G', 'INTEGER', null, null);
+exception when others then
+if SQLCODE <> -1 then raise; end if;
+end;
+%%
+
+12,0,1,,
+Поддержан 7й в regexp_instr,
+%%begin
+update rtl_entries set params = 7 where id = 589;
+insert into rtl_parameters values (589, 7, 'SUBEXPR', 'D', 'G', 'INTEGER', null, null);
+exception when others then
+if SQLCODE <> -1 then raise; end if;
+end;
+%%
+
+13,0,1,,
+Права на пакет session_service для _APPADM,
+%%execute immediate 'grant execute on ' || Inst_Info.OWNER || '.SESSION_SERVICE to ' || Inst_Info.OWNER || '_APPADM';
+%%
+
+14,1,1,,
+Расширение колонки system_options.get_sql,
+%%execute immediate 'alter table system_options modify get_sql varchar2(3000)';
+%%
+
+15,0,1,,
+Установка ограничения на версию PjAdmin,
+%%begin sysinfo.SetValue('PJADM.MINIMUM_VERSION', '6.19.0.29'); commit; end;
+%%
+
+16,1,1,,
+Создание таблицы хранения профиля секционирования,
+%%execute immediate 'create table PARTITIONING_PROFILES
+(
+  id               VARCHAR2(16) not null,
+  name             VARCHAR2(128),
+  attr_id          VARCHAR2(16),
+  self_class_id    VARCHAR2(16),
+  type             VARCHAR2(30),
+  has_default_part VARCHAR2(1) DEFAULT 1,
+  row_movement     VARCHAR2(1) DEFAULT 0
+) tablespace &&tusers';
+  execute immediate 'comment on table PARTITIONING_PROFILES
+  is ''Профили секционирования''';
+  execute immediate 'comment on column PARTITIONING_PROFILES.id
+  is ''Идентификатор профиля''';
+  execute immediate 'comment on column PARTITIONING_PROFILES.name
+  is ''Полное имя профиля''';
+  execute immediate 'comment on column PARTITIONING_PROFILES.attr_id
+  is ''Id реквизита''';
+  execute immediate 'comment on column PARTITIONING_PROFILES.self_class_id
+  is ''Тип реквизита''';
+  execute immediate 'comment on column PARTITIONING_PROFILES.type
+  is ''Тип секционирования''';
+  execute immediate 'comment on column PARTITIONING_PROFILES.has_default_part
+  is ''Признак создания DEFAULT секции''';
+  execute immediate 'comment on column PARTITIONING_PROFILES.row_movement
+  is ''Признак перемещения строк''';
+
+execute immediate '
+alter table PARTITIONING_PROFILES
+  add constraint PK_PARTITIONING_PROFILES_ID primary key (ID)';
+execute immediate '
+alter table PARTITIONING_PROFILES
+  add constraint CHK_PARTITIONING_PROFILES_TYPE
+  check (TYPE IN (''LIST''))';
+execute immediate '
+alter table PARTITIONING_PROFILES
+  add constraint FK_PARTITIONING_CLASSES_ID foreign key (SELF_CLASS_ID)
+  references CLASSES (ID)';
+%%
+
+17,1,1,,
+Создание таблицы для хранения условий секционирования,
+%%execute immediate 'create table PARTITIONING_CONDITIONS
+  (
+    profile_id       VARCHAR2(16) not null,
+    condition_id     NUMBER not null,
+    condition_value  VARCHAR2(4000) not null
+  ) tablespace &&tusers';
+  execute immediate 'comment on table PARTITIONING_CONDITIONS
+  is ''Условия секционирования''';
+  execute immediate 'comment on column PARTITIONING_CONDITIONS.profile_id
+  is ''Идентификатор профиля''';
+  execute immediate 'comment on column PARTITIONING_CONDITIONS.condition_id
+  is ''Идентификатор условия''';
+  execute immediate 'comment on column PARTITIONING_CONDITIONS.condition_value
+  is ''Значение условия секции''';
+  execute immediate '
+  alter table PARTITIONING_CONDITIONS
+  add constraint FK_PART_CONDITIONS_PROFILE_ID foreign key (PROFILE_ID)
+  references PARTITIONING_PROFILES (ID) on delete cascade';
+  execute immediate '
+  alter table PARTITIONING_CONDITIONS
+  add constraint UNQ_PART_COND_PROF_ID_COND_VAL unique (PROFILE_ID, CONDITION_VALUE)';
+  execute immediate '
+  create index idx_partitioning_conditions_id on partitioning_conditions(condition_id) tablespace &&tspacei';
+%%
+
+18,1,1,,
+Добавления идентификатора профиля секцинирования в таблицу Classes_Tables,
+%%execute immediate 
+'alter table CLASS_TABLES add part_profile_id varchar2(16)';
+execute immediate 
+'comment on column CLASS_TABLES.part_profile_id
+  is ''Id профиля секционирования''';
+execute immediate 
+'alter table CLASS_TABLES
+  add constraint FK_CLASS_TABLES_PROFILE_ID foreign key (PART_PROFILE_ID)
+  references partitioning_profiles (ID) on delete set null';
+%%
+
+19,1,1,,
+Добавления идентификатора профиля секцинирования в таблицу Classes,
+%%execute immediate 
+'alter table CLASSES add part_profile_id varchar2(16)';
+execute immediate 
+'comment on column CLASSES.part_profile_id
+  is ''Id профиля секционирования''';
+execute immediate 
+'alter table CLASSES
+  add constraint FK_CLASSES_PROFILE_ID foreign key (PART_PROFILE_ID)
+  references partitioning_profiles (ID) on delete set null';
+%%
+
+20,1,1,,
+Добавление колонки attr_id в CLASS_PARTITIONS,
+%%execute immediate 
+'alter table CLASS_PARTITIONS add attr_id VARCHAR2(16)';
+%%
+
+21,1,1,,
+Изменение колонки condition в CLASS_PARTITIONS,
+%%execute immediate 
+'alter table CLASS_PARTITIONS modify condition VARCHAR2(4000)';
+%%
+
+22,0,1,,
+Раздача грантов на представления секционирования,
+%%after_install.Create_Partitioning(false);
+%%
+
+23,0,1,,
+Пересоздание триггеров журналирования,
+%%after_install.Create_Diarys;
+%%
+
+24,1,1,,
+Создание типа TYPE_STRING_AGG_QUOTE,
+%%execute immediate 
+'CREATE OR REPLACE TYPE TYPE_STRING_AGG_QUOTE AS OBJECT
+(
+  g_string  VARCHAR2(32767),
+
+  STATIC FUNCTION ODCIAggregateInitialize(sctx  IN OUT  TYPE_STRING_AGG_QUOTE)
+    RETURN NUMBER,
+  MEMBER FUNCTION ODCIAggregateIterate(self   IN OUT  TYPE_STRING_AGG_QUOTE,
+                                       value  IN      VARCHAR2 )
+     RETURN NUMBER,
+  MEMBER FUNCTION ODCIAggregateTerminate(self         IN   TYPE_STRING_AGG_QUOTE,
+                                         returnValue  OUT  VARCHAR2,
+                                         flags        IN   NUMBER)
+    RETURN NUMBER,
+
+  MEMBER FUNCTION ODCIAggregateMerge(self  IN OUT  TYPE_STRING_AGG_QUOTE,
+                                     ctx2  IN      TYPE_STRING_AGG_QUOTE)
+    RETURN NUMBER
+);';
+%%
+
+25,1,1,,
+Создание тела типа TYPE_STRING_AGG_QUOTE,
+%%execute immediate 
+'CREATE OR REPLACE TYPE BODY TYPE_STRING_AGG_QUOTE IS
+  STATIC FUNCTION ODCIAggregateInitialize(sctx  IN OUT  TYPE_STRING_AGG_QUOTE)
+    RETURN NUMBER IS
+  BEGIN
+    sctx := TYPE_STRING_AGG_QUOTE(NULL);
+    RETURN ODCIConst.Success;
+  END;
+
+  MEMBER FUNCTION ODCIAggregateIterate(self   IN OUT  TYPE_STRING_AGG_QUOTE,
+                                       value  IN      VARCHAR2 )
+    RETURN NUMBER IS
+  BEGIN
+    SELF.g_string := self.g_string || '''''', '''''' || value;
+    RETURN ODCIConst.Success;
+  END;
+
+  MEMBER FUNCTION ODCIAggregateTerminate(self         IN   TYPE_STRING_AGG_QUOTE,
+                                         returnValue  OUT  VARCHAR2,
+                                         flags        IN   NUMBER)
+    RETURN NUMBER IS
+  BEGIN
+    returnValue := '''''''' || RTRIM(LTRIM(SELF.g_string, '''''', ''''''), '''''', '''''') || '''''''';
+    RETURN ODCIConst.Success;
+  END;
+
+  MEMBER FUNCTION ODCIAggregateMerge(self  IN OUT  TYPE_STRING_AGG_QUOTE,
+                                     ctx2  IN      TYPE_STRING_AGG_QUOTE)
+    RETURN NUMBER IS
+  BEGIN
+    SELF.g_string := SELF.g_string || '''''', '''''' || ctx2.g_string;
+    RETURN ODCIConst.Success;
+  END;
+END;';
+%%
+
+26,1,1,,
+Создание функции STRING_AGG_QUOTE,
+%%execute immediate 
+'CREATE OR REPLACE FUNCTION STRING_AGG_QUOTE (p_input VARCHAR2)
+RETURN VARCHAR2
+PARALLEL_ENABLE AGGREGATE USING TYPE_STRING_AGG_QUOTE;';
+%%
+
+27,1,1,,
+Создание представления vw_partitioning_profiles,
+%%execute immediate 
+'CREATE OR REPLACE FORCE VIEW vw_partitioning_profiles as 
+select p.id profile_id, p.name profile_name, p.type, p.attr_id, c.name attr_name,
+  class_mgr.make_column_name(p.attr_id, 0) attr_column_name,
+  p.self_class_id attr_self_class_id, c.base_class_id attr_base_class_id, p.has_default_part, p.row_movement, 
+  case 
+    when p.attr_id is not null 
+     and c.base_class_id in (''STRING'', ''BOOLEAN'', ''NUMBER'', ''DATE'', ''MEMO'') 
+     and exists (select 1 from partitioning_conditions where profile_id = p.id) then ''VALID''
+    else ''INVALID''
+  end status
+from partitioning_profiles p, classes c
+where p.self_class_id = c.id(+)';
+%%
+
+28,1,1,,
+Создание представления vw_partitioning_conditions,
+%%execute immediate 
+'CREATE OR REPLACE FORCE VIEW vw_partitioning_conditions as
+select pc.profile_id,
+       pc.condition_id,
+       pc.condition_values,
+       nvl((select 1
+             from dual
+            where exists((select 1
+                           from classes c, class_partitions cp
+                          where cp.class_id = c.id
+                            and c.part_profile_id(+) = pc.profile_id
+                            and cp.condition(+) = pc.condition_values))),
+           0) is_used
+  from (select c.profile_id,
+               c.condition_id,
+               STRING_AGG_QUOTE(c.condition_value) condition_values
+          from partitioning_conditions c
+         group by c.profile_id, c.condition_id) pc';
+%%
+
+29,1,1,,
+Создание представления vw_partitioning_classes,
+%%execute immediate 
+'CREATE OR REPLACE FORCE VIEW vw_partitioning_classes as
+select x.class_id,
+       x.class_name,
+       x.profile_id,
+       x.table_name,
+       decode(nvl(x.table_profile_id, ''*''),
+              ''*'',
+              ''ASSIGNED'',
+              decode(x.conditions_changed,
+                     0,
+                     decode(x.has_default_part,
+                            ''1'',
+                            decode(x.default_part_exists,
+                                   0,
+                                   ''MODIFIED'',
+                                   ''APPLIED''),
+                            ''APPLIED''),
+                     ''MODIFIED'')) state
+  from (select c.id class_id,
+               c.name class_name,
+               c.part_profile_id profile_id,
+               ct.part_profile_id table_profile_id,
+               p.has_default_part has_default_part,
+               ct.table_name table_name,
+               nvl((select 1
+                     from dual
+                    where exists
+                    (select 1
+                             from vw_partitioning_conditions pc,
+                                  class_partitions           cp
+                            where pc.profile_id = p.id
+                              and cp.class_id(+) = c.id
+                              and cp.condition(+) = pc.condition_values
+                              and cp.partition_name is null)),
+                   0) conditions_changed,
+               (select count(1)
+                  from class_partitions cp
+                 where cp.class_id = c.id
+                   and cp.condition = ''DEFAULT'') default_part_exists
+          from classes c, class_tables ct, partitioning_profiles p
+         where ct.class_id(+) = c.id
+           and p.id = c.part_profile_id
+           and (exists (select 1
+                   from class_attributes ca
+                  where ca.class_id = c.id
+                    and ca.attr_id = p.attr_id
+                    and ca.self_class_id = p.self_class_id
+                    and instr(ca.required, ''A'') = 0) or exists
+                (select 1
+                   from class_tab_columns ct
+                  where ct.class_id = c.id
+                    and ct.mapped_from is not null
+                    and (ct.map_style = ''D'' or ct.map_style = ''A'')
+                    and ct.qual = p.attr_id
+                    and ct.self_class_id = p.self_class_id))) x';
+%%
+
+30,1,1,,
+Обновление текстов существующих сообщений,
+%%begin
+update messages m set m.text = 'Временный тип [%1] не может иметь секций' where m.topic = 'CLS' and m.code = 'TMP_PARTITIONS';
+update messages m set m.text = 'Актуальная секция' where m.topic = 'EXEC' and m.code = 'ACTUAL_PARTITION';
+update messages m set m.text = 'Невозможно обменять актуальную секцию для %1...' where m.topic = 'EXEC' and m.code = 'CANNOT_EXCHANGE';
+update messages m set m.text = 'Преобразование структуры архивных секций типа %1 - НАЧАЛО' where m.topic = 'EXEC' and m.code = 'CONVERTING_TABLE_START';
+update messages m set m.text = 'Переименование секции %1 в %2' where m.topic = 'EXEC' and m.code = 'RENAMING_PARTITION_TO';
+update messages m set m.text = 'Таблица типа %1 имеет неправильную структуру архивных секций...' where m.topic = 'EXEC' and m.code = 'TABLE_NOT_PARTITIONED';
+update messages m set m.text = 'Перенос данных... %1 секция %2' where m.topic = 'EXEC' and m.code = 'TRANSFERRING_DATA_PARTITION';
+update messages m set m.text = 'Обновление ключевой колонки секции' where m.topic = 'EXEC' and m.code = 'UPDATING_PART_KEY';
+update messages m set m.text = 'Для ТБП назначен профиль секционирования %1' where m.topic = 'EXEC' and m.code = 'PROFILE_ASSIGNED';
+update messages m set m.text = 'К ТБП применен профиль секционирования %1' where m.topic = 'EXEC' and m.code = 'PROFILE_APPLIED';
+update messages m set m.text = 'Для ТБП назначен профиль секционирования %1, но он не может быть применен' where m.topic = 'EXEC' and m.code = 'PROFILE_CANT_APPLIED';
+update messages m set m.text = 'Для ТБП назначен профиль секционирования %1, но данный профиль невалиден' where m.topic = 'EXEC' and m.code = 'PROFILE_INVALID';
+update messages m set m.text = 'Невозможно задать пустое значение условия профиля секционирования' where m.topic = 'EXEC' and m.code = 'COND_VALUE_MUST_NON_BE_EMPTY';
+update messages m set m.text = 'Тип [%1] содержит данные в зеркальных таблицах, соединение секций невозможно.' where m.topic = 'KRNL' and m.code = 'HAS_MIRRORS';
+update messages m set m.text = 'Разделение текущей секции таблицы типа %1 - НАЧАЛО' where m.topic = 'KRNL' and m.code = 'SPLITTING_CURR_PARTITION_START';
+update messages m set m.text = 'Разделение текущей секции таблицы типа %1 - КОНЕЦ' where m.topic = 'KRNL' and m.code = 'SPLITTING_CUR_PARTITION_FINISH';
+--
+commit;
+end;
+%%
+
+31,1,1,,
+Обновление описаний актуальных секций,
+%%begin
+update class_partitions c
+   set c.description =
+       (select m.text
+          from messages m
+         where m.topic = 'EXEC'
+           and m.code = 'ACTUAL_PARTITION')
+ where c.description = 'Актуальный раздел';
+--
+commit;
+end;
+%%
+
+32,1,1,,
+Исправлены типы параметров в listagg,
+%%update rtl_parameters set CLASS_ID='STRING' where RTL_ID=20 and (POS=0 or POS=2);
+%%
+
+33,1,1,,
+Добавление сообщения TOO_LONG_SIGNATURE,
+%%begin 
+insert into messages (TOPIC,CODE,TEXT) values ('MTD','TOO_LONG_SIGNATURE','Размер сигнатуры метода %1 более 32767 байт (%2)');
+exception when others then
+if SQLCODE <> -1 then raise; end if;
+end;
+%%
+
+34,1,1,,
+Добавление колонки repeat_error в QUERIES,
+%%execute immediate 'alter table QUERIES add repeat_error number'; 
+%%
+
+35,0,1,,
+Добавление параметра pMax_Failures,
+%%begin
+  plib.parse_package('RUNPROC_PKG',Inst_Info.OWNER);
+end;
+%%
+
+36,0,1,,
+Добавление новых функций в пакет UTILS,
+%%begin
+  plib.parse_package('UTILS',Inst_Info.OWNER);
+end;
+%%
+
+37,0,1,,
+Добавление новых функций в пакет CACHE_MGR,
+%%begin
+  plib.parse_package('CACHE_MGR',Inst_Info.OWNER);
+end;
+%%
+
+
+40,1,1,,
+Увеличение длины имени функции до 100 символов,
+%%execute immediate 'alter table rtl_parameters modify (par_name varchar2(100))';
+%%
+
+41,0,1,,
+Обновление значения METHODS.HINTS,
+%%declare
+ nhints varchar2(2000);
+ i integer :=0;
+begin
+	for t in (select id, short_name, flags, result_class_id, class_id from methods where kernel <> '1') loop
+		nhints := method.get_method_hash(t.id, t.short_name, t.flags, t.class_id, t.result_class_id);
+		i:=i+1;
+		update methods set hints = nhints where id = t.id;
+		if mod(i,1000) = 0 then
+			commit;
+		end if;
+	end loop;
+	commit;
+end;
+%%
+
+42,1,1,,
+create table SYSINFO_VARIABLES,
+%%execute immediate 
+'create table SYSINFO_VARIABLES(
+	groups      VARCHAR2(30) not null,
+	code        VARCHAR2(30) not null,
+	name        VARCHAR2(30),
+	value       VARCHAR2(100),
+	description VARCHAR2(255)
+) tablespace &&tusers';
+  execute immediate 'comment on table SYSINFO_VARIABLES
+  is ''Глобальные переменные''';
+  execute immediate 'comment on column SYSINFO_VARIABLES.groups
+  is ''Группа переменной''';
+  execute immediate 'comment on column SYSINFO_VARIABLES.code
+  is ''Код переменной''';
+  execute immediate 'comment on column SYSINFO_VARIABLES.name
+  is ''Имя переменной''';
+  execute immediate 'comment on column SYSINFO_VARIABLES.value
+  is ''Значение переменной''';
+  execute immediate 'comment on column SYSINFO_VARIABLES.description
+  is ''Описание переменной''';
+
+execute immediate '
+alter table SYSINFO_VARIABLES
+  add constraint PK_SYSINFO_VAR_GROUPS_CODE primary key (GROUPS, CODE)';
+%%
+
+43,0,10,,
+Инициализация новых глобальных переменных в таблице SYSINFO_VARIABLES,
+%%begin
+  sysinfo.add_sysinfo_variables('LICENSE','LICENSE_REPORT_LAST_DATE','Дата последнего отчета КЛО','Дата текущего сбора КЛО помещается в эту переменную');
+  sysinfo.add_sysinfo_variables('LICENSE','LICENSE_REPORT_PRELAST_DATE','Дата предпоследнего отчета КЛО','Дата последнего сбора КЛО помещается в эту переменную');
+end;
+%%
+
+44,0,1,,
+Добавление настройки 'Режим создания ограничений целостности при проведении партификации',
+%%begin
+  if sysinfo.GetValue('STORAGE_CONSTR_WITH_INDEX') is null then
+    sysinfo.SetValue('STORAGE_CONSTR_WITH_INDEX', '0','Создавать при партификации ограничения целостности типов PRIMARY_KEY, UNIQUE и уникальные индексы с помощью одного оператора DDL');
+    commit;
+  end if;
+end;
+%%
+
+45,1,1,,
+Создание таблицы PART_SUBPROFS (профили подсекций),
+%%execute immediate '
+create table PART_SUBPROFS
+(
+  id               VARCHAR2(16) not null,
+  name             VARCHAR2(128),
+  attr_id          VARCHAR2(16),
+  self_class_id    VARCHAR2(16),
+  type             VARCHAR2(30),
+  has_default_part VARCHAR2(1) DEFAULT 1
+) tablespace &&tusers';
+execute immediate 'comment on table PART_SUBPROFS
+  is ''Профили подсекций''';
+execute immediate 'comment on column PART_SUBPROFS.id
+  is ''Идентификатор профиля подсекции''';
+execute immediate 'comment on column PART_SUBPROFS.name
+  is ''Полное имя профиля подсекции''';
+execute immediate 'comment on column PART_SUBPROFS.attr_id
+  is ''Id реквизита''';
+execute immediate 'comment on column PART_SUBPROFS.self_class_id
+  is ''Тип реквизита''';
+execute immediate 'comment on column PART_SUBPROFS.type
+  is ''Тип секционирования''';
+execute immediate 'comment on column PART_SUBPROFS.has_default_part
+  is ''Признак создания DEFAULT секции''';
+%%
+
+46,1,1,,
+Создание ограничения PK_PART_SUBPROFILES_ID,
+%%execute immediate '
+alter table PART_SUBPROFS
+  add constraint PK_PART_SUBPROFILES_ID primary key (ID)';
+%%
+
+47,1,1,,
+Создание ограничения FK_PART_SUBPROFILES_CLASSES_ID,
+%%execute immediate '
+alter table PART_SUBPROFS
+  add constraint FK_PART_SUBPROFILES_CLASSES_ID foreign key (SELF_CLASS_ID)
+  references CLASSES (ID)';
+%%
+
+48,1,1,,
+Создание ограничения CHK_PART_SUBPROFILES_TYPE,
+%%execute immediate '
+alter table PART_SUBPROFS
+  add constraint CHK_PART_SUBPROFILES_TYPE
+  check (TYPE IN (''LIST''))';
+%%
+
+49,1,1,,
+Создание колонки PARTITIONING_PROFILES.SUBPROFILE_ID,
+%%execute immediate '
+alter table PARTITIONING_PROFILES
+  add SUBPROFILE_ID VARCHAR(16)';
+execute immediate 'comment on column PARTITIONING_PROFILES.SUBPROFILE_ID
+  is ''Идентификатор профиля подсекции''';
+%%
+
+50,1,1,,
+Создание ограничения FK_PART_PROFILES_SUBPROFILE_ID,
+%%execute immediate '
+alter table PARTITIONING_PROFILES
+  add constraint FK_PART_PROFILES_SUBPROFILE_ID foreign key (SUBPROFILE_ID)
+  references PART_SUBPROFS (ID)';
+%%
+
+51,1,1,,
+Создание таблицы PART_SUBPROF_CONDS (условия секционирования подсекций),
+%%execute immediate '
+create table PART_SUBPROF_CONDS
+(
+  subprofile_id   varchar2(16) not null enable, 
+  condition_id    number not null enable, 
+  condition_value varchar2(4000) not null enable
+) tablespace &&tusers';
+execute immediate 'comment on table PART_SUBPROF_CONDS
+  is ''Условия секционирования подсекций''';
+execute immediate 'comment on column PART_SUBPROF_CONDS.subprofile_id
+  is ''Идентификатор профиля подсекции''';
+execute immediate 'comment on column PART_SUBPROF_CONDS.condition_id
+  is ''Идентификатор условия секционирования''';
+execute immediate 'comment on column PART_SUBPROF_CONDS.condition_value
+  is ''Значение условия секционирования''';
+%%
+
+52,1,1,,
+Создание ограничения UNQ_PART_SUBPROF_CONDS,
+%%execute immediate '
+alter table PART_SUBPROF_CONDS
+  add constraint UNQ_PART_SUBPROF_CONDS unique (subprofile_id, condition_value)';
+%%
+ 
+53,1,1,,
+Создание ограничения FK_PART_SUBPROF_CONDS,
+%%execute immediate '
+alter table PART_SUBPROF_CONDS
+  add constraint FK_PART_SUBPROF_CONDS foreign key (SUBPROFILE_ID)
+  references PART_SUBPROFS (ID) on delete cascade';
+%%
+
+54,1,1,,
+Создание представления vw_part_subprofs,
+%%execute immediate 'CREATE OR REPLACE FORCE view vw_part_subprofs as
+select sp.id subprofile_id, sp.name subprofile_name, sp.type, sp.attr_id, c.name attr_name,
+  class_mgr.make_column_name(sp.attr_id, 0) attr_column_name,
+  sp.self_class_id attr_self_class_id, c.base_class_id attr_base_class_id, sp.has_default_part,
+  case
+    when sp.attr_id is not null and
+         (sp.type = ''LIST'' and c.base_class_id in (''STRING'', ''BOOLEAN'', ''NUMBER'', ''MEMO'') or
+          sp.type = ''RANGE'' and c.base_class_id in (''NUMBER'', ''DATE'')) and
+         (exists (select 1 from part_subprof_conds where subprofile_id = sp.id) or
+          sp.has_default_part = ''1'') then ''VALID''
+   else ''INVALID''
+  end status
+  from part_subprofs sp, classes c
+ where sp.self_class_id = c.id(+)';
+%%
+
+55,1,1,,
+Удаление ограничения CHK_PARTITIONING_PROFILES_TYPE,
+%%execute immediate 
+'alter table PARTITIONING_PROFILES
+  drop constraint CHK_PARTITIONING_PROFILES_TYPE';
+%%
+
+56,1,1,,
+Создание ограничения CHK_PARTITIONING_PROFILES_TYPE,
+%%execute immediate 
+'alter table PARTITIONING_PROFILES
+   add constraint CHK_PARTITIONING_PROFILES_TYPE
+ check (TYPE IN (''LIST'', ''RANGE''))';
+%%
+
+57,1,1,,
+Создание таблицы class_subpartitions (подсекции таблицы ТБП),
+%%execute immediate 
+'create table class_subpartitions
+(
+  class_id          VARCHAR2(16) not null,
+  partition_name    VARCHAR2(30) not null,
+  subpartition_name VARCHAR2(30) not null,
+  condition         VARCHAR2(4000)
+) tablespace &&tusers';
+execute immediate 
+'comment on table class_subpartitions is ''Подсекции таблицы ТБП''';
+execute immediate 
+'comment on column class_subpartitions.class_id is ''Id ТБП''';
+execute immediate 
+'comment on column class_subpartitions.partition_name is ''Название секции''';
+execute immediate 
+'comment on column class_subpartitions.subpartition_name is ''Название подсекции''';
+execute immediate 
+'comment on column class_subpartitions.condition is ''Условие секционирования''';
+%%
+
+58,1,1,,
+Создание ограничения UNQ_CLASS_SUBPARTS_CLS_SPRTNAM,
+%%execute immediate 
+'alter table class_subpartitions
+  add constraint UNQ_CLASS_SUBPARTS_CLS_SPRTNAM unique (CLASS_ID, SUBPARTITION_NAME)';
+%%
+
+59,1,1,,
+Создание представления vw_partitioning_profiles,
+%%execute immediate 
+'CREATE OR REPLACE FORCE view vw_partitioning_profiles as 
+select p.id profile_id, p.name profile_name, p.type, p.subprofile_id, p.attr_id, c.name attr_name, 
+       class_mgr.make_column_name(p.attr_id, 0) attr_column_name, p.self_class_id attr_self_class_id,
+       c.base_class_id attr_base_class_id, p.has_default_part, p.row_movement,
+       case
+         when p.attr_id is not null and
+              (p.type = ''LIST'' and c.base_class_id in (''STRING'', ''BOOLEAN'', ''NUMBER'', ''MEMO'') or 
+               p.type = ''RANGE'' and c.base_class_id in (''NUMBER'', ''DATE'')) and
+              (exists (select 1 from partitioning_conditions where profile_id = p.id) or
+               p.has_default_part = ''1'') then ''VALID''
+         else ''INVALID''
+       end status
+  from partitioning_profiles p, classes c
+ where p.self_class_id = c.id(+)';
+%%
+
+60,1,1,,
+Создание представления vw_class_subpartitions,
+%%execute immediate 'CREATE OR REPLACE FORCE view vw_class_subpartitions as
+  select s.*, ds.subpartition_position, ds.tablespace_name, dt.status
+  from class_subpartitions   s,
+       class_tables          t,
+       dba_tab_subpartitions ds,
+       dba_tablespaces       dt
+ where t.class_id = s.class_id
+   and ds.table_owner = ''' || inst_info.OWNER || '''
+   and ds.table_name = t.table_name
+   and ds.partition_name = s.partition_name
+   and ds.subpartition_name = s.subpartition_name
+   and dt.tablespace_name = ds.tablespace_name';
+%%
+
+61,1,1,,
+Создание представления vw_part_subprof_conds,
+%%execute immediate 'CREATE OR REPLACE FORCE view vw_part_subprof_conds as
+select spc.subprofile_id,
+       spc.condition_id,
+       spc.condition_values,
+       case
+         when exists (select 1
+                        from classes c, partitioning_profiles p, class_subpartitions sp
+                       where sp.class_id = c.id
+                         and p.id = c.part_profile_id 
+                         and spc.subprofile_id = p.subprofile_id
+                         and spc.condition_values = sp.condition) then 1
+         else 0
+       end is_used
+  from (select c.subprofile_id,
+               c.condition_id,
+               STRING_AGG_QUOTE(c.condition_value) condition_values
+          from part_subprof_conds c
+         group by c.subprofile_id, c.condition_id
+        union all
+        select ps.id, 
+               null condition_id,
+               case
+                 when ps.type = ''LIST'' then ''DEFAULT''
+                 else ''MAXVALUE''
+               end condition_values
+          from part_subprofs ps
+         where ps.has_default_part = ''1'') spc';
+%%
+
+62,1,1,,
+Создание представления vw_class_partitions,
+%%execute immediate 'CREATE OR REPLACE FORCE view vw_class_partitions as
+  select p.class_id, p.partition_name, p.condition, dp.partition_position, dp.tablespace_name, dt.status
+   from class_partitions   p, 
+        class_tables       t, 
+        dba_tab_partitions dp,
+        dba_tablespaces    dt
+  where t.class_id = p.class_id
+    and dp.table_owner = ''' || inst_info.OWNER || '''
+    and dp.table_name = t.table_name
+    and dp.partition_name = p.partition_name
+    and dp.tablespace_name = dt.tablespace_name';
+%%
+
+63,1,1,,
+Создание представления vw_part_subprof_classes,
+%%execute immediate 'CREATE OR REPLACE FORCE view vw_part_subprof_classes as
+select x.class_id,
+       x.class_name,
+       x.profile_id,
+       x.subprofile_id,
+       x.table_name,
+       case
+         when x.table_profile_id is null then ''ASSIGNED''
+         when x.conditions_changed <> 0 then ''MODIFIED''
+         else ''APPLIED''
+       end state
+  from (select c.id class_id,
+               c.name class_name,
+               p.id profile_id,
+               sp.id subprofile_id,
+               ct.part_profile_id table_profile_id,
+               ct.table_name table_name,
+               case
+                 when exists (select 1
+                                from vw_part_subprof_conds pc,
+                                     class_subpartitions   cp
+                               where pc.subprofile_id = sp.id
+                                 and cp.class_id(+) = c.id
+                                 and cp.condition(+) = pc.condition_values
+                                 and cp.partition_name is null) then 1
+                 else 0
+               end conditions_changed
+          from classes c, class_tables ct, partitioning_profiles p, part_subprofs sp
+         where ct.class_id(+) = c.id
+           and p.id = c.part_profile_id
+           and p.subprofile_id = sp.id
+           and p.subprofile_id is not null
+           and (exists (select 1
+                   from class_attributes ca
+                  where ca.class_id = c.id
+                    and ca.attr_id = sp.attr_id
+                    and ca.self_class_id = sp.self_class_id
+                    and instr(ca.required, ''A'') = 0) or exists
+                (select 1
+                   from class_tab_columns ct
+                  where ct.class_id = c.id
+                    and ct.mapped_from is not null
+                    and (ct.map_style = ''D'' or ct.map_style = ''A'')
+                    and ct.qual = sp.attr_id
+                    and ct.self_class_id = sp.self_class_id))) x';
+%%
+
+64,1,1,,
+Изменение представления vw_partitioning_conditions,
+%%execute immediate 
+'CREATE OR REPLACE FORCE VIEW vw_partitioning_conditions as
+select pc.profile_id,
+       pc.condition_id,
+       pc.condition_values,
+       case
+         when exists (select 1
+                        from classes c, class_partitions cp
+                       where cp.class_id = c.id
+                         and pc.profile_id= c.part_profile_id
+                         and pc.condition_values = cp.condition) then 1
+         else 0
+       end is_used
+  from (select c.profile_id,
+               c.condition_id,
+               STRING_AGG_QUOTE(c.condition_value) condition_values
+          from partitioning_conditions c
+         group by c.profile_id, c.condition_id
+        union all
+        select p.id, 
+               null condition_id,
+               case
+                 when p.type = ''LIST'' then ''DEFAULT''
+                 else ''MAXVALUE''
+               end condition_values
+          from partitioning_profiles p
+         where p.has_default_part = ''1'') pc';
+%%
+
+65,1,1,,
+Изменение представления vw_partitioning_classes,
+%%execute immediate 
+'CREATE OR REPLACE FORCE VIEW vw_partitioning_classes as
+select x.class_id,
+       x.class_name,
+       x.profile_id,
+       x.table_name,
+       case
+         when x.table_profile_id is null then ''ASSIGNED''
+         when x.conditions_changed <> 0 or row_movement_changed <> 0 then ''MODIFIED''
+         else ''APPLIED''
+       end state
+  from (select c.id class_id,
+               c.name class_name,
+               c.part_profile_id profile_id,
+               ct.part_profile_id table_profile_id,
+               ct.table_name table_name,
+               case
+                 when exists (select 1
+                                from vw_partitioning_conditions pc,
+                                     class_partitions           cp
+                               where pc.profile_id = p.id
+                                 and cp.class_id(+) = c.id
+                                 and cp.condition(+) = pc.condition_values
+                                 and cp.partition_name is null) then 1
+                 else 0
+               end conditions_changed,
+               case
+                 when ct.table_name is null
+                   or exists (select 1
+                                from dba_tables t
+                               where t.owner = ''' || inst_info.OWNER || '''
+                                 and t.table_name = ct.table_name
+                                 and (t.row_movement = ''ENABLED'' and p.row_movement = 1 or
+                                      t.row_movement = ''DISABLED'' and p.row_movement = 0)) then 0
+                 else 1
+               end row_movement_changed
+          from classes c, class_tables ct, partitioning_profiles p
+         where ct.class_id(+) = c.id
+           and p.id = c.part_profile_id
+           and (exists (select 1
+                   from class_attributes ca
+                  where ca.class_id = c.id
+                    and ca.attr_id = p.attr_id
+                    and ca.self_class_id = p.self_class_id
+                    and instr(ca.required, ''A'') = 0) or exists
+                (select 1
+                   from class_tab_columns ct
+                  where ct.class_id = c.id
+                    and ct.mapped_from is not null
+                    and (ct.map_style = ''D'' or ct.map_style = ''A'')
+                    and ct.qual = p.attr_id
+                    and ct.self_class_id = p.self_class_id))) x';
+%%
+
+66,0,1,,
+Раздача грантов на представления секционирования,
+%%after_install.Create_Partitioning(false);
+%%
+
+67,1,1,,
+%%Удаление профилей из PARTITIONING_PROFILES, у которых ATTR_ID, SELF_CLASS_ID или TYPE is null%%, 
+%%begin
+delete
+  from partitioning_profiles p
+ where p.attr_id is null
+    or p.self_class_id is null
+    or p.type is null;
+commit;
+end;
+%%
+
+68,1,1,,
+Создание ограничения NOT NULL на колонку PARTITIONING_PROFILES.ATTR_ID,
+%%execute immediate 'alter table PARTITIONING_PROFILES modify attr_id not null';
+%%
+
+69,1,1,,
+Создание ограничения NOT NULL на колонку PARTITIONING_PROFILES.SELF_CLASS_ID,
+%%execute immediate 'alter table PARTITIONING_PROFILES modify self_class_id not null';
+%%
+
+70,1,1,,
+Создание ограничения NOT NULL на колонку PARTITIONING_PROFILES.TYPE,
+%%execute immediate 'alter table PARTITIONING_PROFILES modify type not null';
+%%
+
+71,1,1,,
+Создание ограничения NOT NULL на колонку PART_SUBPROFS.ATTR_ID,
+%%execute immediate 'alter table PART_SUBPROFS modify attr_id not null';
+%%
+
+72,1,1,,
+Создание ограничения NOT NULL на колонку PART_SUBPROFS.SELF_CLASS_ID,
+%%execute immediate 'alter table PART_SUBPROFS modify self_class_id not null';
+%%
+
+73,1,1,,
+Создание ограничения NOT NULL на колонку PART_SUBPROFS.TYPE,
+%%execute immediate 'alter table PART_SUBPROFS modify type not null';
+%%
+
+74,1,1,,
+Создание ограничения UNQ_CLASS_PARTITIONS_CLS_NAME,
+%%execute immediate
+'alter table CLASS_PARTITIONS
+  add constraint UNQ_CLASS_PARTITIONS_CLS_NAME unique (CLASS_ID, PARTITION_NAME)';
+%%
+
+75,1,1,,
+Создание ограничения FK_CLASS_SUBPARTS_CLS_PARTNAME,
+%%execute immediate
+'alter table CLASS_SUBPARTITIONS
+  add constraint FK_CLASS_SUBPARTS_CLS_PARTNAME foreign key (CLASS_ID, PARTITION_NAME)
+  references CLASS_PARTITIONS (CLASS_ID, PARTITION_NAME)';
+%%
+
+76,0,10,,
+Инициализация новой глобальной переменной в таблице SYSINFO_VARIABLES,
+%%begin
+  sysinfo.add_sysinfo_variables('LICENSE','LIC_AUTOSEND_REPORT_LAST_DATE','Дата автоотправки отчета КЛО','Хранение последней успешной даты автоотправки отчета КЛО');
+end;
+%%
+
+77,1,1,,
+create table rtl_users_props,
+%%execute immediate 
+'create table rtl_users_props(
+    id          number,
+    name        varchar2(32),
+    value       varchar2(128)
+) tablespace &&tusers';
+%%
+
+78,1,10,,
+create index idx_rtl_users_props_id,
+%%execute immediate 'create index idx_rtl_users_props_id on rtl_users_props(id) tablespace &&tspacei';
+%%
+
+79,0,1,,
+Корректировка описания системного параметра,
+%%begin 
+update settings set description='Создавать ограничения целостности типов PRIMARY_KEY, UNIQUE и уникальные индексы с помощью одного оператора DDL' where name='STORAGE_CONSTR_WITH_INDEX'; commit;
+end;
+%%
+
+80,1,1,,
+Изменение представления vw_partitioning_classes,
+%%execute immediate 
+'CREATE OR REPLACE FORCE VIEW vw_partitioning_classes as
+select x.class_id,
+       x.class_name,
+       x.profile_id,
+       x.table_name,
+       x.class_profile_id,
+       x.table_profile_id,
+       case
+         when nvl(x.profile_id,''*'') <> nvl(x.table_profile_id,''*'') then ''ASSIGNED''
+         when x.conditions_changed <> 0 or row_movement_changed <> 0 then ''MODIFIED''
+         else ''APPLIED''
+       end state
+  from (select c.id class_id,
+               c.name class_name,
+               p.id profile_id,
+               c.part_profile_id class_profile_id,
+               ct.part_profile_id table_profile_id,
+               ct.table_name table_name,
+               case
+                 when exists (select 1
+                                from vw_partitioning_conditions pc,
+                                     class_partitions           cp
+                               where pc.profile_id = p.id
+                                 and cp.class_id(+) = c.id
+                                 and cp.condition(+) = pc.condition_values
+                                 and cp.partition_name is null) then 1
+                 else 0
+               end conditions_changed,
+               case
+                 when ct.table_name is null
+                   or exists (select 1
+                                from dba_tables t
+                               where t.owner = ''' || inst_info.OWNER || '''
+                                 and t.table_name = ct.table_name
+                                 and (t.row_movement = ''ENABLED'' and p.row_movement = 1 or
+                                      t.row_movement = ''DISABLED'' and p.row_movement = 0)) then 0
+                 else 1
+               end row_movement_changed
+          from classes c, class_tables ct, partitioning_profiles p
+         where ct.class_id(+) = c.id
+           and (p.id = c.part_profile_id or p.id = ct.part_profile_id)
+           and (exists (select 1
+                   from class_attributes ca
+                  where ca.class_id = c.id
+                    and ca.attr_id = p.attr_id
+                    and ca.self_class_id = p.self_class_id
+                    and instr(ca.required, ''A'') = 0) or exists
+                (select 1
+                   from class_tab_columns ct
+                  where ct.class_id = c.id
+                    and ct.mapped_from is not null
+                    and (ct.map_style = ''D'' or ct.map_style = ''A'')
+                    and ct.qual = p.attr_id
+                    and ct.self_class_id = p.self_class_id))) x';
+%%
+
+81,1,1,,
+Изменение представления vw_partitioning_conditions,
+%%execute immediate 
+'CREATE OR REPLACE FORCE VIEW vw_partitioning_conditions as
+select pc.profile_id,
+       pc.condition_id,
+       pc.condition_values,
+       case
+         when exists (select 1
+                        from class_tables ct, class_partitions cp
+                       where cp.class_id = ct.class_id
+                         and pc.profile_id= ct.part_profile_id
+                         and pc.condition_values = cp.condition) then 1
+         else 0
+       end is_used
+  from (select c.profile_id,
+               c.condition_id,
+               STRING_AGG_QUOTE(c.condition_value) condition_values
+          from partitioning_conditions c
+         group by c.profile_id, c.condition_id
+        union all
+        select p.id,
+               null condition_id,
+               case
+                 when p.type = ''LIST'' then ''DEFAULT''
+                 else ''MAXVALUE''
+               end condition_values
+          from partitioning_profiles p
+         where p.has_default_part = ''1'') pc';
+%%
+
+82,1,1,,
+Изменение представления vw_part_subprof_classes,
+%%execute immediate 
+'CREATE OR REPLACE FORCE VIEW vw_part_subprof_classes as
+select x.class_id,
+       x.class_name,
+       x.profile_id,
+       x.subprofile_id,
+       x.table_name,
+       case
+         when nvl(x.profile_id,''*'') <> nvl(x.table_profile_id,''*'') then ''ASSIGNED''
+         when x.conditions_changed <> 0 then ''MODIFIED''
+         else ''APPLIED''
+       end state
+  from (select c.id class_id,
+               c.name class_name,
+               p.id profile_id,
+               sp.id subprofile_id,
+			   c.part_profile_id class_profile_id,
+               ct.part_profile_id table_profile_id,
+               ct.table_name table_name,
+               case
+                 when exists (select 1
+                                from vw_part_subprof_conds pc,
+                                     class_subpartitions   cp
+                               where pc.subprofile_id = sp.id
+                                 and cp.class_id(+) = c.id
+                                 and cp.condition(+) = pc.condition_values
+                                 and cp.partition_name is null) then 1
+                 else 0
+               end conditions_changed
+          from classes c, class_tables ct, partitioning_profiles p, part_subprofs sp
+         where ct.class_id(+) = c.id
+           and (p.id = c.part_profile_id or p.id = ct.part_profile_id)
+           and p.subprofile_id = sp.id
+           and p.subprofile_id is not null
+           and (exists (select 1
+                   from class_attributes ca
+                  where ca.class_id = c.id
+                    and ca.attr_id = sp.attr_id
+                    and ca.self_class_id = sp.self_class_id
+                    and instr(ca.required, ''A'') = 0) or exists
+                (select 1
+                   from class_tab_columns ct
+                  where ct.class_id = c.id
+                    and ct.mapped_from is not null
+                    and (ct.map_style = ''D'' or ct.map_style = ''A'')
+                    and ct.qual = sp.attr_id
+                    and ct.self_class_id = sp.self_class_id))) x';
+%%
+
+83,1,1,,
+Изменение представления vw_part_subprof_conds,
+%%execute immediate 
+'CREATE OR REPLACE FORCE VIEW vw_part_subprof_conds as
+select spc.subprofile_id,
+       spc.condition_id,
+       spc.condition_values,
+       case
+         when exists (select 1
+                        from class_tables ct, partitioning_profiles p, class_subpartitions sp
+                       where sp.class_id = ct.class_id
+                         and p.id = ct.part_profile_id
+                         and spc.subprofile_id = p.subprofile_id
+                         and spc.condition_values = sp.condition) then 1
+         else 0
+       end is_used
+  from (select c.subprofile_id,
+               c.condition_id,
+               STRING_AGG_QUOTE(c.condition_value) condition_values
+          from part_subprof_conds c
+         group by c.subprofile_id, c.condition_id
+        union all
+        select ps.id,
+               null condition_id,
+               case
+                 when ps.type = ''LIST'' then ''DEFAULT''
+                 else ''MAXVALUE''
+               end condition_values
+          from part_subprofs ps
+         where ps.has_default_part = ''1'') spc';
+%%
+
+84,1,1,,
+Удаление ограничения CHK_PART_SUBPROFILES_TYPE,
+%%execute immediate 
+'alter table PART_SUBPROFS
+  drop constraint CHK_PART_SUBPROFILES_TYPE';
+%%
+
+85,1,1,,
+Создание ограничения CHK_PART_SUBPROFILES_TYPE,
+%%execute immediate '
+alter table PART_SUBPROFS
+  add constraint CHK_PART_SUBPROFILES_TYPE
+  check (TYPE IN (''LIST'', ''RANGE''))';
+%%
+
+86,1,1,,
+Удаление ненужных сообщений из таблицы MESSAGES,
+%%begin
+  delete from messages m
+    where m.code in (
+      'VALUE_LESS_MIN_SELF_CLS_VALUE',
+      'MAX_SELF_CLS_VALUE_EXCEEDED');
+  commit;
+end;
+%%
+
+87,0,1,,
+Добавление системного параметра,
+%%begin
+  rtl.put_setting(p_name => 'LICENSING.NOTIFY.EXCLUDED', p_value => ' ', p_description => 'Список лицензионных датчиков и опций, информация о которых будет исключена из оповещения об изменении КЛО. Идентификаторы указывать через разделитель ",". При истечении срока использования в уведомление об изменении КЛО попадет информация о всех датчиках и опциях, не зависимо от значения параметра.');
+end;
+%%
+
+88,1,1,,
+Создание колонки PARTITIONING_PROFILES.INTERVAL_VALUE,
+%%execute immediate '
+alter table PARTITIONING_PROFILES
+  add INTERVAL_VALUE NUMBER';
+execute immediate 'comment on column PARTITIONING_PROFILES.INTERVAL_VALUE
+  is ''Число для преобразования в интервал''';
+%%
+
+89,1,1,,
+Создание колонки PARTITIONING_PROFILES.INTERVAL_UNIT,
+%%execute immediate '
+alter table PARTITIONING_PROFILES
+  add INTERVAL_UNIT VARCHAR2(5)';
+execute immediate 'comment on column PARTITIONING_PROFILES.INTERVAL_UNIT
+  is ''Единица интервала (DAY, MONTH или YEAR)''';
+%%
+
+90,1,1,,
+Создание ограничения CHK_PART_PROFILES_INTERVALUNIT,
+%%execute immediate 
+'alter table PARTITIONING_PROFILES
+   add constraint CHK_PART_PROFILES_INTERVALUNIT
+ check (INTERVAL_UNIT IN (''DAY'', ''MONTH'', ''YEAR''))';
+%%
+
+91,1,1,,
+Изменение представления vw_partitioning_profiles,
+%%execute immediate 
+'CREATE OR REPLACE FORCE VIEW vw_partitioning_profiles as
+select p.id profile_id, p.name profile_name, p.type, p.subprofile_id, p.attr_id, c.name attr_name, 
+       class_mgr.make_column_name(p.attr_id, 0) attr_column_name, p.self_class_id attr_self_class_id,
+       c.base_class_id attr_base_class_id, p.has_default_part, p.row_movement, p.interval_value, p.interval_unit,
+       case
+         when p.attr_id is not null and
+              (p.type = ''LIST'' and c.base_class_id in (''STRING'', ''BOOLEAN'', ''NUMBER'', ''MEMO'') or
+                (p.type = ''RANGE'' and 
+                  (c.base_class_id = ''NUMBER'' or c.base_class_id = ''DATE'' and 
+                    (p.interval_value is null or p.interval_value is not null and p.interval_unit is not null)))) and
+              (exists
+               (select 1 from partitioning_conditions where profile_id = p.id) or
+               p.has_default_part = ''1'') then ''VALID''
+         else ''INVALID''
+       end status
+  from partitioning_profiles p, classes c
+ where p.self_class_id = c.id(+)';
+%%
+
+92,0,1,,
+Пересоздание представлений секционирования,
+%%after_install.Create_Partitioning(true);
+%%
+
+93,0,1,,
+Удаление таблицы class_subpartitions,
+%%execute immediate 
+'drop table class_subpartitions';
+%%
+
+94,0,1,,
+Удаление колонки attr_id в CLASS_PARTITIONS,
+%%execute immediate 
+'alter table CLASS_PARTITIONS drop column attr_id';
+%%
+
+95,0,1,,
+Удаление ограничения UNQ_CLASS_PARTITIONS_CLS_NAME,
+%%execute immediate
+'alter table CLASS_PARTITIONS
+  drop constraint UNQ_CLASS_PARTITIONS_CLS_NAME';
+%%
+
+96,0,1,,
+Удаляем из class_partitions информацию о секционированных по профилю таблицах,
+%%execute immediate 
+'delete from class_partitions cp
+ where exists (select 1
+          from class_tables ct
+         where ct.part_profile_id is not null
+           and cp.class_id = ct.class_id)';
+%%
+
+97,0,1,,
+Удаление типа TYPE_STRING_AGG_QUOTE,
+%%execute immediate 
+'drop type TYPE_STRING_AGG_QUOTE';
+%%
+
+98,0,1,,
+Удаление функции STRING_AGG_QUOTE,
+%%execute immediate 
+'drop function STRING_AGG_QUOTE';
+%%
+
+99,0,1,,
+Перекомпиляция пакета PARTITIONING_MGR после пересоздания представлений секционирования по профилю,
+%%execute immediate 
+'ALTER PACKAGE PARTITIONING_MGR COMPILE BODY';
+%%
+
+100,0,1,,
+Перекомпиляция пакета PART_MGR после пересоздания представлений секционирования по профилю,
+%%execute immediate 
+'ALTER PACKAGE PART_MGR COMPILE BODY';
+%%
+
+101,1,1,,
+Добавление сообщения BAD_EXTENSION_DATA_SRC,
+%%begin 
+insert into messages (TOPIC,CODE,TEXT) values ('KRNL','BAD_EXTENSION_DATA_SRC','Для колонки с алиасом [%1] указан источник данных, не соответствующий источнику данных в расширенном представлении');
+commit;
+exception when others then
+if SQLCODE <> -1 then raise; end if;
+end;
+%%
+
+102,0,1,,
+Добавление новых функций в пакет CALENDAR_MGR,
+%%begin
+  plib.parse_package('CALENDAR_MGR',Inst_Info.OWNER);
+end;
+%%
+
+103,0,1,,
+Установка ограничения на версию UAdmin,
+%%begin sysinfo.SetValue('UADMIN.MINIMUM_VERSION', '6.86.0.15'); commit; end;
+%%
+
+104,0,1,,
+Установка ограничения на версию PjAdmin,
+%%begin sysinfo.SetValue('PJADM.MINIMUM_VERSION', '6.19.0.32'); commit; end;
+%%
+
+105,1,1,,
+Добавление колонки calc_time в system_options,
+%%execute immediate 'alter table system_options add calc_time date';
+%%
+
+106,1,1,,
+Инициализация колонки calc_time в system_options,
+%%declare
+d date;
+begin
+  execute immediate 'ALTER TRIGGER SYSTEM_OPTIONS_CHANGES DISABLE';  
+  select max(to_date(value, 'YYYY-MM-DD HH24:MI:SS')) into d 
+  from sysinfo_variables where groups='LICENSE' and code='LICENSE_REPORT_LAST_DATE';
+  if d is null then
+    select max(check_date) into d from aud.vw_license_report
+    where owner = inst_info.OWNER and check_date >= trunc(add_months(sysdate, -1), 'MM');
+  end if;  
+  update system_options set calc_time=d where calc_time is null and exec_sql is not null;
+  execute immediate 'ALTER TRIGGER SYSTEM_OPTIONS_CHANGES ENABLE';
+exception when others then   
+  execute immediate 'ALTER TRIGGER SYSTEM_OPTIONS_CHANGES ENABLE';
+  raise;
+end;
+%%
+
+107,0,1,,
+Добавление права ALTER SESSION роли OWNER_USER,
+%%execute immediate 'grant ALTER SESSION to ' || Inst_Info.OWNER || '_USER';
+%%
+
+108,0,1,,
+Добавление права ALTER SESSION роли OWNER_ADMIN,
+%%execute immediate 'grant ALTER SESSION to ' || Inst_Info.OWNER || '_ADMIN';
+%%
+
+109,1,1,,
+Изменение представления vw_partitioning_conditions,
+%%execute immediate 
+'CREATE OR REPLACE FORCE VIEW vw_partitioning_conditions as
+select p.profile_id,
+       p.type,
+       pc.condition_id,
+       TO_CLOB('''') condition_values,
+       CAST('''' AS VARCHAR2(4000)) is_used
+  from vw_partitioning_profiles p,
+       (select unique profile_id, condition_id
+          from partitioning_conditions pc) pc
+ where pc.profile_id = p.profile_id
+   and p.type = ''LIST''
+union all
+select p.profile_id,
+       p.type,
+       pc.condition_id,
+       TO_CLOB(''''''''||pc.condition_value||'''''''') condition_values,
+       CAST('''' AS VARCHAR2(4000)) is_used
+  from vw_partitioning_profiles p,
+       (select unique profile_id, condition_id, condition_value
+          from partitioning_conditions pc) pc
+ where pc.profile_id = p.profile_id
+   and p.type = ''RANGE''
+union all
+select p.id,
+       p.type,
+       null condition_id,
+       case
+         when p.type = ''LIST'' then
+          TO_CLOB(''DEFAULT'')
+         else
+          TO_CLOB(''MAXVALUE'')
+       end condition_values,
+       CAST('''' AS VARCHAR2(4000)) is_used
+  from partitioning_profiles p
+ where p.has_default_part = ''1''';
+%%
+
+110,1,1,,
+Изменение представления vw_part_subprof_conds,
+%%execute immediate 
+'CREATE OR REPLACE FORCE VIEW vw_part_subprof_conds as         
+select sp.subprofile_id,
+       sp.type,
+       spc.condition_id,
+       TO_CLOB('''') condition_values,
+       CAST('''' AS VARCHAR2(4000)) is_used
+  from vw_part_subprofs sp,
+       (select unique subprofile_id, condition_id
+          from part_subprof_conds) spc
+ where spc.subprofile_id = sp.subprofile_id
+   and sp.type = ''LIST''
+union all
+select sp.subprofile_id,
+       sp.type,
+       spc.condition_id,
+       TO_CLOB(''''''''||spc.condition_value||'''''''') condition_values,
+       CAST('''' AS VARCHAR2(4000)) is_used
+  from vw_part_subprofs sp,
+       (select unique subprofile_id, condition_id, condition_value
+          from part_subprof_conds) spc
+ where spc.subprofile_id = sp.subprofile_id
+   and sp.type = ''RANGE''
+union all
+select sp.id,
+       sp.type,
+       null condition_id,
+       case
+         when sp.type = ''LIST'' then
+          TO_CLOB(''DEFAULT'')
+         else
+          TO_CLOB(''MAXVALUE'')
+       end condition_values,
+       CAST('''' AS VARCHAR2(4000)) is_used
+  from part_subprofs sp
+ where sp.has_default_part = ''1''';
+%%
+
+111,1,1,,
+Изменение представления vw_class_partitions,
+%%execute immediate 
+'CREATE OR REPLACE FORCE VIEW vw_class_partitions as
+select t.class_id,
+       dp.table_name,
+       dp.partition_name,
+       TO_CLOB('''') condition,
+       p.attr_base_class_id,
+       dp.partition_position,
+       dp.tablespace_name,
+       dt.status
+  from class_tables             t,
+       dba_tab_partitions       dp,
+       dba_tablespaces          dt,
+       vw_partitioning_profiles p
+ where dp.table_owner = ''' || inst_info.OWNER || '''
+   and t.part_profile_id = p.profile_id
+   and dp.table_name = t.table_name
+   and dp.tablespace_name = dt.tablespace_name';
+%%
+
+112,1,1,,
+Изменение представления vw_class_subpartitions,
+%%execute immediate 
+'CREATE OR REPLACE FORCE VIEW vw_class_subpartitions as
+select t.class_id,
+       dp.table_name,
+       dp.partition_name,
+       dp.subpartition_name,
+       TO_CLOB('''') condition,
+       dp.subpartition_position, 
+       dp.tablespace_name, 
+       dt.status
+  from class_tables          t,
+       dba_tab_subpartitions dp,
+       dba_tablespaces       dt,
+       vw_part_subprofs      sp,
+       partitioning_profiles p
+ where dp.table_owner = ''' || inst_info.OWNER || '''
+   and t.part_profile_id = p.id
+   and p.subprofile_id = sp.subprofile_id
+   and dp.table_name = t.table_name
+   and dt.tablespace_name = dp.tablespace_name';
+%%
+
+113,1,1,,
+Изменение представления vw_partitioning_classes,
+%%execute immediate 
+'CREATE OR REPLACE FORCE VIEW vw_partitioning_classes as
+select c.id class_id,
+       c.name class_name,
+       p.id profile_id,
+       c.part_profile_id class_profile_id,
+       ct.part_profile_id table_profile_id,
+       ct.table_name table_name,
+       CAST('''' AS VARCHAR2(4000)) state
+  from classes c, class_tables ct, partitioning_profiles p
+ where ct.class_id(+) = c.id
+   and (p.id = c.part_profile_id or p.id = ct.part_profile_id)
+   and (exists (select 1
+           from class_attributes ca
+          where ca.class_id = c.id
+            and ca.attr_id = p.attr_id
+            and ca.self_class_id = p.self_class_id
+            and instr(ca.required, ''A'') = 0) or exists
+        (select 1
+           from class_tab_columns ct
+          where ct.class_id = c.id
+            and ct.mapped_from is not null
+            and (ct.map_style = ''D'' or ct.map_style = ''A'')
+            and ct.qual = p.attr_id
+            and ct.self_class_id = p.self_class_id))';
+%%
+
+114,1,1,,
+Изменение представления vw_part_subprof_classes,
+%%execute immediate 
+'CREATE OR REPLACE FORCE VIEW vw_part_subprof_classes as
+select c.id class_id,
+       c.name class_name,
+       p.id profile_id,
+       sp.id subprofile_id,
+       ct.table_name table_name,
+       CAST('''' AS VARCHAR2(4000)) state
+  from classes c, class_tables ct, partitioning_profiles p, part_subprofs sp
+ where ct.class_id(+) = c.id
+   and (p.id = c.part_profile_id or p.id = ct.part_profile_id)
+   and p.subprofile_id = sp.id
+   and p.subprofile_id is not null
+   and (exists (select 1
+           from class_attributes ca
+          where ca.class_id = c.id
+            and ca.attr_id = sp.attr_id
+            and ca.self_class_id = sp.self_class_id
+            and instr(ca.required, ''A'') = 0) or exists
+        (select 1
+           from class_tab_columns ct
+          where ct.class_id = c.id
+            and ct.mapped_from is not null
+            and (ct.map_style = ''D'' or ct.map_style = ''A'')
+            and ct.qual = sp.attr_id
+            and ct.self_class_id = sp.self_class_id))';
+%%
+
+115,0,1,,
+Пересоздание представлений секционирования,
+%%after_install.Create_Partitioning(true);
+%%
+
+116,0,1,,
+Пересоздание ролей,
+%%after_install.Grants(true);
+%%
+
+117,0,1,,
+Добавление новых функций в пакет FORMS_MGR,
+%%begin
+  plib.parse_package('FORMS_MGR',Inst_Info.OWNER);
+end;
+%%
+
+118,1,1,,
+Изменение представления vw_class_ind_partitions,
+%%execute immediate 
+'CREATE OR REPLACE FORCE VIEW vw_class_ind_partitions as
+select CAST('''' AS VARCHAR2(16)) class_id,
+       CAST('''' AS VARCHAR2(30)) table_name,
+       CAST('''' AS VARCHAR2(30)) partition_name,
+       CAST('''' AS VARCHAR2(30)) index_name,
+       CAST('''' AS VARCHAR2(16)) attr_base_class_id,
+       CAST(0 AS NUMBER) partition_position,
+       CAST('''' AS VARCHAR2(30)) tablespace_name,
+       CAST('''' AS VARCHAR2(8)) status,
+       TO_CLOB('''') condition
+  from dual';
+%%
+
+119,1,1,,
+Изменение представления vw_class_ind_subpartitions,
+%%execute immediate 
+'CREATE OR REPLACE FORCE VIEW vw_class_ind_subpartitions as
+select CAST('''' AS VARCHAR2(16)) class_id,
+       CAST('''' AS VARCHAR2(30)) table_name,
+       CAST('''' AS VARCHAR2(30)) partition_name,
+       CAST('''' AS VARCHAR2(30)) subpartition_name,
+       CAST('''' AS VARCHAR2(30)) index_name,
+       CAST('''' AS VARCHAR2(16)) attr_base_class_id,
+       CAST(0 AS NUMBER) subpartition_position,
+       CAST('''' AS VARCHAR2(30)) tablespace_name,
+       CAST('''' AS VARCHAR2(8)) status,
+       TO_CLOB('''') condition
+  from dual'; 
+%%
+
+120,1,1,,
+Удаление сообщений c некорректным топиком из таблицы MESSAGES,
+%%begin
+  delete from messages m where m.topic='CLS,';
+  commit;
+end;
+%%
+
+121,0,1,,
+Пересоздание триггеров журналирования,
+%%after_install.Create_Diarys;
+%%
+
+122,1,1,,
+Изменение представления vw_part_indexes,
+%%execute immediate 
+'CREATE OR REPLACE FORCE VIEW vw_part_indexes as
+select CAST('''' AS VARCHAR2(30)) table_name,
+       CAST('''' AS VARCHAR2(30)) index_name,
+       CAST('''' AS VARCHAR2(6)) locality
+  from dual';
+%%
+
+123,0,1,,
+Пересоздание представлений секционирования,
+%%after_install.Create_Partitioning(true);
+%%
+
+124,0,1,,
+Раздача дополнительных прав роли OWNER_APPSRV,
+%%after_install.GrantsAppSrv(false);
+%%
+
+125,0,1,,
+Удаление лишних грантов у роли OWNER_USER на журналы аудита,
+%%declare
+  v_pref varchar2(30) := inst_info.AUDITOR||'.'||inst_info.GOwner;
+  procedure revoke_select(element_name varchar2) is
+  begin
+    execute immediate 'REVOKE SELECT ON '||element_name||' FROM '||Inst_Info.OWNER||'_USER';
+  exception when others then null;
+  end;
+begin
+  revoke_select('Diary');
+  revoke_select('Diary_Param');
+  revoke_select('Diary_Errors');
+  revoke_select('Diary_Storage');
+  revoke_select('Diary_Criteria');
+  revoke_select('Diary_Methods');
+  revoke_select('Diary_Attributes');
+  revoke_select('Diary_Param_Vars');
+  revoke_select('Diary_Uadmin');
+  revoke_select('Diary_Storage_Ext');
+  revoke_select('Diary_Forms');
+  revoke_select('Diary_Sys');
+  revoke_select(v_pref||'_Diary1');
+  revoke_select(v_pref||'_Diary2');
+  revoke_select(v_pref||'_Diary3');
+  revoke_select(v_pref||'_Diary4');
+  revoke_select(v_pref||'_Diary6');
+end;
+%%
+
+126,0,1,,
+Создание прав на журналы аудита,
+%%after_install.Create_Diarys('1');
+%%
+
+127,1,1,,
+Обновление текста сообщения ADM_GRP_USR,
+%%begin
+update messages set text = 'Невозможно удалить административную группу или владельца схемы!' where topic = 'UADMIN' and code = 'ADM_GRP_USR';
+commit;
+end;
+%%
+
+128,0,1,,
+Установка дефолтного значения для METHODS.ACCESSIBILITY,
+%%execute immediate 'alter table methods modify (accessibility default ''0'')';
+%%
+
+129,0,1,,
+Перекомпиляция функциональных реквизитов,
+%%declare 
+  i integer;
+begin
+  i:=executor.lock_open();
+	for m in (select distinct m.id from methods m, sources s where m.id = s.name and m.flags = 'A' and s.type = 'PUBLIC') loop
+		dbms_output.put_line('Recompile method '||m.id);
+		method.recompile(m.id, false);
+	end loop;
+end;
+%%
+
+130,1,1,,
+Создание таблицы частичных типов CLASS_PARTS,
+%%execute immediate 
+'create table CLASS_PARTS(
+  ID        varchar2(16) not null,
+  CLASS_ID	varchar2(16) not null
+) tablespace &&tusers';
+
+execute immediate 'comment on table CLASS_PARTS
+is ''Частичные типы''';
+execute immediate 'comment on column CLASS_PARTS.ID
+is ''Идентификатор частичного типа''';
+execute immediate 'comment on column CLASS_PARTS.CLASS_ID
+is ''Id основного типа''';
+
+execute immediate '
+alter table CLASS_PARTS
+  add constraint PK_CLASS_PARTS_ID primary key (ID)';
+
+execute immediate '
+alter table ibs.CLASS_PARTS
+  add constraint FK_CLS_PARTS_CLASS_ID foreign key (CLASS_ID)
+  references CLASSES (ID) on delete cascade';
+%%
+
+131,1,1,,
+Добавление идентификатора частичного типа в таблицу CLASS_ATTRIBUTES,
+%%execute immediate 
+'alter table CLASS_ATTRIBUTES add PART_ID varchar2(16)';
+execute immediate 
+'comment on column CLASS_ATTRIBUTES.PART_ID
+  is ''Id частичного типа''';
+execute immediate 
+'alter table CLASS_ATTRIBUTES
+  add constraint FK_CLASS_ATTRIBUTES_PART_ID foreign key (PART_ID)
+  references CLASS_PARTS (ID)';
+%%
+
+132,1,1,,
+Добавление материализованного представления MV_UK_CLASSES_CLASSPARTS,
+%%execute immediate 
+'create materialized view log on CLASSES with rowid';
+execute immediate 
+'create materialized view log on CLASS_PARTS with rowid';
+execute immediate 
+'create materialized view mv_uk_classes_classparts 
+  refresh fast
+  on commit 
+as 
+  select c.rowid crid, e.rowid erid 
+  from classes c, class_parts e 
+  where c.id = e.id';
+execute immediate 
+'alter table mv_uk_classes_classparts 
+  add constraint mv_uk_classes_classparts_check 
+  check (crid is null and erid is null)';
+%%
+
+133,1,1,,
+Удаление ограничения CHK_CLASSES_BASE_CLASS_ID,
+%%execute immediate '
+alter table CLASSES drop constraint CHK_CLASSES_BASE_CLASS_ID';
+%%
+
+134,1,10,,
+Создание ограничения CHK_CLASSES_BASE_CLASS_ID,
+%%execute immediate '
+alter table CLASSES 
+      add constraint CHK_CLASSES_BASE_CLASS_ID check (BASE_CLASS_ID IN (''STRING'',''NSTRING'',''NUMBER'',''DATE'',''BOOLEAN'',''MEMO'',''NMEMO'',''OLE'',''STRUCTURE'',''REFERENCE'',''COLLECTION'',''TABLE''))';
+%%
+
+135,0,1,,
+Пересоздание ролей,
+%%after_install.Grants(false);
+%%
+
+150,0,1,,
+Перекомпиляция функциональных реквизитов в связи с изменениеми в plp$parser,
+%%declare 
+  i integer;
+begin
+  i:=executor.lock_open(null,nvl(executor.get_system_id, utils.session_id));
+  -- в 2 прохода на случай если ф-ые реквизиты обращаются друг к другу
+  for x in 1..2 loop
+    for m in (select distinct m.id from methods m, sources s where m.id = s.name and m.flags = 'A' and s.type = 'PUBLIC') loop
+	  dbms_output.put_line('Recompile method '||m.id);
+	  method.recompile(m.id, false);
+    end loop;
+  end loop;	
+end;
+%%
+
+151,1,1,,
+Обновление текста сообщения,
+%%begin
+update messages m set m.text = '%1 не доступен' where m.topic = 'PLP' and m.code = 'ACCESS_DENIED';
+commit;
+end;
+%%
+
+152,0,1,,
+Добавление новых типов и функций в пакет CLASS_UTILS,
+%%begin
+  plib.parse_package('CLASS_UTILS',Inst_Info.OWNER);
+end;
+%%
+
+153,0,1,,
+Поддержка DBMS_XMLPARSER,
+%%begin
+  execute immediate 'create or replace synonym ' || Inst_Info.OWNER || '.dbms_xmldom for XDB.dbms_xmldom';
+  execute immediate 'create or replace synonym ' || Inst_Info.OWNER || '.dbms_xmlparser for XDB.dbms_xmlparser';
+  plib.parse_package('DBMS_XMLDOM',Inst_Info.OWNER);
+  plib.parse_package('DBMS_XMLPARSER',Inst_Info.OWNER);
+end;
+%%
+
+154,0,1,,
+Добавление триггера CLASSE_BEFORE_INSERT,
+%%begin
+  execute immediate 'CREATE OR REPLACE TRIGGER classes_before_insert
+BEFORE INSERT
+ON classes FOR EACH ROW
+begin
+  dict_mgr.is_allow_nvarchar2(:new.id, :new.base_class_id);
+end;';
+end;
+%%
+
+155,0,1,,
+Добавление пакета RTL_TYPES,
+%%begin
+  plib.parse_package('RTL_TYPES',Inst_Info.OWNER);
+end;
+%%
+
+156,0,1,,
+Удаление триггера classes_before_insert,
+%%execute immediate '
+drop trigger classes_before_insert';
+%%
+
+157,0,1,,
+Добавление триггера CLASSES_BEFORE_INS_UPD_NVAR2,
+%%begin
+  execute immediate 'CREATE OR REPLACE TRIGGER CLASSES_BEFORE_INS_UPD_NVAR2
+BEFORE INSERT OR UPDATE
+ON classes FOR EACH ROW
+begin
+  dict_mgr.is_allow_nvarchar2(:new.id, :new.base_class_id);
+end;';
+end;
+%%
+
+158,1,1,,
+Создание таблицы журнал для хранения информации об отложенных при обновлении действиях,
+%%execute immediate 'create table DELAYED_ACTIONS
+(
+  action_group      VARCHAR2(20) not null,
+  action_type       VARCHAR2(20) not null,
+  priority          NUMBER(2) not null,
+  class_id          VARCHAR2(16) not null,
+  class_column_qual VARCHAR2(700),
+  index_name        VARCHAR2(30),
+  execute_date      DATE,
+  execute_success   NUMBER(1) not null,
+  execute_errors    VARCHAR2(4000)
+) tablespace &&tusers';
+
+  execute immediate 'comment on table DELAYED_ACTIONS
+  is ''Журнал для хранения информации о действиях, отложенных при обновлении''';
+  execute immediate 'comment on column DELAYED_ACTIONS.action_group
+  is ''Группа действий''';
+  execute immediate 'comment on column DELAYED_ACTIONS.action_type
+  is ''Тип действия''';
+  execute immediate 'comment on column DELAYED_ACTIONS.priority
+  is ''Приоритет действия''';
+  execute immediate 'comment on column DELAYED_ACTIONS.class_id
+  is ''Короткое имя ТБП''';
+  execute immediate 'comment on column DELAYED_ACTIONS.class_column_qual
+  is ''Квалификатор колонки ТБП''';
+  execute immediate 'comment on column DELAYED_ACTIONS.index_name
+  is ''Наименование индекса''';
+  execute immediate 'comment on column DELAYED_ACTIONS.execute_date
+  is ''Дата и время выполнения действия''';
+  execute immediate 'comment on column DELAYED_ACTIONS.execute_success
+  is ''Признак успешности выполнения действия''';
+  execute immediate 'comment on column DELAYED_ACTIONS.execute_errors
+  is ''Ошибки при выполнении действия''';  
+
+  execute immediate 'create index IDX_DELAYED_ACTION_SUCCESS on DELAYED_ACTIONS (EXECUTE_SUCCESS) tablespace &&tspacei';
+  
+  execute immediate 'alter table DELAYED_ACTIONS 
+                       add constraint PK_DELAYED_ACTIONS 
+					   unique (CLASS_ID, CLASS_COLUMN_QUAL, INDEX_NAME, ACTION_TYPE)';
+
+  execute immediate 'alter table DELAYED_ACTIONS 
+                       add constraint FK_DELAYED_ACTIONS_CLASS_ID 
+					   foreign key (CLASS_ID) 
+					   references classes (ID) on delete cascade';
+
+  execute immediate 'alter table DELAYED_ACTIONS 
+                       add constraint CHK_DELAYED_ACTIONS_TYPE 
+					   check (ACTION_TYPE in (''FILL_COLLECTION'', ''FILL_DUPLICATE'',''SET_NOT_NULL'',''CREATE_INDEX''))';
+  
+  execute immediate 'alter table DELAYED_ACTIONS 
+                       add constraint CHK_DELAYED_ACTIONS_SUCCESS 
+					   check (EXECUTE_SUCCESS in (0,1,-1))';
+
+  execute immediate 'alter table DELAYED_ACTIONS
+                       add constraint CHK_DELAYED_ACTIONS_GROUP
+                       check (ACTION_GROUP in (''FILL_SYSTEM_COLUMNS'',''CREATE_RESTRICTIONS''))';
+%%
+
+159,0,1,,
+Пересоздание триггеров журналирования,
+%%after_install.Create_Diarys;
+%%
+
+160,1,1,,
+Создание столбца RATIO в таблице PARTITIONING_PROFILES,
+%%execute immediate 'alter table PARTITIONING_PROFILES add RATIO number';
+  execute immediate 'update PARTITIONING_PROFILES set RATIO = 1';
+  execute immediate 'alter table PARTITIONING_PROFILES modify RATIO not null';
+  execute immediate 'comment on column PARTITIONING_PROFILES.RATIO is ''Коэффициент сжатия''';
+  execute immediate 'alter table PARTITIONING_PROFILES add constraint CHK_PART_PROFILES_RATIO check (RATIO>0)';
+  execute immediate 
+'CREATE OR REPLACE FORCE VIEW vw_partitioning_profiles as
+select p.id profile_id, p.name profile_name, p.type, p.subprofile_id, p.attr_id, c.name attr_name, 
+       class_mgr.make_column_name(p.attr_id, 0) attr_column_name, p.self_class_id attr_self_class_id,
+       c.base_class_id attr_base_class_id, p.has_default_part, p.row_movement, p.interval_value, p.interval_unit,
+       case
+         when p.attr_id is not null and
+              (p.type = ''LIST'' and c.base_class_id in (''STRING'', ''BOOLEAN'', ''NUMBER'', ''MEMO'') or
+                (p.type = ''RANGE'' and 
+                  (c.base_class_id = ''NUMBER'' or c.base_class_id = ''DATE'' and 
+                    (p.interval_value is null or p.interval_value is not null and p.interval_unit is not null)))) and
+              (exists
+               (select 1 from partitioning_conditions where profile_id = p.id) or
+               p.has_default_part = ''1'') then ''VALID''
+         else ''INVALID''
+       end status,
+       p.ratio
+  from partitioning_profiles p, classes c
+ where p.self_class_id = c.id(+)';
+%%
+
+161,0,1,,
+Перекомпиляция операции SYSTEM.PASS_REFS,
+%%declare 
+  m_cursor method.methods_cursor_t;
+  n pls_integer;
+  pipe varchar2(100) := 'DEBUG';
+begin
+  n:=rtl.open;
+  rtl.set_debug(0,rtl.DEBUG2BUF,1000000);
+  open m_cursor for
+		select id,class_id,short_name from methods m
+			where (class_id,short_name) in (('SYSTEM','PASS_REFS'));
+  method.compile_methods(m_cursor,pipe,true);
+end;
+%%
+
+162,1,1,,
+Модификация ограничения CHK_PARTITIONING_PROFILES_TYPE,
+%%execute immediate 'alter table PARTITIONING_PROFILES drop constraint CHK_PARTITIONING_PROFILES_TYPE';
+execute immediate 'alter table PARTITIONING_PROFILES add constraint CHK_PARTITIONING_PROFILES_TYPE check (TYPE IN (''LIST'', ''RANGE'',''REF''))';
+%%
+
+163,1,1,,
+Модификация ограничения CHK_PART_PROFILES_RATIO,
+%%execute immediate 'alter table PARTITIONING_PROFILES drop constraint CHK_PART_PROFILES_RATIO';
+execute immediate 'alter table PARTITIONING_PROFILES add constraint CHK_PART_PROFILES_RATIO check ((TYPE=''REF'' and RATIO is null) or (TYPE IN (''LIST'', ''RANGE'') and RATIO>0))';
+%%
+
+164,1,1,,
+Модификация столбца PARTITIONING_PROFILES.RATIO в NULLABLE,
+%%execute immediate 'alter table PARTITIONING_PROFILES modify RATIO null';
+%%
+
+165,1,1,,
+Добавления в таблицу Classes идентификатора родительского класса при секционировании по ссылке,
+%%execute immediate 
+'alter table CLASSES add ref_part_class_id varchar2(16)';
+execute immediate 
+'comment on column CLASSES.ref_part_class_id
+  is ''Родительский класс при секционировании по ссылке (REFERENCE PARTITIONING)''';
+execute immediate 
+'alter table CLASSES
+  add constraint FK_CLASSES_REF_PART_CLASS_ID foreign key (REF_PART_CLASS_ID)
+  references classes (ID)';
+%%
+
+166,1,1,,
+Добавление ограничения CHK_PART_PROFILES_SUBPROF_ID,
+%%execute immediate 'alter table PARTITIONING_PROFILES add constraint CHK_PART_PROFILES_SUBPROF_ID check (not (TYPE=''REF'' and SUBPROFILE_ID is not null))';
+%%
+
+167,0,1,,
+Пересоздание vw_partitioning_profiles,
+%%execute immediate 'begin ' || Inst_Info.OWNER || '.SVIEWS.Create_Vw_Partitioning_Profils; end;';
+%%
+
+168,1,1,,
+Добавление ограничения CHK_PART_PROFILES_DEFAULT_PART,
+%%execute immediate 'alter table PARTITIONING_PROFILES add constraint CHK_PART_PROFILES_DEFAULT_PART check (not (TYPE=''REF'' and HAS_DEFAULT_PART is not null))';
+%%
+
+169,1,1,,
+Добавление ограничения CHK_PART_PROFILES_ROW_MOVEMENT,
+%%execute immediate 'alter table PARTITIONING_PROFILES add constraint CHK_PART_PROFILES_ROW_MOVEMENT check (not (TYPE=''REF'' and ROW_MOVEMENT is not null))';
+%%
+
+170,1,1,,
+Добавление ограничения CHK_PART_PROFILES_INT_VALUE,
+%%execute immediate 'alter table PARTITIONING_PROFILES add constraint CHK_PART_PROFILES_INT_VALUE check (not (TYPE=''REF'' and INTERVAL_VALUE is not null))';
+%%
+
+171,1,1,,
+Добавление ограничения CHK_PART_PROFILES_INT_UNIT,
+%%execute immediate 'alter table PARTITIONING_PROFILES add constraint CHK_PART_PROFILES_INT_UNIT check (not (TYPE=''REF'' and INTERVAL_UNIT is not null))';
+%%
+
+172,0,1,,
+Пересоздание vw_partitioning_conditions,
+%%execute immediate 'begin ' || Inst_Info.OWNER || '.SVIEWS.Create_Vw_Partitioning_Conds; end;';
+%%
+
+173,1,1,,
+Создание столбцов TO_PRINTER и TO_FILE в таблице CRITERIA_RIGHTS,
+%%execute immediate 
+'alter table CRITERIA_RIGHTS add to_printer varchar2(1)';
+execute immediate 
+'alter table CRITERIA_RIGHTS add to_file varchar2(1)';
+%%
+
+174,0,1,,
+Пересоздание view для списка сессий,
+%%execute immediate 'begin ' || Inst_Info.OWNER || '.SVIEWS.Create_Vw_User_Sessions; end;';
+%%

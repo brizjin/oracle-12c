@@ -1,0 +1,205 @@
+FUNCTION|Y|OPEN_SESSION|Открытие 3L-сессии|
+PACKAGE|Y|ADMIN_MGR|Создание глобальных ролей|
+PACKAGE|Y|AFTER_INSTALL|Создание системных ролей и раздача прав на системные объекты|
+PACKAGE|Y|ATTR_MGR|Изменение списка реквизитов|
+PACKAGE|Y|BINDINGS|Зависимости параметров и реквизитов|
+PACKAGE|Y|CACHE_MGR|Управление кэшем интерфейсных пакетов ТБП|
+PACKAGE|Y|CACHE_SERVICE|Кэширование экземпляров и рассылка событий сброса кэша интерфейсных пакетов ТБП|
+PACKAGE|Y|CALENDAR_MGR|Управление календарем|
+PACKAGE|Y|CLASS_MGR|Менеджер ТБП|
+PACKAGE|Y|CLASS_UTILS|Утилиты менеджера ТБП|
+PACKAGE|Y|CONSTANT|Системные константы|
+PACKAGE|Y|CONSTANT2|Дополнительные системные константы|
+PACKAGE|Y|CONTEXT_INFORMATION|Процедуры и функции для работы с Контекстным Информированием|
+PACKAGE|Y|CRITICAL_LOCK_SERVICE|Управление критическими блокировками-семафорами|
+PACKAGE|Y|DATA_VIEWS|Процедуры создания VIEW типов и умолчательных критериев|
+PACKAGE|Y|DBF|Пользовательский интерфейс для работы с файлами в формате DBF|
+PACKAGE|Y|DELAYED_ACTION_MGR|Пакет для работы с отложенными действиями|
+PACKAGE|Y|DICT_MGR|Манипуляции со словарем данных|
+PACKAGE|Y|EDOC_GEN|Генерация интерфейсов электронного документооборота|
+PACKAGE|Y|EDOC_MGR|Управление электронным документооборотом|
+PACKAGE|Y|EVENT_SERVICE|Пакет рассылки системных событий|
+PACKAGE|Y|EXECUTOR|Интерфейс вызова методов клиентами|
+PACKAGE|Y|FIO|Файловый ввод-вывод на внешних процедурах|
+PACKAGE|Y|FORHASH|Интерфейс ключевания|
+PACKAGE|Y|FORMS_MGR|Генерация формы|
+PACKAGE|Y|FVR|Фавориты|
+PACKAGE|Y|INDEX_MGR|Поддержка пользовательских индексов|
+PACKAGE|Y|INST_INFO|Описание версии ТЯ|
+PACKAGE|Y|JAVAC_MGR|Пакет для работы с java классами операций|
+PACKAGE|Y|JOB_WRAPPER|Пакет для работы с системными заданиями|
+PACKAGE|Y|LIB|Библиотека функций для работы со словарем|
+PACKAGE|Y|LOCK_INFO|Управление блокировками LOCK_INFO|
+PACKAGE|Y|LONG_CONV|Пакет для конвертации LONG RAW в BLOB (LONG в CLOB)|
+PACKAGE|Y|NUM_MGR|Пакет управления нумераторами|
+PACKAGE|Y|NUM_INTERFACE|Управление кэшем нумераторов|
+PACKAGE|Y|MAPEX_MGR|Дублирование колонок|
+PACKAGE|Y|MESSAGE|Выдача сообщений, критич. ошибки|
+PACKAGE|Y|METHOD|Интерфейс администратора для работы с методами|
+PACKAGE|Y|METHOD_GROUP|Управление группами операций|
+PACKAGE|Y|METHOD_MGR|Генерация умолчательных операций|
+PACKAGE|Y|MOVE_OBJ|Процедуры изменения ID объектов модели|
+PACKAGE|Y|NAV|Процедуры & функции, используемые в Навигаторе|
+PACKAGE|Y|OPT_MGR|Поддержка подсистемы лицензирования|
+PACKAGE|Y|PART_MGR|Управление разделением таблиц (partitioning)|
+PACKAGE|Y|PARTITIONING_MGR|Разделение таблиц по профилям секционирования|
+PACKAGE|Y|PARTITIONING_VIEW|Вспомогательные функции для представлений, относящихся к PARTITIONING_MGR|
+PACKAGE|Y|PARTITIONING_UTILS|Общие функции пакетов PARTITIONING_MGR и PARTITIONING_VIEW|
+PACKAGE|Y|PATCH_TOOL|Утилиты процедуры UPGRADE|
+PACKAGE|Y|PD_MGR|Администрирование свойства "Персональные данные"|
+PACKAGE|Y|PLIB|Библиотека парсера|
+PACKAGE|Y|PLP$PARSER|PL+ Parser|
+PACKAGE|Y|PLP2JAVA|Генератор текста на Java|
+PACKAGE|Y|PLP2PLSQL|Генератор текста на PL/SQL|
+PACKAGE|Y|RCS_LOCK|Блокировки ресурсов|
+PACKAGE|Y|REPL_MGR|Поддержка режима репликации данных|
+PACKAGE|Y|REPL_UTILS|Утилиты для механизма репликации|
+PACKAGE|Y|REPORT_MGR|Сервер отчетов|
+PACKAGE|Y|RTL|Run Time Library для операций|
+PACKAGE|Y|RTL_TYPES|Типы данных для runtime-пакетов|
+PACKAGE|Y|RTLOBJ|Интерфейс к OBJECTS, COL2OBJ, COLLECTIONS|
+PACKAGE|Y|RULES|Правила доступа к экземплярам|
+PACKAGE|Y|RUNPROC_MGR|Управление запуском агента RUNPROC|
+PACKAGE|Y|RUNPROC_PKG|Интерфейс очереди заданий RUNPROC|
+PACKAGE|Y|SC_MGR|Машина тестирования|
+PACKAGE|Y|SECADMIN|Администратор доступа|
+PACKAGE|Y|SECURITY|Доступ и безопасность|
+PACKAGE|Y|SHORT_VIEWS|VIEW для доступа|
+PACKAGE|Y|STAT_LIB|Интерфейс прикладной статистики|
+PACKAGE|Y|STDIO|Интерфейс ввода-вывода|
+PACKAGE|Y|STORAGE_MGR|Управление хранением экземпляров|
+PACKAGE|Y|STORAGE_UTILS|Утилиты STORAGE_MGR|
+PACKAGE|Y|SVIEWS|Создание общих VIEW для работы Навигатора|
+PACKAGE|Y|SYSINFO|Настройки системы|
+PACKAGE|Y|TYPES|Утилита разбора квалификаторов реквизитов|
+PACKAGE|Y|USER_CONTEXT|User Context proxy|
+PACKAGE|Y|UTILS|DBMS utilities interface|
+PACKAGE|Y|UTL_FILE|Интерфейс файлового ввода-вывода|
+PACKAGE|Y|VALMGR|Runtime поддержка интерфейсов типов и операций|
+PACKAGE|Y|XRC_XMLDOM|xerces XML parser|
+PACKAGE|Y|XRC_XMLPARSER|xerces XML parser|
+PROCEDURE|Y|CLOSE_SESSION|Закрытие 3L-сессии|
+PROCEDURE|Y|FINIT_SESSION|Завершание сеанса 3L-сессии|
+PROCEDURE|Y|INIT_SESSION|Инициализация сеанса 3L-сессии|
+PROCEDURE|Y|KILL_SESSION|Удаление сессий|
+PROCEDURE|Y|OPENREPORTQUEUE|Открытие сессии сервера отчетов|
+PROCEDURE|Y|OPENREPORTSESSION|Открытие сессии сервера отчетов|
+SEQUENCE|Y|FILE_SEQUENCE|Файловая последовательность|
+SEQUENCE|Y|ORSA_QUEUE_SEQ|Сервер отчетов|
+SEQUENCE|Y|QUERIES_ID|Очередь заданий RUNPROC|
+SEQUENCE|Y|SEQ_ID|Основная последовательсть всех идентификаторов объектов системы|
+SEQUENCE|Y|SES_ID|Сессии сервера приложений|
+TABLE|Y|ACCESS_GROUPS|Группы доступа к экземплярам|
+TABLE|Y|ADDRESS_RIGHTS|Сетевые адреса|
+TABLE|Y|API_LIST|Список используемых API|
+TABLE|Y|API_OPTIONS|Принадлежность API приложениям|
+TABLE|Y|API_REPORTS|Отчеты об использовании API|
+TABLE|Y|API_USAGE|Информация об объектах, использующих API|
+TABLE|Y|BELONG_GROUPS|Категории принадлежности операций|
+TABLE|Y|BELONG_GROUPS_EQUAL|Эквивалентность категорий принадлежности|
+TABLE|Y|CALENDARS|Календари|
+TABLE|Y|CALENDAR_VALUE|Значения календарей|
+TABLE|Y|CHECK_METHOD_RIGHTS|Операции проверки прав доступа|
+TABLE|Y|CLASSES|Типы базовых  понятий и данных|
+TABLE|Y|CLASS_PARTS|Частичные типы|
+TABLE|Y|CLASS_ATTRIBUTES|Реквизиты|
+TABLE|Y|CLASS_INDEXES|Индексы ТБП|
+TABLE|Y|CLASS_IND_COLUMNS|Колонки индексов ТБП|
+TABLE|Y|CLASS_PARTITIONS|Описание архивных разделов таблиц|
+TABLE|Y|CLASS_PART_COLUMNS|Описание колонок ахрхивных разделов таблиц|
+TABLE|Y|CLASS_REC_FIELDS|Описание полей ROWTYPE типа|
+TABLE|Y|CLASS_RELATIONS|Отношения наследования на ТБП|
+TABLE|Y|CLASS_RIGHTS|Права на ТБП|
+TABLE|Y|CLASS_RULES|Правила доступа к ТБП|
+TABLE|Y|CLASS_TABLES|Соответствие таблиц классам|
+TABLE|Y|CLASS_TAB_COLUMNS|Соответствие колонок таблиц квалификаторам|
+TABLE|Y|CONTROLS|Элементы форм|
+TABLE|Y|CRITERIA|Представления для отчетов и просмотра экземпляров ТБП|
+TABLE|Y|CRITERIA_COLUMNS|Описание колонок представлений|
+TABLE|Y|CRITERIA_COMPLEX|Комплексные представления|
+TABLE|Y|CRITERIA_COMPLEX_COLUMNS|Колонки комплексных представлений|
+TABLE|Y|CRITERIA_METHODS|Список доступных операций из представления|
+TABLE|Y|CRITERIA_PRINTS|Хранилище шаблонов представленй для печати из Навигатора|
+TABLE|Y|CRITERIA_PRINT_COLUMNS|Описание колонок представлений шаблонов для печати|
+TABLE|Y|CRITERIA_RIGHTS|Права на представления|
+TABLE|Y|CRITERIA_TRIES|Связанные таблицы ТБП в представлениях|
+TABLE|N|CURSORS|Тексты курсоров операций|
+TABLE|Y|DEPENDENCIES|Зависимости между операциями, ТБП, реквизитами ТБП|
+TABLE|Y|DICT_CHANGES|Изменения модели|
+TABLE|Y|ENTITIES|Базовые понятия|
+TABLE|N|ERRORS|Ошибки в операциях|
+TABLE|Y|FAVORITES|Меню пользователя|
+TABLE|N|FRM_LOCKS|Логические блокировки форм операций|
+TABLE|Y|FVR_FILTERS|Фильтры меню пользователя|
+TABLE|Y|GUIDE_GROUPS|Группы справочников|
+TABLE|N|HOST2PLP|Соответствие строк PL/Plus <-> PL/Sql|
+TABLE|N|HOST_SOURCES|Java код|
+TABLE|Y|LICENSE_DATA|Хранилище лицензионной информации|
+TABLE|T|LCONV|Временная таблица для конвертации LONG RAW в BLOB (LONG в CLOB)|
+TABLE|S|LONG_DATA|Значения реквизитов типа "OLE"|
+TABLE|Y|LRAW|Значения реквизитов типа "мемо"|
+TABLE|Y|MACRO_VALUES|Значения макросов принтеров|
+TABLE|Y|MESSAGES|Сообщения|
+TABLE|Y|METHODS|Операции|
+TABLE|Y|METHOD_GROUPS|Группы операций|
+TABLE|Y|METHOD_GROUP_MEMBERS|Состав групп операций|
+TABLE|Y|METHOD_PARAMETERS|Параметры операций|
+TABLE|Y|METHOD_RIGHTS|Права на операции|
+TABLE|Y|METHOD_VARIABLES|Глобальные переменные операций|
+TABLE|Y|NUMERATORS|Нумераторы|
+TABLE|Y|NUM_ATTRIBUTES|Системные нумераторы|
+TABLE|Y|OBJECTS_OPTIONS|Список элементов подсистем|
+TABLE|N|OBJECT_RIGHTS|Права доступа к экземплярам ТБП|
+TABLE|Y|OBJECT_RIGHTS_EX|Права доступа к экземплярам через реквизиты|
+TABLE|Y|OBJECT_RIGHTS_LIST|Права доступа к экземплярам ТБП  (исключения)|
+TABLE|Y|OBJECT_RULES|Правила доступа к экземплярам ТБП|
+TABLE|Y|OBJ_STATIC|Статические экземпляры|
+TABLE|S|ORSA_JOBS|Очередь заданий сервера отчетов|
+TABLE|S|ORSA_JOBS_OUT|Выполненные задания сервером отчетов|
+TABLE|S|ORSA_JOBS_PAR|Параметры отчетов для сервера отчетов|
+TABLE|S|ORSA_PAR_LOB|LOB-параметры отчетов для сервера отчетов|
+TABLE|Y|PARTITIONING_CONDITIONS|Условия профилей секционирования|
+TABLE|Y|PARTITIONING_PROFILES|Профили секционирования|
+TABLE|Y|PART_SUBPROFS|Профили подсекций|
+TABLE|Y|PART_SUBPROF_CONDS|Условия секционирования подсекций|
+TABLE|N|PLP$PARSER_INFO|Таблица разбора для парсера PL+|
+TABLE|Y|PRINTER_MACROS|Описание макросов принтеров|
+TABLE|Y|PRINTER_TYPES|Описание принтеров|
+TABLE|Y|PROCEDURES|Описание процедур|
+TABLE|Y|PROCEDURE_RIGHTS|Права на процедуры|
+TABLE|Y|PROFILES|Настройки пользовательских профилей|
+TABLE|Y|PROJECT|Проект|
+TABLE|S|QUERIES|Очередь заданий RUNPROC|
+TABLE|Y|REPL_SETTINGS|Настройки для репликации данных|
+TABLE|Y|REPL_SEQUENCES|Информация о последовательностях для репликации данных|
+TABLE|Y|REPORT_FORMULA|Формулы отчетов|
+TABLE|Y|REPORT_OBJECTS|Зависимости отчетов|
+TABLE|Y|REPORT_PARAM_RELATIONS|Зависисмости параметров отчетов|
+TABLE|Y|REPORT_ROLES|Роли для пакетов зависимостей отчетов|
+TABLE|Y|REPORT_VIEWS|Представления для отчетов|
+TABLE|Y|RTL_ENTRIES|Описания глобальных переменных,типов,функций, процедур операций|
+TABLE|N|RTL_EVENTS|Системные события|
+TABLE|N|RTL_LOCKS|Буфер для сохранения информации о блокировках LOCK_INFO|
+TABLE|Y|RTL_PARAMETERS|Параметры глобальных процедур и функций операций|
+TABLE|N|RTL_USERS|Информация о зарегистрированных пользовательских сессиях|
+TABLE|Y|RTL_USERS_PROPS|Дополнительные свойства пользовательской сессии|
+TABLE|Y|SECURITY_DOMAINS|Иерархия доменов администрирования доступа|
+TABLE|Y|SECURITY_JOBS|Задания системы доступа|
+TABLE|Y|SEC_DOMAIN_ENTRIES|Описание доменов администрирования доступа|
+TABLE|Y|SEC_DOMAIN_EQUALS|Эквивалентность доменов администрирования доступа|
+TABLE|Y|SEQUENCES|Последовательности нумераторов|
+TABLE|Y|SETTINGS|Системные настройки|
+TABLE|Y|SOURCES|Исходные тексты операций|
+TABLE|Y|STATES|Состояния ТБП|
+TABLE|Y|STORAGE_PARAMETERS|Параметры хранения таблиц и индексов|
+TABLE|Y|SUBJ_EQUAL|Эквивалентность субъектов доступа|
+TABLE|Y|SYSINFO_VARIABLES|Хранение глобальных переменных|
+TABLE|Y|SYSTEM_OPTIONS|Описание установленных приложений|
+TABLE|Y|TOPICS|Описания ТБП и операций|
+TABLE|Y|TRANSITIONS|Переходы между состояниями|
+TABLE|Y|TRANSITION_METHODS|Прямые вызовы операций-переходов|
+TABLE|Y|TRANSITION_RIGHTS|Права на переходы|
+TABLE|T|T_OUTPUT|Для вывода отладочной информации|
+TABLE|Y|USERS|Пользователи СУБД (субъекты доступа)|
+TABLE|Y|XDIAG|Диаграммы|
+TABLE|Y|DELAYED_ACTIONS|Журнал для хранения информации о действиях, отложенных при обновлении|

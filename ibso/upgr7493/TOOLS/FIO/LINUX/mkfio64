@@ -1,0 +1,3 @@
+﻿all:
+	gcc -m64 -c -fPIC fio.c -I/include
+	gcc -m64 -shared -o libfio64.so fio.o

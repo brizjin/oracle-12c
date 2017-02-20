@@ -1,0 +1,153 @@
+ADMIN_MGR                           Revision: 56518
+ADMIN_MGR                      BODY Revision: 56518
+AFTER_INSTALL                       Revision: 74514
+AFTER_INSTALL                  BODY Revision: 128882
+ATTR_MGR                            Revision: 93492
+ATTR_MGR                       BODY Revision: 93492
+BINDINGS                            Revision: 15072
+BINDINGS                       BODY Revision: 62451
+CACHE_MGR                           Revision: 50609
+CACHE_MGR                      BODY Revision: 50609
+CACHE_SERVICE                       Revision: 55024
+CACHE_SERVICE                  BODY Revision: 55024
+CALENDAR_MGR                        Revision: 50083
+CALENDAR_MGR                   BODY Revision: 50083
+CLASS_MGR                           Revision: 66754
+CLASS_MGR                      BODY Revision: 126198
+CLASS_UTILS                         Revision: 94127
+CLASS_UTILS                    BODY Revision: 113587
+CONSTANT                            Revision: 15072
+CONSTANT2                           Revision: 85747
+CONTEXT_INFORMATION                 Revision: 94745
+CONTEXT_INFORMATION            BODY Revision: 94745
+CRITICAL_LOCK_SERVICE               Revision: 56163
+CRITICAL_LOCK_SERVICE          BODY Revision: 56163
+DATA_VIEWS                          Revision: 55235
+DATA_VIEWS                     BODY Revision: 127538
+DBF                                 Revision: 15072
+DBF                            BODY Revision: 15072
+DICT_MGR                            Revision: 97771
+DICT_MGR                       BODY Revision: 113150
+EDOC_GEN                            Revision: 42440
+EDOC_GEN                       BODY Revision: 42440
+EDOC_MGR                            Revision: 42440
+EDOC_MGR                       BODY Revision: 42440
+EVENT_SERVICE                       Revision: 16948
+EVENT_SERVICE                  BODY Revision: 16664
+EXECUTOR                            Revision: 56847
+EXECUTOR                       BODY Revision: 76399
+FIO                                 Revision: 15072
+FIO                            BODY Revision: 15072
+FORHASH                             Revision: 15072
+FORHASH                        BODY Revision: 15072
+FORMS_MGR                           Revision: 74943
+FORMS_MGR                      BODY Revision: 89203
+FVR                                 Revision: 15072
+FVR                            BODY Revision: 15072
+INDEX_MGR                           Revision: 94127
+INDEX_MGR                      BODY Revision: 94127
+INST_INFO                      BODY Revision: 128642
+JAVAC_MGR                           Revision: 19890
+JAVAC_MGR                      BODY Revision: 19890
+JOB_WRAPPER                         Revision: 26379
+JOB_WRAPPER                    BODY Revision: 16664
+LIB                                 Revision: 89205
+LIB                            BODY Revision: 129618
+LOCK_INFO                           Revision: 15072
+LOCK_INFO                      BODY Revision: 15072
+LONG_CONV                           Revision: 15072
+LONG_CONV                      BODY Revision: 49122
+MAPEX_MGR                           Revision: 15072
+MAPEX_MGR                      BODY Revision: 33045
+MESSAGE                             Revision: 15072
+MESSAGE                        BODY Revision: 15072
+METHOD                              Revision: 43174
+METHOD                         BODY Revision: 134094
+METHOD_GROUP                        Revision: 15072
+METHOD_GROUP                   BODY Revision: 15072
+METHOD_MGR                          Revision: 114298
+METHOD_MGR                     BODY Revision: 114298
+MOVE_OBJ                            Revision: 15072
+MOVE_OBJ                       BODY Revision: 15072
+NAV                                 Revision: 128882
+NAV                            BODY Revision: 128882
+NUM_INTERFACE                       Revision: 15072
+NUM_INTERFACE                  BODY Revision: 15072
+NUM_MGR                             Revision: 15072
+NUM_MGR                        BODY Revision: 15072
+OPT_MGR                             Revision: 129085
+OPT_MGR                        BODY Revision: 129085
+PARTITIONING_MGR                    Revision: 124343
+PARTITIONING_MGR               BODY Revision: 124343
+PARTITIONING_UTILS                  Revision: 113802
+PARTITIONING_UTILS             BODY Revision: 113802
+PARTITIONING_VIEW                   Revision: 66709
+PARTITIONING_VIEW              BODY Revision: 124343
+PART_MGR                            Revision: 65552
+PART_MGR                       BODY Revision: 111553
+PATCH_TOOL                          Revision: 15072
+PATCH_TOOL                     BODY Revision: 74943
+PD_MGR                              Revision: 15072
+PD_MGR                         BODY Revision: 15072
+PLIB                                Revision: 134094
+PLIB                           BODY Revision: 134094
+PLP$PARSER                          Revision: 86610
+PLP$PARSER                     BODY Revision: 86610
+PLP2JAVA                            Revision: 44837
+PLP2JAVA                       BODY Revision: 44837
+PLP2PLSQL                           Revision: 85998
+PLP2PLSQL                      BODY Revision: 126198
+RCS_LOCK                            Revision: 15072
+RCS_LOCK                       BODY Revision: 15072
+REPL_MGR                            Revision: 15072
+REPL_MGR                       BODY Revision: 126852
+REPL_UTILS                          Revision: 48615
+REPL_UTILS                     BODY Revision: 49478
+REPORT_MGR                          Revision: 15072
+REPORT_MGR                     BODY Revision: 72293
+RTL                                 Revision: 26619
+RTL                            BODY Revision: 133263
+RTLOBJ                              Revision: 15072
+RTLOBJ                         BODY Revision: 15072
+RTL_TYPES                           Revision: 93694
+RTL_TYPES                      BODY Revision: 96491
+RULES                               Revision: 15072
+RULES                          BODY Revision: 34480
+RUNPROC_MGR                         Revision: 15072
+RUNPROC_MGR                    BODY Revision: 15072
+RUNPROC_PKG                         Revision: 34686
+RUNPROC_PKG                    BODY Revision: 34686
+SC_MGR                              Revision: 44167
+SC_MGR                         BODY Revision: 44167
+SECADMIN                            Revision: 128882
+SECADMIN                       BODY Revision: 128882
+SECURITY                            Revision: 31457
+SECURITY                       BODY Revision: 97887
+SHORT_VIEWS                         Revision: 15072
+SHORT_VIEWS                    BODY Revision: 16810
+STAT_LIB                            Revision: 15072
+STAT_LIB                       BODY Revision: 15072
+STDIO                               Revision: 15072
+STDIO                          BODY Revision: 15072
+STORAGE_MGR                         Revision: 126198
+STORAGE_MGR                    BODY Revision: 126198
+STORAGE_UTILS                       Revision: 124343
+STORAGE_UTILS                  BODY Revision: 124343
+SVIEWS                              Revision: 66709
+SVIEWS                         BODY Revision: 134752
+SYSINFO                             Revision: 54716
+SYSINFO                        BODY Revision: 54716
+TYPES                               Revision: 15072
+TYPES                          BODY Revision: 15072
+USER_CONTEXT                        Revision: 15072
+USER_CONTEXT                   BODY Revision: 15072
+UTILS                               Revision: 55349
+UTILS                          BODY Revision: 55349
+UTL_FILE                            Revision: 26724
+UTL_FILE                       BODY Revision: 26724
+VALMGR                              Revision: 125683
+VALMGR                         BODY Revision: 126198
+XRC_XMLDOM                          Revision: 15072
+XRC_XMLDOM                     BODY Revision: 15072
+XRC_XMLPARSER                       Revision: 15072
+XRC_XMLPARSER                  BODY Revision: 15072

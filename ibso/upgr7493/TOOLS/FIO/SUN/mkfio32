@@ -1,0 +1,3 @@
+#!/bin/sh
+gcc -c -m32 -fPIC fio.c -I$ORACLE_HOME/rdbms/demo -I$ORACLE_HOME/rdbms/public -I$ORACLE_HOME/plsql/public -I$ORACLE_HOME/network/public
+ld -G -o libfio32.so fio.o

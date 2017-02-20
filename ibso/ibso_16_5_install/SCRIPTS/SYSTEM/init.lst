@@ -1,0 +1,52 @@
+SP2-0310: unable to open file "usr_sets.sql"
+Schema owner name (IBS) :
+Default tablespace (T_USR) :
+Temporary tablespace (TEMP) :
+DEFINE _DATE           = "20-FEB-17" (CHAR)
+DEFINE _CONNECT_IDENTIFIER = "work" (CHAR)
+DEFINE _USER           = "SYS" (CHAR)
+DEFINE _PRIVILEGE      = "AS SYSDBA" (CHAR)
+DEFINE _SQLPLUS_RELEASE = "1201000200" (CHAR)
+DEFINE _EDITOR         = "ed" (CHAR)
+DEFINE _O_VERSION      = "Oracle Database 12c Enterprise Edition Release 12.1.0.2.0 - 64bit Production
+With the Partitioning, OLAP, Advanced Analytics and Real Application Testing options" (CHAR)
+DEFINE _O_RELEASE      = "1201000200" (CHAR)
+DEFINE AUDM_OWNER      = "AUDM" (CHAR)
+DEFINE INIT_TDEF       = "T_USR" (CHAR)
+DEFINE INIT_TTMP       = "TEMP" (CHAR)
+DEFINE IBSO_OWNER      = "IBS" (CHAR)
+DEFINE U               = "IBS" (CHAR)
+DEFINE DT              = "T_USR" (CHAR)
+DEFINE TT              = "TEMP" (CHAR)
+Are Settings OK? [YES]: 
+
+PL/SQL procedure successfully completed.
+
+
+Checking tablespaces
+
+PL/SQL procedure successfully completed.
+
+
+PL/SQL procedure successfully completed.
+
+SQL> create user &u identified by &u;
+
+User created.
+
+SQL> alter  user &u default tablespace &dt;
+
+User altered.
+
+SQL> alter  user &u temporary tablespace &tt;
+
+User altered.
+
+SQL> alter  user &u default role none;
+
+User altered.
+
+SQL> 
+SQL> 
+SQL> 
+SQL> spool off

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<?xml-stylesheet type="text/xsl" href="reports.xsl"?>
+<context>
+  <subjects>
+    <params paramform="no" destype="preview" desname='"Adobe PDF"' decimal='"."' thousands='","' maximize="yes"></params>
+    <reports>
+      <report filename="ua_right.rdf" paramform="no">Доступные ТБП, Операции, Представления, Переходы</report>
+      <report filename="ua_obj.rdf">Доступ к экземплярам системы</report>
+      <report filename="ua_o_cat.rdf">Доступ к экземплярам системы с категориями доступа</report>
+      <report filename="ua_obj_ex.rdf">Доступ по реквизиту</report>
+      <report subj_type='"U"' filename="ua_user.rdf">Пользователи со своими группами</report>
+      <report subj_type='"U"' filename="ua_admins.rdf">Пользователи с правами администраторов</report>
+      <report subj_type='"U"' filename="ua_profiles.rdf">Профили пользователей</report>
+      <report subj_type='"U"' filename="ua_temp_rights.rdf">Пользователи, временно получившие права</report>
+      <report subj_type='"G"' filename="ua_group.rdf">Группы со своими пользователями</report>
+    </reports>
+  </subjects>
+  <domains>
+    <reports>
+      <report filename="ua_right.rdf" paramform="no">Доступные ТБП, Операции, Представления, Переходы</report>
+      <report filename="ua_obj.rdf">Доступ к экземплярам системы</report>
+      <report filename="ua_o_cat.rdf">Доступ к экземплярам системы с категориями доступа</report>
+      <report filename="ua_obj_ex.rdf">Доступ по реквизиту</report>
+      <report subj_type='"U"' filename="ua_user.rdf">Пользователи со своими группами</report>
+      <report subj_type='"U"' filename="ua_admins.rdf">Пользователи с правами администраторов</report>
+      <report subj_type='"U"' filename="ua_profiles.rdf">Профили пользователей</report>
+      <report subj_type='"U"' filename="ua_temp_rights.rdf">Пользователи, временно получившие права</report>
+      <report subj_type='"G"' filename="ua_group.rdf">Группы со своими пользователями</report>
+    </reports>
+  </domains>
+  <model>
+    <params paramform="no" destype="preview" desname='"Adobe PDF"' decimal='"."' thousands='","' maximize="yes"></params>
+    <reports>
+      <report filename="ua_model.rdf">Отчёт о модели</report>
+    </reports>
+  </model>
+  <condition>
+    <params paramform="no" destype="preview" desname='"Adobe PDF"' decimal='"."' thousands='","' maximize="yes"></params>
+    <reports>
+      <report filename="ua_obj.rdf">Доступ к экземплярам системы</report>
+    </reports>
+  </condition>
+</context>

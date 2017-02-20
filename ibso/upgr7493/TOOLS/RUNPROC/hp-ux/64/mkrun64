@@ -1,0 +1,4 @@
+#!/bin/sh
+ld -o runproc64 main.o -L. -L$ORACLE_HOME/lib -lpthread -lclntsh -lrunproc64
+
+

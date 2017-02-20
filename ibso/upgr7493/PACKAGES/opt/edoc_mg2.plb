@@ -1,0 +1,55 @@
+prompt edoc_mgr body
+create or replace package body
+/*
+ *  $HeadURL: http://hades.ftc.ru:7382/svn/pltm2/CorePkg/tags/7.4.9.3/IBS/edoc_mg2.sql $
+ *  $Author: almakarov $
+ *  $Revision: 42440 $
+ *  $Date:: 2014-02-25 11:15:23 #$
+ */
+edoc_mgr wrapped 
+a000000
+ab
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+b
+2066 6cf
+87I3HHleHTk5CmI8ZC12H79wD4Uwg1WT10oa3y//WLCPtO/wK7N2gpevsunE63BUBfXoriKR
+6q3p95v5B1Nfa3l8oNdfwjHp7DfU4mQ/TFzfpD7RXTY6LWIgOrGWqrVr+ZJOT27jVtnlQZTx
+YVaw5vvvxquXbtaKrdmYoxaXFG6pHrOK50mXws92ARBMncndl7FWx1Lcyj2UU90X2oHyMFIb
+5JXpvQYwyh+PdPzQr2YBhFjMQOoaqXNwVQLFs79M2UOEhDtY5YZ5+wFyqB+joNNKc6EyoNaE
+F0gY9zkbs0HPoh/FRl5qlCeykbnicP1X4v7RuBLz8SzRzhoRJl071rBzMyVUlqspynYCis8H
+NXoZLY9u5EiiXb4/I7ARq8tr0poJvBD3OW4KYG7xNTRTTQW3rMJioO8FhiCD8iMnxzb5br/l
+TfQvzidGP9/IAwrr0iUTAhp5vRmZvSCb0QaWnav0PGYB8SfIPB/EO+XXpsewHxcW0eVdw5bN
+hKiawJebYZyt9m1hmEPxthsWq8MpNWyMK2fpiJQXARGARzYOQuHvCcBSVAR/AN+50/HCw6xB
+tKh97AITAhTTFUi5dy1IbQxI+ROBC+chn0q16HhaYJ6Qm/Uj4zObHiVeKycknn+JX+vo6moj
+35btaPMB9UwQ42myhU6ojgZNmpPBaEJIoG8kYXmyRkTtzPej3QkNazyoXgqHeuvnao3DU6V/
+FKM31RZOuuME4d0nM3Vwb6wojj+O7MyD2msckdNtfWShoo7MyNlfEREXQjleMaYYJqjCibV2
+4oZTisWjC73GE/zjehKbMZXuPDSJAk2CbDtIHWENipDQvmDJa+BwZMH67YaUgHemqzJRbe8G
+UKCxNVTPC+p93/AqJTA6ucBZxPCsBiYJF3Lu8EKSb2HfNWu+wSR1MRUrapQjG0U2INHW3kDz
+s+Sjb/Q7oyFC6Udo07u2FswuwmqozBkECS6FlEgV9P7p5e8i29xIQVqu05rtAeoFiVIut2or
+8sZaeKjoeBZe9kAG3M2TI+1YokspvQjG0iHZIcwcMGFmI5yneBJdNwE4EMhxp4gnD/Gji01Y
+KHihbafe2aHGKwvrTSYu0M7/HA6PqaSYKdw8RYnm74YlJ1oXI1XNAGhQHgsX74NBH0up5TAD
+RhjlUmkJvl53PoUDMDdVAi3FMAn30WtAYvYk6SrbPBcEv6s2ION/FJ3438WRQekBDJrvBCx+
+AzNTU2DSU81/aHuaFNlYTPxF5P0TtAFouM5oXstjLl13MaP/QKMXTajk4c/BMzzMBkO1GkS8
+5ePig7910lCSvBDH6u4Hm19MPya89N5eb1LwB1QeeiL+GuiUMjLZPFlbIKRbOEru7evzVRjI
+o7LUwt8Mv5thdagcvA41XBXmsFMWPSOYcSH111vEEBnF+7sWIfRuIqC0fk7coT0zoJmdiXSu
+TkWK+qsiMPTEMarU14Petw/S+v35q64J6l35tAP/mKUmflUWmUvQBW46Fy+HgASDG8vmRyQ5
+uOZEfUJqvOUnEqIokFIOrrvOGcaOdlhSd5jLkNlY5Ntr0/FenwnTKEAXaGIIsK+JONSGSb0D
+s/U67DfI6MlwayZstF0B/K7IMXzC6tk3I9SDx6jJfrsLqL2qbRVCQbRMloznUhlufPFINdTo
+74o2UYZTCFlRxdfc/vv0EnHc/HvNC41sm1de0go5ozrKEQcqvSObsKr7VdL81g==
+
+/
+show err package body edoc_mgr

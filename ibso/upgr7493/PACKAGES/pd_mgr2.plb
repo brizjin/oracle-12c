@@ -1,0 +1,55 @@
+prompt PD_MGR body
+CREATE OR REPLACE PACKAGE BODY
+/*
+ *  $HeadURL: http://hades.ftc.ru:7382/svn/pltm2/CorePkg/tags/7.4.9.3/IBS/pd_mgr2.sql $
+ *  $Author: Alexey $
+ *  $Revision: 15072 $
+ *  $Date:: 2012-03-06 13:41:17 #$
+ */
+PD_MGR wrapped 
+a000000
+ab
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+b
+15ea 6cf
+nCm6qksM2FLrODedNYjhzUpt0wIwg0NUVUiGxS8ZHnpEoztGOwuT+rlVYJP0gxQ1bHD7SHjq
+P/Mk5FivtI/boesnDbAlKekFdHwkmkd4dN5UgUfLbnopklnsRdqkdPOfDdNhgm49o/qC2N76
+WINRSyaTENPFl49fdz3HjoUAqI0rPH9DhZmCPfdYuzEbSSS/GnvsfgP/xApcC/WVHjy4yAj8
+vvZi/kC95BZmiYZbSGEKST8vnkbgrmCEFdM98qFo99WdEHGmc/LaUf0HzIml6hE9UpVBFGSC
+xX5e1Z5hve7lOfAFNWQj95NpzFfrm3on31lU3F+3YyVMC9ttyI+n7Qn3rDJDHFhi1rdhEML/
+kXnruLdrMh4nawzZkLb8yMwoSySz7vPsH/UuTjS0jqZmZ0+zsmJ9QqiJFCTqSBT2jx3Ud6OG
+Pb2FXEl3h5ySXFJe23JblqWfOU2mGaKu01FD8erLmxnFnEJ4kEB6ufAi81k7bGSAy/rUtZTa
+CEy4j/04BKnmZw4UpvNJU2IRLH5Q5LEj/ThZZmmG5qKPb2/z1kLl07WuaKMONfrwsxuMjaCm
+CPTaK4LGET8BoaO8bnHYDs0CCRJhTGnkfok216aRwS1jlXUYrHFdOKeHztrvso4MW7mkA+i2
+gdvCrCFVh8Id3hrN4QdpKynroVPD8ie8Fzv1NscB6pZqLUY7usjtfDGbFuTuAn1wwlLwfhyT
+qyZ28XxTA7qATVsMpo7NKd9aNKSOPi4XfRsMF0gpesaMs1TP8ZPnS7kSoyW8xIB5cQeV38ML
+uFWcFOawHi0W6e1OfLkNqGKO8IZpKWRZU6+vNZZhjvhWpkfvXlA2whbi1QCRHcNvFI3qt3qJ
+UKW9vhkCwCT4juCVHQyg4MJObOp0ZwILVO9kYFfLeZ57272XQMtBPCT7+j/jO7tDHKxPPoM6
+XCgL7trhPNZNTphrOhDO1Wsin/ppWlAHnxOJANbOGBSd1bkSfBXYz3RAulXsGL+uOy7OeBea
+9RKJhEnSCecwn3XLUsj3bNmOJqYDcjXzEbjM0hBz9BG3oFXEFjY1joIcqLxo52/8j38iRMsh
+eRX7ZDoiWxyM7n3MUjVqzByJRMRgPm8M4dvLAyptAfdAPRIRWpJB5Kr0MHxFebw3hrlopYiI
+WH8w5B4RHtXOYVvkOI78dkpIleE4SbxAJoJ8jjI4b3nlSCHfEQVAebxAuyASyLsp46tRPnN2
+iZuxuLGrKhcGD2MAwMyPU8Q+2b4ToidVMEQtKja/fJOYQxLRO0XQoPEUk1iFbXWOziEm7TLq
+KLlq/7pi1IzAgkb0gapiQPoG2tZ1Jb8KIIdTpWCZkKuvxSH2RDlz1EgoY2ly+1ge1Pf9q7Pf
+HO3rgCIZoWbFUn0c1YiZMlGXhA06SYB4hdPWWz1l9OZ3qG2MLB/El3ZQlaN1We2hKyhqAmDP
+0q+2zZtzOoXkdYm52rlk+rvPJpHrbu3Q0KrS4qqABkjXHU8bxz2qyL4wOABlGnFKFh8PJtu9
+QxnrPNCZMe9qNeeV0JS/YS4w6CQsz73jkr9Fe9yOWpLa0V8FS9u5SLo/lHoJVOs2rBFnJyxT
+RahvforISwSivbBxLf+1MV9j87FlV6bqr1xV0NK8CxApPO0h0BJIWP4gvrqLF5r7bP6i041b
+HrEj+Ts9IVgZU9MGOnxAbxI5TjyB6iAsKiGBSwRd/ae5eqZI95mqqjofnEq3ag==
+
+/
+sho err package body pd_mgr

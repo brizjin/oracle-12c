@@ -1,0 +1,2 @@
+#!/bin/sh
+gcc -o runproc32 main.o -L. -L$ORACLE_HOME/lib32 -lpthread -lclntsh -lrunproc32

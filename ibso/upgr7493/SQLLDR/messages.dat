@@ -1,0 +1,2076 @@
+ADMIN            ATTRIBUTE_METHOD,
+Операция %1 используется как функциональный реквизит
+ADMIN            BAD_CHECK_METHOD,
+Недопустимая спецификация операции [%2] проверки перехода из состояния [%4] в состояние [%5] в типе [%1] (позиция %3)
+ADMIN            BAD_COLLECTION_JOIN,
+Невозможно присоединить коллекцию "%2" по ключу "%1"
+ADMIN            BAD_COLUMN_SOURCE,
+Не найдена таблица для указанного источника "%1"
+ADMIN            BAD_METHOD,
+[%1] операция не найдена
+ADMIN            BAD_METHOD_TYPE,
+Операция "%1" неправильного типа
+ADMIN            BAD_REFERENCE_JOIN,
+Невозможно присоединить ссылку "%2" по ключу "%1"
+ADMIN            BAD_STATE_METHOD,
+Недопустимая спецификация операции [%2] проверки состояния [%3] в типе [%1]
+ADMIN            BAD_TABLE_ALIAS,
+Неправильный алиас "%1" для таблицы "%2"
+ADMIN            BAD_TRANS_METHOD,
+Недопустимая спецификация операции [%2] перехода из состояния [%4] в состояние [%5] в типе [%1] (позиция %3)
+ADMIN            COMPILE_ERROR,
+[%1] [%2] ошибки компиляции операции %3
+ADMIN            EMPTY_COLUMN_TARGET,
+Не задан тип ссылки для колонки №%1
+ADMIN            FORM_METHOD,
+На форму операции %1 существуют ссылки
+ADMIN            KERNEL_METHOD,
+Операция [%1] принадлежит ядру системы
+ADMIN            LONG_TEXT,
+Размер текста PL/Plus слишком велик (>32k)
+ADMIN            METHOD_CRITERION,
+Операция [%1] является критерием, для нее невозможно создать пакет
+ADMIN            NOVO_LIGHT_WEIGHT,
+Признак возможности упрощенной инициализации сервера приложений
+ADMIN            NO_NESTED_QUAL,
+Неправильный тип представления для просмотра вложенного массива %1
+ADMIN            PROCEDURE_EXISTS,
+Процедура с именем [%1] уже существует
+ADMIN            RESOURCE_BUSY,
+[%1] операция блокирована
+ADMIN            STATE_COLUMN_IN_COMPLEX,
+В сложном представлении нельзя использовать колонки типа "Состояние" (колонка №%1).
+ADMIN            STATE_METHOD,
+На операцию [%1] ссылается %2 состояний
+ADMIN            TRANSITION_METHOD,
+На операцию [%1] ссылается %2 переходов
+ADMIN            UNKNOWN_TEXT_TYPE,
+[%1] [%2] неизвестный тип входного текста [%3]
+ADMIN            UNSUPPORTED_OBJ_RIGHTS,
+Предупреждение! Представление создано без проверки доступа!\nНе поддерживаемое значение параметра ObjRights = %1
+CLS              ATTR_EXISTS,
+Реквизит [%2] уже существует у типа [%1]
+CLS              ATTR_NAME_EXISTS,
+Реквизит с именем [%2] уже существует у типа [%1]
+CLS              BAD_CLASS,
+Неверный тип [%1] экземпляра "%2"
+CLS              BAD_CLASS_ATTR,
+У типа [%1] нет реквизита [%2]
+CLS              BAD_FUNC_ATTR,
+[%1]: Неправильный тип [%2] функционального реквизита %3
+CLS              BAD_KEY_ATTR,
+[%1]: Неправильный тип [%2] ключевого реквизита %3
+CLS              BAD_LIST,
+Неверный список экземпляров
+CLS              BAD_QUALIFIER,
+Неправильный квалификатор [%1], тип [%2]
+CLS              CACHE_ERROR,
+Ошибка КЭША: [%1] -> [%2] ...
+CLS              CANNOT_CREATE_KEY_ATTR,
+[%1]: Невозможно определить ключевой реквизит %2 в дочернем типе
+CLS              CANNOT_CREATE_NVARCHAR2_ATTR,
+Невозможно создать атрибут [%1] класса [%2] с типом, базирующимся на [%3] - отключена поддержка NVarchar2
+CLS              ATTR_ERROR_NO_UNICODE_LICENSE,
+Невозможно создать/изменить атрибут [%1] класса [%2] с типом, базирующимся на [%3] - использование NVarchar2 не лицензировано
+CLS              CANNOT_DELETE_KEY_ATTR,
+[%1]: Невозможно удалить ключевой реквизит %2
+CLS              CANNOT_MODIFY_FUNC_ATTR,
+[%1]: Невозможно изменить тип функционального реквизита %2 на ключевой
+CLS              CANNOT_MODIFY_KEY_ATTR,
+[%1]: Невозможно изменить тип ключевого реквизита %2 на функциональный
+CLS              DELAYED_ACTION_UNKNOWN_TYPE,
+Неизвестный тип отложенного действия %1
+CLS              DELAYED_ACTION_ADD_INDEX,
+Добавлено действие %1 над индексом %2 типа [%3]
+CLS              DELAYED_ACTION_ADD_QUAL,
+Добавлено действие %1 над квалификатором [%2] типа [%3]
+CLS              DELAYED_ACTION_ERROR,
+Ошибка выполнения отложенного действия: %1
+CLS              DELAYED_ACTION_SUCCESS_INDEX,
+Выполнено действие %1 над индексом %2 типа [%3]
+CLS              DELAYED_ACTION_SUCCESS_QUAL,
+Выполнено действие %1 над квалификатором [%2] типа [%3]
+CLS              DELETE_COLLECTION,
+Ошибка удаления коллекции %3 (реквизит [%2], тип [%1])
+CLS              DEP_ATTR,
+Реквизит %1
+CLS              DEP_ATTR_TYPE,
+%1 "%2" типа %3
+CLS              DEP_CLASS,
+Тип %1 "%2"
+CLS              DEP_COLLECTION_OF,
+%1 "%2" массив типа %3
+CLS              DEP_DERIVED_FROM,
+%1 "%2" порожден от %3
+CLS              DEP_METHOD,
+Операция %1 "%2"
+CLS              DEP_PARAM,
+Параметр %1 "%2" типа %3
+CLS              DEP_REFERENCE_TO,
+%1 "%2" ссылка на тип %3
+CLS              DEP_REPORT,
+От типа %1 зависят:\nТипов    %2\nРеквизитов %3\nОпераций   %4\nПараметров %5\nПеременных %6
+CLS              DEP_RET_TYPE,
+Операция возвращает тип %1
+CLS              DEP_VAR,
+Переменная %1 "%2" типа %3
+CLS              DUPLICATE_COLUMN,
+Предупреждение: Дублируется имя колонки %1 для квалификаторов "%2" - "%3"
+CLS              DUPLICATE_COLUMN_ERROR,
+Дублируется имя колонки %1 для квалификаторов "%2" - "%3"
+CLS              KEY_ATTR_EXISTS,
+В типе %1 уже существует ключевой реквизит %2
+CLS              KEY_ATTR_MUST_EXIST,
+Невозможно создать новый ключевой реквизит %2 в типе %1, который имеет таблицу
+CLS              METADATA,
+Модификация метаданных запрещена!
+CLS              NOT_SUPPORTED,
+%1 Для данного типа функция не поддерживается
+CLS              NO_ARCHIVING,
+В типе [%1] отсутствуют архивные реквизиты
+CLS              NO_COLLECTIONS,
+Экземпляры типа [%1] не могут находиться в массивах
+CLS              NO_INSTANCES,
+Тип [%1] не может иметь экземпляров или отсутствует таблица
+CLS              NO_STATES,
+Экземпляры типа [%1] не могут иметь состояний
+CLS              NO_STATIC,
+Тип [%1] не может иметь статический экземпляр, так как не имеет статических реквизитов
+CLS              NUM_ACTIVESEQ_NOT_EXIST,
+Не найдена активная последовательность нумератора
+CLS              NUM_DUB_CODE,
+Код неуникальный
+CLS              NUM_EXIST_CA,
+Нумератор для реквизита [%1] типа [%2] уже существует
+CLS              NUM_EXIST_CODE,
+Нумератор [код= %1] уже существует
+CLS              NUM_INVALID_CACHE,
+Кэш не может превышать значение цикла и не может быть больше %1
+CLS              NUM_INVALID_INCR,
+Инкремент не может превышать разности между максимальным и минимальным значением
+CLS              NUM_INVALID_MAXVAL,
+Максимальное значение должно быть больше минимального
+CLS              NUM_IS_NOT_FOUND,
+Тип/реквизит/последовательность не существует
+CLS              NUM_IS_NOT_SYS,
+Нумератор [ID = %1] не является системным или не существует
+CLS              NUM_IS_USED,
+Нумератор используется в других реквизитах и не может быть удален
+CLS              NUM_LOCKED,
+Нумератор заблокирован другим пользователем и не может быть изменен
+CLS              NUM_MAX_CA,
+Ошибка получения значения: нумератор для реквизита [%1] типа [%2] достиг своего максимума(минимума)
+CLS              NUM_MAX_ID,
+Ошибка получения значения: нумератор [CODE = %1] достиг своего максимума(минимума)
+CLS              NUM_NOT_EXIST,
+Нумератор не найден
+CLS              NUM_NOT_EXIST_CA,
+Нумератор для реквизита %1 типа %2 не найден
+CLS              NUM_SEQ_NOT_EXIST,
+Последовательность [%1] не найдена
+CLS              NUM_START_LESS_MINVAL,
+Начальное значение не может быть меньше минимального
+CLS              NUM_START_MORE_MAXVAL,
+Начальное значение не может быть больше максимального
+CLS              NUM_SYS,
+Данная операция не может быть вызвана для системного нумератора
+CLS              NUM_VAL_ERROR,
+Ошибка получения следующего значения нумератора
+CLS              NUM_VAL_TOO_BIG,
+Присваиваемое значение слишком велико
+CLS              OBJECT_NOT_FOUND,
+Экземпляр "%1" не найден, тип [%2]
+CLS              TMP_CHILD_PERM,
+Постоянный тип [%1] не может быть потомком временного типа [%2]
+CLS              TMP_CHILD_TEMP,
+Временный тип [%1] не может быть потомком постоянного типа [%2]
+CLS              TMP_COLLECTION,
+Временный тип [%1] не может иметь коллекцию экземпляров постоянного типа [%2]
+CLS              TMP_OLE,
+Временный тип [%1] не может ссылаться на внешние OLE-объекты
+CLS              TMP_OPERATION,
+Операция [%1] не может быть выполнена для временного типа [%2]
+CLS              TMP_PARTITIONS,
+Временный тип [%1] не может иметь секций
+CLS              TMP_REFERENCE,
+Постоянный тип [%1] не может иметь ссылку на временный тип [%2]
+CLS              TMP_SWITCHING_OFF_LOGGING,
+Сброшен флаг "журналируемая" колонки %1. Временный ТБП
+CLS              TMP_SWITCHING_OFF_STATIC,
+Сброшен флаг "статическая" колонки %1. Временный ТБП
+CLS              TMP_TABLE,
+Таблица типа [%1] не соответствует описанию
+CLS              TMP_TEMP_TYPE_COLLECTION,
+НЕ СОВПАДАЮТ ТИПЫ ВРЕМЕННЫХ ТАБЛИЦ типа [%1] и целевого типа [%2] реквизита-коллекции [%3]
+CLS              TMP_TEMP_TYPE_REFERENCE,
+НЕ СОВПАДАЮТ ТИПЫ ВРЕМЕННЫХ ТАБЛИЦ типа [%1] и целевого типа [%2] реквизита-ссылки [%3]
+CLS              VALUE,
+Значение
+CLS              CLASS_PART_NOT_EXISTS,
+Отсутствует частичный тип для типа [%1] с идентификатором %2
+EDOC             BAD_CLS_EDT_MAP_METH,
+[%1] Некорректный PL+ блок определения типа электронного документа.
+EDOC             BAD_CLS_FRM_MAP_METH,
+[%1] Некорректное наименование операции подписи электронного документа.
+EDOC             BAD_OBJ_SOURCE,
+[%1] Некорректный PL+ блок определения участника электронного документооборота.
+EDOC             BAD_TYPE_ID,
+У типа [%2] отсутствует ТЭД [%1].
+EDOC             EDOCS_ARE_ABSENT,
+У типа [%1] отсутствуют ТЭД.
+EDOC             EMPTY_OR_BAD_EDOCS,
+У типа [%1] отсутствуют корректные ТЭД. %2
+EDOC             INVALID_STATE,
+[%1] Некорректное состояние [%2] для контроля.
+EDOC             NO_KEY_ATTRIBUTES,
+Пустой список атрибутов ТЭД [%1], составляющих блок данных для подписи.
+EDOC             SUPPORT_TURNED_OFF,
+Тип [%1] не участвует в электронном документообороте.
+EDOC             RECREATE_EDOC_GRANTS,
+На схеме установлена подсистема ЭДО.\nБыли пересозданы системные роли, из-за чего у данных ролей были удалены права на объекты ЭДО.\nВыполняется пересоздание прав на объекты ЭДО.
+EDOC             RECREATE_EDOC_GRANTS_ERR,
+При пересоздании прав возникла ошибка.\nНеобходимо переустановить дистрибутив ЭДО.
+EXEC             ABSTRACT_CLASS,
+Тип %1 не может иметь экземпляров
+EXEC             ACTUAL_PARTITION,
+Актуальная секция
+EXEC             ALTERING,
+Изменение %1
+EXEC             ALTERING_NEW_TABLE,
+Изменение новой таблицы - %1
+EXEC             ALTERING_TABLE,
+Изменение таблицы %1
+EXEC             ANALYZING,
+Анализ %1 : %2
+EXEC             ANALYZING2,
+Анализ %1(%2) : %3
+EXEC             ATTR_MUST_BE_NOT_NULL,
+Реквизит %1 ТБП %2 должен быть NOT NULL
+EXEC             ATTR_MUST_BE_NOT_INDEXED,
+Реквизит %1 ТБП %2 должен быть с ограничениями
+EXEC             ATTR_WITH_TYPE_NOT_EXISTS,
+В ТБП %1 отсутствует реквизит с типом, заданным для профиля %2
+EXEC             AUTO_CHANGE_STATE,
+Экземпляр %1 не может сам покинуть состояние [%2]
+EXEC             AUTO_CHANGE_STATE_S,
+Экземпляр %1 не может сам перейти из состояния [%2] в состояние [%3]
+EXEC             BAD_ATTRIBUTE,
+Неверный реквизит %1 для экземпляра %2
+EXEC             BAD_ATTR_TYPE,
+У экземпляра %1 неверный квалификатор %2
+EXEC             BAD_ATTR_VALUE,
+Неверное значение [%3] для реквизита [%1] экземпляра [%2]
+EXEC             BAD_CLASS_ID,
+Не найден тип [%1]
+EXEC             BAD_CURSOR,
+[%1] невозможно открыть курсор
+EXEC             BAD_METHOD,
+Операция [%1] для типа [%2] не задана
+EXEC             BAD_OBJECT_CLASS,
+Экземпляр %1 должен принадлежать к типу %2 или его потомкам
+EXEC             BAD_PACKAGE,
+[%1] нет пакета хранимых процедур
+EXEC             BAD_PARAMETER,
+Неверный параметр %1 для операции [%2]
+EXEC             BAD_PRIORITY,
+Недостаточный уровень приоритета операции %1 (больше текущего уровня %2)
+EXEC             BAD_QUALIFIER,
+Неверный квалификатор [%1] для параметра %2
+EXEC             BAD_SEQUENCE,
+Неверное имя последовательности %1
+EXEC             BAD_SYSTEM_METHOD,
+[%1] не заданы экземпляр и тип при вызове операции
+EXEC             BAD_VALUE,
+Неверное значение (%1) для параметра %2 операции %3 %4
+EXEC             CANNOT_EXCHANGE,
+Невозможно обменять актуальную секцию для %1...
+EXEC             CANNOT_MOVE_ATTR,
+Перемещение функционального или ключевого реквизита [%1].[%2] в другие типы запрещен...
+EXEC             CANT_CHANGE_ROW_MOVEMENT,
+Нельзя изменить значение свойства ROW_MOVEMENT таблицы ТБП %1 - существуют ТБП, связанные с ним механизмом секционирования по ссылке
+EXEC             CANT_CHANGE_STATE,
+Экземпляр %1 не может перейти из состояния [%2] в состояние [%3]
+EXEC             CANT_HAVE_INSTANCES,
+У типа "%1" и производных от него не может быть экземпляров
+EXEC             CANT_LEAVE_STATE,
+Экземпляр %1 не может покинуть состояние [%2]
+EXEC             CANT_RECONC_REFPART_CH_EXISTS,
+Нельзя перестроить таблицу ТБП %1 - существуют ТБП, связанные с ним механизмом секционирования по ссылке
+EXEC             CAN_NOT_RENAME,
+Невозможно переименовать %1 - %2 уже существует...
+EXEC             CHANGE_STATE_ACCESS,
+Переход [%2] - [%3] для экземпляра %1 недоступен пользователю %4
+EXEC             CHANGE_STATE_M,
+Экземпляр %1 не может покинуть состояние [%2] с помощью операции [%3]
+EXEC             CHANGE_STATE_MS,
+Экземпляр %1 не может перейти из состояния [%2] в состояние [%3] с помощью операции [%4]
+EXEC             CHANGING_COLLECTIONS_VIEWS,
+Изменение COL2OBJ, COLLECTIONS
+EXEC             CHANGING_OBJECTS_VIEW,
+Изменение OBJECTS
+EXEC             CHANGING_STORAGE_FINISH,
+Конец модификации схемы хранения
+EXEC             CHANGING_STORAGE_START,
+Начало модификации схемы хранения
+EXEC             CHANGING_TYPE_WITHOUT_CONV,
+Изменение типа колонки без конвертации данных...
+EXEC             CLASSES_WERE_FOUND,
+++ Найдено %1 типов, удовлетворяющих заданным условиям
+EXEC             CLASS_CROSS_REFS_WERE_FOUND,
+++ Найдено %1 типов с перекрестными ссылками (%2 ссылок)
+EXEC             CLASS_HAS_NO_TABLE,
+У типа %1 нет таблицы
+EXEC             CLASS_NOT_ACCESSIBLE,
+%3 Тип [%1] не доступен пользователю %2
+EXEC             CLASS_REF_PART_CLEAN,
+ТБП [%1] назначен пустой профиль секционирования
+EXEC             CLEANING_TABLE_START,
+Усечение таблицы типа %1 - НАЧАЛО
+EXEC             CLEARED_VALUES,
+Очищено %1 значений.
+EXEC             CLEARING_INVALID_OLES,
+Чистка неправильных ole...
+EXEC             CLEARING_INVALID_REFERENCES,
+Чистка неправильных ссылок...
+EXEC             CLRING_INVALID_OLES_FIN,
+Чистка неправильных ole завершена.
+EXEC             CLRING_INVALID_REFERENCES_FIN,
+Чистка неправильных ссылок завершена.
+EXEC             COLLECTION,
+Массив %1
+EXEC             COLLECTIONS_WERE_UPDATED,
+Изменено %1 значений массивов.
+EXEC             COLUMNS_FROM_DIFF_TABLES,
+Используется колонка из другой таблицы
+EXEC             COLUMN_VALUES_WERE_UPDATED,
+Изменено %1 значений колонки.
+EXEC             COMMIT_DISABLED,
+%1Выполнение фиксации транзакций запрещено%2
+EXEC             COMPILATION_FINISHED,
+++ Компиляция завершена
+EXEC             COMPILATION_STARTED,
+++ Начало компиляции
+EXEC             COMPILED_WITH_ERRORS,
+Откомпилирована с ошибками, статус - %1 %2
+EXEC             COMPILE_ERROR,
+%2Ошибка компиляции %1
+EXEC             COMPILING_METHOD,
+Компиляция %1/%2  : %3 - %4 ( %5 )
+EXEC             CONSTRAINT,
+Ограничение %1
+EXEC             CONVERTED_COLUMN_VALUES,
+Преобразовано %1 значений колонки
+EXEC             CONVERTING_TABLE_START,
+Преобразование структуры архивных секций типа %1 - НАЧАЛО
+EXEC             CONVERTING_TO,
+Преобразование %1 в %2
+EXEC             CREATED,
+%2 Создано %1 записей
+EXEC             CREATED_WITH_ERRORS,
+%2Создан с ошибками %1
+EXEC             CREATE_ERROR,
+Ошибка создания экземпляра типа [%1]\n%2
+EXEC             CREATING,
+Создание %1
+EXEC             CREATING_COLLECTIONS_VIEWS,
+Создание COL2OBJ, COLLECTIONS
+EXEC             CREATING_CONSTRAINTS,
+Создание ограничений целостности %1
+EXEC             CREATING_IFACE,
+Создание %1/%2: интерфейс %3 ( %4 )
+EXEC             CREATING_IFACE_PACK,
+Создание интерфейсного пакета [%1] %2
+EXEC             CREATING_IFACE_PACKS,
+Создание интерфейсных пакетов %1
+EXEC             CREATING_INDEX,
+Создание индекса %1
+EXEC             CREATING_INDEXES,
+Создание индексов %1
+EXEC             CREATING_LOGGING_TRIGGER,
+Создание триггера журналирования %1
+EXEC             CREATING_METH_IFACES_FINISHED,
+Завершено создание интерфейсных пакетов операций
+EXEC             CREATING_METH_IFACES_STARTED,
+Начало создания интерфейсных пакетов операций
+EXEC             CREATING_MIRROR_CONSTRAINT,
+Создание зеркального ограничения %1 для %2
+EXEC             CREATING_MIRROR_INDEX,
+Создание зеркального индекса %1 для %2
+EXEC             CREATING_MIRROR_TABLE,
+Создание зеркальной таблицы %1 для %2.%3
+EXEC             CREATING_OBJECTS_VIEW,
+Создание OBJECTS
+EXEC             CREATING_PARTVIEW,
+Создание partition view для %1
+EXEC             CREATING_PRIMARY_KEY,
+Создание первичного ключа %1
+EXEC             CREATING_REFERENCED_TRIGGER,
+Создание триггера проверки удаления экземпляров %1, на которые есть ссылки из других типов
+EXEC             CREATING_REFERENCING_TRIGGER,
+Создание триггера проверки ссылаемых значений для колонок %1, которые содержат ссылки на другие типы
+EXEC             CREATING_SELF_REFCED_TRIGGER,
+Создание триггера проверки удаления экземпляров %1, на которые есть ссылки из собственного типа
+EXEC             CREATING_SELF_REFCING_TRIGGER,
+Создание триггера проверки ссылаемых значений для колонок %1, которые содержат ссылки на собственный тип
+EXEC             CREATING_STATIC,
+Создается статический экземпляр типа "%1"...
+EXEC             CREATING_TABLE,
+Создание таблицы %1
+EXEC             CREATING_TABLES,
+Создание таблиц %1
+EXEC             DBF_BAD_FIELD_VALUE,
+Неверное значение поля
+EXEC             DBF_BAD_FORMAT,
+Неправильный формат файла
+EXEC             DBF_BAD_STRUCT,
+Неправильная структура. Позиция [%1] значение [%2]
+EXEC             DBF_INVALID_HANDLE,
+Неправильный дескриптор [%1]
+EXEC             DBF_INVALID_OPERATION,
+Недопустимая операция
+EXEC             DBF_IO_ERROR,
+%2Ошибка ввода/вывода %1
+EXEC             DBF_NO_SUCH_FIELD,
+Нет поля с номером или именем [%1]
+EXEC             DBF_TOO_MANY_FIELDS,
+Слишком много полей
+EXEC             DELAYED_ACTIONS_ADD_START,
+Начало добавления отложенных действий
+EXEC             DELAYED_ACTIONS_ADD_END,
+Окончание добавления отложенных действий
+EXEC             DELAYED_ACTIONS_EXEC_START,
+Начало выполнения отложенных действий
+EXEC             DELAYED_ACTIONS_EXEC_END,
+Окончание выполнения отложенных действий
+EXEC             DELAYED_ACTIONS_EXISTS,
+Работа в системе запрещена. Обновление системы не завершено. Существуют необработанные отложенные действия. Обратитесь к администратору системы
+EXEC             DELAYED_ACTIONS_NO_RECORDS,
+Нет отложенных действий
+EXEC             DELAYED_ACTIONS_NUM_RECORDS,
+Выполнено отложенных действий: %1
+EXEC             DELETED,
+%2 Удалено %1 записей
+EXEC             DELETING,
+Удаление %1
+EXEC             DELETING_COLLECTIONS,
+Удаление коллекций %1.%2
+EXEC             DELETING_COLUMN,
+Удаление колонки %1 из %2
+EXEC             DELETING_CONSTRAINT,
+Отключение %1
+EXEC             DELETING_CONSTRAINTS,
+Удаление ограничений целостности %1
+EXEC             DELETING_INDEXES,
+Удаление индексов %1
+EXEC             DELETING_MIRROR_CONSTRAINT,
+Удаление зеркального ограничения %1 из %2
+EXEC             DELETING_MIRROR_INDEX,
+Удаление зеркального индекса %1 из %2
+EXEC             DELETING_MIRROR_TABLE,
+Удаление зеркальной таблицы %1
+EXEC             DELETING_NOT_ALLOWED,
+Групповое удаление экземпляров типа [%1] запрещено
+EXEC             DELETING_PARTVIEW,
+Удаление partition view для %1
+EXEC             DELETING_REFERENCED_TRIGGER,
+Удаление триггера проверки удаления экземпляров %1, на которые есть ссылки из других типов
+EXEC             DELETING_REFERENCING_TRIGGER,
+Удаление триггера проверки ссылаемых значений для колонок %1, которые содержат ссылки на другие типы
+EXEC             DELETING_SELF_REFCED_TRIGGER,
+Удаление триггера проверки удаления экземпляров %1, на которые есть ссылки из собственного типа
+EXEC             DELETING_SELF_REFCING_TRIGGER,
+Удаление триггера проверки ссылаемых значений для колонок %1, которые содержат ссылки на собственный тип
+EXEC             DELETING_STATIC,
+Удаляется статический экземпляр типа "%1"...
+EXEC             DELETING_TABLE,
+Удаление таблицы %1
+EXEC             DELETING_UNUSED_CONSTRAINTS,
+Удаление неиспользуемых ограничений целостности %1
+EXEC             DELETING_UNUSED_INDEXES,
+Удаление неиспользуемых индексов %1
+EXEC             DONT_NEED_HAS_INSTANCES,
+Типу "%1" нет необходимости иметь свойство "Может иметь экземпляры"
+EXEC             ERRORS_FOR,
+%3Ошибки для %1 %2:
+EXEC             ERRORS_FOR_CLASS,
+*** Тип %1 ( %2 ):
+EXEC             ERRORS_FOR_IFACE,
+Ошибки в интерфейсе %1 ( %2 )
+EXEC             ERRORS_FOR_METH,
+Ошибки для %1 ( %2.%3 ): %4
+EXEC             ERRORS_WERE_DETECTED,
+%2Обнаружены ошибки %1
+EXEC             ERROR_TRANSITION,
+Ошибка перехода %1 (экземпляр %2, тип %3)\n%4
+EXEC             ERROR_WHILE_PROCESSING,
+Ошибка обработки %1 ( %2 )
+EXEC             EXCEPTION,
+%2Исключение : %1
+EXEC             EXCHANGING_PARTITION,
+Обмен %1 с %2
+EXEC             EXTERNAL_ERROR,
+Ошибка выполнения внешней программы %1: %2
+EXEC             FILEHANDLE,
+[%1] Неправильный дескриптор файла
+EXEC             FILEHANDLE0,
+Неправильный дескриптор файла
+EXEC             FILEINTERNAL,
+Ошибка работы с файлом
+EXEC             FILEMODE,
+[%1] Неправильный режим открытия файла [%2]
+EXEC             FILEOPERATION,
+[%1] Операция не может быть выполнена для этого файла
+EXEC             FILEPATH,
+[%1] Файл не найден
+EXEC             FILEREAD,
+[%1] Ошибка чтения файла
+EXEC             FILEWRITE,
+[%1] Ошибка записи в файл
+EXEC             FK_FROM_TO,
+FK из %1 в %2
+EXEC             FORK_ERROR,
+[%1] ошибка асинхронного запуска операции %2
+EXEC             FORMON_ERROR,
+Ошибка выполнения FORMON: %1
+EXEC             GATHERING_CLASS_INDEXES_INFO,
+Сбор информации об индексах таблицы типа %1
+EXEC             GATHERING_CLS_CONSTRAINTS_INFO,
+Сбор информации об ограничениях целостности таблицы типа %1 - %2
+EXEC             HERE,
+ЗДЕСЬ: %1
+EXEC             INCONSISTENCIES_WERE_FOUND,
+Найдено несоответствий в %1 типах
+EXEC             INCONSISTENCIES_WERE_NOT_FOUND,
+Несоответствий не найдено
+EXEC             INCONSISTENT_ROLES,
+У пользователя %1 обнаружено несоответствие существующих ролей и полномочий, выданных Администратором доступа
+EXEC             INDEX,
+Индекс %1
+EXEC             INDEXES_FOR,
+*** Индексы для %1
+EXEC             INDEX_FOR,
+индекс %1 для %2
+EXEC             INITING_EMPTY_COLLS_FINISH,
+Инициализация пустых массивов завершена.
+EXEC             INITING_EMPTY_COLLS_START,
+Инициализация пустых массивов...
+EXEC             INTERNAL_ERROR,
+Внутренняя ошибка FORMON при выполнении внешней программы %1, код %2
+EXEC             LICENSE_BAD_LEVEL,
+%3 Лицензия подписана продавцом ПО %2,\n который не имеет права выдавать лицензии с уровнем %1
+EXEC             LICENSE_NOT_FOUND,
+%2 Лицензия подписана неизвестным продавцом ПО %1
+EXEC             LINESIZE,
+[%1] Превышена максимальная длина строки (%2) в файле
+EXEC             LOCKED_BELONG_GROUP,
+Группа принадлежности операций "%1" заблокирована
+EXEC             LOCK_USER,
+Пользователь %1 заблокирован.
+EXEC             MAPPING,
+Дублирование %1
+EXEC             MAX_ACTIVE_SESSIONS_EXCEEDED,
+Количество активных сессий на сервере не должно превышать %1, фактическое значение %2
+EXEC             MAX_SESSIONS_EXCEEDED,
+Количество сессий на сервере не должно превышать %1, фактическое значение %2
+EXEC             MERGING_TABLE_START,
+Соединение таблицы типа %1 - НАЧАЛО
+EXEC             METHODS_WERE_FOUND,
+Найдено %1 операций, удовлетворяющих заданным условиям
+EXEC             METHOD_EXCEPTION,
+[%1] ошибка исполнения операции, пакет %2\n%3
+EXEC             METHOD_SECURITY,
+[%1] пользователю [%2] операция не доступна
+EXEC             METH_CROSS_REFS_WERE_FOUND,
+++ Найдено %1 операций с перекрестными ссылками (%2 ссылок)
+EXEC             MISSING_METCLASS_COLLECTION,
+Отсутствует массив объектов METACLASS %1 - %2
+EXEC             MISSING_METCLASS_REFERENCE,
+Отсутствует ссылка на METACLASS %1 - %2
+EXEC             MOVING,
+Перемещение %1 из %2 (%3) в %4 (%5)
+EXEC             MOVING2,
+Перемещение %1 из %2 (%3) в %4
+EXEC             MOVING3,
+Перемещение %1 из %2 в %3
+EXEC             MOVING_ATTR_FINISH,
+Перенос реквизита [%1] из типа [%2] в тип [%3] - КОНЕЦ
+EXEC             MOVING_ATTR_START,
+Перенос реквизита [%1] из типа [%2] в тип [%3] - НАЧАЛО
+EXEC             NOT_ACCESSIBLE,
+[%1] операция не доступна
+EXEC             NOT_COMPILED_METH,
+Не откомпилирована: %1
+EXEC             NOT_COMPILED_METH2,
+Не откомпилирована %1 ( %2 )
+EXEC             NOT_COMPILED_PACK,
+Не откомпилирован: %1
+EXEC             NOT_CONSTRUCTOR,
+Операция %1 доступна только в конструкторе
+EXEC             NOT_CREATED,
+Не создан: %1
+EXEC             NOT_CREATED2,
+Не создан %1 (%2)
+EXEC             NOT_EDITABLE,
+%3 Редактирование реквизита [%1] типа [%2] запрещено
+EXEC             NOT_PDADMIN,
+%1 не является администратором ИСПДН
+EXEC             NOT_STATIC,
+[%1] операция не статическая
+EXEC             NOT_UADMIN,
+%1 не является администратором доступа
+EXEC             NOT_VALIDATED,
+[%1] Ошибка проверки параметров
+EXEC             NO_FROM,
+Отсутствует выражение from
+EXEC             NO_INITIAL_STATE,
+Не задано начальное состояние для создаваемого экземпляра типа %1
+EXEC             NO_PARAMETER,
+[%1] не установлен параметр %2
+EXEC             NO_STATE_INFO,
+Нет данных о состоянии [%1] экземпляра [%2] типа [%3]
+EXEC             NO_WHERE,
+Отсутствует выражение where
+EXEC             OBJECT_IS_REFRENCED,
+На экземпляр %1 есть ссылки, %2
+EXEC             OBJECT_NOT_FOUND,
+%2 Экземпляр %1 не найден
+EXEC             OBJ_NOT_ACCESSIBLE,
+%3 Экземпляр [%1] не доступен пользователю %2
+EXEC             OBJ_PROTECTED,
+Экземпляр в таблице %2 защищен от изменений (ID=%1)
+EXEC             OLE_AMOUNT_LT_0,
+Размер [%1] меньше 0
+EXEC             OLE_DATA_TOO_LONG,
+[%1]: данных больше чем [%2]
+EXEC             OLE_HANDLE,
+Неверный дескриптор [%1]
+EXEC             OLE_MODE,
+Неправильный режим открытия [%2] для типа [%1]
+EXEC             OLE_NOT_IN_READ_MODE,
+[%1] не доступен для чтения
+EXEC             OLE_NOT_IN_WRITE_MODE,
+[%1] не доступен для записи
+EXEC             OLE_OFFSET_LT_1,
+Смещение [%1] меньше 1
+EXEC             OLE_RIGHT_BOUND_GT_MAX_SIZE,
+Смещение [%1] + размер [%2] больше максимума [%3]
+EXEC             OLE_UNSUPPORTED_CLASS,
+Неизвестный тип [%1]
+EXEC             OPER_NOT_AVAILABLE,
+Операция %1 не доступна, уровень стека %2
+EXEC             ORSA_STATS_NONE,
+Для метода с ID=%1 сбор статистики не настроен.
+EXEC             ORSA_STATS_NO_GROUPID,
+Ошибка при получении GROUPID - %1
+EXEC             PACKING_TABLE_FINISH,
+Упаковка таблицы типа %1 - КОНЕЦ
+EXEC             PACKING_TABLE_START,
+Упаковка таблицы типа %1 - НАЧАЛО
+EXEC             PACKS_CROSS_REFS_WERE_FOUND,
+++ Найдено %1 пакетов с перекрестными ссылками (%2 ссылок)
+EXEC             PACKS_WERE_FOUND,
+++ Найдено %1 пакетов, удовлетворяющих заданным условиям
+EXEC             PACK_LOCKS_NOT_AVAILABLE,
+Невозможно получить достоверную информацию о блокировках пакетов системы
+EXEC             PAR_CLASS_NO_PROFILE_ASSIGNED,
+ТБП, на который ссылается реквизит %1 ТБП %2, не имеет назначенного профиля секционирования
+EXEC             PAR_CLASS_PROFILE_NOT_APPLIED,
+Невозможно применить профиль секционирования %1 к ТБП %2 - целевой ТБП не секционирован
+EXEC             PAR_CLASS_INTERVAL_PROF_EXISTS,
+ТБП, на который ссылается реквизит %1 ТБП %2, имеет профиль содержащий интервалы
+EXEC             PAR_CLASS_NO_HAS_INSTANCE,
+ТБП, на который ссылается реквизит %1 ТБП %2, не имеет экземпляров
+EXEC             PARAM2ATTR_ERROR,
+Нет значения параметра для копирования в реквизит
+EXEC             PARENT_ID_NOT_CONVERTED,
+Ключевая колонка не сконвертирована в родительском типе %1
+EXEC             PRIMARY_KEY,
+Первичный ключ %1
+EXEC             PRIMARY_KEY_FOR,
+Первичный ключ для %1
+EXEC             PROCESSING,
+Обработка  %1/%2  : %3 - %4 ( %5 )
+EXEC             PROFILE_IS_NOT_EXIST,
+Профиль секционирования %1 не существует
+EXEC             READ_ONLY,
+Включен режим "Только чтение" - изменение данных запрещено
+EXEC             READ_PIPE_ERROR,
+Ошибка чтения из коммуникационного канала %1
+EXEC             REBUILDING,
+Перестроение %1
+EXEC             REBUILDING_INDEX,
+Перестраивается индекс %1
+EXEC             REBUILDING_INDEX2,
+Перестраивается индекс %1 (%2)
+EXEC             REBUILDING_LOCAL_INDEXES,
+Перестроение локальных индексов для %1.%2
+EXEC             REBUILDING_TABLE,
+Перестроение таблицы %1
+EXEC             REBUILDING_TABLE_START,
+Перестроение таблицы типа %1 - НАЧАЛО
+EXEC             RECOMPILING_CRITERIA,
+Перекомпиляция представлений %1
+EXEC             RECOMPILING_METHODS,
+Перекомпиляция операций %1
+EXEC             RECORDS_WAS_TRANSFERRED,
+Перенесено записей: %1
+EXEC             RECORDS_WAS_TRANSFERRED_TOTAL,
+Перенесено всего записей:  %1
+EXEC             REF_PART_CAN_NOT_HAVE_COND,
+Профиль секционирования REFERENCE PARTITIONING не может иметь условий
+EXEC             REF_PART_CAN_NOT_HAVE_SUBPROFS,
+Профиль секционирования REFERENCE PARTITIONING не может иметь подпрофиль
+EXEC             REFERENCES_UPDATED,
+%1.%2 - %3 обновлено.
+EXEC             REFERENCES_UPDATE_FAILED,
+%1.%2 - не удалось.(%3)
+EXEC             REFERENCES_WERE_RESOLVED,
+++ Все ссылки разрешены на уровне %1
+EXEC             REFERENCE_ON,
+ссылка %1 на %2
+EXEC             REFERENCING_LEVEL,
+-- Уровень ссылок : %1 (%2 не разрешено)
+EXEC             REFRESHING_COLUMNS,
+Обновление описания колонок типа %1
+EXEC             REFRESHING_INDEXES_LIST,
+Обновление списка индексов
+EXEC             RENAMING_CONSTRAINT,
+Переименование ограничения целостности таблицы %1 из %2 в %3
+EXEC             RENAMING_FINISHED,
+Завершено переименование [%1] в [%2]...
+EXEC             RENAMING_NEW_TABLE,
+Переименование новой таблицы
+EXEC             RENAMING_OLD_TABLE,
+Переименование старой таблицы
+EXEC             RENAMING_PARTITION_TO,
+Переименование секции %1 в %2
+EXEC             RENAMING_STARTED,
+Начало переименования [%1] в [%2]...
+EXEC             RENAMING_TABLE_START,
+Переименование таблицы типа %1 - НАЧАЛО
+EXEC             RENAMING_TABLE_TO,
+Переименование таблицы %1 в %2
+EXEC             REPORT_BAD_PARAMS,
+Ошибка при получении параметров отчета.
+EXEC             REPORT_CANCELLED,
+Задание отчета снято с выполнения администратором "%1"
+EXEC             REPORT_JOB_NOT_FOUND,
+Отчет пользователя %1 с номером %2(%3) не найден в очереди отчетов
+EXEC             REPORT_NO_STATS,
+Cтатистика по отчету не собрана.  Причина:
+EXEC             REPORT_TO_CANCEL,
+Задание отчета %1 должно быть в состоянии ожидания выполнения
+EXEC             REPORT_TO_RERUN,
+Задание отчета %1 должно быть уже выполнено
+EXEC             RESOURCE_BUSY,
+%2 Ресурс %1 блокирован
+EXEC             RESTORED_COLUMN_VALUES,
+Восстановлено %1 значений колонки
+EXEC             RESTORING,
+Восстановление %1
+EXEC             RESTORING_CONSTRAINT,
+Восстановление ограничения %1
+EXEC             RESTORING_CONSTRAINTS,
+Восстановление ограничений целостности - %1
+EXEC             RESTORING_FROM,
+Восстановление %1 из %2
+EXEC             RESTRICTED_MODE_ENABLED,
+Вход в систему разрешен только администраторам (пользователю %1 вход закрыт)
+EXEC             ROLLBACK_DISABLED,
+%1Выполнение полного отката транзакций запрещено%2
+EXEC             ROWS_WERE_UPDATED,
+%1 строк обновлено.
+EXEC             ROWS_WERE_UPDATED2,
+Обновлено %1 (%2) строк в %3 (%4)
+EXEC             ROWS_WERE_UPDATED3,
+Обновлено %1 (%2) строк в %3
+EXEC             ROWS_WERE_UPDATED4,
+Обновлено %1 строк в %2
+EXEC             ROWS_WERE_UPDATED5,
+Обновлено %1 строк в %2 значением %3
+EXEC             SCRIPTS_REC_PLAY,
+Производится запись или воспроизведение тестов
+EXEC             SEARCHING_INCONSISTENCIES,
+Поиск несоответствий
+EXEC             SN2ID,
+Тип [%1], экземпляр [%2], операция [%3], объект не найден
+EXEC             SPLITTED_AT,
+Разделен по значению %1
+EXEC             SPLITTING,
+Разделение %1...
+EXEC             SPLITTING_TABLE_START,
+Разделение таблицы типа %1 - НАЧАЛО
+EXEC             STATIC_EXISTS,
+Существует %1 - %2
+EXEC             STATIC_WAS_CREATED,
+Создан %1 - %2
+EXEC             STATIC_WAS_DELETED,
+Удален %1 - %2
+EXEC             STATIC_WAS_NOT_FOUND,
+Статический экземпляр %1 не найден
+EXEC             STORAGE_ERROR,
+%2Ошибка сохранения значения %1
+EXEC             SUBOBJECT_IS_REFRENCED,
+На подобъект [%1] экземпляра [%2] есть ссылки, %3
+EXEC             SUBPROF_TYPE_CAN_NOT_BE_REF,
+Тип подпрофиля не может быть REFERENCE PARTITIONING
+EXEC             SUCCESS,
+Успешное завершение
+EXEC             SWITCHING_OFF_HAS_INSTANCES,
+Типу "%1" сброшено свойство "Может иметь экземпляры"
+EXEC             SWITCHING_ON_HAS_INSTANCES,
+Типу "%1" добавлено свойство "Может иметь экземпляры"
+EXEC             TABLE_NOT_PARTITIONED,
+Таблица типа %1 имеет неправильную структуру архивных секций...
+EXEC             TOO_MANY_ERRORS,
+!!! Слишком много ошибок !!!
+EXEC             TRANSFERRING_DATA,
+Перенос данных... %1
+EXEC             TRANSFERRING_DATA_PARTITION,
+Перенос данных... %1 секция %2
+EXEC             TRYING_TO_RESOLVE,
+---- Попытка %1 разрешить %2 ссылок на уровне %3
+EXEC             UNABLE_TO_CONVERT_COLUMN,
+Конвертация значений колонки %1 невозможна...
+EXEC             UNDEFINED_COLUMN_TYPE,
+Тип колонки %1 не определен
+EXEC             UNKNOWN_ERROR,
+[%1] ошибка Oracle %2
+EXEC             UNKNOWN_METHOD,
+[%1] операция для экземпляра [%2] не найдена
+EXEC             UNKNOWN_QUERY,
+Неизвестный запрос
+EXEC             UPDATING,
+Изменение %1
+EXEC             UPDATING_CLASS_ID,
+Обновление CLASS_ID в %1 значением %2
+EXEC             UPDATING_DEPENDING_CLASSES,
+Модификация типов, зависящих от %1
+EXEC             UPDATING_NOT_ALLOWED,
+Изменение указанных колонок запрещено: %1
+EXEC             UPDATING_PART_KEY,
+Обновление ключевой колонки секции
+EXEC             UPDATING_STORAGE_FINISH,
+МОДИФИКАЦИЯ ЗАВЕРШЕНА - %1
+EXEC             UPDATING_STORAGE_START,
+НАЧАЛО МОДИФИКАЦИИ %1
+EXEC             USER_ACCESS_LEVEL,
+Недостаточный уровень доступа пользователя %1 (затребован уровень %2)
+EXEC             VALUE_ERROR,
+Неверное значение (%1) для параметра %2
+EXEC             VALUE_TOO_LONG,
+Значение параметра %1 слишком велико
+EXEC             VALUE_TOO_LONG1,
+Значение для реквизита %1 слишком велико
+EXEC             VFS_BUSY,
+Ресурс занят
+EXEC             VFS_INVALID_CHARSET,
+Неверно указан набор символов [%1]
+EXEC             VFS_INVALID_NAME,
+Недопустимый символ в имени файла [%1]
+EXEC             VFS_INVALID_PARAMETER,
+Неверно задан параметр [%1]
+EXEC             VFS_LOCKED,
+Элемент блокирован [%1]
+EXEC             VFS_NAME_EXISTS,
+Файл с таким именем уже существует [%1,%2]
+EXEC             VFS_NOT_EMPTY,
+Папка не пуста [%1]
+EXEC             VFS_NOT_ENOUGH_PRIVILEGE,
+Недостаточно прав
+EXEC             VFS_NOT_IN_READWRITE_MODE,
+Файл не доступен для чтения/записи [%1]
+EXEC             VFS_NOT_IN_READ_MODE,
+Файл не доступен для чтения [%1]
+EXEC             VFS_NOT_IN_WRITE_MODE,
+Файл не доступен для записи [%1]
+EXEC             VFS_NOT_SUPPORTED,
+Операция не поддерживается
+EXEC             VFS_NO_DATA,
+Данных не найдено
+EXEC             VFS_NO_STATIC_FOLDER_IN_TEMP,
+Временный каталог не может содержать статических элементов
+EXEC             VFS_UNKNOWN,
+Ошибка работы с файлом [%1,%2,%3]
+EXEC             WRITE_PIPE_ERROR,
+Ошибка записи в коммуникационный канал %1
+EXEC             PARTITION_PROFILE_IS_APPLIED,
+Невозможно удалить используемый профиль %1
+EXEC             PROFILE_IS_NOT_EXIST,
+Указанного профиля %1 не существует
+EXEC             PROFILE_ASSIGNED,
+Для ТБП назначен профиль секционирования %1
+EXEC             PROFILE_APPLIED,
+К ТБП применен профиль секционирования %1
+EXEC             PROFILE_CANT_APPLIED,
+Для ТБП назначен профиль секционирования %1, но он не может быть применен
+EXEC             PROFILE_INVALID,
+Для ТБП назначен профиль секционирования %1, но данный профиль невалиден
+EXEC             CANNOT_EDIT_ASSIGNED_PROFILE,
+Невозможно изменить или удалить назначенный профиль "%1"
+EXEC             CANT_DEL_ASSG_PROF_TO_OTH_PROF,
+Невозможно удалить профиль подсекционирования "%1", так как он используется другим профилем
+EXEC             CANT_EDIT_APPLIED_PROFILE,
+Невозможно изменить или удалить примененный профиль "%1"
+EXEC             CANNOT_EDIT_APPLIED_CONDITION,
+Невозможно изменить или удалить примененное условие профиля "%1"
+EXEC             ATTR_ID_MUST_NOT_BE_EMPTY,
+Для профиля "%1" не может быть задано пустое короткое имя реквизита
+EXEC             ATTR_CLASS_MUST_NOT_BE_EMPTY,
+Для профиля "%1" не может быть задан пустой тип реквизита
+EXEC             CLASS_DOES_NOT_EXIST,
+ТБП c коротким именем %1 не существует
+EXEC             CLASS_MUST_BE_SIMPLE_TYPE,
+ТБП должен иметь один из следующих базовых типов: Строка, Число, Дата, Логика, Мемо
+EXEC             PROFILE_CONDITION_VALUE_ERROR,
+Невозможно указать значение условия профиля равным %1\nдля типа реквизита "%2"
+EXEC             PROF_COND_VALUE_CONVERT_ERROR,
+Нельзя привести значение условия %1 \nк типу реквизита %2 (%3)
+EXEC             PROFILE_COND_VALUE_UNIQUE,
+В профиле %1 уже имеется условие со значением %2
+EXEC             COND_VALUE_MUST_NON_BE_EMPTY,
+Невозможно задать пустое значение условия профиля секционирования
+EXEC             PROFILE_ALREADY_EXISTS,
+Профиль %1 уже существует.
+EXEC             PROFILE_RATIO_MUST_BE_POSITIVE,
+Для профиля "%1" значение параметра "Коэффициент сжатия" должен быть больше нуля. Текущее значение - "%2"
+EXEC             ATTR_CLS_MUST_BE_REF_TYPE,
+Тип реквизита профиля секционирования REFERENCE PARTITIONING должен иметь базовый тип Ссылка
+EXEC             ATTR_CLS_MUST_BE_SMPL_LST_TYPE,
+Тип реквизита профиля LIST-секционирования должен иметь один из следующих базовых типов: Строка, Число, Логика, Мемо
+EXEC             ATTR_CLS_MUST_BE_SMPL_RNG_TYPE,
+Тип реквизита профиля RANGE-секционирования должен иметь один из следующих базовых типов: Дата, Число
+EXEC             EN_ROW_MV_PRF_MST_HAVE_DEFPART,
+Профилю без секции по умолчанию нельзя установить флаг "допускать изменение значения реквизита"
+EXEC             PROF_TYPE_MUST_NOT_BE_EMPTY,
+Для профиля "%1" не может быть задан пустой тип секционирования
+EXEC             PART_PROFILE_NOT_ASSIGNED,
+У ТБП [%1] не назначен профиль
+EXEC             PART_PROFILE_HAS_BEEN_APPLIED,
+Профиль [%1] уже применен к ТБП [%2]
+EXEC             DATA_TYPE_NOT_FOUND,
+Тип данных %1 не найден
+EXEC             SUBPROF_NOT_FOUND,
+Профиль подсекционирования %1 не найден
+EXEC             UNACCEPTABLE_DATE_FORMAT,
+Неприемлемый формат даты.
+EXEC             APPLYING_PROFILE_STARTED,
+Начало применения профиля "%1" [%2] к ТБП "%3" [%4]
+EXEC             APPLYING_PROFILE_FINISHED,
+Применение профиля "%1" [%2] к ТБП "%3" [%4] завершено
+EXEC             APPLYING_PROFILES_STARTED,
+Начало применения профиля "%1" [%2] и профиля подсекций "%3" [%4] к ТБП "%5" [%6]
+EXEC             APPLYING_PROFILES_FINISHED,
+Применение профиля "%1" [%2] и профиля подсекций "%3" [%4] к ТБП "%5" [%6] завершено
+EXEC             CLASS_HAS_NO_PROFILE,
+Для ТБП "%1" [%2] не назначен профиль секционирования
+EXEC             ENABLE_ROW_MOVEMENT,
+Для таблицы ТБП "%1" [%2] изменено значение ROW_MOVEMENT.\nДопускается изменение значений ключа секционирования
+EXEC             DISABLE_ROW_MOVEMENT,
+Для таблицы ТБП "%1" [%2] изменено значение ROW_MOVEMENT.\nНе допускается изменение значений ключа секционирования
+EXEC             ERR_PROF_DATE_INTERVAL_PARAMS,
+Некорректные параметры для задания интервала профиля %1 по DATE-ключу. Должны быть заданы число и единица интервала (DAY, MONTH или YEAR)
+EXEC             PROF_WITH_DEFPART_AND_INTERVAL,
+Профилю %1 нельзя одновременно иметь секцию по умолчанию и интервальное секционирование
+EXEC             SET_INTERVAL_PARTITIONING,
+Для таблицы ТБП "%1" [%2] установлено интервальное секционирование с периодом "%3"
+EXEC             DISABLE_INTERVAL_PARTITIONING,
+Для таблицы ТБП "%1" [%2] отключено интервальное секционирование
+EXEC             COMPILE_PKG_NO_ERRORS,
+Компиляция %1: ошибок нет
+KRNL             ALTER_TABLESPACE,
+Табличное пространство "%1" запрещено изменять с опцией %2
+KRNL             BAD_BASE_ID,
+Неверное значение поля BASE_CLASS_ID или AGREGATE у типа %1
+KRNL             BAD_CONDITION,
+Несимметричное условие архивации для типа %1 (%2)
+KRNL             BAD_CURSOR,
+Невозможно открыть курсор для динамического SQL-запроса, ошибка %1
+KRNL             BAD_EXTENSION,
+Не все колонки расширенного представления присутствуют в расширении
+KRNL             BAD_EXTENSION_DATA_SRC,
+Для колонки с алиасом [%1] указан источник данных, не соответствующий источнику данных в расширенном представлении
+KRNL             BAD_PARTITION_KEY,
+Неправильно задан ключ секционирования %2 в типе %1
+KRNL             CANNOT_CREATE_NVARCHAR2_CLASS,
+Невозможно создать класс [%1] с базовым типом [%2] - отключена поддержка NVarchar2
+KRNL             CLASS_ERROR_NO_UNICODE_LICENSE,
+Невозможно создать/изменить класс [%1] с базовым типом [%2] - использование NVarchar2 не лицензировано
+KRNL             CANNOT_EXTEND_BY_EXTENDED,
+Невозможно раcширить [%1]::[%2] через расширенную операцию [%3]::[%4]
+KRNL             CANNOT_EXTEND_BY_EXTENSION,
+Невозможно раcширить [%1]::[%2] другим расширением [%3]::[%4]
+KRNL             CANNOT_EXTEND_EXTENSION,
+Невозможно создать расширение для расширения [%1]::[%2]
+KRNL             CLASS_COLLECTIONS_REPORT,
+%1 [%2]\n  Всего коллекций    :%3\n  Потеряно коллекций :%4\n  Потерянных объектов:%5\n  Удалено элементов  :%6\n  Ошибки при удалении:%7
+KRNL             CLASS_COLLECTIONS_REPORT_TOTAL,
+Всего---------------------------------------------\n  Найдено потерянных коллекций: %1\n  Потерянных объектов         : %2\n  Удалено лишних объектов     : %3\n  Не удалено  лишних  объектов: %4\n--------------------------------------------------\nПоиск завершен
+KRNL             CLASS_EXTENSION,
+Не совпадает тип расширения [%1]::[%2] с типом [%3]
+KRNL             CLASS_NOT_FOUND,
+%2 Не найден тип [%1]
+KRNL             CLASS_OLES_REPORT,
+[%1]\n  Всего OLE-обьектов :%2\n  Потерянных OLE     :%3\n  Удалено элементов  :%4
+KRNL             CLASS_OLES_REPORT_TOTAL,
+Всего---------------------------------------------\n  Найдено потерянных OLE-обьектов: %1\n  Удалено лишних OLE-обьектов    : %2\n--------------------------------------------------\nПоиск завершен
+KRNL             CREATING_CONSISTENCY_TRIGGERS,
+Создание триггеров поддержки целостности - %1
+KRNL             CREATING_MAPPING_TRIGGER,
+Создание триггера дублирования колонок для типа %1
+KRNL             CREATING_REFERENCE_TRIGGERS,
+Создание триггеров для ссылок %1
+KRNL             CREATING_REV_REFERENCE_TRIGGS,
+Создание триггеров для обратных ссылок %1
+KRNL             CRITERION_EXISTS,
+Представление с коротким именем %1 уже существует...
+KRNL             DELETING_CONSISTENCY_TRIGGERS,
+Удаление триггеров поддержки целостности (%1)
+KRNL             DELETING_MAPPING_TRIGGER,
+Удаление триггера дублирования колонок для типа %1
+KRNL             ERROR_WHILE_DELETING,
+%3Ошибка при удалении %1: %2
+KRNL             GATHERING_TABLE_INDEXES_INFO,
+Сбор информации об индексах таблицы %1
+KRNL             HAS_CHILDS,
+Тип [%1] имеет порожденные типы. Полное удаление невозможно.
+KRNL             HAS_MIRRORS,
+Тип [%1] содержит данные в зеркальных таблицах, соединение секций невозможно.
+KRNL             HAS_TABLE_REFERENCE,
+Над типом [%1] определена вложенная таблица, переименование невозможно.
+KRNL             INDEX_FOR,
+индекс %1 для %2
+KRNL             LIBRARY,
+Для библиотечной операции %1 невозможно создать интерфейс...
+KRNL             LICENSE_AUTOSEND_REPORT_ERR,
+Ошибка при автоматической отправке КЛО:
+KRNL             LICENSE_CORRUPTED,
+Нарушено описание лицензионной настройки с кодом %1
+KRNL             LICENSE_DATA_CREATED,
+Создан эталон %1 (%2) (владелец %3)
+KRNL             LICENSE_DATA_DELETED,
+Удален эталон %1 (владелец %2)
+KRNL             LICENSE_DATA_UPDATED,
+Изменен эталон %1 (%2) (владелец %3)
+KRNL             LICENSE_DIFF_BODY_FOOTER,
+</TBODY>\n</table>
+KRNL             LICENSE_DIFF_BODY_HEADER,
+<table border=0 cellspacing=0 cellPadding=0 width=100%>\n<CAPTION>\n      	<br> <br><FONT size=5>Изменение КЛО</FONT><br><br>\n</CAPTION>\n<TBODY>\n<tr><td>Дата предыдущего отчета: %1</td></tr>\n<tr><td>Дата последнего отчета: %2</td></tr>\n</table>\n<table border=1 cellspacing=0 cellPadding=0 width=100%>\n<COLGROUP>\n<COL width = 50%><COL width = 10%><COL width = 16%><COL width = 16%><COL width = 8%>\n<THEAD bgcolor = lightgray>\n<th>Наименование модуля / приложения</th>\n<th>Код модуля / приложения</th>\n<th>Предыдущее значение</th>\n<th>Текущее значение</th>\n<th>Разрешено в лицензии</th>\n</THEAD>\n<TBODY>\n
+KRNL             LICENSE_DIFF_BODY_REPEAT,
+%1
+KRNL             LICENSE_DIFF_ERROR,
+Ошибка оповещения об изменении КЛО: %1
+KRNL             LICENSE_DIFF_OPT_BUY_LIM,
+%1
+KRNL             LICENSE_DIFF_OPT_BUY_LIM_DATE,
+%1 до %2
+KRNL             LICENSE_DIFF_OPT_BUY_NO,
+Нет
+KRNL             LICENSE_DIFF_OPT_BUY_NO_DATE,
+Нет с %1
+KRNL             LICENSE_DIFF_OPT_BUY_YES,
+Да
+KRNL             LICENSE_DIFF_OPT_BUY_YES_DATE,
+Да до %1
+KRNL             LICENSE_DIFF_OPT_NOT_EXISTS,
+Отсутствует в описаниях приложений
+KRNL             LICENSE_DIFF_OPT_NOT_USE,
+Не используется
+KRNL             LICENSE_DIFF_OPT_USE,
+Используется
+KRNL             LICENSE_DIFF_SUBJ,
+%1: Оповещение об изменении КЛО (%2)
+KRNL             LICENSE_DIFF_SUBJ_EMPTY,
+%1: Нет изменений в КЛО (%2)
+KRNL             LICENSE_INSTALL_ERROR,
+Ошибка установки лицензионной информации (%1,%2,%3) %5: \n%4
+KRNL             LICENSE_JOB_START,
+Запущено системное задание %1
+KRNL             LICENSE_JOB_ERROR,
+Ошибка при работе задания по сбору КЛО: \n%1
+KRNL             LICENSE_REPORT_ERROR,
+Ошибка при записи отчета об используемых подсистемах %2:\n%1
+KRNL             LICENSE_REPORT_INIT_DATES_ERR,
+Непроинициализированы последняя и предпоследняя дата сбора КЛО
+KRNL             LICENSE_STATUS_BAD,
+Лицензионная информация (настройка %1)  неверна (статус %2)
+KRNL             LICENSE_VALUE_UPDATED,
+Обновлена лицензионная информация (настройка %1)  (статус %2) (владелец %3)
+KRNL             INDEXES_CREATION,
+Создание индексов %1
+KRNL             MAPPING_FINISH,
+Дублирование колонок для типа %1 - КОНЕЦ
+KRNL             MAPPING_START,
+Дублирование колонок для типа %1 - НАЧАЛО
+KRNL             METADATA,
+%2 Перестроение таблицы типа "%1" запрещено
+KRNL             METHOD_EXISTS,
+Операция с коротким именем %1 уже существует...
+KRNL             MIRROR_TABLE,
+Зеркальная таблица %2 для типа [%1] содержит данные, ее удаление невозможно.
+KRNL             NOT_OWNER,
+Пользователь %1 не является администратором схемы %2
+KRNL             NO_CLASS_STATE,
+У типа "%1" нет состояния "%2"
+KRNL             NO_EXTENSION,
+Расширение для "%1" не найдено
+KRNL             NO_TABLESPACE,
+Табличное пространство "%1" не существует
+KRNL             OBJECT_RIGHTS,
+1. Доступ к экземплярам - %1
+KRNL             OBJECT_RIGHTS_EX,
+3. Доступ к экземплярам (через реквизиты) - %1
+KRNL             OBJECT_RIGHTS_LIST,
+2. Доступ к экземплярам (исключения) - %1
+KRNL             OBJECT_RIGHTS_REPORT,
+[%1]\n  Всего прав     :%2\n  Потерянных прав:%3\n  Удалено прав   :%4
+KRNL             OBJECT_RIGHTS_REPORT_TOTAL,
+Всего ----------------------------------- %1\n  Найдено потерянных прав : %2\n  Удалено потерянных прав : %3\nКонец ----------------------------------- %4
+KRNL             OPTION_COMPILE_BULK_ERRORS,
+Многочисленные ошибки при компиляции описаний датчиков.
+KRNL             OPTION_COMPILE_ERROR,
+Ошибка при компиляции описания датчика с кодом %1: \n%2
+KRNL             OPTION_COMPILE_ERRORS,
+Ошибки при компиляции описаний датчиков с кодами: %1
+KRNL             OPTION_CORRUPTED,
+Нарушено описание опции с кодом %1
+KRNL             OPTION_CREATE,
+Создано описание приложения с кодом %1
+KRNL             OPTION_DELETE,
+Удалено описание приложения с кодом %1
+KRNL             OPTION_DELETE_ERROR,
+Ошибка при удалении описания опции с кодом %1: \n%2
+KRNL             OPTION_EMPTY_PLSQL,
+Не определен pl/sql для вычисления фактического значения опции с кодом %1
+KRNL             OPTION_INSTALL_ERROR,
+Ошибка установки описания (%1,%2,%3): \n%4
+KRNL             OPTION_MACHINE_PER_USER_ERROR,
+Внимание! Под вашей учетной записью работают другие сотрудники, немедленно обратитесь к администратору безопасности!
+KRNL             OPTION_NOT_EXISTS,
+Отсутствует описание опции с кодом %1
+KRNL             OPTION_OBJECTS_CORRUPTED,
+Нарушено описание списка элементов опции с кодом %1
+KRNL             OPTION_OBJ_NOT_EXISTS,
+Обнаружены объекты, принадлежащие неизвестному Приложению:%1
+KRNL             REBUILDING_INDEX,
+Перестроение индекса %1
+KRNL             REFERENCES_FROM,
+Ссылки из %1 на %2
+KRNL             REFERENCES_ON,
+Ссылки на %1 из %2
+KRNL             RESTORING_CONSTRAINT,
+Восстановление ограничения %1
+KRNL             SEARCHING_IS_COMPLETED,
+Поиск завершен
+KRNL             SEARCHING_LOST_COLLECTIONS,
+Поиск потерянных коллекций...
+KRNL             SEARCHING_LOST_OLES,
+Поиск потерянных OLE-объектов...
+KRNL             SEARCHING_LOST_RIGHTS,
+Поиск потерянных прав на экземпляры...
+KRNL             SPLITTING_CURR_PARTITION_START,
+Разделение текущей секции таблицы типа %1 - НАЧАЛО
+KRNL             SPLITTING_CUR_PARTITION_FINISH,
+Разделение текущей секции таблицы типа %1 - КОНЕЦ
+KRNL             SWITCHING_PARTITION_OFF,
+Отключение %1 (%2)
+KRNL             SWITCHING_PARTITION_ON,
+Подключение %1 (%2)
+KRNL             OPTION_LIMIT_EXCEEDED,
+Превышен лимит %1. [значение = %2, лимит = %3]
+KRNL             OPTION_LIMIT_CALC_ERROR,
+Ошибка при расчете лимита опции %1 (%2)
+KRNL             OPTION_ENABLED_CONTEXT_INIT,
+Получение информации о доступности опции %1 при непроинициализированном контексте. 
+LOCK             ACTIVE,
+Поддержка блокировок уже запущена
+LOCK             BAD_SYSTEM,
+Нелицензионная копия системы!
+LOCK             BLOCK,
+Экземпляр [%1] блокирован %2.\nПользователь %3 (%4 - %5)
+LOCK             BUSY,
+Задание не было активизировано, возможно, из-за того, что\nобработчик фоновых (BACKGROUND) процессов занят.\nПопробуйте подождать еще некоторое время.
+LOCK             CHECK_INSTANCE,
+Попытка инициализации сессии %3 с неправильного узла (%1 - %2).
+LOCK             CHECK_PRIVS,
+Задания %1 нет в очереди заданий Oracle или недостаточно прав на его модификацию.
+LOCK             CHECK_SESSION,
+Сессия пользователя %2 находится в неработоспособном состоянии (%1).
+LOCK             CHECK_STATUS,
+Учетная запись пользователя %2 не доступна (%1).
+LOCK             ERROR,
+Произошла ошибка при запуске задания:\n%1\n
+LOCK             EVENT_EXECUTE,
+%1 получено уведомление (%2) от пользователя\n%3 :\nВыполнен запрос с кодом %4:\n%5
+LOCK             EVENT_MESSAGE,
+%1 получено сообщение от %2, посланное пользователем\n%3 :\n%4
+LOCK             EXECUTE,
+Исчерпан лимит (%1) на выполнение операций.
+LOCK             HOLD,
+Процесс LOCK_INFO заморожен %1.
+LOCK             JOB_DELETE,
+Задание %1 удалено из очереди.\n
+LOCK             JOB_QUEUE,
+Процесс LOCK_INFO поставлен в очередь заданий (%1).
+LOCK             JOB_START,
+Задание запущено %1.
+LOCK             LIMIT,
+Задание не было активизировано, возможно, из-за того, что\nлимит на количество фоновых (BACKGROUND) процессов исчерпан.\nНужно увеличить этот лимит или запустить LOCK_INFO в отдельной сессии.
+LOCK             MODIFIED,
+Экземпляр [%1] был изменен ...
+LOCK             MODIFIED_SCN,
+Версия экземпляра [%1] изменена c [%3] на [%2]...
+LOCK             NOT_ACTIVE,
+Процесс LOCK_INFO не запущен.\n
+LOCK             NOT_REGISTERED,
+Пользователь %1 не зарегистрирован в системе
+LOCK             NO_ANSWER,
+Процесс не отвечает на запросы - возможно, его следует перезагрузить.
+LOCK             NO_CLASS_INITIALIZATION,
+Инициализация типа в текущей сессии не произведена...
+LOCK             NO_COMPANY,
+Собственная организация не найдена в справочнике национальных банков!
+LOCK             NO_SYSTEM,
+Не определена собственная организация в типе "Система"!
+LOCK             PROCESSING,
+Процесс должен быть перезапущен.
+LOCK             RELEASE,
+Процесс LOCK_INFO разблокирован (задание %1).
+LOCK             RESOURCE_BUSY,
+Экземпляр [%1] блокирован, тип [%2]
+LOCK             RESOURCE_LOCKED,
+Ресурс блокирован: %1
+LOCK             RESOURCE_OWNER_NOT_FOUND,
+Владелец ресурса (%1 - %2) не найден.
+LOCK             SELF_NOT_FOUND,
+Текущий пользователь не определен.
+LOCK             SESSION_CREATION,
+Ошибка создания сессии: %1
+LOCK             START,
+Процесс LOCK_INFO (%1) запущен %2, сессия %3 (AUDSID).\nПользователь - %4 (%5).\n
+LOCK             STOP,
+Процесс LOCK_INFO остановлен.\n
+LOCK             SUBMIT,
+Процесс LOCK_INFO был поставлен в очередь %1.\nНомер задания %2, пользователь - %3.\n
+LOCK             WARNING,
+Истекает срок действия лицензии.
+MTD              ALIAS_RENAMED,
+Алиас колонки в позиции %2 переименован из "%1" в "%3".
+MTD              BAD_ALIAS_NAME,
+Дублируется имя алиаса "%1" колонки %2 с колонкой в позиции %3.
+MTD              BAD_CLASS,
+Для контрола (%1 - %2)\n   обнаружено несоответствие типов: [%3] - [%4].
+MTD              BAD_CONTROL,
+Для контрола (%1 - %2)\n   обнаружено несоответствие с флагом параметра.
+MTD              BAD_QUALIFIER,
+Для контрола (%1 - %2)\n   задан неверный квалификатор - %3.
+MTD              BAD_SYNONYM,
+Синоним [%1] не создан или не соответствует объекту [%2].
+MTD              BAD_VALIDATE_NAME,
+Дублируется имя контрола "%1" (%2) в позиции %3 с контролом в позиции %4.
+MTD              CANCEL,
+Отмена
+MTD              COLUMN,
+Колонка: %1
+MTD              CONTROL_RENAMED,
+Контрол в позиции %2 переименован из "%1" в "%3".
+MTD              C_ARRAY,
+Массив: %1
+MTD              C_CANCEL,
+Отказ от выполнения
+MTD              C_CHECK,
+Логическое значение (%1)
+MTD              C_DEPEND,
+Зависимость от объекта %1
+MTD              C_FRAMES,
+Структура (%1)
+MTD              C_FRAMEV,
+Вариант (%1)
+MTD              C_LABEL,
+Поясняющая надпись (%1)
+MTD              C_OBJECT,
+Объект: %1
+MTD              C_OK,
+Выполнить операцию
+MTD              C_PANEL,
+Элемент варианта (%1)
+MTD              C_PREVIEW,
+Предварительный просмотр печатной формы
+MTD              C_PRINT_PAR,
+Параметры печати
+MTD              C_TABBED,
+Панель для мемо-поля (%1)
+MTD              C_TABLE,
+Массив ссылок: %1
+MTD              C_VARIANT,
+Выбор варианта (%1)
+MTD              DELETE,
+Удалить
+MTD              EDIT,
+Изменить
+MTD              ERR_BND_DEFVAL,
+Значения по умолчанию для %THIS% и %SYSTEM% зависимостей игнорируются
+MTD              ERR_BND_IN_COLUMN,
+Несовместимые типы для IN зависимости или отсутствует колонка COLLECTION_ID : %1
+MTD              ERR_BND_IN_TYPES,
+Несовместимые типы для IN зависимости : %1
+MTD              ERR_BND_OPERATOR,
+Неправильная зависимость - %1
+MTD              ERR_CTL_BAD_ASSIGN,
+Значение не может быть присвоено заданному контролу %1 - %2
+MTD              ERR_CTL_BAD_CLASS,
+Неподдерживаемый тип контрола %1 - %2
+MTD              ERR_CTL_BAD_COMPARE,
+Ошибка сравнения значений при проверке зависимости %1 - %2
+MTD              ERR_CTL_BAD_DEPEND,
+Неправильный квалификатор зависимого контрола %1 - %2
+MTD              ERR_CTL_BAD_QUAL,
+Неправильный квалификатор контрола %1 - %2
+MTD              ERR_CTL_GRID_EMPTY,
+Грид-контрол %1 (%2) не содержит колонок
+MTD              ERR_CTL_NOT_FOUND,
+Не найден родительский контрол для контрола %1 - %2
+MTD              ERR_CTL_NO_PARAM,
+Не найден параметр/переменная для контрола %1 - %2
+MTD              ERR_REPORT_JOB,
+Неверный код задания-отчета %1
+MTD              GRID,
+Грид: %1
+MTD              NEW,
+Добавить
+MTD              NO_INTERFACE,
+Невозможно создать интерфейс операции (%1): отсутствует экранная форма
+MTD              NO_PARAMETER,
+Для контрола (%1 - %2)\n   не найден соответствующий параметр.
+MTD              NO_VARIABLE,
+Для контрола (%1 - %2)\n   не найдена соответствующая переменная.
+MTD              PARENT,
+Вызов родительской операции
+MTD              PREVIEW,
+Просмотр
+MTD              PRINT,
+Печать
+MTD              PRINT_PAR,
+Параметры
+MTD              SET_ATTR,
+Установка значения реквизита "%1"
+MTD              SET_PARAM,
+Установка значения параметра "%1"
+MTD              STATIC,
+Установки
+MTD              SYSTEM,
+Системные установки
+MTD              THIS,
+Реквизиты
+MTD              VALUE,
+Значение
+MTD              TOO_LONG_SIGNATURE,
+Размер сигнатуры метода %1 более 32767 байт (%2)
+ORA              00001,
+APP-UNIQUE: Дублируется значение реквизита [%2] в типе [%1]
+ORA              02290,
+APP-CHECK:  Неверное (пустое) значение реквизита [%2] в типе [%1]
+ORA              02291,
+APP-REFERENCE:  Неверное значение реквизита-ссылки [%2] в типе [%1]
+ORA              02292,
+APP-REFERENCING: Обнаружен ссылающийся реквизит [%2] в типе [%1]
+ORA              02293,
+APP-COLLECTION: Изменение реквизита-коллекции [%2] в типе [%1] запрещено
+PLP              AFTER_ELSE,
+Оператор %1 не может быть использован после оператора ELSE
+PLP              AFTER_OTHERS,
+Обработчик %1 не может быть использован после обработчика WHEN OTHERS
+PLP              ALIAS_GENERATE,
+Сформировано имя алиаса %1 для выражения в позиции %2 (квалификатор %3)
+PLP              ALREADY_DEFINED,
+Переменная %1 уже определена
+PLP              ASSIGNMENT,
+Возможно нежелательное присваивание реквизиту [%1]
+PLP              ASSIGN_ERROR,
+Нежелательное присваивание [%1] <-- [%2]
+PLP              ATTRS_ONLY,
+[%1] В этом выражении можно использовать только реквизиты экземпляра
+PLP              ATTR_EXPRESSION_USED,
+Использовано выражение для вычисления реквизита %1 типа %2
+PLP              BAD_BOOLEAN_CONVERSION,
+Недопустимое преобразование логического выражения в SQL запросе
+PLP              BAD_COMPONENT,
+У выражения [%1] нет компоненты [%2]
+PLP              BAD_CURSOR,
+Невозможно открыть курсор для выполнения динамического SQL
+PLP              BAD_DECLARATION,
+Описание %1 использовано после описания процедур и функций
+PLP              BAD_DEFAULT_EXPR,
+Недопустимое выражение для инициализации переменной
+PLP              BAD_DIMENSION,
+Неверна размерность компоненты [%1] (лишние индексы)
+PLP              BAD_ETYPE,
+Неправильный тип выражения %1
+PLP              BAD_EXPR_LIST,
+Несоответствие списков выборок %1
+PLP              BAD_INTERVAL,
+Неверно указан размер/точность для типа INTERVAL
+PLP              BAD_NUMBER,
+Неверное описание числа
+PLP              BAD_OPERATOR,
+Неподходящий оператор %1
+PLP              BAD_PARAM_LIST,
+Неправильный список параметров вызова операции [%1]
+PLP              BAD_PARAM_NAME,
+Неверно указано имя параметра [%1] при вызове операции [%2]
+PLP              BAD_PARAM_OUT,
+Недопустимое выражение для выходного параметра %1
+PLP              BAD_PARAM_TYPE,
+Неправильный тип параметра [%1] операции [%2]
+PLP              BAD_RESULT_TYPE,
+Неправильный тип возвращаемого значения для операции [%1]
+PLP              BAD_STRING,
+Неверный размер строки
+PLP              BAD_SYNONYM_OWNER,
+Владелец %1 синонима %2 не является владельцем схемы IBSO
+PLP              BAD_TABLE_TYPE,
+Неверный тип массива (INDEX BY/NESTED/VARRAY)
+PLP              BAD_TIMESTAMP,
+Неверно указан размер/точность для типа TIMESTAMP
+PLP              CACHE_ATTRS,
+Нежелательное использование реквизитов экземпляра THIS в описаниях переменных
+PLP              CACHE_OPTIMIZATION,
+Использование кэширования экземпляра THIS не оптимально
+PLP              CACHE_THIS,
+Использована конструкция %1 при отключенном кэше экземпляра THIS
+PLP              CHANGE_DATABASE,
+Не гарантируется, что база данных не будет обновлена
+PLP              CLASS_HAS_NO_CHILDS,
+Тип [%1] не имеет дочерних, значение типа ссылки предопределено
+PLP              CLASS_HAS_PARENT,
+Тип [%1] имеет родительский [%2], - возможно неконсистентное удаление
+PLP              CLASS_NOT_FOUND,
+Тип [%1] не найден
+PLP              COLUMN_EXPECTED,
+Необходимо указать выражение, явно использующее колонку таблицы
+PLP              COLUMN_NUMBER,
+Колонка %1
+PLP              CURSOR_DECLARATIONS,
+Описание курсора %1 содержит ссылки на внешние переменные или функции
+PLP              CURSOR_EXPECTED,
+Необходимо указать курсор в качестве параметра
+PLP              CURSOR_LOCK_NOT_ALLOWED,
+Использование блокирующего курсора %1 в подзапросе запрещено
+PLP              CURSOR_NOT_DEFINED,
+Не определен или неправильно описан курсор %1
+PLP              DML_METADATA,
+Модификация (%2) метаданных [%1] запрещена!
+PLP              DML_QUERY,
+Модификация (%2) типа [%1] построена на подзапросе...
+PLP              EXTERNAL_CURSOR,
+Использование внешнего курсора %1 в текущем контексте недопустимо
+PLP              FEW_PARAM_LIST,
+Недостаточный список параметров вызова операции [%1]
+PLP              GLOBAL_MACRO,
+Макрос [%1] не может быть сохранен - слишком длинное имя
+PLP              HIERARCHY_ERROR,
+Нарушен принцип наследования: [%1] <--> [%2]
+PLP              ID_SUBSTITUTE,
+%2 Найден экземпляр [%1], удовлетворяющий заданным условиям
+PLP              INDEX,
+[%1] не может иметь индексов
+PLP              INFINITE_LOOP,
+Бесконечный цикл
+PLP              INSERT_LIST,
+Указанный список значений не может быть использован в данном контексте
+PLP              IR_UNEXPECTED,
+%1: неправильный тип узла %2 %3
+PLP              LONG_TEXT,
+Размер пакета PL/SQL слишком велик (>32k)
+PLP              LOOPING_CHAIN_OF_SYNONYMS,
+Замкнутая цепочка синонимов [%1]
+PLP              MACRO_TOO_LONG,
+Размер тела макроса [%1] (%2) превысил допустимый (%3)
+PLP              METHOD_IS_FUNC,
+Операция [%1] должна возвращать результат
+PLP              METHOD_IS_PROC,
+Операция [%1] не может возвращать результат
+PLP              METHOD_NOT_FOUND,
+Операция [%1] не найдена
+PLP              METHOD_NOT_FOUND_IN_JAVA,
+Операция %1 не найдена в java
+PLP              METHOD_NOT_STATIC,
+Для операции [%1] требуется задать экземпляр
+PLP              MISSING_EXPRESSION,
+Отсутствует выражение для инициализации переменной
+PLP              NESTED_DBLINKS,
+Вложенные связи баз данных не поддерживаются [%1]
+PLP              NOT_CLASS_COMPONENT,
+У типа [%1] нет реквизита или операции [%2]
+PLP              NOT_CLASS_REF,
+[%1] не ссылка на тип
+PLP              NOT_COLLECTION,
+[%1] не коллекция
+PLP              NOT_DBOBJECT,
+Не объект базы данных
+PLP              NOT_GROUP_METHOD,
+Выражение [%1] не является вызовом списочной операции
+PLP              NOT_LIBRARY,
+Неверное использование библиотеки %1
+PLP              NOT_LVALUE,
+Выражению %1 не может быть присвоено значение
+PLP              NOT_OBJECT_COMPONENT,
+У объекта [%1] нет реквизита или операции [%2]
+PLP              NOT_OBJECT_REF,
+[%1] не ссылка на экземпляр
+PLP              NOT_ORDER_BY,
+Выражение не может быть использовано для упорядочивания выборки
+PLP              NOT_PROC,
+Выражение не является вызовом процедуры
+PLP              NOT_RVALUE,
+Значение выражения %1 не может прочитано
+PLP              NOT_USED,
+Неиспользуемое описание %1
+PLP              NO_CLASS_TABLE,
+Отсутствует таблица типа %1
+PLP              NO_CURSOR_BODY,
+Отсутствует описание основного курсора (MAIN) для представления
+PLP              NO_INSTANCES,
+Тип [%1] не может иметь экземпляров или отсутствует таблица
+PLP              NO_INTERFACE,
+Отсутствует интерфейс типа [%1]
+PLP              NO_OVERLAP,
+Перекрытие функций не допускается (%1)
+PLP              NO_PARAM_NAME,
+Не указано имя параметра в вызове операции [%1]
+PLP              NO_RESULT,
+Возможен возврат без задания результата функции
+PLP              NO_RETURN_CLAUSE,
+Указание возвращаемых значений недопустимо
+PLP              NO_SOURCE_METHOD_CALL,
+Отсутствует вызов расширяемой операции
+PLP              NO_TABLE_COLUMN,
+Не найдена колонка для квалификатора [%1] в таблице типа [%2]
+PLP              OBJECT_NOT_FOUND,
+%1 Не найден экземпляр, удовлетворяющий заданным условиям
+PLP              OBJECT_STATIC,
+Присвоение статическому экземпляру %1
+PLP              OBSOLETE_SYNTAX,
+Устаревший синтаксис
+PLP              ONLY_DECLARATIONS,
+В глобальной секции допустимы только описания
+PLP              ORDERING_NOT_USED,
+В текущем контексте указанное упорядочивание не будет использовано
+PLP              OVERLAPPED,
+Операция [%1] была перекрыта с другим списком параметров в типе [%2]
+PLP              PARAM_ATTR,
+Реквизит использован как выходной параметр %1
+PLP              PARAM_DUPLICATE,
+Дублируется значение параметра [%1] при вызове операции [%2]
+PLP              PARAM_EXPECTED,
+Список параметров вызова операции [%1] не может быть пустым
+PLP              PARAM_NOT_FOUND,
+Не указано фактическое значение параметра [%1] при вызове операции [%2]
+PLP              PARSER_ERROR,
+%1 %2 %3
+PLP              RECURSIVE_CALLS,
+Возможны рекурсивные вызовы операции %1
+PLP              RECURSIVE_DEFINITION,
+Рекурсивное определение типа %1
+PLP              REFERENCE_ONLY,
+Вызов операции [%1] возможен только по ссылке
+PLP              RESERVED,
+Недопустимое использование зарезервированного слова [%1]
+PLP              RESULT_LOST,
+Возвращаемое значение функции будет потеряно
+PLP              RUNTIME_DECLARATION,
+%1 - Использовано стандартное описание среды времени исполнения
+PLP              SCALAR_EXPRESSION_EXPECTED,
+Допустимо только скалярное выражение (%1)
+PLP              SEMANTICS_ROUTINE,
+%1: вызов для чужого узла %2/%3
+PLP              STATEMENT_PROCESSING_ERROR,
+Ошибка ORACLE [%1] при выполнении запроса [%2]
+PLP              STRUCTURE_TYPE_ONLY,
+Допустимо описание только через структурный тип
+PLP              SYNONYMS_CHAIN_TOO_LONG,
+Слишком длинная цепочка синонимов [%1]
+PLP              TABLE_EXPECTED,
+Допустимым выражением может быть только массив типа %1
+PLP              TOO_MANY_MATCHES,
+Cлишком много описаний "%1" соответствуют этому вызову (%2)
+PLP              TOO_MANY_OBJECTS,
+%1 Найдено несколько экземпляров, удовлетворяющих заданным условиям
+PLP              TYPES_INCOMPATIBLE,
+Типы [%1] и [%2] несовместимы
+PLP              TYPE_WRONG,
+Выражение %1 не может быть использовано в этом контексте
+PLP              UNDEFINED_SIZE,
+Размер типа %1 не определен
+PLP              UNREACHABLE_CODE,
+Неиспользуемый код операции
+PLP              ACCESS_DENIED,
+%1 не доступен
+PLP              UPDATE_LIST,
+Указанный список значений не может быть использован в данном контексте
+PLP              UPDATING_NOT_ALLOWED,
+Изменение указанных колонок запрещено: %1
+PLP              VAR_NOT_FOUND,
+Переменная %1 не найдена
+PLP              BAD_TARGET_GEN_OPT,
+Операция %1 не имеет опции компиляции "Генерация %2"
+PLP              LIC_ACCESS_DENIED,
+[%1] не доступен. Использование всех приложений, включающих данный объект, запрещено лицензией.
+PLP              PUBLIC_BARRIER_FOR_HINT,
+Прагма HINT (%1) не применена
+PLP              PUBLIC_IN_FUNC_ATTR,
+Использование PUBLIC в функциональном реквизите не допускается
+PLP              PUBLIC_AT_GLOB_AND_LOC,
+При использовании PUBLIC секция глобальных описаний должна быть пуста
+PLP              PUBLIC_COMMAND_NOT_ALLOWED,
+Использование PUBLIC для команды %1 не допускается
+PLP              PUBLIC_PRAGMA_NOT_ALLOWED,
+Использование PUBLIC для прагмы %1 не допускается
+PLP              PUBLIC_SPEC_NOT_ALLOWED,
+Использование PUBLIC для спецификации не допускается
+PLP              PUBLIC_LEVEL_NOT_ALLOWED,
+Использование PUBLIC на этом уровне не допускается
+PLP              PUBLIC_AT_GLOB_SECTION,
+Использование PUBLIC в секции глобальных описаний не допускается 
+PLP              PUBLIC_AT_SECTION,
+Использование PUBLIC в секции %1 не допускается
+UADMIN           2L_LOCK_USER,
+Изъяты права на "Автоматизированное рабочее место" для 2L соединения.
+UADMIN           ACC_ADMIN,
+Доступен "Администратор словаря данных"
+UADMIN           ACC_ALLOBJECTS,
+Разрешен доступ ко всем экземплярам представления
+UADMIN           ACC_ARMS,
+Заблокирован доступ в АРМы
+UADMIN           ACC_BCR_KEY,
+Идентификатор ключа СКЭДО:
+UADMIN           ACC_CONTEXT,
+Автоматическое заполнение контекстов
+UADMIN           ACC_INIT_SESSION,
+Разрешено инициализировать неперсонифицированные сессии
+UADMIN           ACC_NAV,
+Доступно "Автоматизированное рабочее место"
+UADMIN           ACC_OPEN_SESSION,
+Разрешено создавать (удалять) пользовательские сессии
+UADMIN           ACC_OREPORT,
+Разрешено администрирование очереди отчетов
+UADMIN           ACC_PDADMIN,
+Доступен "Администратор ИСПДН"
+UADMIN           ACC_PICKER,
+Доступен "Администратор проектов"
+UADMIN           ACC_PROFILE,
+Профиль
+UADMIN           ACC_REVISOR,
+Доступны права "Ревизора"
+UADMIN           ACC_SENIOR,
+Разрешено администрирование шаблонов печати
+UADMIN           ACC_SESSION,
+Неперсонифицированное соединение:
+UADMIN           ACC_SYSPRM,
+Разрешено управление справочником "Параметры"
+UADMIN           ACC_UADMIN,
+Доступен "Администратор доступа"
+UADMIN           ACC_UPICKER,
+Доступен "Администратор переноса групп доступа"
+UADMIN           ADD_ADDRESS,
+Добавление сетевого адреса %1 (%2) подразделению %3 (%4).
+UADMIN           ADD_GROUP_TO_GROUP,
+Добавление группы "%1" в группу "%2"
+UADMIN           ADD_GRP_FROM_DOM,
+Группа [%1] добавлена в подразделение [%2]
+UADMIN           ADD_TO_ADDRESS,
+Добавление пользователю %1 сетевого адреса %2.
+UADMIN           ADD_TO_GROUP,
+Добавление пользователя %1 в группу %2.
+UADMIN           ADM_GRP_USR,
+Невозможно удалить административную группу или владельца схемы!
+UADMIN           ALL_RIGHTS,
+все права
+UADMIN           APP_SRV_CANT_SET_INIT_LOCK,
+Невозможно установить свойство "Инициализация сессий",\n    так как не установлено свойство "Навигатор"
+UADMIN           APP_SRV_CANT_SET_INIT_OPEN,
+Невозможно установить свойство "Инициализация сессий",\n    так как установлено свойство "Создание сессий"
+UADMIN           APP_SRV_CANT_SET_OPEN_INIT,
+Невозможно установить свойство "Создание сессий",\n    так как установлено свойство "Инициализация сессий"
+UADMIN           APP_SRV_CANT_SET_OPEN_LOCK,
+Невозможно установить свойство "Создание сессий",\n    так как не установлено свойство "Навигатор"
+UADMIN           APP_SRV_REACHED_MAX_INIT,
+Невозможно установить свойство "Инициализация сессий",так как\n    достигнуто максимальное кол-во пользователей с таким свойством (%1).
+UADMIN           APP_SRV_REACHED_MAX_OPEN,
+Невозможно установить свойство "Создание сессий",так как\n    достигнуто максимальное кол-во пользователей с таким свойством (%1).
+UADMIN           CANNOT_CHANGE_GRANTS,
+Невозможно предоставить или отозвать привилегию EXECUTE для объекта %1:\n%2
+UADMIN           CANNOT_CHANGE_OTHERS_OPTIONS,
+Невозможно изменять чужие настройки
+UADMIN           CANNOT_CHANGE_PRIVS,
+Запрещено изменение указанных привилегий: %1
+UADMIN           CHANGE_ADDRESS,
+Изменен сетевой адрес %1 на %2 (%3) подразделения %4 (%5).
+UADMIN           CHANGE_DOMAIN,
+Изменено имя подразделения [%1]: [%2]
+UADMIN           CHANGE_GROUP,
+Группа %1, %2 изменена.
+UADMIN           CHANGE_PASS,
+Пароль успешно изменен.
+UADMIN           CHANGE_UADM_PRIVS,
+Изменены административные функции администратора [%1]: %2
+UADMIN           CHANGE_USER,
+Пользователь %1, %2 изменен: %3,\n%4
+UADMIN           CHANGE_USER_SHORT,
+Пользователь %1, %2 изменен: %3
+UADMIN           CHANGING_DELETED,
+Изменение прав удаленного пользователя [%1] запрещено
+UADMIN           CLSS,
+Тип
+UADMIN           CLS_WAS_ADDED,
+%4 %1, добавлен тип %2 (%3).
+UADMIN           CLS_WAS_CHANGED,
+%4 %1, изменен тип %2 (%3).
+UADMIN           CLS_WAS_DELETED,
+%3 %1, удален тип %2.
+UADMIN           COPY_ATTR,
+Скопировано прав доступа через реквизиты: %1, типа %2 от субъекта %3 субъекту %4.
+UADMIN           COPY_ATTR1,
+Скопировано прав доступа на экземпляры через реквизиты: %1.
+UADMIN           COPY_CLS,
+Скопировано прав на типы: %1.
+UADMIN           COPY_CRT,
+Скопировано представлений: %1, типа %2 от субъекта %3 субъекту %4.
+UADMIN           COPY_CRT1,
+Скопировано прав на представления: %1.
+UADMIN           COPY_FVR1,
+Скопировано пунктов меню пользователя: %1.
+UADMIN           COPY_GROUPS,
+Скопировано групп: %1.
+UADMIN           COPY_GRP1,
+Скопировано групп операций: %1.
+UADMIN           COPY_MTH,
+Скопировано операций: %1, типа %2 от субъекта %3 субъекту %4.
+UADMIN           COPY_MTH1,
+Скопировано прав на операции: %1.
+UADMIN           COPY_OBJ,
+Скопировано исключений: %1, типа %2 от субъекта %3 субъекту %4.
+UADMIN           COPY_OBJ1,
+Скопировано исключений: %1.
+UADMIN           COPY_PRC,
+Скопировано процедур: %1, от субъекта %2 субъекту %3.
+UADMIN           COPY_PRC1,
+Скопировано прав на процедуры: %1.
+UADMIN           COPY_RUL,
+Скопировано правил: %1, типа %2 от субъекта %3 субъекту %4.
+UADMIN           COPY_RUL1,
+Скопировано пунктов правил: %1.
+UADMIN           COPY_TRA,
+Скопировано переходов: %1, типа %2 от субъекта %3 субъекту %4.
+UADMIN           COPY_TRA1,
+Скопировано прав на переходы: %1.
+UADMIN           CREATE_DOMAIN,
+В подразделении [%3] создано подразделение [%1] (%2)
+UADMIN           CREATE_GROUP,
+Создание новой группы %1.
+UADMIN           CREATE_ORAUSER_ERROR,
+Ошибка создания пользователя Oracle %1
+UADMIN           CREATE_USER,
+Создание нового пользователя %1\nсо свойствами: %2,\n%3
+UADMIN           CRTS,
+Представления.
+UADMIN           CRT_PRINT_WAS_CHANGED,
+%4 %1, тип %2, изменены свойства доступности печати представления %3, на принтер = %5, в файл = %6.
+UADMIN           CRT_WAS_ADDED,
+%4 %1, тип %2, добавлено представление %3.
+UADMIN           CRT_WAS_DELETED,
+%4 %1, тип %2, удалено представление %3.
+UADMIN           CRT_INHERITED_DELETED,
+%4 %1, удалены права доступа к представлению %3, которое больше не наследуется типом %2.
+UADMIN           CRT_WERE_ADDED,
+%3 %1, добавлено(ы) представление(ия) %2.
+UADMIN           CRT_WERE_DELETED,
+%3 %1, удалено(ы) представление(ия) %2.
+UADMIN           DELETE_DOMAIN,
+Удалено подразделение [%1]
+UADMIN           DEL_ADDRESS,
+Удален сетевой адрес %1 (%2) из подразделения %3 (%4).
+UADMIN           DEL_ALL_RULS,
+%3 %1, тип %2, удалены все правила.
+UADMIN           DEL_FROM_ADDRESS,
+Удаление у пользователя %1 сетевого адреса %2.
+UADMIN           DEL_FROM_GROUP,
+Удаление пользователя %1 из группы %2.
+UADMIN           DEL_GROUP,
+Удален субъект системы %1.
+UADMIN           DEL_GROUP_FROM_GROUP,
+Удаление группы "%1" из группы "%2"
+UADMIN           DEL_SUBJ,
+Удален субъект %1.
+UADMIN           DEL_USER,
+Удален субъект системы %1, пользователь Oracle остался.
+UADMIN           DO_NOT_HAVE_RIGHTS,
+У вас не хватает прав
+UADMIN           GRANT_ADMIN,
+Предоставлены права "Администратора словаря данных".
+UADMIN           GRANT_INIT_SESSION,
+Предоставлено право "Инициализации сессий".
+UADMIN           GRANT_OPEN_SESSION,
+Предоставлено право "Создания сессий".
+UADMIN           GRANT_PDADMIN,
+Предоставлены права "Администратора ИСПДН".
+UADMIN           GRANT_PICKER,
+Предоставлены права "Администратора проектов".
+UADMIN           GRANT_PRINT,
+Предоставлены права на модификацию шаблонов печати.
+UADMIN           GRANT_REVISOR,
+Предоставлены права "Ревизора".
+UADMIN           GRANT_UADMIN,
+Предоставлены права "Администратора доступа".
+UADMIN           GRANT_UPICKER,
+Предоставлены права "Администратора переноса групп доступа".
+UADMIN           GRP_RIGHTS,
+права групп
+UADMIN           HAVE_OUSER,
+Пользователь с именем %1 уже существует в системе Oracle.
+UADMIN           HAVE_USER,
+Пользователь или группа с сетевым именем %1 уже существует!
+UADMIN           LOCK_USER,
+Изъяты права на "Автоматизированное рабочее место".
+UADMIN           LS_EXPIRED,
+Срок действия пароля истек
+UADMIN           LS_FROM,
+%1 с %2.
+UADMIN           LS_FROM_TO,
+%1 с %2 по %3.
+UADMIN           LS_LOCKED,
+Блокирован
+UADMIN           LS_STATUS,
+Состояние:
+UADMIN           LS_TO_EXPIRE,
+Установить признак "Срок действия пароля истек"
+UADMIN           LS_TO_LOCK,
+Блокировать
+UADMIN           LS_TO_UNLOCK,
+Разблокировать
+UADMIN           MOVE_DOMAIN,
+Подразделение [%1] перемещено из подразделения [%2] в подразделение [%3]
+UADMIN           MOVE_USER,
+Пользователь [%1] перемещен из подразделения [%2] в подразделение [%3]
+UADMIN           MOVE_USER_AUTO,
+Пользователь [%1] перемещен из подразделения [%2] в подразделение [%3] по расписанию.
+UADMIN           MOVE_USER_AUTO_ERROR,
+Пользователь [%1] не может быть перемещен из подразделения [%2] в подразделение [%3] по расписанию.\n%4
+UADMIN           MTHS,
+Операции
+UADMIN           MTH_CHK_WAS_ADDED,
+%4 %1, операция %2, добавлена операция проверки %3.
+UADMIN           MTH_CHK_WAS_DELETED,
+%4 %1, операция %2, удалена операция проверки %3.
+UADMIN           MTH_WAS_ADDED,
+%4 %1, тип %2, добавлена операция %3.
+UADMIN           MTH_WAS_DELETED,
+%4 %1, тип %2, удалена операция %3.
+UADMIN           MY_RIGHTS,
+свои права
+UADMIN           NOT_ADMIN,
+[%1] не является администратором
+UADMIN           NOT_GROUP,
+[%1] не является группой
+UADMIN           NOT_REGISTERED,
+Пользователь %1 не зарегистрирован в прикладной подсистеме.
+UADMIN           NOT_ROOT_UADMIN,
+Вы не являетесь главным администратором
+UADMIN           NOT_USER,
+[%1] не является пользователем
+UADMIN           NO_CHANGE_PASS,
+Только владелец может изменять свой пароль. Пароль не изменен.
+UADMIN           NO_OUSER,
+Пользователя с именем %1 нет в системе Oracle.
+UADMIN           NO_PRIV,
+Возможно недостаточно привилегий для модификации пользователя!\nОбратитесь к администратору!
+UADMIN           NO_RIGHTS,
+Нет прав на модификацию данных
+UADMIN           NO_TABLE,
+Нет таблицы %1.
+UADMIN           NO_TABLE_SPACE,
+Не определены табличные пространства! Обратитесь к администратору!\nТабличные пространства можно определить в Администраторе словаря\nданных в меню: Управление.Настройка...Хранение.
+UADMIN           OBJS,
+Экземпляры
+UADMIN           OBJ_EX_WAS_DENIED,
+%5 %1, запрещен экземпляр %2, тип %3, ссылающийся тип %4.
+UADMIN           OBJ_EX_WAS_PERMITTED,
+%5 %1, разрешен экземпляр %2, тип %3, ссылающийся тип %4.
+UADMIN           OBJ_WAS_DELETED,
+%4 %1, удален экземпляр %2, кат. доступа %3.
+UADMIN           OBJ_WAS_DENIED,
+%4 %1, запрещен экземпляр %2, кат. доступа %3.
+UADMIN           OBJ_WAS_PERMITTED,
+%4 %1, разрешен экземпляр %2, кат. доступа %3.
+UADMIN           PACKAGE_DOES_NOT_EXIST,
+Не существует пакет %1 или у собственника нет прав на создание/удаление синонимов. %2
+UADMIN           PASS_TO_EXPIRE,
+Изменить пароль.
+UADMIN           PROFILE_TO_EXPIRE,
+Изменить профиль на "%1".
+UADMIN           PRO_WAS_ADDED,
+%3 %1, добавлена процедура %2.
+UADMIN           PRO_WAS_DELETED,
+%3 %1, удалена процедура %2.
+UADMIN           PRO_WERE_ADDED,
+%3 %1, добавлена(ы) процедура(ы) %2.
+UADMIN           PRO_WERE_DELETED,
+%3 %1, удалена(ы) процедура(ы) %2.
+UADMIN           RECREATE_USER,
+Перерегистрация пользователя %1\nсо свойствами: %2,\n%3
+UADMIN           REMOVE_GRP_FROM_DOM,
+Группа [%1] удалена из подразделения [%2]
+UADMIN           REPORT_SYNONYM_ERROR,
+Ошибка при создании синонима [%1] для отчетов "Администратора доступа". %2
+UADMIN           RESOURCE_GROUP_NAME,
+Группа ресурсов подразделения %1
+UADMIN           REVISOR_GROUP_NAME,
+Группа ревизоров подразделения %1
+UADMIN           REVOKE_ADMIN,
+Изъяты права "Администратора словаря данных".
+UADMIN           REVOKE_INIT_SESSION,
+Изъято право "Инициализации сессий".
+UADMIN           REVOKE_OPEN_SESSION,
+Изъято право "Создания сессий".
+UADMIN           REVOKE_PDADMIN,
+Изъяты права "Администратора ИСПДН".
+UADMIN           REVOKE_PICKER,
+Изъяты права "Администратора проектов".
+UADMIN           REVOKE_PRINT,
+Изъяты права на модификацию шаблонов печати.
+UADMIN           REVOKE_REVISOR,
+Изъяты права "Ревизора".
+UADMIN           REVOKE_UADMIN,
+Изъяты права "Администратора доступа".
+UADMIN           REVOKE_UPICKER,
+Изъяты права "Администратора переноса групп доступа".
+UADMIN           REVOKE_USER,
+Удаление роли пользователя у %1.
+UADMIN           SET_RUL,
+%7 %1, тип %2, установлено правило: %3 : %4 : %5 : %6.
+UADMIN           THE_SAME_DOMAIN,
+Одно и тоже подразделение
+UADMIN           TRAS,
+Переходы
+UADMIN           TRA_WAS_ADDED,
+%4 %1, тип %2, добавлен переход %3.
+UADMIN           TRA_WAS_DELETED,
+%4 %1, тип %2, удален переход %3.
+UADMIN           TRST_RIGHTS,
+доверенные права
+UADMIN           TRUST,
+Переданы права субъекту %1 от субъекта %2.
+UADMIN           UADMINS_MAX_COUNT_REACHED,
+Достигнуто максимальное количество пользователей с ролью "Администратор доступа" для одного подразделения: %1.
+UADMIN           UNLOCK_USER,
+Предоставлены права на "Автоматизированное рабочее место".
+UADMIN           UNTRUST,
+Удалены права у субъекта %1 переданные субъектом %2.
+UADMIN           USER,
+Пользователь
+UADMIN           USER_GROUP,
+Группа доступа
+UADMIN           USR_ADD_ROLE,
+Пользователю %1 добавлена роль.
+UADMIN           LIC_RESTRICTIONS_VIOLATION,
+Нарушение лицензионных ограничений: %1.
+UADMIN           PASSWORD_CHANGE_ERROR,
+Ошибка изменения пароля
+UADMIN           BATTLE_PASSWORD_NOT_SET,
+Не установлен "Боевой пароль"
+WWW              NO_RCLIENT,
+Вы не зарегистрированы как "Удаленный клиент"
+WWW              NO_WEBCLIENT,
+Вы не зарегистрированы как "Удаленный WEB клиент"
+RTL              OPTION_NOT_ENABLED,
+Лицензионная опция [%1] не доступна
+RTL              SESSIONS_LIMITED,
+Количество пользователей (%1) превышает лимит [%2] (%3)
+RTL              REG_SESSION_ERROR,
+Ошибка регистрации сессии
+RTL              ILLEGAL_REPORT_ID,
+Недопустимый идентификатор сессии отчета: [%1]
+RTL              ILLEGAL_CALL_STACK,
+Недопустимый стэк вызова: %1
+RTL              USER_NOT_REGISTERED,
+Пользователь [%1] не зарегистрирован в системе
+RTL              HASH_VALUE_ERROR,
+Ошибка хэш суммы
+RTL              HASH_PARAM_ERROR,
+Ошибка хэш параметра
+RTL              CANNOT_INIT_SESSION,
+Сессия [%1] не может быть проинициализирована
+RTL              SESSION_LOCKED,
+Сессия [%1] заблокирована
+RTL              DATE_LIMITED,
+Текущая дата сервера (%1) превышает лимит [%2] (%3)
+RTL              JOB_NOT_INITIALIZED,
+Ошибка инициализации задания по расписанию: %1
+RTL              ILLEGAL_JOB,
+Недопустимое задание по расписанию: [%1]
+RTL              ILLEGAL_SESSION_TYPE,
+Некорректная регистрация %1 сессии: [%2]
+RTL              SESSION_NOT_OPENED,
+Сессия [%1] не может быть открыта
+RTL              CANNOT_OPEN_SESSION,
+Не установлен признак OPEN_SESSION/IP_ADDRESS
+RTL             LOCK_USER,
+Пользователь %1 заблокирован.
+EXECUTOR         HASH_VALUE_ERROR,
+Ошибка хэш суммы
+EXECUTOR         LICENSE_ERROR,
+Ошибка получения лицензионной информации
+EXECUTOR         CALCULATE,
+Ошибка исполнения процедуры: [%1]
+CLS              ROWID_KERNEL_ERROR,
+Тип [%1] является системным
+CLS              ROWID_REFERENCE_LOG_ERROR,
+У типа [%1] есть реквизит [%2] с ссылкой на тип с ROWID [%3]
+CLS              ROWID_REFERENCE_ERROR,
+У типа [%1] есть реквизиты типа ссылка на тип с ROWID. Найдено реквизитов: %2
+CLS              ROWID_OLE_LOG_ERROR,
+У типа [%1] есть OLE реквизит [%2]
+CLS              ROWID_OLE_ERROR,
+У типа [%1] есть реквизиты типа "OLE-объект". Найдено реквизитов: %2
+CLS              ROWID_STATIC_LOG_ERROR,
+У типа [%1] есть статический реквизит [%2]
+CLS              ROWID_STATIC_ERROR,
+У типа [%1] есть статический экземпляр
+CLS              ROWID_ARR_REF_LOG_ERROR,
+У типа [%1] есть реквизит [%2] типа массив ссылок на тип с ROWID [%3]
+CLS              ROWID_ARR_REF_ERROR,
+У типа [%1] есть реквизиты типа массив ссылок на тип с ROWID. Найдено реквизитов: %2
+CLS              ROWID_PARENT_ERROR,
+У типа [%1] есть родительский тип [%2]
+CLS              ROWID_CHILD_ERROR,
+У типа [%1] есть дочерний тип
+CLS              ROWID_ACCESS_ERROR,
+У типа [%1] установлен доступ по экземплярам
+CLS              ROWID_LOG_STATE_ERROR,
+У типа [%1] установлен признак "Журналирование смены состояний"
+CLS              ROWID_LOG_COLUMN_LOG_ERROR,
+У колонки [%1] таблицы типа [%2] установлен признак "Журналирование"
+CLS              ROWID_LOG_COLUMN_ERROR,
+У колонки таблицы типа [%1] установлен признак "Журналирование"
+CLS              ROWID_LOG_COLLECTION_ERROR,
+У типа [%1] установлен признак "Журналирование коллекций"
+CLS              ROWID_ARCHIVE_LOG_ERROR,
+У колонки [%1] таблицы типа [%2] установлен признак "Архивный"
+CLS              ROWID_ARCHIVE_ERROR,
+У колонки таблицы типа [%1] установлен признак "Архивный"
+CLS              ROWID_ATTR_ROWID_LOG_ERROR,
+У типа [%1] есть реквизит [%2] типа структура с ROWID [%3]
+CLS              ROWID_ATTR_ROWID_ERROR,
+У типа [%1] есть реквизиты типа структура с ROWID. Найдено реквизитов: %2
+CLS              ROWID_CLASS_CHANGE_BEGIN,
+Начато изменение типа [%1]
+CLS              ROWID_CLASS_CHANGE_END,
+Закончено изменение типа [%1]
+CLS              ROWID_VIEW_CHANGE_BEGIN,
+Начато изменение представления %1
+CLS              ROWID_VIEW_CHANGE_END,
+Закончено изменение представления %1
+CLS              ROWID_NO_PREDEFINE_ID,
+[%1] - ТБП с идентификацией по ROWID. Невозможно создавать экземпляры с предопределенными идентификаторами
+CLS              ROWID_TEMP_ERROR,
+Для ТБП [%1] с идентификацией по ROWID нельзя устанавливать признак "Время жизни" в состояние, отличное от "Постоянный"

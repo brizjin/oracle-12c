@@ -1,0 +1,1 @@
+alter table class_tab_columns add not_null varchar2(1) default '0';

@@ -1,0 +1,2 @@
+#!/bin/sh
+gcc -shared -static-libgcc -o librunproc32.so runproc.o lock.o

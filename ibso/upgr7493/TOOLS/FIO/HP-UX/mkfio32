@@ -1,0 +1,6 @@
+#!/bin/sh
+inc="-I$ORACLE_HOME/rdbms/demo -I$ORACLE_HOME/rdbms/public -I$ORACLE_HOME/plsql/public -I$ORACLE_HOME/network/public"
+#gcc -c -fPIC fio.c -I$ORACLE_HOME/rdbms/demo -I$ORACLE_HOME/rdbms/public -I$ORACLE_HOME/plsql/public -I$ORACLE_HOME/network/public
+cc -c +DD32 +Z -z fio.c $inc
+#ld -b -m -o libfio.sl fio.o >xxx
+ld -b -o libfio32.sl fio.o

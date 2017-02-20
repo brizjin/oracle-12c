@@ -1,0 +1,791 @@
+Описание пакета vfs_mgr
+
+Пакет содержит функции для работы с элементами VFS
+
+
+1.Константы типа элемента
+
+ VFS_FOLDER - каталог (папка)
+ VFS_FILE   - файл
+
+
+2.Константы режима открытия файла
+
+ MODE_READ      - чтение
+ MODE_WRITE     - запись
+ MODE_READWRITE - чтение/запись
+ MODE_FULL      = MODE_READWRITE
+ MODE_APPEND    - добавление
+
+
+3.Переменные
+
+ PATH_SEPARATOR   - разделитель элементов в пути доступа по умолчанию
+ 
+ EOLN varchar2(2) - символ(ы) конца строки по умолчанию
+
+ case_sensivity   - чувствительность имен к регистру символов
+
+
+4.Константы - возвращаемые значения (коды ошибок)
+
+ ERR_SUCCESS                  - успещное выполнение
+ ERR_INVALID_PATH             - неверно задан путь
+ ERR_INVALID_HANDLE           - неверные дескриптор файла (каталога)
+ ERR_NOT_ENOUGH_PRIVILEGE     - недостаточно привилегий
+ ERR_LOCKED                   - ресурс блокирован
+ ERR_INVALID_MODE             - неверен режим открытия файла
+ ERR_VFS_BASE                 
+ ERR_UNKNOWN                  - "непонятная" ошибка
+ ERR_NOT_EMPTY                - каталог (хранилища) не пусто (при удалении)
+ ERR_INVALID_NAME             - неверное имя
+ ERR_NAME_EXISTS              - файл (каталог) с таким именем уже существует
+ ERR_NO_STATIC_FOLDER_IN_TEMP - попытка создания "статичного" каталога во временном
+ ERR_INVALID_PARAMETER        - неверно задан параметр
+ ERR_NOT_IN_READ_MODE         - файл не открыт для чтения
+ ERR_NOT_IN_WRITE_MODE        - файл не открыт для записи
+ ERR_NOT_IN_READWRITE_MODE    - файл не открыт для чтения/записи
+ ERR_BUSY                     - ресурс (запись) блокирован ORACLE'ом
+ ERR_INVALID_CHARSET          - неверен тип кодировки символов
+ ERR_NO_DATA                  - данных не найдено
+ ERR_FIO_NOT_INIT             - не инициализирован пакет FIO
+ ERR_DROP_DEFAULT_STORAGE     - попытка удалить хранилище, используемое по умолчанию
+ ERR_EOF_REACHED              - достигнут конец файла
+ 
+
+5.Исключения - соответствуют кодам ошибок (4)
+
+ E_INVALID_PATH             
+ E_INVALID_HANDLE           
+ E_NOT_ENOUGH_PRIVILEGE     
+ E_LOCKED                   
+ E_INVALID_MODE             
+ E_UNKNOWN                  
+ E_NOT_EMPTY                
+ E_INVALID_NAME             
+ E_NAME_EXISTS              
+ E_NO_STATIC_FOLDER_IN_TEMP 
+ E_INVALID_PARAMETER        
+ E_NOT_IN_READ_MODE         
+ E_NOT_IN_WRITE_MODE        
+ E_NOT_IN_READWRITE_MODE    
+ E_BUSY                     
+ E_INVALID_CHARSET          
+ E_NO_DATA                  
+ E_FIO_NOT_INIT             
+ E_DROP_DEFAULT_STORAGE     
+ E_EOF_REACHED              
+
+
+6.Коды ошибок ORACLE 
+
+ ORA_RESOURCE_BUSY     - ORA-00054 - resource busy and acquire with NOWAIT specified
+ ORA_FETCH_MANY_ROWS   - ORA-01422 - exact fetch returns more than requested number of rows
+ ORA_CHILD_RECORD      - ORA-02292 - child record found
+ ORA_ARGUMENT_INVALID  - ORA-21560 - argument string is null, invalid, or out of range 
+ ORA_INVALID_LOCATOR   - ORA-22275 - invalid LOB locator specified
+ 
+ E_ORA_RESOURCE_BUSY     exception;
+ E_ORA_FETCH_MANY_ROWS   exception;
+ E_ORA_CHILD_RECORD      exception;
+ E_ORA_ARGUMENT_INVALID  exception;
+ E_ORA_INVALID_LOCATOR   exception;
+ pragma exception_init(E_ORA_RESOURCE_BUSY,    -00054);
+ pragma exception_init(E_ORA_FETCH_MANY_ROWS,  -01422);
+ pragma exception_init(E_ORA_CHILD_RECORD,     -02292);
+ pragma exception_init(E_ORA_ARGUMENT_INVALID, -21560);
+ pragma exception_init(E_ORA_INVALID_LOCATOR,  -22275);
+ 
+
+7.Константы - часто используемые символьные кодировки
+
+ CS_DOS  - DOS (cp866)
+ CS_UNIX - UNIX
+ CS_WIN  - WINDOWS
+ CS_KOI  - KOI8R
+ 
+
+8.Константы для DirFlag (get_file_list etc)
+
+ DF_NONE       - ничего
+ DF_FILE       - файлы
+ DF_FOLDER     - каталоги
+ DF_ACCESSIBLE - только доступные элементы
+ 
+
+9.Константы для seek$ origin
+
+ SB_BEGIN   - с начала файла
+ SB_CURRENT - с текущей позиции
+ SB_END     - с конца файла
+
+ 
+10.Пользовательские блокировки
+
+ ----------------------------------------------------------
+ function user_lock(aid in integer) return pls_integer;
+
+Установка пользовательской блокировки на элемент
+Входные параметры:
+ id - id элемента
+Возвращаемые значения:
+ ERR_SUCCESS, ERR_NOT_ENOUGH_PRIVILEGE, ERR_INVALID_PARAMETER, ERR_LOCKED
+
+ ----------------------------------------------------------
+ function user_unlock(aid in integer) return pls_integer;
+
+Снятие пользовательской блокировки
+Входные параметры:
+ id - id элемента
+Возвращаемые значения:
+ ERR_SUCCESS
+ 
+
+12.Режимы исполнения (параметр autonomous)
+
+Во всех функциях - если autonomous = true, функция выполняется в "автономной транзакции", то есть
+результаты ее работы сохраняются в БД назависимо от того, завершена или откачена главная транзакция
+
+
+11.Работа с элементами VFS
+
+ ----------------------------------------------------------
+ function create_folder$(aname in varchar2, 
+  aparent_id in integer default null, astorage_id in integer default null,
+  aothers_access_mask in pls_integer default vfs_admin.ACCESS_PARENT,
+  alifetime in number default null,
+  acharset in varchar2 default null,
+  adescription in varchar2 default null,
+  aautonomous in boolean default true) return integer;
+
+Создать папку (каталог)
+Входные параметры:
+ name - имя каталога
+ parent_id - id каталога верхнего уровня (NULL - корень)
+ storage_id - id хранилища (NULL - тоже, что и у parent'а, если parent = NULL - default_storage)
+ others_access_mask - маска доступа "для всех"
+ lifetime - "время жизни" файлов в каталоге для временного каталога, NULL для "не временного"
+ charset - кодировка символов, используемая по умолчанию для файлов этого каталога, NULL - берется у parent'а
+ description - описание
+ autonomous - режим исполнения
+Возвращаемые значения:
+ id вновь созданного элемента;
+ ERR_NOT_ENOUGH_PRIVILEGE, ERR_INVALID_PARAMETER, ERR_INVALID_NAME, ERR_NAME_EXISTS,
+ ERR_NO_STATIC_FOLDER_IN_TEMP, ERR_INVALID_CHARSET
+
+ ----------------------------------------------------------
+ function create_file$(aname in varchar2, 
+  aparent_id in integer default null, astorage_id in integer default null,
+  aothers_access_mask in integer default vfs_admin.ACCESS_PARENT,
+  acharset in varchar2 default null,
+  adescription in varchar2 default null,
+  aautonomous in boolean default true) return integer;
+
+Создать файл
+Входные параметры:
+ name - имя файла
+ parent_id - id каталога верхнего уровня (NULL - корень)
+ storage_id - id хранилища (NULL - тоже, что и у parent'а, если parent = NULL - default_storage)
+ others_access_mask - маска доступа "для всех"
+ charset - кодировка символов, NULL - берется у parent'а
+ description - описание
+ autonomous - режим исполнения
+Возвращаемые значения:
+ id вновь созданного элемента;
+ ERR_NOT_ENOUGH_PRIVILEGE, ERR_INVALID_PARAMETER, ERR_INVALID_NAME, ERR_NAME_EXISTS,
+ ERR_INVALID_CHARSET
+ 
+ ----------------------------------------------------------
+ function remove$(aid in integer, acascade in boolean default false, aautonomous in boolean default true) return pls_integer;
+
+Удалить элемент
+Входные параметры:
+ id - id элемента
+ cascade - каскадное удаление (для каталогов)
+ autonomous - режим исполнения
+Возвращаемые значения:
+ ERR_SUCCESS, ERR_NOT_ENOUGH_PRIVILEGE, ERR_LOCKED, ERR_NOT_EMPTY, ERR_INVALID_PARAMETER
+
+ ----------------------------------------------------------
+ function move$(aid in integer, anew_parent_id in integer, anew_name in varchar2 default null, 
+  aautonomous in boolean default true) return pls_integer;
+
+Переместить элемент
+Входные параметры:
+ id - id элемента
+ new_parent_id - id каталога, в который перемещается элемент
+ new_name - новое имя элемента
+ autonomous - режим исполнения
+Возвращаемые значения:
+ ERR_SUCCESS, ERR_NOT_ENOUGH_PRIVILEGE, ERR_INVALID_PARAMETER, ERR_INVALID_NAME, ERR_NAME_EXISTS, ERR_LOCKED
+
+ ----------------------------------------------------------
+ function store$(aid in integer, anew_storage_id in integer, acascade in boolean default false,
+  aautonomous in boolean default true) return pls_integer;
+
+Переместить данные элемента (файла) в другое хранилище
+Входные параметры:
+ id - id элемента
+ new_storage_id - id хранилища, в которое перемещаются данные
+ cascade - переместить все вложенные элементы (для каталогов)
+ autonomous - режим исполнения
+Возвращаемые значения:
+ ERR_SUCCESS, ERR_NOT_ENOUGH_PRIVILEGE, ERR_INVALID_PARAMETER, ERR_LOCKED
+
+ ----------------------------------------------------------
+ function rename$(aid in integer, anew_name in varchar2, aautonomous in boolean default true) return pls_integer;
+
+Переименовать элемент
+Входные параметры:
+ id - id элемента
+ new_name - новое имя
+ autonomous - режим исполнения
+Возвращаемые значения:
+ ERR_SUCCESS, ERR_INVALID_PARAMETER, ERR_NOT_ENOUGH_PRIVILEGE, ERR_LOCKED, ERR_INVALID_NAME, ERR_NAME_EXISTS
+
+ ----------------------------------------------------------
+ function copy$(aid in integer, aparent_id in integer, aname in varchar2 default null,
+  aautonomous in boolean default true) return integer;
+
+Копировать элемент
+Входные параметры:
+ id - id элемента
+ parent_id - id каталога, в который происходит копирование
+ name - имя нового элемента
+ autonomous - режим исполнения
+Возвращаемые значения:
+ id нового элемента;
+ ERR_NOT_ENOUGH_PRIVILEGE, ERR_INVALID_PARAMETER, ERR_LOCKED, ERR_INVALID_NAME, ERR_NAME_EXISTS
+
+ ----------------------------------------------------------
+ function set_description$(aid in integer, adescription in varchar2, aautonomous in boolean default true) return pls_integer;
+
+Изменить описание элемента
+Входные параметры:
+ id - id элемента
+ description - описание
+ autonomous - режим исполнения
+Возвращаемые значения:
+ ERR_SUCCESS, ERR_INVALID_PARAMETER, ERR_NOT_ENOUGH_PRIVILEGE, ERR_LOCKED
+
+ ----------------------------------------------------------
+ function remove_temporary$(aautonomous in boolean default true) return pls_integer;
+
+Удалить файлы с истекшим "временем жизни" из всех временных каталогов
+Входные параметры:
+ autonomous - режим исполнения
+Возвращаемые значения:
+ ERR_SUCCESS, ERR_NOT_ENOUGH_PRIVILEGE, ERR_LOCKED, ERR_NOT_EMPTY, ERR_INVALID_PARAMETER
+ 
+ ----------------------------------------------------------
+ function compare$(aid1 in integer, aid2 in integer,
+  acount in integer default dbms_lob.lobmaxsize, 
+  aoffset1 in integer default 1, aoffset2 in integer default 1) return integer;
+
+Сравнить содержимое двух элементов (файлов)
+Входные параметры:
+ id1, id2 - ids элементов
+ count - длина сравниваемого участка (байт)
+ offset1, offset2 - смещение от начала каждого из файлов до начала сравниваемого участка
+Возвращаемые значения:
+ NULL - неверно задан параметр (id1 или id2)
+ 0 - элемент1 = элемент2
+ 1 - элемент1 > элемент2
+ 2 - элемент1 < элемент2
+
+ ----------------------------------------------------------
+ function get_id_by_name$(apath in varchar2, apath_separator in char default PATH_SEPARATOR) return integer;
+
+Возвращает id элемента по заданному пути доступа (от корня)
+Входные параметры:
+ path - путь доступа
+ path_separator - разделитель элементов
+Возвращаемое значение:
+ id элемента
+ ERR_INVALID_PATH
+
+ ----------------------------------------------------------
+ function get_name_by_id$(aid in integer, apath_separator in char default PATH_SEPARATOR) return varchar2;
+
+Возвращает полный путь доступа к элементу (с корня)
+Входные значения:
+ id - id элемента
+ path_separator - разделитель элементов в пути доступа
+Возвращаемые значения:
+ NULL - элемент "id" отсутствует
+ "полное имя" (путь доступа)
+
+ ----------------------------------------------------------
+ function get_parent$(aid in integer) return integer;
+
+Возвращает id каталога верхнего уровня (NULL для корня)
+Входные параметры:
+ id - id элемента
+Возвращаемые значения:
+ id parent'а
+ ERR_INVALID_PARAMETER
+
+ ----------------------------------------------------------
+ function info$(aid in integer,
+  aname out varchar2,
+  atype out number,
+  aowner out varchar2,
+  asize out number,
+  aothers_access_mask out pls_integer,
+  asubject_access_mask out pls_integer,
+  acreate_date out date,
+  amodify_date out date,
+  acharset out varchar2,
+  astorage_id out integer,
+  adescription out varchar2) return pls_integer;
+
+Получить информацию об элементе
+Входные параметры:
+ id - id элемента
+Выходные параметры:
+ name - имя элемента
+ type - тип элемента
+ owner - владелец элемента
+ size - размер данных в файле (для каталога = 0)
+ others_access_mask - маска доступа "для всех"
+ subject_access_mask - маска персонального доступа вызывающего субъекта
+ create_date - дата создания
+ modify_date - дата изменения
+ charset - кодировка символов
+ storage_id - id хранилища
+ description - описание
+Возвращаемые значения
+ ERR_SUCCESS, ERR_INVALID_PARAMETER
+
+
+12.Функции работы с данными
+
+ ----------------------------------------------------------
+ function clear$(afile in HFILE) return pls_integer;
+
+Очистить содержимое файла
+Входные параметры:
+ file - дескриптор файла
+Возвращаемые значения:
+ ERR_SUCCESS, ERR_INVALID_HANDLE, ERR_NOT_IN_READWRITE_MODE
+
+ ----------------------------------------------------------
+ function is_open$(afile in HFILE) return boolean;
+
+Открыт ли файл (проверка дескриптора)
+Входные параметры:
+ file - дескриптор файла
+Возвращаемые значения:
+ true/false
+
+ ----------------------------------------------------------
+ function size$(afile in HFILE) return integer;
+
+Возвращает размер данных файла
+Входные параметры:
+ file - дескриптор файла
+Возвращаемые значения:
+ размер (байт)
+ ERR_INVALID_HANDLE
+
+ ----------------------------------------------------------
+ function eof$(afile in integer) return boolean;
+
+Проверка положения текущего указателя в файле на выход за пределы
+Входные параметры:
+ file - дескриптор файла
+Выходные параметры:
+ true/false
+
+ ----------------------------------------------------------
+ function instr$(afile in HFILE, apattern in raw, anth in integer default 1) return integer;
+
+Проверка на вхождение шаблона
+Входные параметры:
+ file - дескриптор файла
+ pattern - шаблон
+ nth - номер искомого вхождения
+Выходные парметры:
+ 0 - вхождение не найдено;
+ >0 - позиция n-того вхождения;
+ ERR_INVALID_HANDLE
+
+ ----------------------------------------------------------
+ function trim$(afile in HFILE, anew_length in integer) return pls_integer;
+
+Обрезает данные файла до указанного размера
+Входные параметры:
+ file - дескриптор файла
+ new_length - новая длина
+Выходные параметры:
+ ERR_SUCCESS, ERR_INVALID_HANDLE
+
+ ----------------------------------------------------------
+ function open$(aid in integer, amode in char default MODE_READ, 
+  aexclusive in boolean default false,
+  aautonomous in boolean default true) return HFILE;
+
+Открыть файл
+Входные параметры:
+ id - id элемента (файла)
+ mode - режим открытия (константы MODE_***)
+ exclusive - эксклюзивный доступ
+ autonomous - режим исполнения
+Возвращаемые значения:
+ дескриптор файла;
+ ERR_INVALID_PARAMETER, ERR_INVALID_MODE, ERR_NOT_ENOUGH_PRIVILEGE, ERR_LOCKED
+
+ ----------------------------------------------------------
+ function close$(afile in HFILE) return pls_integer;
+
+Закрыть файл
+Входные параметры:
+ file - дескриптор файла
+Возвращаемые значения:
+ ERR_INVALID_HANDLE
+
+ ----------------------------------------------------------
+ procedure close_all$;
+
+Закрыть все открытые файлы
+
+ ----------------------------------------------------------
+ function seek$(afile in HFILE, aoffset in integer, aorigin in integer default SB_BEGIN) return pls_integer;
+
+Переместить текущий указатель
+Входные параметры:
+ file - дескриптор файла
+ offset - требуемое смещение
+ origin - начальная позиция (константы SB_***)
+Возвращаемые значения:
+ > 0 - новое положение указателя;
+ ERR_INVALID_HANDLE, ERR_INVALID_PARAMETER
+
+ ----------------------------------------------------------
+ function read$(afile in HFILE, abuffer out raw, acount in integer default null) return pls_integer;
+
+Читать из файла
+Входные параметры:
+ file - дескриптор файла
+ count - количество байт для чтения
+Выходные параметры:
+ buffer - буфер, в который производится чтение
+Возвращаемые значения:
+ >0 - количество считанных байт
+ ERR_INVALID_HANDLE, ERR_EOF_REACHED
+
+ ----------------------------------------------------------
+ function write$(afile in HFILE, abuffer in raw, acount in integer default null) return pls_integer;
+
+Писать в файл
+Входные параметры:
+ file - дескриптор файла
+ buffer - буфер, из которого пишутся данные
+ count - количество байт для записи
+Возвращаемые значения:
+ ERR_SUCCESS, ERR_INVALID_HANDLE
+
+ ----------------------------------------------------------
+ function get_file_name$(afile in HFILE) return varchar2;
+
+Возвращает полное имя открытого файла
+Входные параметры:
+ file - дескриптор файла
+Возвращаемые значения:
+ имя файла или NULL - неверный дескриптор
+
+ 
+ ----------------------------------------------------------
+ function cinstr$(afile in HFILE, apattern in varchar2, anth in integer default 1) return integer;
+
+Проверка на вхождение шаблона
+Входные параметры:
+ file - дескриптор файла
+ pattern - шаблон
+ nth - номер искомого вхождения
+Выходные парметры:
+ 0 - вхождение не найдено;
+ >0 - позиция n-того вхождения;
+ ERR_INVALID_HANDLE
+
+ ----------------------------------------------------------
+ function cread$(afile in HFILE, abuffer out varchar2, acount in integer default null) return pls_integer;
+
+Читать из файла
+Входные параметры:
+ file - дескриптор файла
+ count - количество байт для чтения
+Выходные параметры:
+ buffer - буфер, в который производится чтение
+Возвращаемые значения:
+ >0 - количество считанных байт
+ ERR_INVALID_HANDLE, ERR_EOF_REACHED
+
+ ----------------------------------------------------------
+ function cwrite$(afile in HFILE, abuffer in varchar2, acount in integer default null) return pls_integer;
+
+Писать в файл
+Входные параметры:
+ file - дескриптор файла
+ buffer - буфер, из которого пишутся данные
+ count - количество байт для записи
+Возвращаемые значения:
+ ERR_SUCCESS, ERR_INVALID_HANDLE
+
+ ----------------------------------------------------------
+ function cread_str$(afile in HFILE, abuffer out varchar2, aeoln in varchar2 default EOLN) return pls_integer;
+
+Читать из файла до конца строки
+Входные параметры:
+ file - дескриптор файла
+ eoln - символ(ы) конца строки
+Выходные параметры:
+ buffer - буфер, в который производится чтение
+Возвращаемые значения:
+ >0 - количество считанных байт
+ ERR_INVALID_HANDLE, ERR_EOF_REACHED
+
+ ----------------------------------------------------------
+ function cwrite_str$(afile in HFILE, abuffer in varchar2, aeoln in varchar2 default EOLN) return pls_integer;
+
+Писать строку в файл (добавляет символ(ы) конца строки
+Входные параметры:
+ file - дескриптор файла
+ buffer - буфер, из которого пишутся данные
+ eoln - символ(ы) конца строки
+Возвращаемые значения:
+ ERR_SUCCESS, ERR_INVALID_HANDLE
+
+ 
+13.Функции работы со списками элементов
+
+ ----------------------------------------------------------
+ function get_file_list(aid in integer, amask in varchar2 default null, 
+  adir_flag in pls_integer default 0, asort in boolean default null) return varchar2;
+
+Получить список элементов (в текстовый буфер, разделенных символом(ами) конца строки)
+Входные параметры:
+ id - id элемента (каталога)
+ mask - маска (фильтр по имени)
+ dir_flag - фильтр по типам элементов (константы DF_***)
+ sort - признак сортировки (NULL - нет, > 0 - по возрастанию, < 0 - по убыванию)
+Возвращаемые значения:
+ строка, сождержащая имена выбранных элементов
+Исключения:
+ E_NOT_ENOUGH_PRIVILEGE, E_LOCKED, E_INVALID_PARAMETER
+
+ ----------------------------------------------------------
+ function get_file_list(alist out varchar2, aid in integer, amask in varchar2 default null, 
+  adir_flag in pls_integer default 0, asort in boolean default null) return pls_integer;
+
+Получить список элементов (в текстовый буфер, разделенных символом(ами) конца строки)
+Входные параметры:
+ id - id элемента (каталога)
+ mask - маска (фильтр по имени)
+ dir_flag - фильтр по типам элементов (константы DF_***)
+ sort - признак сортировки (NULL - нет, > 0 - по возрастанию, < 0 - по убыванию)
+Выходные параметры:
+ list - строка, сождержащая имена выбранных элементов
+Возвращаемые значения:
+ >= 0 - количество выбранных элементов;
+ ERR_NOT_ENOUGH_PRIVILEGE, ERR_LOCKED, ERR_INVALID_PARAMETER
+
+ ----------------------------------------------------------
+ function out_file_list(aid in integer, amask in varchar2 default null, 
+  adir_flag in pls_integer default 0, asort in boolean default null) return pls_integer;
+
+Вывести список элементов в dbms_output
+Входные параметры:
+ id - id элемента (каталога)
+ mask - маска (фильтр по имени)
+ dir_flag - фильтр по типам элементов (константы DF_***)
+ sort - признак сортировки (NULL - нет, > 0 - по возрастанию, < 0 - по убыванию)
+Возвращаемые значения:
+ > 0 - количество выбранных элементов;
+ ERR_NOT_ENOUGH_PRIVILEGE, ERR_LOCKED, ERR_INVALID_PARAMETER
+
+ ----------------------------------------------------------
+ function open_folder(aid in integer, amask in varchar2 default null,
+  adir_flag in pls_integer default 0, asort in boolean default null) return HFOLDER;
+
+Открыть каталог
+Входные параметры:
+ id - id элемента (каталога)
+ mask - маска (фильтр по имени)
+ dir_flag - фильтр по типам элементов (константы DF_***)
+ sort - признак сортировки (NULL - нет, > 0 - по возрастанию, < 0 - по убыванию)
+Возвращаемые значения:
+ > 0 - дескриптор каталога
+ ERR_NOT_ENOUGH_PRIVILEGE, ERR_INVALID_PARAMETER, ERR_LOCKED
+
+ ----------------------------------------------------------
+ function read_folder(afolder in HFOLDER,
+  aid out integer,
+  aname out varchar2,
+  atype out number,
+  aowner out varchar2, 
+  asize out number,
+  aothers_access_mask out pls_integer,
+  asubject_access_mask out pls_integer,
+  acreate_date out date,
+  amodify_date out date,
+  acharset out varchar2,
+  astorage_id out integer,
+  adescription out varchar2) return pls_integer;
+
+Получить данные для следующего элемента в открытом каталоге
+Входные параметры:
+ folder - дескриптор каталога
+Выходные параметры:
+ id - id элемента
+ name - имя элемента
+ type - тип элемента
+ owner - владелец элемента
+ size - размер данных в файле (для каталога = 0)
+ others_access_mask - маска доступа "для всех"
+ subject_access_mask - маска персонального доступа вызывающего субъекта
+ create_date - дата создания
+ modify_date - дата изменения
+ charset - кодировка символов
+ storage_id - id хранилища
+ description - описание
+Возвращаемые значения:
+ > 0 - номер по-порядку элемента
+ ERR_NO_DATA
+ 
+ ----------------------------------------------------------
+ function read_folder(afolder in HFOLDER,
+  aid out integer,
+  aname out varchar2) return pls_integer;
+
+Получить данные для следующего элемента в открытом каталоге
+Входные параметры:
+ folder - дескриптор каталога
+Выходные параметры:
+ id - id элемента
+ name - имя элемента
+Возвращаемые значения:
+ > 0 - номер по-порядку элемента
+ ERR_NO_DATA
+
+ ----------------------------------------------------------
+ function reset_folder(afolder in HFOLDER) return pls_integer;
+
+Перечитать список элементов для открытого каталога
+Входные параметры:
+ folder - дескриптор каталога
+Возвращаемые значения:
+ ERR_SUCCESS, ERR_INVALID_HANDLE
+
+ ----------------------------------------------------------
+ function close_folder(afolder in HFOLDER) return pls_integer;
+
+Закрыть каталог
+Входные данные:
+ folder - дескриптор каталога
+Возвращаемые значения:
+ ERR_SUCCESS, ERR_INVALID_HANDLE
+
+ ----------------------------------------------------------
+ procedure close_all_folders;
+
+Закрыть все открытые каталоги
+
+
+14.Функции работы с внешними файлами (через FIO)
+   
+ ----------------------------------------------------------
+ function fio_open(adir in varchar2, apath_separator in char default PATH_SEPARATOR) return pls_integer;
+
+Инициализировать FIO, установить текущий каталог
+Входные параметры:
+ dir - текущий каталог
+ path_separator - разделитель
+Возвращаемые значения:
+ ERR_SUCCESS, ERR_FIO_NOT_INIT
+
+ ----------------------------------------------------------
+ procedure fio_close;
+
+Деинициализировать FIO
+
+ ----------------------------------------------------------
+ function load_ext$(aext_name in varchar2, 
+  aname in varchar2, alocation in integer default null, astorage_id in integer default null,
+  aothers_access_mask in integer default vfs_admin.ACCESS_PARENT,
+  acharset in varchar2 default null,
+  adescription in varchar2 default null,
+  aautonomous in boolean default true) return integer;
+
+Загрузить внешний файл в VFS
+Входные параметры:
+ ext_name - путь к файлу из текущего каталога (установленного в fio_open)
+ name - имя файла в VFS
+ location - id каталога, в который будет помещен файл
+ storage_id - id хранилища, куда будет помещен файл
+ other_access_mask - маска доступа "для всех"
+ charset - кодировка символов
+ description - описание
+ autonomous - режим исполнения
+Возвращаемые значения:
+ > 0 - id созданного файла в VFS
+ ERR_FIO_NOT_INIT, FIO errors, ERR_NOT_ENOUGH_PRIVILEGE, ERR_INVALID_PARAMETER, ERR_INVALID_NAME, 
+ ERR_NAME_EXISTS, ERR_INVALID_CHARSET
+
+ ----------------------------------------------------------
+ function save_ext$(aid in integer, aext_name in varchar2, 
+  aexclusive in boolean default false,
+  aautonomous in boolean default true) return pls_integer;
+
+Сохранить VFS файл вовне
+Входные параметры:
+ id - id элемента (файла) в VFS
+ ext_name - имя (путь) к для сохранения (из текущего каталога, установленного в FIO_INIT)
+ exclusive - режим доступа к файлу в VFS
+ autonomous - режим исполнения
+Возвращаемые значения:
+ ERR_SUCCESS, ERR_FIO_NOT_INIT, ERR_INVALID_PARAMETER, ERR_NOT_ENOUGH_PRIVILEGE, ERR_LOCKED, FIO errors
+
+
+15.Функции инициализации/деинициализации
+ 
+ ----------------------------------------------------------
+ procedure vfs_open;
+
+Инициализировать VFS
+
+ ----------------------------------------------------------
+ procedure vfs_close;
+
+Деинициализировать VFS
+
+ ----------------------------------------------------------
+ procedure check_open;
+
+Проверить, инициализирована ли VFS, если нет - инициализировать
+
+ ----------------------------------------------------------
+ 
+16.Функции обработки ошибок
+
+ ----------------------------------------------------------
+ function error_message(acode in pls_integer) return varchar2;
+
+Получить сообщение об ошибке
+Входные параметры:
+ code - код ошибки
+Возвращаемые значения:
+ тукст сообщения об ошибке
+
+ ----------------------------------------------------------
+ function process_error(acode in pls_integer, araising in boolean default false) return pls_integer;
+
+Вызвать исключение
+Входные параметры:
+ code - код исключения
+ raising - если true - генерировать исключение ORACLE (raise), 
+  в противном случае - выдать собщение об ошибке (raise_application_error); 
+  если код ошибки >= 0 - исключение не вызывается
+Вохврвщаемые значения:
+ возвращает переданный код ошибки (acode)
+

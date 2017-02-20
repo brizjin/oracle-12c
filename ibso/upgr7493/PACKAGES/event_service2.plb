@@ -1,0 +1,54 @@
+prompt event_service body
+create or replace package body
+/*
+ *  $HeadURL: http://hades.ftc.ru:7382/svn/pltm2/CorePkg/trunk/IBS/event_service.sql $
+ *  $Author: minas $
+ *  $Revision: 16664 $
+ *  $Date:: 2012-08-30 11:06:00 #$
+ */
+event_service wrapped 
+a000000
+ab
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+abcd
+b
+115a 652
+zej7gXIZ1JAjIDGCULpb9MsSzfAwgztUoccF3465WJ0GpGWMbHSEMTIbStSQ+/pJW7LpuEsw
+KQIHSijt0lCfwCXQux3dRBoWk/p1C9AWj+55mgUO7EOatADmGxgXMDr5m/6q152Wtc+1HnIf
+j8UYJ4cLjE/2Ns+XLTxxwwVNp4o/ckCNQOpxlhIlBCLPRb6+THmMWlHTYIu0kWAAnf/gotx+
+SD8NWYn6bjkJeptRs1bV9/XWccPyA/JJr3vMsdO/5L2ssO9GWxtOZFmHYmTrlM++1uk+myD8
+VQa4j6I1xYqiZhzViQdqBlXg/Vjx62UKd38KRcOiZAgcbFQrT7ETd7V578YNUrlp5Ch6v1/k
+9XMmJLMJT5QhAbxA1R4XTN/eEccwSP1SPV1jzIObpa4bovTYwPnTrW9g8aqI6rQOiebRHsnQ
+8jHdfW5hwgjI7gBkZtndtgNF0UL/dqz5yiJwY3MSXlgQQGU54WkpqRd0EwTiJSFMlQ5jNeGI
+CuAamfus8c5USPVL00RAG5VpeOy7857osz9/ohml4KK2r+ReeA1LuB98ASk8PfWGIU/0Z6NS
+nk+bWHgYIqCmbXXvKwy5Dv/6y/YJdDTjaw0HVCNcBR8BmmgtXGQ9HdWy5TyhkAvgsEyPWDB8
+2qCgsTqUdKszPBZGV26s7gkiH+6PWhAxOGBt8ooCzPCniZpW/lzenj0W+eaxvLl3LfZi2WYF
+0NtsvrS7viIzmFFEDy7VYSzTUJu3VO/rTDODI0sLYxUZIp4UeY7O25nN3nh9qV5qwK7YbtFs
+W0J/Ggigl6BvMHKKe8m/S/tzlAociIP8XKD9qFrvzj/cE2e3k+IXIR5BkMjdvXG0FPoqCJSB
+flStO9h3oo3jgWUuJdeimxMTZfYlbt4pNN5V78z9k9dOG+3jPQhBTMT/BLtZJrCajJmkJFfo
+32XShdsdIAaXafqlAPyAsjCgaz5aLiY5AVv3IUYO6L2RxAM+IZxuIJqNg4M40dgCVZL34bNy
+PYCYJTzb4mFZupwueUm5y+RL8xvOU+H1KxdNLPfjCXA2283NUpFfnaKz5GABl2WmdfxV9KWr
+779mNt4ZzR3lLKUrH/coFnMv7UVuGWByY6Ccx7KYaanDfJT/K4lOKzFwVJCWBNEmTILHgjru
+UMbUUhVKyMQEcsYrH2OAnnLL1cGjYb4aF3I5aCj/OZyZ7D5M65tOmIVFh3JtsIahmrJGslXj
+ff/TGW0jIDk+LsEmPOg1ICzfmMlYBcm+w1Tg4u6GkgBahMRkgYDdkaQSvcopqkm9iTjoRG5g
+tpRMJAlFzMRkZitAJnntRvJ6ZRxHDYBVvly0PzQH11J1Qmd2mgSb24b3SQAcQiVyJ80K1mqn
+H5gGsaS3U6QK1GU0D5wUmlUcTkZ0LIx4uWs4XaNjqhP2VV2mK6dzaeApnpvfOgv8Cbs1u5uY
+h1iTpLZy4BKfvFcx/67L5YZ2pP7rCC6qkYtpnUwhcjKG7hdAsavCJM3CZlNfRVRmWXeCPSE1
++qUanJmZeisobQRvTGhio7+BW+TZB9Fuz+B0Mi0T6V+LbLFy+ks9aUfCXz6KKpv+wkBGIqV2
+xJ3kKHtVdBs=
+
+/
+show errors package body event_service
