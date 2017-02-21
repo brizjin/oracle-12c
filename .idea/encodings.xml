@@ -2,5 +2,8 @@
 <project version="4">
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/ibso/ibso_16_5_install/SCRIPTS/SYSTEM/README.TXT" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/ibso/step3/upgr7493/AUDIT/readme.txt" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/ibso/step3/upgr7493/AUDMGR/README.TXT" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/ibso/step3/upgr7493/Doc/readme_upgrade.txt" charset="windows-1251" />
   </component>
 </project>

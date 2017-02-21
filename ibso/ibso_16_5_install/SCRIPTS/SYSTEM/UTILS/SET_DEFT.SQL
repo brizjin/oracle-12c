@@ -1,8 +1,7 @@
 set verify on
 set feedback on
 set serveroutput on
-
-ACCEPT DEF_TEXT PROMPT 'Value for DEF_TEXT:' DEFAULT U
+define DEF_TEXT = U
 
 spool set_deft.log
 
@@ -15,7 +14,7 @@ begin
   if sql%rowcount=0 then
      insert into settings(name,value,description) values(
        'DEF_TEXT', decode(substr('&&DEF_TEXT',1,1),'U','UNIX','W','WIN','UNIX'),
-       'Умолчательная кодировка пакета STDIO');
+       'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ STDIO');
 
   end if;
   commit;

@@ -3,8 +3,8 @@ spool audm.log
 @@settings
 
 Prompt Creating auditor manager schema objects...
-ACCEPT audit   PROMPT 'Schema Name for AUDIT manager (&&AUDM_OWNER):' default &&AUDM_OWNER
-ACCEPT ibso    PROMPT 'IBSO owner schema (&&IBSO_OWNER) :'  default &&IBSO_OWNER
+define audit = &&AUDM_OWNER --ACCEPT audit   PROMPT 'Schema Name for AUDIT manager (&&AUDM_OWNER):' default &&AUDM_OWNER
+define ibso = &&IBSO_OWNER --ACCEPT ibso    PROMPT 'IBSO owner schema (&&IBSO_OWNER) :'  default &&IBSO_OWNER
 
 @@UTILS/chk_sets
 

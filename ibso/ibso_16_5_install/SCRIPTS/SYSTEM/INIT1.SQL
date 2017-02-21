@@ -6,9 +6,9 @@ spool init.lst
 @@settings
 
 -- please uncomment next 3 lines to use manually
-ACCEPT u PROMPT 'Schema owner name (&&IBSO_OWNER) :' default &&IBSO_OWNER
-ACCEPT dt PROMPT 'Default tablespace (&&INIT_TDEF) :'  default &&INIT_TDEF
-ACCEPT tt PROMPT 'Temporary tablespace (&&INIT_TTMP) :' default &&INIT_TTMP
+define u = &&IBSO_OWNER --ACCEPT u PROMPT 'Schema owner name (&&IBSO_OWNER) :' default &&IBSO_OWNER HIDE
+define dt = &&INIT_TDEF --ACCEPT dt PROMPT 'Default tablespace (&&INIT_TDEF) :'  default &&INIT_TDEF HIDE
+define tt = &&INIT_TTMP --ACCEPT tt PROMPT 'Temporary tablespace (&&INIT_TTMP) :' default &&INIT_TTMP HIDE
 
 @@UTILS/chk_sets
 @@UTILS/chk_tsps '&&dt, &&tt'

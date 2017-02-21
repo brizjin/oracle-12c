@@ -4,7 +4,7 @@ spool cmviews.log
 @@./settings
 
 -- please uncomment next line to use manually
-ACCEPT u PROMPT 'Schema owner name (&&IBSO_OWNER) :' default &&IBSO_OWNER
+define u = &&IBSO_OWNER --ACCEPT u PROMPT 'Schema owner name (&&IBSO_OWNER) :' default &&IBSO_OWNER
 
 prompt rebuilding materialized views
 

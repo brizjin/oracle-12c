@@ -1,22 +1,22 @@
--- Скрипт выгрузки планов запросов представлений в текстовые файлы.
+-- я┐╜я┐╜рипя┐╜ я┐╜я┐╜я┐╜узкя┐╜ я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜ я┐╜я┐╜я┐╜я┐╜сов я┐╜редя┐╜тавя┐╜я┐╜я┐╜я┐╜я┐╜ я┐╜ текя┐╜товя┐╜ файя┐╜я┐╜.
 --
--- Результатом работы скрипта является набор файлов с именами
--- <crit_short_name>.txt, в которых содержатся планы выполнения
--- соответствующих представлений <crit_short_name>.
+-- я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜том рабя┐╜я┐╜я┐╜ я┐╜рипя┐╜ явля┐╜я┐╜я┐╜я┐╜ я┐╜я┐╜я┐╜я┐╜я┐╜ файя┐╜я┐╜я┐╜ я┐╜ я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜
+-- <crit_short_name>.txt, я┐╜ я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜ содя┐╜ржая┐╜я┐╜я┐╜ я┐╜я┐╜я┐╜я┐╜я┐╜ я┐╜ыпоя┐╜я┐╜я┐╜я┐╜я┐╜я┐╜
+-- соотвея┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜ я┐╜редя┐╜тавя┐╜я┐╜я┐╜я┐╜я┐╜ <crit_short_name>.
 --
--- Запускать скрипт из под владельца.
+-- я┐╜я┐╜я┐╜я┐╜ская┐╜я┐╜ я┐╜рипя┐╜ я┐╜я┐╜ я┐╜я┐╜я┐╜ я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜.
 --
--- Все файлы складываются в папку из которой запускается sql*plus,
--- поэтому имеет смысл создать отдельную папку, поместить туда скрипт,
--- сделать ее текущей и запустить скрипт командой:
--- <ваша версия sql*plus> <connect_string> @vplans.sql
--- Например:
+-- я┐╜я┐╜ файя┐╜я┐╜ скля┐╜я┐╜ывая┐╜я┐╜я┐╜я┐╜ я┐╜ я┐╜я┐╜я┐╜я┐╜я┐╜ я┐╜я┐╜ я┐╜я┐╜я┐╜рой я┐╜я┐╜я┐╜я┐╜ская┐╜я┐╜я┐╜я┐╜ sql*plus,
+-- я┐╜я┐╜я┐╜томя┐╜ я┐╜я┐╜я┐╜я┐╜я┐╜ я┐╜я┐╜я┐╜ созя┐╜я┐╜я┐╜я┐╜ я┐╜тдея┐╜я┐╜я┐╜я┐╜ я┐╜я┐╜я┐╜я┐╜я┐╜, я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜ я┐╜уда я┐╜рипя┐╜,
+-- сдея┐╜я┐╜я┐╜я┐╜ я┐╜я┐╜ текя┐╜щей я┐╜ я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜ я┐╜рипя┐╜ я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜:
+-- <я┐╜я┐╜я┐╜ я┐╜я┐╜я┐╜я┐╜я┐╜ sql*plus> <connect_string> @vplans.sql
+-- я┐╜я┐╜я┐╜римя┐╜я┐╜:
 -- plus80w ins/ibs@cent @vplans.sql
 --
--- В процессе работы создаются и удаляются:
--- 1) три вспомогательных скрипта: __xplanv__.sql, __xplan__.sql и __vplans__.sql
--- 2) таблица для выполнения explain plan. Ее имя задается макросом PLAN_TABLE,
---    по умолчанию это plan_table_for_views
+-- я┐╜ я┐╜я┐╜я┐╜я┐╜я┐╜ рабя┐╜я┐╜я┐╜ созя┐╜я┐╜я┐╜я┐╜я┐╜я┐╜ я┐╜ удая┐╜я┐╜я┐╜я┐╜я┐╜я┐╜:
+-- 1) я┐╜я┐╜ я┐╜споя┐╜я┐╜я┐╜я┐╜теля┐╜я┐╜я┐╜ я┐╜рипя┐╜: __xplanv__.sql, __xplan__.sql я┐╜ __vplans__.sql
+-- 2) табя┐╜я┐╜я┐╜ я┐╜я┐╜я┐╜ я┐╜ыпоя┐╜я┐╜я┐╜я┐╜я┐╜я┐╜ explain plan. я┐╜я┐╜ я┐╜я┐╜я┐╜ я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜я┐╜ я┐╜я┐╜я┐╜я┐╜сом PLAN_TABLE,
+--    я┐╜я┐╜ умоя┐╜чаня┐╜я┐╜ я┐╜я┐╜ plan_table_for_views
 --
 
 
@@ -35,7 +35,7 @@ prompt [2] Generate plans with minimal decoration to compare with diff
 prompt *** Other choices will mean [2] ***
 
 define CHOICE='2'
-accept CHOICE char format a1 prompt 'Enter choice [&&CHOICE]: ' default &&CHOICE
+define CHOICE = &&CHOICE --accept CHOICE char format a1 prompt 'Enter choice [&&CHOICE]: ' default &&CHOICE
 
 prompt
 prompt Choose table which will be used to generate plans.
@@ -43,7 +43,7 @@ prompt This table will be created and dropped.
 prompt
 
 def PLAN_TABLE=plan_table_for_views
-accept PLAN_TABLE char format a100 prompt 'Enter plan table name [&&PLAN_TABLE]: ' default &&PLAN_TABLE
+define PLAN_TABLE = &&PLAN_TABLE --accept PLAN_TABLE char format a100 prompt 'Enter plan table name [&&PLAN_TABLE]: ' default &&PLAN_TABLE
 
 prompt
 prompt Recreating plan table: &&PLAN_TABLE

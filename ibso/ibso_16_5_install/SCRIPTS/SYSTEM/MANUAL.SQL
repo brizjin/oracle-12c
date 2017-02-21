@@ -5,8 +5,7 @@ column xxx new_value oxxx noprint
 select user xxx from dual;
 
 SPOOL log.txt
-
-ACCEPT is_user_changed PROMPT "Is User Changed [Y/N]?" DEFAULT N
+define is_user_changed = N
 SPOOL OFF
 
 def old_user = ''
@@ -28,8 +27,7 @@ END;
 
 SPOOL OFF
 @utils/step1.sql
-
-ACCEPT is_ora_changed PROMPT "Is Oracle version changed[Y/N]?" DEFAULT N
+define is_ora_changed = N
 PROMPT
 
 SPOOL OFF
