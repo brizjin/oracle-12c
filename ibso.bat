@@ -24,14 +24,17 @@ exit /b
 :step2
 ECHO "step2_ibso started"
 docker build -t ibso:step2 -f %WD%ibso/step2/Dockerfile %WD%ibso
-ECHO "su oracle"
-ECHO "bash work.sh"
-ECHO "enter: sys"
-ECHO "enter: system"
-ECHO "enter: sys"
-docker rm ibsostep2
-docker run -it --name ibsostep2 ibso:step2 bash
 exit /b
+REM docker run --name ibsostep2 -it ibso:step2
+REM docker rm ibsostep2
+REM docker run -it --name ibsostep2 ibso:step2 bash
+REM ECHO "su oracle"
+REM ECHO "bash work.sh"
+REM ECHO "enter: sys"
+REM ECHO "enter: system"
+REM ECHO "enter: sys"
+REM docker rm ibsostep2
+REM docker run -it --name ibsostep2 ibso:step2 bash
 
 REM prepare dmp file
 REM :step3
@@ -40,9 +43,9 @@ REM docker run -it --rm  -v %WD%ibso/ibso_16_5_install:/tmp -v %WD%dmp:/dmp ibso
 REM docker run -it --rm -v %WD%ibso/ibso_16_5_install:/tmp -v %WD%dmp:/dmp -v %WD%ibso/step3:/step3 ibso:step2 bash /step3/step3.sh
 REM docker run -it --name ibsostep3 -v %WD%ibso/ibso_16_5_install:/tmp -v %WD%dmp:/dmp -v %WD%ibso/step3:/step3 -v %WD%ibso/step3/upgr7493:/upgr ibso:step3 bash -c "bash /step3/step3.sh"
 :step3
-docker rm ibsostep3
-docker run -it --name ibsostep3 -v %WD%ibso/ibso_16_5_install:/tmp -v %WD%dmp:/dmp -v %WD%ibso/step3:/step3 ibso:step2 bash
-
+docker rm -f ibsostep3
+docker run -it --name ibsostep3 -v %WD%ibso/ibso_16_5_install:/tmp -v %WD%dmp:/dmp -v %WD%ibso/step3:/step3 ibso:step2 bash /step3/step3.sh
+REM docker commit ibsostep3 ibso:step3
 exit /b
 
 REM :step4

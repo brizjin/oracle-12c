@@ -14,6 +14,9 @@ ENV PATH $ORACLE_HOME/bin:$PATH
 ENV ORACLE_SID work
 
 WORKDIR $ORACLE_BASE/admin/work/scripts/
+USER oracle
+RUN echo sys | bash work.sh
+#CMD bash work.sh
 #RUN su oracle
 #RUN runuser -l oracle -c 'bash $ORACLE_BASE/admin/work/scripts/work.sh'
 #

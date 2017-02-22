@@ -1,5 +1,5 @@
 SP2-0310: unable to open file "usr_sets.sql"
-DEFINE _DATE           = "21-FEB-17" (CHAR)
+DEFINE _DATE           = "22-FEB-17" (CHAR)
 DEFINE _CONNECT_IDENTIFIER = "work" (CHAR)
 DEFINE _USER           = "SYS" (CHAR)
 DEFINE _PRIVILEGE      = "AS SYSDBA" (CHAR)
