@@ -5,7 +5,7 @@ goto %1
 
 REM на шаге 0 мы делаем контенер с zip и распаховываем архив базы
 :step0
-docker build -t ibso:zip -f %WD%ibso/step0/Dockerfile %WD%ibso/step0
+docker build -t ibso:zip -f %WD%step0/Dockerfile %WD%step0
 docker run --rm -it -v %WD%ibso/step0:/tmp/install ibso:zip /bin/bash /tmp/install/unzip.sh
 exit /b
 
@@ -45,8 +45,14 @@ REM docker run -it --name ibsostep3 -v %WD%ibso/ibso_16_5_install:/tmp -v %WD%dm
 :step3
 docker rm -f ibsostep3
 docker run -it --name ibsostep3 -v %WD%ibso/ibso_16_5_install:/tmp -v %WD%dmp:/dmp -v %WD%ibso/step3:/step3 ibso:step2 bash /step3/step3.sh
-REM docker commit ibsostep3 ibso:step3
+docker commit ibsostep3 ibso:step3
 exit /b
+:step4
+docker rm -f ibsostep4
+REM docker run --rm -it -v %WD%dmp:/dmp -v %WD%ibso/step4:/step4 ibso:zip bash /step4/step4.sh
+docker run -it --name ibsostep4 -v %WD%ibso/ibso_16_5_install:/tmp -v %WD%dmp:/dmp -v %WD%ibso/step4:/step4 ibso:step3 bash /step4/step4.sh
+exit /b
+REM docker commit ibsostep4 ibso:step4
 
 REM :step4
 REM docker run -it --rm  -v %WD%ibso/ibso_16_5_install:/tmp -v %WD%dmp:/dmp ibso:step2 bash
